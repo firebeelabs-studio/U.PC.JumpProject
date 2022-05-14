@@ -1,4 +1,4 @@
-# PufciaConventions
+# Tutel Games Conventions
 ### Classes & Interfaces
 Classes and interfaces are written in **PascalCase**. For example `SoundManager`
 ### Methods
