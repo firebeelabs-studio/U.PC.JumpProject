@@ -30,20 +30,21 @@ namespace TarodevGhost {
 
         #region Recording
 
+        [SerializeField]
         private readonly Dictionary<RecordingType, Recording> _runs = new Dictionary<RecordingType, Recording>();
         private Recording _currentRun;
         private float _elapsedRecordingTime;
         private int _snapshotEveryNFrames;
         private int _frameCount;
         private float _maxRecordingTimeLimit;
-
+        private bool newRecord = false;
         /// <summary>
         /// Begin recording a run
         /// </summary>
         /// <param name="target">The transform you wish to record</param>
         /// <param name="snapshotEveryNFrames">The accuracy of the recording. Smaller number == higher file size</param>
         /// <param name="maxRecordingTimeLimit">Stop recording beyond this time</param>
-        public void StartRun(Transform target, int snapshotEveryNFrames = 2, float maxRecordingTimeLimit = 60) {
+        public void StartRun(Transform target, int snapshotEveryNFrames = 2, float maxRecordingTimeLimit = 600) {
             _currentRun = new Recording(target);
 
             _elapsedRecordingTime = 0;
@@ -75,11 +76,11 @@ namespace TarodevGhost {
                 _currentRun = null;
                 return false;
             }
-
             _runs[RecordingType.Last] = _currentRun;
             _currentRun = null;
 
             if (!GetRun(RecordingType.Best, out var best) || _runs[RecordingType.Last].Duration <= best.Duration) {
+                newRecord = true;
                 _runs[RecordingType.Best] = _runs[RecordingType.Last];
                 return true;
             }
@@ -103,10 +104,20 @@ namespace TarodevGhost {
              return _runs.TryGetValue(type, out run);
         }
 
+        //in future we have to paste runs from leaderboards here im param
         public string SerializeRun()
         {
-            if (_runs.Count < 0) return "x";
-            return _runs[0].Serialize();
+            if (_runs.Count < 0) return "";
+            Recording rec;
+            if(_runs.TryGetValue(RecordingType.Best, out rec) && newRecord)
+            {
+                newRecord = false;
+                return rec.Serialize();
+            }
+            else
+            {
+                return "";
+            }
         }
         #endregion
 

@@ -8,10 +8,6 @@ public class FinishLine : MonoBehaviour {
 
     private bool _running;
 
-    private void Awake() {
-        _startVisual.SetActive(true);
-        _finishedVisual.SetActive(false);
-    }
 
     private void OnEnable() => Goal.OnGoalTriggered += GoalOnOnGoalTriggered;
     private void OnDisable() => Goal.OnGoalTriggered -= GoalOnOnGoalTriggered;
