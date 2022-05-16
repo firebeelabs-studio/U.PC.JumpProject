@@ -40,7 +40,7 @@ public class GhostManager : MonoBehaviour
     {
         _system.FinishRun();
         _system.StopReplay();
-        WriteString(_system.SerializeRun());
+        //WriteString(_system.SerializeRun());
     }
 
     static void WriteString(string text)
