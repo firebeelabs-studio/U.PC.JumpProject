@@ -1,6 +1,5 @@
 using System.IO;
 using TarodevGhost;
-using UnityEditor;
 using UnityEngine;
 
 public class GhostRunner : MonoBehaviour {
@@ -14,26 +13,7 @@ public class GhostRunner : MonoBehaviour {
     
     private void OnEnable() => FinishLine.Crossed += OnFinishLineCrossed;
     private void OnDisable() => FinishLine.Crossed -= OnFinishLineCrossed;
-    static void WriteString(string text)
 
-    {
-
-        string path = "Assets/_Project/test.txt";
-
-        //Write some text to the test.txt file
-
-        StreamWriter writer = new StreamWriter(path, true);
-
-        writer.WriteLine(text);
-
-        writer.Close();
-
-        //Re-import the file to update the reference in the editor
-
-        AssetDatabase.ImportAsset(path);
-
-
-    }
     private void OnFinishLineCrossed(bool runStarting) {
         if (runStarting) {
             _system.StartRun(_recordTarget, _captureEveryNFrames);
@@ -42,7 +22,6 @@ public class GhostRunner : MonoBehaviour {
         else {
             _system.FinishRun();
             _system.StopReplay();
-            WriteString(_system.SerializeRun());
         }
     }
 }

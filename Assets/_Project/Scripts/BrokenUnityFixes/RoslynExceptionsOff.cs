@@ -1,11 +1,13 @@
 using System.IO;
 using System.Text.RegularExpressions;
+//using UnityEditor;
 using UnityEditor;
 using UnityEngine;
 
-[InitializeOnLoad]
+//[InitializeOnLoad]
 public static class RoslynExceptionsOff
 {
+#if UNITY_EDITOR
     static RoslynExceptionsOff() => Application.logMessageReceived += OnLogMessageReceived;
 
     private static void OnLogMessageReceived(string message, string _, LogType logType)
@@ -22,4 +24,5 @@ public static class RoslynExceptionsOff
             Directory.CreateDirectory("Temp/RoslynAnalysisRunner");
         }
     }
+#endif
 }

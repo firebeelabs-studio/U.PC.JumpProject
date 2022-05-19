@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TarodevGhost;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine;
 
 public class GhostManager : MonoBehaviour
@@ -44,25 +44,25 @@ public class GhostManager : MonoBehaviour
     }
 
     //take this out to static writer / reader
-    static void WriteString(string text)
-    {
-        if (string.IsNullOrEmpty(text)) return;
+    //static void WriteString(string text)
+    //{
+    //    if (string.IsNullOrEmpty(text)) return;
 
-        Debug.Log("Saving...");
-        string path = "Assets/_Project/test" + System.Guid.NewGuid() +".txt";
+    //    Debug.Log("Saving...");
+    //    string path = "Assets/_Project/test" + System.Guid.NewGuid() +".txt";
 
-        //Write some text to the test.txt file
+    //    //Write some text to the test.txt file
 
-        StreamWriter writer = new StreamWriter(path, true);
+    //    StreamWriter writer = new StreamWriter(path, true);
 
-        writer.WriteLine(text);
+    //    writer.WriteLine(text);
 
-        writer.Close();
+    //    writer.Close();
 
-        //Re-import the file to update the reference in the editor
+    //    //Re-import the file to update the reference in the editor
 
-        AssetDatabase.ImportAsset(path);
+    //    AssetDatabase.ImportAsset(path);
 
 
-    }
+    //}
 }
