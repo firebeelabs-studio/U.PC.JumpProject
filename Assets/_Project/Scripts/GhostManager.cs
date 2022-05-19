@@ -43,6 +43,7 @@ public class GhostManager : MonoBehaviour
         //WriteString(_system.SerializeRun());
     }
 
+    //take this out to static writer / reader
     static void WriteString(string text)
     {
         if (string.IsNullOrEmpty(text)) return;

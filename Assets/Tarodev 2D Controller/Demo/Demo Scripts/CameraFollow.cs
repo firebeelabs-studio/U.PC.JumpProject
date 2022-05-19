@@ -10,15 +10,22 @@ public class CameraFollow : MonoBehaviour {
     private float _yLock;
     private Vector3 _currentVel;
 
-    void Start() {
+    void Start() 
+    {
         _yLock = transform.position.y;
-        
-      
     }
 
 
-    void Update() {
-        if (!_player) return;
+    void Update() 
+    {
+        if (!_player)
+        {
+            _player = GameObject.FindGameObjectWithTag("Player")?.transform;
+            if (_player == null)
+            {
+                return;
+            }
+        }
 
         var target = new Vector3(Mathf.Clamp(_player.position.x, _minX, _maxX), _yLock, -10);
         transform.position = Vector3.SmoothDamp(transform.position, target, ref _currentVel, _smoothTime);
