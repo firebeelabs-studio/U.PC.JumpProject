@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 public class Respawn : MonoBehaviour {
-    [SerializeField] private Vector2 _respawnPoint;
+    [SerializeField] private Transform _respawnPos;
     [SerializeField] private float _penaltyTime = 2;
     private float _timeStartedPenalty;
 
@@ -15,13 +15,13 @@ public class Respawn : MonoBehaviour {
     IEnumerator RespawnPlayer(Transform player) {
         _timeStartedPenalty = Time.time;
         do {
-            player.position = _respawnPoint;
+            player.position = _respawnPos.position;
             yield return null;
         } while (_timeStartedPenalty + _penaltyTime > Time.time);
     }
 
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.green;
-        Gizmos.DrawSphere(_respawnPoint,0.5f);
+        Gizmos.DrawSphere(_respawnPos.position, 0.5f);
     }
 }
