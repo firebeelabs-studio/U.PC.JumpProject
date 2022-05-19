@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 
-//[InitializeOnLoad]
+[InitializeOnLoad]
 public static class RoslynExceptionsOff
 {
 #if UNITY_EDITOR
