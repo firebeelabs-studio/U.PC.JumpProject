@@ -3,25 +3,34 @@ using System.Collections;
 using UnityEngine;
 
 public class Respawn : MonoBehaviour {
-    [SerializeField] private Vector2 _respawnPoint;
     [SerializeField] private float _penaltyTime = 2;
+    [SerializeField] private Transform _respawnPos;
+    [SerializeField] private Transform _startPos;
     private float _timeStartedPenalty;
 
 
-    private void OnTriggerEnter2D(Collider2D col) {
-        StartCoroutine(RespawnPlayer(col.transform));
+    private void Start()
+    {
+        FinishLevel.EndRun += EndRun;
+        StartRun.RunStart += RunStart;
+        _startPos = _respawnPos;
     }
 
-    IEnumerator RespawnPlayer(Transform player) {
+    public void ChangeSpawnPos(Transform newPos) => _respawnPos = newPos;
+
+    private void EndRun() => _respawnPos = _startPos;
+    private void RunStart() => _respawnPos = _startPos;
+
+    public IEnumerator RespawnPlayer(Transform player) {
         _timeStartedPenalty = Time.time;
         do {
-            player.position = _respawnPoint;
+            player.position = _respawnPos.position;
             yield return null;
         } while (_timeStartedPenalty + _penaltyTime > Time.time);
     }
 
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.green;
-        Gizmos.DrawSphere(_respawnPoint,0.5f);
+        Gizmos.DrawSphere(_respawnPos.position, 0.5f);
     }
 }
