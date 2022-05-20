@@ -8,7 +8,7 @@ namespace TarodevController
     [RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
     public class PlayerController : MonoBehaviour, IPlayerController
     {
-        [SerializeField] private bool _allowDoubleJump, _allowDash, _allowCrouch;
+        public bool AllowDoubleJump, AllowDash, AllowCrouch;
 
         // Public for external hooks
         public FrameInput Input { get; private set; }
@@ -168,7 +168,7 @@ namespace TarodevController
 
         void CalculateCrouch()
         {
-            if (!_allowCrouch) return;
+            if (!AllowCrouch) return;
 
 
             if (_crouching)
@@ -310,7 +310,7 @@ namespace TarodevController
 
         private bool CanUseCoyote => _coyoteUsable && !_grounded && _timeLeftGrounded + _coyoteTimeThreshold > _fixedFrame;
         private bool HasBufferedJump => ((_grounded && !_executedBufferedJump) || _cornerStuck) && _lastJumpPressed + _jumpBuffer > _fixedFrame;
-        private bool CanDoubleJump => _allowDoubleJump && _doubleJumpUsable && !_coyoteUsable;
+        private bool CanDoubleJump => AllowDoubleJump && _doubleJumpUsable && !_coyoteUsable;
 
         private void CalculateJumpApex()
         {
@@ -337,6 +337,7 @@ namespace TarodevController
                 _endedJumpEarly = false;
                 _jumpToConsume = false;
                 OnDoubleJumping?.Invoke();
+                AllowDoubleJump = false;
             }
 
             // Jump if: grounded or within coyote threshold || sufficient jump buffer
@@ -373,7 +374,7 @@ namespace TarodevController
 
         void CalculateDash()
         {
-            if (!_allowDash) return;
+            if (!AllowDash) return;
             if (_dashToConsume && _canDash && !_crouching)
             {
                 var vel = new Vector2(Input.X, _grounded && Input.Y < 0 ? 0 : Input.Y).normalized;
