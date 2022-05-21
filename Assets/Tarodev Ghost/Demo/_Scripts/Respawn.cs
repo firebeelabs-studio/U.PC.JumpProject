@@ -25,6 +25,7 @@ public class Respawn : MonoBehaviour {
         _timeStartedPenalty = Time.time;
         do {
             player.position = _respawnPos.position;
+            GameManager.SpawnAllCollectibles();
             yield return null;
         } while (_timeStartedPenalty + _penaltyTime > Time.time);
     }
