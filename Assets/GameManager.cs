@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static List<GameObject> Collectibles = new List<GameObject>();
-
+    public static List<GameObject> Platforms = new List<GameObject>();
     private void OnEnable()
     {
         FinishLevel.EndRun += EndRun;
@@ -21,10 +21,15 @@ public class GameManager : MonoBehaviour
     public void EndRun()
     {
         SpawnAllCollectibles();
+        SpawnAllPlatforms();
     }
 
     public static void SpawnAllCollectibles()
     {
         Collectibles.ForEach(x => x.SetActive(true));
+    }
+    public static void SpawnAllPlatforms()
+    {
+        Platforms.ForEach(x => x.SetActive(true));
     }
 }
