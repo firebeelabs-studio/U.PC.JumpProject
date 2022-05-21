@@ -5,7 +5,7 @@ using UnityEngine;
 public class Respawn : MonoBehaviour {
     [SerializeField] private float _penaltyTime = 2;
     [SerializeField] private Transform _respawnPos;
-    [SerializeField] private Transform _startPos;
+    private Transform _startPos;
     private float _timeStartedPenalty;
 
 
