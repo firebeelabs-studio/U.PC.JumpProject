@@ -12,6 +12,10 @@ public class KillPlayer : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        StartCoroutine(_spawnManager.RespawnPlayer(col.transform));
+        if (col.CompareTag("Player"))
+        {
+            StartCoroutine(_spawnManager.RespawnPlayer(col.transform));
+            GameManager.ResetPlayerPowers();
+        }
     }
 }

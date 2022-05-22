@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8319819604656289971}
   - component: {fileID: 8319819604656289970}
-  - component: {fileID: 8319819604656289969}
+  - component: {fileID: 1660425105}
   m_Layer: 0
   m_Name: Respawn
   m_TagString: Untagged
@@ -25,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8319819604656289968}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 16.94, y: -26.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -58,7 +58,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 127.902054, y: 2.9}
   m_EdgeRadius: 0
---- !u!114 &8319819604656289969
+--- !u!114 &1660425105
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -67,8 +67,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8319819604656289968}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb75f8c24b282f244a3a3f9b0cf9f08f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d427b6f4ce6b484a86dfaa32618a589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _respawnPos: {fileID: 0}
-  _penaltyTime: 2

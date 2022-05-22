@@ -1,3 +1,4 @@
+using FishNet.Object;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ namespace TarodevController
 {
 
     [RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
-    public class PlayerController : MonoBehaviour, IPlayerController
+    public class PlayerController : NetworkBehaviour, IPlayerController
     {
         public bool AllowDoubleJump, AllowDash, AllowCrouch;
 
@@ -35,6 +36,15 @@ namespace TarodevController
 
             _defaultColliderSize = _collider.size;
             _defaultColliderOffset = _collider.offset;
+        }
+
+        public override void OnStartClient()
+        {
+            base.OnStartClient();
+            if (base.IsOwner)
+            {
+                GameManager.Player = this;
+            }
         }
 
         private void Update() => GatherInput();
