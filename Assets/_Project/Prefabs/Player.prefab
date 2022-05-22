@@ -14721,6 +14721,7 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 1419814596576636796}
   - {fileID: 5440743960645224177}
+  - {fileID: 741556562764243978}
   SceneTransformProperties:
     Position: {x: 1.82, y: -19.5, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -14780,9 +14781,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84990c27003994244b4fad6fc06fb684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 1419814596373140149}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 1419814596373140149}
 --- !u!1 &7514181437753337213
 GameObject:
   m_ObjectHideFlags: 0
@@ -29499,7 +29500,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7514181438731622079}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.056, z: 0}
+  m_LocalPosition: {x: 0, y: -0.056, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7514181438401602125}
@@ -29641,8 +29642,8 @@ TrailRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 924769497
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Time: 1
   m_Parameters:
@@ -29813,7 +29814,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7514181438968845984}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.685, z: -0.113}
+  m_LocalPosition: {x: 0, y: -0.61, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7514181438811379728}
@@ -34563,8 +34564,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 924769497
+  m_SortingLayer: 1
   m_SortingOrder: 965
   m_RenderMode: 0
   m_SortMode: 0
