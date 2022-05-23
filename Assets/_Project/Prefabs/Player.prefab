@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef0dea4a91b007b4c8f476b2015391a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 4
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 1165085243}
   _networkObjectCache: {fileID: 1419814596373140149}
 --- !u!1 &1897455045
@@ -14772,7 +14772,7 @@ GameObject:
   - component: {fileID: 5440743960645224177}
   - component: {fileID: 741556562764243978}
   - component: {fileID: 5659190502985943681}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -14925,8 +14925,8 @@ MonoBehaviour:
   - {fileID: 1419814596576636796}
   - {fileID: 5440743960645224177}
   - {fileID: 741556562764243978}
+  - {fileID: 5659190502985943681}
   - {fileID: 18804888}
-  - {fileID: 0}
   SceneTransformProperties:
     Position: {x: 1.82, y: -19.5, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -15002,9 +15002,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d34524ed90f5b1445ba3199f657fe7a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 1419814596373140149}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 1419814596373140149}
   _cameras: {fileID: 7823926982098381077}
 --- !u!1 &7514181437753337213
 GameObject:
