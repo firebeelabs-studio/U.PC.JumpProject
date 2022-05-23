@@ -14771,6 +14771,7 @@ GameObject:
   - component: {fileID: 1419814596373140149}
   - component: {fileID: 5440743960645224177}
   - component: {fileID: 741556562764243978}
+  - component: {fileID: 5659190502985943681}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -14925,7 +14926,7 @@ MonoBehaviour:
   - {fileID: 5440743960645224177}
   - {fileID: 741556562764243978}
   - {fileID: 18804888}
-  - {fileID: 986546733179796621}
+  - {fileID: 0}
   SceneTransformProperties:
     Position: {x: 1.82, y: -19.5, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -14989,6 +14990,22 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
   _cam: {fileID: 1165085245}
+--- !u!114 &5659190502985943681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7514181437703828009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d34524ed90f5b1445ba3199f657fe7a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 1419814596373140149}
+  _networkObjectCache: {fileID: 0}
+  _cameras: {fileID: 7823926982098381077}
 --- !u!1 &7514181437753337213
 GameObject:
   m_ObjectHideFlags: 0
@@ -34812,7 +34829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7823926982098381082
 Transform:
   m_ObjectHideFlags: 0
@@ -34843,7 +34860,6 @@ GameObject:
   - component: {fileID: 7823926983352566997}
   - component: {fileID: 7823926983352567001}
   - component: {fileID: 7823926983352567006}
-  - component: {fileID: 986546733179796621}
   m_Layer: 0
   m_Name: Main Camera (1)
   m_TagString: MainCamera
@@ -34986,18 +35002,3 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
---- !u!114 &986546733179796621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7823926983352566996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d34524ed90f5b1445ba3199f657fe7a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 5
-  _addedNetworkObject: {fileID: 1419814596373140149}
-  _networkObjectCache: {fileID: 1419814596373140149}

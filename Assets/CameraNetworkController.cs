@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class CameraNetworkController : NetworkBehaviour
 {
-    //public override void OnStartClient()
-    //{
-    //    base.OnStartClient();
-    //    if (!base.IsOwner)
-    //    {
-    //        Camera cam = GetComponent<Camera>();
-    //        cam.enabled = true;
-    //    }
-    //}
+    [SerializeField] private GameObject _cameras;
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (base.IsOwner)
+        {
+            _cameras.SetActive(true);
+        }
+    }
 }
