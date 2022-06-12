@@ -11,10 +11,12 @@ public class ParallaxBackground : MonoBehaviour
 
     void Awake()
     {
-        _startpos = transform.position.x;
         _length = GetComponent<SpriteRenderer>().bounds.size.x;
     }
-
+    void Start()
+    {
+        _startpos = transform.position.x;
+    }
     void FixedUpdate()
     {
         float _temp = _cam.transform.position.x * (1 - _parallaxEffect);
