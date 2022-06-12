@@ -14869,9 +14869,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed64777653726cc49995b9deb2ce058f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 6
   _addedNetworkObject: {fileID: 1419814596373140149}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 1419814596373140149}
   _text: {fileID: 4757097231591842930}
 --- !u!1 &2710060920958752449
 GameObject:
@@ -15290,7 +15290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NetworkObserver: {fileID: 0}
-  _prefabId: 5
+  _prefabId: 1
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects:
@@ -15303,6 +15303,7 @@ MonoBehaviour:
   - {fileID: 741556562764243978}
   - {fileID: 5659190502985943681}
   - {fileID: 18804888}
+  - {fileID: 8184736410379401579}
   SceneTransformProperties:
     Position: {x: 1.82, y: -19.5, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -35253,7 +35254,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 6.172573, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 8784027791475477411}
   m_Father: {fileID: 7823926982098381082}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -35378,3 +35380,137 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
+--- !u!1001 &8971843263142340198
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7823926983352567000}
+    m_Modifications:
+    - target: {fileID: 388788776787430155, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: Cam
+      value: 
+      objectReference: {fileID: 7823926983352566996}
+    - target: {fileID: 388788776787430155, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: _cam
+      value: 
+      objectReference: {fileID: 7823926983352566996}
+    - target: {fileID: 388788776787430155, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: _parallaxEffect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 38
+      objectReference: {fileID: 0}
+    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 388788776838278598, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: m_Name
+      value: Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 388788777229363822, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: Cam
+      value: 
+      objectReference: {fileID: 7823926983352566996}
+    - target: {fileID: 388788777229363822, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: _cam
+      value: 
+      objectReference: {fileID: 7823926983352566996}
+    - target: {fileID: 388788777229363822, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: _parallaxEffect
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 388788777320332368, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: Cam
+      value: 
+      objectReference: {fileID: 7823926983352566996}
+    - target: {fileID: 388788777320332368, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: _cam
+      value: 
+      objectReference: {fileID: 7823926983352566996}
+    - target: {fileID: 388788777320332368, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: _parallaxEffect
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 388788777437281093, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: Cam
+      value: 
+      objectReference: {fileID: 7823926983352566996}
+    - target: {fileID: 388788777437281093, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: _cam
+      value: 
+      objectReference: {fileID: 7823926983352566996}
+    - target: {fileID: 388788777437281093, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: _parallaxEffect
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 388788777659748800, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: Cam
+      value: 
+      objectReference: {fileID: 7823926983352566996}
+    - target: {fileID: 388788777659748800, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: _cam
+      value: 
+      objectReference: {fileID: 7823926983352566996}
+    - target: {fileID: 388788777659748800, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: _parallaxEffect
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 388788777886686774, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: Cam
+      value: 
+      objectReference: {fileID: 7823926983352566996}
+    - target: {fileID: 388788777886686774, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: _cam
+      value: 
+      objectReference: {fileID: 7823926983352566996}
+    - target: {fileID: 388788777886686774, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: _parallaxEffect
+      value: 0.2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+--- !u!4 &8784027791475477411 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+  m_PrefabInstance: {fileID: 8971843263142340198}
+  m_PrefabAsset: {fileID: 0}
