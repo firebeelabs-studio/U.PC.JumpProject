@@ -41,7 +41,7 @@ public class PlayerNameTracker : NetworkBehaviour
     private void ServerManager_OnRemoteConnectionState(NetworkConnection arg1, RemoteConnectionStateArgs arg2)
     {
         //if client is logging of delete his nick and connection from collection
-        if (arg2.ConnectionState != RemoteConnectionStates.Started)
+        if (arg2.ConnectionState != RemoteConnectionState.Started)
         {
             _playerNames.Remove(arg1);
         }
