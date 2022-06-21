@@ -6,45 +6,38 @@ public class ParallaxBackground : MonoBehaviour
 {
     [SerializeField] private GameObject _cam;
     [System.Serializable]
-    public class ParallaxBackgroundPart
+    public class ParallaxBackgroundParts
     {
         public GameObject BackgroundPart;
         public float ParallaxEffectPower;
-        public float length { get; set; }
+        [HideInInspector] public float Length;
+        [HideInInspector] public float StartPos;
     }
-    [SerializeField] private List<ParallaxBackgroundPart> backgroundParts;
-    private float _startpos;
+    [SerializeField] private List<ParallaxBackgroundParts> backgroundParts;
 
     void Awake()
     {
-        foreach (ParallaxBackgroundPart backgroundPart in backgroundParts)
+        foreach (ParallaxBackgroundParts part in backgroundParts)
         {
-            backgroundPart.length = backgroundPart.BackgroundPart.GetComponent<SpriteRenderer>().bounds.size.x;
+            part.Length = part.BackgroundPart.GetComponent<SpriteRenderer>().bounds.size.x;
+            part.StartPos = part.BackgroundPart.transform.position.x;
         }
     }
-    void Start()
+    private void LateUpdate()
     {
-        _startpos = transform.position.x;
-        foreach (ParallaxBackgroundPart item in backgroundParts)
+        foreach (ParallaxBackgroundParts part in backgroundParts)
         {
-            print(item.length);
-        }
-    }
-    private void FixedUpdate()
-    {
-        foreach (ParallaxBackgroundPart backgroundPart in backgroundParts)
-        {
-            float _temp = _cam.transform.position.x * (1 - backgroundPart.ParallaxEffectPower);
-            float _dist = (_cam.transform.position.x * backgroundPart.ParallaxEffectPower);
-            if (_temp > _startpos + backgroundPart.length)
+            float _temp = _cam.transform.position.x * (1 - part.ParallaxEffectPower);
+            float _dist = _cam.transform.position.x * part.ParallaxEffectPower - 3f;
+            part.BackgroundPart.transform.position = new Vector3(part.StartPos + _dist, part.BackgroundPart.transform.position.y, part.BackgroundPart.transform.position.z);
+            if (_temp > part.StartPos + part.Length/2)
             {
-                _startpos += backgroundPart.length;
+                part.StartPos += part.Length;
             }
-            else if (_temp < _startpos - backgroundPart.length)
+            else if (_temp < part.StartPos - part.Length)
             {
-                _startpos -= backgroundPart.length;
+                part.StartPos -= part.Length;
             }
-            transform.position = new Vector3(_startpos + _dist, transform.position.y, transform.position.z);
         }
     }
 }
