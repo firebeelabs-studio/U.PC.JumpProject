@@ -4,32 +4,47 @@ using UnityEngine;
 
 public class ParallaxBackground : MonoBehaviour
 {
-    private float _length;
-    private float _startpos;
-    [SerializeField] private float _parallaxEffect;
     [SerializeField] private GameObject _cam;
+    [System.Serializable]
+    public class ParallaxBackgroundPart
+    {
+        public GameObject BackgroundPart;
+        public float ParallaxEffectPower;
+        public float length { get; set; }
+    }
+    [SerializeField] private List<ParallaxBackgroundPart> backgroundParts;
+    private float _startpos;
 
     void Awake()
     {
-        _length = GetComponent<SpriteRenderer>().bounds.size.x;
+        foreach (ParallaxBackgroundPart backgroundPart in backgroundParts)
+        {
+            backgroundPart.length = backgroundPart.BackgroundPart.GetComponent<SpriteRenderer>().bounds.size.x;
+        }
     }
     void Start()
     {
         _startpos = transform.position.x;
-    }
-    void FixedUpdate()
-    {
-        float _temp = _cam.transform.position.x * (1 - _parallaxEffect);
-        float _dist = (_cam.transform.position.x * _parallaxEffect);
-        transform.position = new Vector3(_startpos + _dist, transform.position.y, transform.position.z);
-
-        if (_temp > _startpos + _length)
+        foreach (ParallaxBackgroundPart item in backgroundParts)
         {
-            _startpos += _length;
+            print(item.length);
         }
-        else if (_temp < _startpos - _length)
+    }
+    private void FixedUpdate()
+    {
+        foreach (ParallaxBackgroundPart backgroundPart in backgroundParts)
         {
-            _startpos -= _length;
+            float _temp = _cam.transform.position.x * (1 - backgroundPart.ParallaxEffectPower);
+            float _dist = (_cam.transform.position.x * backgroundPart.ParallaxEffectPower);
+            if (_temp > _startpos + backgroundPart.length)
+            {
+                _startpos += backgroundPart.length;
+            }
+            else if (_temp < _startpos - backgroundPart.length)
+            {
+                _startpos -= backgroundPart.length;
+            }
+            transform.position = new Vector3(_startpos + _dist, transform.position.y, transform.position.z);
         }
     }
 }
