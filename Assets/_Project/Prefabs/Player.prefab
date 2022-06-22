@@ -66,7 +66,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkBehaviours:
   - {fileID: 18804888}
+  - {fileID: 6045836778247947679}
   SceneTransformProperties:
     Position: {x: 2.6067252, y: -16.929277, z: -10}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
@@ -141,9 +142,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f1846e2aad93e64cb619faa55e80787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 6
   _addedNetworkObject: {fileID: 1165085243}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 1419814596373140149}
 --- !u!1 &1897455045
 GameObject:
   m_ObjectHideFlags: 0
@@ -14916,7 +14917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed64777653726cc49995b9deb2ce058f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 6
+  _componentIndexCache: 7
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
   _text: {fileID: 4757097231591842930}
@@ -15348,6 +15349,7 @@ MonoBehaviour:
   - {fileID: 741556562764243978}
   - {fileID: 5659190502985943681}
   - {fileID: 18804888}
+  - {fileID: 6045836778247947679}
   - {fileID: 8184736410379401579}
   SceneTransformProperties:
     Position: {x: 1.82, y: -19.5, z: 0}
@@ -35362,7 +35364,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 0}
+  m_BackGroundColor: {r: 0.13812746, g: 0.15072086, b: 0.3018868, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -35480,18 +35482,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7823926983352567000}
     m_Modifications:
-    - target: {fileID: 388788776787430155, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: Cam
-      value: 
-      objectReference: {fileID: 7823926983352566996}
-    - target: {fileID: 388788776787430155, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: _cam
-      value: 
-      objectReference: {fileID: 7823926983352566996}
-    - target: {fileID: 388788776787430155, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: _parallaxEffect
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -35502,7 +35492,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
       propertyPath: m_LocalPosition.z
@@ -35540,64 +35530,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Background
       objectReference: {fileID: 0}
-    - target: {fileID: 388788777229363822, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: Cam
-      value: 
-      objectReference: {fileID: 7823926983352566996}
-    - target: {fileID: 388788777229363822, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+    - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
       propertyPath: _cam
       value: 
       objectReference: {fileID: 7823926983352566996}
-    - target: {fileID: 388788777229363822, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: _parallaxEffect
-      value: 0.8
+    - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: backgroundParts.Array.size
+      value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 388788777320332368, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: Cam
+    - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: backgroundParts.Array.data[3].BackgroundPart
       value: 
-      objectReference: {fileID: 7823926983352566996}
-    - target: {fileID: 388788777320332368, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: _cam
-      value: 
-      objectReference: {fileID: 7823926983352566996}
-    - target: {fileID: 388788777320332368, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: _parallaxEffect
-      value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 388788777437281093, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: Cam
-      value: 
-      objectReference: {fileID: 7823926983352566996}
-    - target: {fileID: 388788777437281093, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: _cam
-      value: 
-      objectReference: {fileID: 7823926983352566996}
-    - target: {fileID: 388788777437281093, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: _parallaxEffect
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 388788777659748800, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: Cam
-      value: 
-      objectReference: {fileID: 7823926983352566996}
-    - target: {fileID: 388788777659748800, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: _cam
-      value: 
-      objectReference: {fileID: 7823926983352566996}
-    - target: {fileID: 388788777659748800, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: _parallaxEffect
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 388788777886686774, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: Cam
-      value: 
-      objectReference: {fileID: 7823926983352566996}
-    - target: {fileID: 388788777886686774, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: _cam
-      value: 
-      objectReference: {fileID: 7823926983352566996}
-    - target: {fileID: 388788777886686774, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: _parallaxEffect
+    - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: backgroundParts.Array.data[3].ParallaxEffectPower
       value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
