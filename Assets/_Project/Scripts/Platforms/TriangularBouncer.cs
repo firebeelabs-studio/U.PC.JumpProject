@@ -5,14 +5,31 @@ using TarodevController;
 
 public class TriangularBouncer : MonoBehaviour
 {
-    [SerializeField] float _bounceForce = 20;
+    [SerializeField] private float _bounceForce = 20;
+    private Vector2 _bounceDirectionVector;
+    [SerializeField] private Direction _bouncerDirection;
+    private bool _cancelMovement = true;
+    private enum Direction
+    {
+        Up,
+        Side
+    }
 
     private void OnCollisionStay2D(Collision2D other)
     {
-        Vector2 _bounceDirection = new Vector2(-transform.localScale.y, transform.localScale.x); 
+        if (_bouncerDirection == Direction.Side)
+        {
+            _bounceDirectionVector = new Vector2(-transform.localScale.y, transform.localScale.x);
+        }
+        else
+        {
+            _bounceDirectionVector = transform.up.normalized;
+            _cancelMovement = false;
+        }
+        if (!other.gameObject.CompareTag("Player")) return;
         if (other.collider.TryGetComponent(out IPlayerController controller))
         {
-            controller.AddForce(_bounceDirection * _bounceForce);
+            controller.AddForce(_bounceDirectionVector * _bounceForce, PlayerForce.Burst, _cancelMovement);
         }
     }
 }
