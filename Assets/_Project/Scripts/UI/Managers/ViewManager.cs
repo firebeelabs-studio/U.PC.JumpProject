@@ -39,7 +39,7 @@ namespace _Project.Scripts.UI
                 Show(_defaultView);
             }
         }
-
+        
         public void Show<TView>(object args = null) where TView : View
         {
             foreach (View view in _views)

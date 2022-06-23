@@ -11,7 +11,7 @@ public class FindCameraSettings : NetworkBehaviour
         base.OnStartClient();
         if (base.IsOwner)
         {
-            GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = FindObjectOfType<CameraSettings>().CameraSize;
+            GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = CameraSettings.Instance.CameraSize;
         }
     }
 }

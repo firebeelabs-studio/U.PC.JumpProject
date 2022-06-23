@@ -400,6 +400,80 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &730926675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 730926678}
+  - component: {fileID: 730926677}
+  - component: {fileID: 730926676}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &730926676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730926675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkBehaviours:
+  - {fileID: 730926677}
+  SceneTransformProperties:
+    Position: {x: 1189.3046, y: 530.0954, z: -7.2772627}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    LocalScale: {x: 1, y: 1, z: 1}
+  _isNetworked: 1
+  _hasParentNetworkObjectAtEdit: 0
+  NetworkObserver: {fileID: 0}
+  _prefabId: -1
+  _scenePathHash: 4107990431
+  _sceneId: 17643684554129978234
+  _sceneNetworkObjects:
+  - {fileID: 730926676}
+--- !u!114 &730926677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730926675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3729d2955baab4b8f71e47fbd84559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 730926676}
+  _networkObjectCache: {fileID: 730926676}
+--- !u!4 &730926678
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730926675}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1189.3046, y: 530.0954, z: -7.2772627}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1140278055
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,6 +1040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _connectButton: {fileID: 1332416545}
+  _nicknameField: {fileID: 61451956}
 --- !u!1 &1571423360
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,7 +1366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211a9f6ec51ddc14f908f5acc0cd0423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPrefab: {fileID: 1419814596373140149, guid: 4cc84fa9d8ad2e14f89ff82e7dfae793, type: 3}
+  _playerPrefab: {fileID: 6204430917878461901, guid: 1555693f23eb63a41850f751708193b3, type: 3}
   _addToDefaultScene: 0
   Spawns: []
 --- !u!114 &7296508783758433544
@@ -1385,5 +1460,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startInOffline: 0
   _offlineScene: Assets/_Project/Scenes/MainMenu.unity
-  _onlineScene: Assets/_Project/Scenes/Matitek/Lobby.unity
+  _onlineScene: Assets/_Project/Scenes/Lobby.unity
   _replaceScenes: 0
