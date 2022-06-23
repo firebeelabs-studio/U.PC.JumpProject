@@ -1,21 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TarodevController;
 
-public class TriangularBouncer : MonoBehaviour
+public class BouncePlatform : MonoBehaviour
 {
     [SerializeField] private float _bounceForce = 20;
-    private Vector2 _bounceDirectionVector;
     [SerializeField] private Direction _bouncerDirection;
+    private Vector2 _bounceDirectionVector;
     private bool _cancelMovement = true;
+
     private enum Direction
     {
         Up,
         Side
     }
 
-    private void OnCollisionStay2D(Collision2D other)
+    private void Start()
     {
         if (_bouncerDirection == Direction.Side)
         {
@@ -26,8 +25,13 @@ public class TriangularBouncer : MonoBehaviour
             _bounceDirectionVector = transform.up.normalized;
             _cancelMovement = false;
         }
-        if (!other.gameObject.CompareTag("Player")) return;
-        if (other.collider.TryGetComponent(out IPlayerController controller))
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Player")) return;
+
+        if (collision.TryGetComponent(out IPlayerController controller))
         {
             controller.AddForce(_bounceDirectionVector * _bounceForce, PlayerForce.Burst, _cancelMovement);
         }
