@@ -15,6 +15,7 @@ namespace TarodevController
         public FrameInput Input { get; private set; }
         public Vector2 RawMovement { get; private set; }
         public bool Grounded => _grounded;
+        public Vector2 Velocity => _velocity;
         public event Action<bool> OnGroundedChanged;
         public event Action OnJumping, OnDoubleJumping;
         public event Action<bool> OnDashingChanged;
@@ -74,7 +75,6 @@ namespace TarodevController
         private void GatherInput()
         {
             Input = _input.GatherInput();
-
             if (Input.DashDown) _dashToConsume = true;
             if (Input.JumpDown)
             {
