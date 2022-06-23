@@ -11,6 +11,8 @@ public class Timer : MonoBehaviour
     private TextMeshProUGUI _timerText;
     private float _starTime;
     private bool _isRunStarted;
+    public string minutes;
+    public string seconds;
 
     private void OnEnable()
     {
@@ -28,8 +30,8 @@ public class Timer : MonoBehaviour
     {
         if (!_isRunStarted) return;
         float t = Time.time - _starTime;
-        string minutes = ((int)t / 60).ToString();
-        string seconds = ((t % 60).ToString("f2", CultureInfo.InvariantCulture));
+        minutes = ((int)t / 60).ToString();
+        seconds = ((t % 60).ToString("f2", CultureInfo.InvariantCulture));
 
         _timerText.text = minutes + ":" + seconds;
     }
