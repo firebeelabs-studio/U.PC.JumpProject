@@ -12,7 +12,7 @@ public class CameraController : NetworkBehaviour
     private float _defaultZoom;
     private CinemachineVirtualCamera _cam;
     private PlayerController _playerController;
-    public static bool shouldZoom = false;
+    
     private void Awake()
     {
         _defaultZoom = CameraSettings.Instance.CameraSize;
@@ -27,20 +27,46 @@ public class CameraController : NetworkBehaviour
             GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = CameraSettings.Instance.CameraSize;
         }
     }
-
-    public void ZoomOut()
+    private void LateUpdate()
     {
-        _elapsedTime += Time.deltaTime;
-        float fixedDruation = _zoomDuration / _elapsedTime;
-        if (shouldZoom && _playerController.Input.JumpHeld)
-        {
-            _cam.m_Lens.OrthographicSize = Mathf.Lerp(_cam.m_Lens.OrthographicSize, _defaultZoom +_maxZoom, fixedDruation);  //zooming out
-        }
-        else
-        {
-            _cam.m_Lens.OrthographicSize = Mathf.Lerp(_cam.m_Lens.OrthographicSize, _defaultZoom, fixedDruation);    //zooming in
-            shouldZoom = false;
-        }
+
     }
-    private void LateUpdate() => ZoomOut();
+
+    private void ZoomOutWhileFalling()
+    {
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //out of date
+    #region BouncerCameraZoomOut
+    //public static bool shouldZoom = false;
+    //public void ZoomOut() 
+    //{
+    //    _elapsedTime += Time.deltaTime;
+    //    float fixedDruation = _zoomDuration / _elapsedTime;
+    //    if (shouldZoom && _playerController.Input.JumpHeld)
+    //    {
+    //        _cam.m_Lens.OrthographicSize = Mathf.Lerp(_cam.m_Lens.OrthographicSize, _defaultZoom +_maxZoom, fixedDruation);  //zooming out
+    //    }
+    //    else
+    //    {
+    //        _cam.m_Lens.OrthographicSize = Mathf.Lerp(_cam.m_Lens.OrthographicSize, _defaultZoom, fixedDruation);    //zooming in
+    //        shouldZoom = false;
+    //    }
+    //}
+    #endregion
 }

@@ -37,11 +37,4 @@ public class BouncePlatform : MonoBehaviour
             controller.AddForce(_bounceDirectionVector * _bounceForce, PlayerForce.Burst, _cancelMovement);
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            CameraController.shouldZoom = true;
-        }
-    }
 }
