@@ -1402,6 +1402,7 @@ GameObject:
   - component: {fileID: 7296508783758433541}
   - component: {fileID: 7296508783758433546}
   - component: {fileID: 7296508783758433548}
+  - component: {fileID: 7296508783758433549}
   m_Layer: 0
   m_Name: NetworkManagerClient
   m_TagString: Untagged
@@ -1462,3 +1463,16 @@ MonoBehaviour:
   _offlineScene: Assets/_Project/Scenes/MainMenu.unity
   _onlineScene: Assets/_Project/Scenes/Lobby.unity
   _replaceScenes: 0
+--- !u!114 &7296508783758433549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7296508783758433545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9b6b565cd9533c4ebc18003f0fc18a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _placement: 1

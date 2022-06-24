@@ -39,7 +39,7 @@ public sealed class User : NetworkBehaviour
     public override void OnStopServer()
     {
         base.OnStopServer();
-        GameManager.Instance.Users.Add(this);
+        GameManager.Instance.Users.Remove(this);
     }
 
     public override void OnStartClient()

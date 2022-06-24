@@ -44,12 +44,7 @@ public sealed class GameManager : NetworkBehaviour
         SpawnAllCollectibles();
         SpawnAllPlatforms();
     }
-
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-    }
-
+    
     public static void SpawnAllCollectibles()
     {
         Collectibles.ForEach(x => x.SetActive(true));
@@ -61,6 +56,14 @@ public sealed class GameManager : NetworkBehaviour
     public static void ResetPlayerPowers()
     {
         Player.AllowDoubleJump = false;
+    }
+
+    public void StartGame()
+    {
+        if (true)
+        {
+            
+        }
     }
     
 }

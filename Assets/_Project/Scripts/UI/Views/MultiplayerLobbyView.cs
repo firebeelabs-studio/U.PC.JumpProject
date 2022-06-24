@@ -23,10 +23,11 @@ public sealed class MultiplayerLobbyView : View
     {
         if (!IsInitialized) return;
 
-        string playerListText = "can't see players";
+        string playerListText = "Players list:";
 
         for (int i = 0; i < GameManager.Instance.Users.Count; i++)
         {
+            Debug.Log(GameManager.Instance.Users.Count);
             User user = GameManager.Instance.Users[i];
             playerListText += $"\r\nPlayer {user.Nick} (Is Ready: {user.IsReady})";
         }
