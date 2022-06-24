@@ -5,6 +5,7 @@ public class BouncePlatform : MonoBehaviour
 {
     [SerializeField] private float _bounceForce = 20;
     [SerializeField] private Direction _bouncerDirection;
+    [SerializeField] private float _cameraZoomOutDuration;
     private Vector2 _bounceDirectionVector;
     private bool _cancelMovement = true;
 
@@ -34,6 +35,13 @@ public class BouncePlatform : MonoBehaviour
         if (collision.TryGetComponent(out IPlayerController controller))
         {
             controller.AddForce(_bounceDirectionVector * _bounceForce, PlayerForce.Burst, _cancelMovement);
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            CameraController.shouldZoom = true;
         }
     }
 }

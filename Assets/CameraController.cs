@@ -6,18 +6,18 @@ using System.Collections;
 
 public class CameraController : NetworkBehaviour
 {
-    [SerializeField] private float _maxZoom = 5;
-    [SerializeField] private float _smooth = 2;
+    [SerializeField] private float _maxZoom;
+    [SerializeField] private float _zoomDuration;
+    private float _elapsedTime;
     private float _defaultZoom;
     private CinemachineVirtualCamera _cam;
-    private PlayerController _playerRb;
-    public static bool canZoom = false;
-
+    private PlayerController _playerController;
+    public static bool shouldZoom = false;
     private void Awake()
     {
         _defaultZoom = CameraSettings.Instance.CameraSize;
         _cam = FindObjectOfType<CinemachineVirtualCamera>();
-        _playerRb = GetComponentInParent<PlayerController>();
+        _playerController = GetComponentInParent<PlayerController>();
     }
     public override void OnStartClient()
     {
@@ -27,20 +27,20 @@ public class CameraController : NetworkBehaviour
             GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = CameraSettings.Instance.CameraSize;
         }
     }
+
     public void ZoomOut()
     {
-        if (_playerRb.Grounded && canZoom)
+        _elapsedTime += Time.deltaTime;
+        float fixedDruation = _zoomDuration / _elapsedTime;
+        if (shouldZoom && _playerController.Input.JumpHeld)
         {
-            canZoom = false;
-        }
-        if (canZoom)
-        {
-            _cam.m_Lens.OrthographicSize = Mathf.Lerp(_cam.m_Lens.OrthographicSize, _defaultZoom +_maxZoom, Time.deltaTime * _smooth);
+            _cam.m_Lens.OrthographicSize = Mathf.Lerp(_cam.m_Lens.OrthographicSize, _defaultZoom +_maxZoom, fixedDruation);  //zooming out
         }
         else
         {
-            _cam.m_Lens.OrthographicSize = Mathf.Lerp(_cam.m_Lens.OrthographicSize, _defaultZoom, Time.deltaTime * _smooth);
+            _cam.m_Lens.OrthographicSize = Mathf.Lerp(_cam.m_Lens.OrthographicSize, _defaultZoom, fixedDruation);    //zooming in
+            shouldZoom = false;
         }
     }
-    private void Update() => ZoomOut();
+    private void LateUpdate() => ZoomOut();
 }
