@@ -9,7 +9,7 @@ public class CameraController : NetworkBehaviour
     [SerializeField] private float _maxZoom = 15f;
     [SerializeField] private float _zoomSpeed = 45f;
     [SerializeField] private float _camZOffset = 20f;
-    private float _elapsedTime;
+    private bool _shouldZoom;
     private float _defaultZoom;
     private CinemachineVirtualCamera _cam;
     private CinemachineTrackedDolly _camBody;
@@ -18,6 +18,7 @@ public class CameraController : NetworkBehaviour
     private void Awake()
     {
         _defaultZoom = CameraSettings.Instance.CameraSize;
+        _shouldZoom = CameraSettings.Instance.ShouldZoom;
         _cam = GetComponent<CinemachineVirtualCamera>();
         _playerController = GetComponentInParent<PlayerController>();
         _camBody = _cam.GetCinemachineComponent<CinemachineTrackedDolly>();
@@ -30,13 +31,11 @@ public class CameraController : NetworkBehaviour
             GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = CameraSettings.Instance.CameraSize;
         }
     }
-    private void LateUpdate()
-    {
-        ZoomOutWhileFalling(_playerController.VelocityY);
-    }
+    private void LateUpdate() => ZoomOutWhileFalling(_playerController.VelocityY);
 
     private void ZoomOutWhileFalling(float velocity)
     {
+        if (!_shouldZoom) return;
         var currentVelocity = velocity;
         if (currentVelocity < 0)
         {
