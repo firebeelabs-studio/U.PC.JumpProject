@@ -5,13 +5,13 @@ using UnityEngine;
 public class CameraSettings : MonoBehaviour
 {
     public static CameraSettings Instance { get; private set; }
-    public float CameraSize;
+    public float CameraSize { get; private set; }
     [Header("Zooming")]
     [Space(10)]
     public bool ShouldZoom;
-    public float MaxZoom = 15f;
-    public float ZoomSpeed = 45f;
-    public float CamZOffset = 20f;
+    public float MaxZoom { get; private set; } = 15f;
+    public float ZoomSpeed { get; private set; } = 45f;
+    public float CamZOffset { get; private set; } = 20f;
     [Space(10)]
     public bool ShouldParallax;
     public enum ParallaxAxis
