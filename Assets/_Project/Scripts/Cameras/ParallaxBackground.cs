@@ -16,8 +16,9 @@ public class ParallaxBackground : MonoBehaviour
             part.StartPos = part.BackgroundPart.transform.position.x;
         }
     }
-    private void LateUpdate()
+    private void FixedUpdate()
     {
+        if (!CameraSettings.Instance.ShouldParallax) return;
         foreach (ParallaxBackgroundParts part in backgroundParts)       //loops through all elements in list 'backgroundParts' and executes code below for each of them
         {
             float tempPosOfBgPart = _cam.transform.position.x * (1 - part.ParallaxEffectPower);       //calculates the temporary position of the part depending on parallax effect power relating to the camera position

@@ -5,6 +5,7 @@ public class BouncePlatform : MonoBehaviour
 {
     [SerializeField] private float _bounceForce = 20;
     [SerializeField] private Direction _bouncerDirection;
+    [SerializeField] private float _cameraZoomOutDuration;
     private Vector2 _bounceDirectionVector;
     private bool _cancelMovement = true;
 

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1165085244}
   - component: {fileID: 1165085243}
   - component: {fileID: 18804888}
-  - component: {fileID: 6045836778247947679}
+  - component: {fileID: 740521572428383995}
   m_Layer: 0
   m_Name: CM vcam2
   m_TagString: Untagged
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkBehaviours:
   - {fileID: 18804888}
-  - {fileID: 6045836778247947679}
+  - {fileID: 740521572428383995}
   SceneTransformProperties:
     Position: {x: 2.6067252, y: -16.929277, z: -10}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
@@ -130,7 +130,7 @@ MonoBehaviour:
   _componentIndexCache: 5
   _addedNetworkObject: {fileID: 1165085243}
   _networkObjectCache: {fileID: 1419814596373140149}
---- !u!114 &6045836778247947679
+--- !u!114 &740521572428383995
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,12 +139,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1165085242}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f1846e2aad93e64cb619faa55e80787, type: 3}
+  m_Script: {fileID: 11500000, guid: dc25db53452b147418a159fcccc1297c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 6
   _addedNetworkObject: {fileID: 1165085243}
   _networkObjectCache: {fileID: 1419814596373140149}
+  _maxZoom: 15
+  _zoomSpeed: 45
+  _camZOffset: 20
 --- !u!1 &1897455045
 GameObject:
   m_ObjectHideFlags: 0
@@ -15349,7 +15352,7 @@ MonoBehaviour:
   - {fileID: 741556562764243978}
   - {fileID: 5659190502985943681}
   - {fileID: 18804888}
-  - {fileID: 6045836778247947679}
+  - {fileID: 740521572428383995}
   - {fileID: 8184736410379401579}
   SceneTransformProperties:
     Position: {x: 1.82, y: -19.5, z: 0}
