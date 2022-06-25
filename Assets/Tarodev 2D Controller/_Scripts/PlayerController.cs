@@ -15,7 +15,7 @@ namespace TarodevController
         public FrameInput Input { get; private set; }
         public Vector2 RawMovement { get; private set; }
         public bool Grounded => _grounded;
-        public Vector2 Velocity => _velocity;
+        public float VelocityY => _velocity.y;
         public event Action<bool> OnGroundedChanged;
         public event Action OnJumping, OnDoubleJumping;
         public event Action<bool> OnDashingChanged;
