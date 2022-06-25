@@ -9,7 +9,7 @@ public class CameraController : NetworkBehaviour
     [SerializeField] private float _maxZoom = 15f;
     [SerializeField] private float _zoomSpeed = 45f;
     [SerializeField] private float _camZOffset = 20f;
-    private bool _shouldZoom;
+    private float _elapsedTime;
     private float _defaultZoom;
     private CinemachineVirtualCamera _cam;
     private CinemachineTrackedDolly _camBody;
@@ -18,7 +18,6 @@ public class CameraController : NetworkBehaviour
     private void Awake()
     {
         _defaultZoom = CameraSettings.Instance.CameraSize;
-        _shouldZoom = CameraSettings.Instance.ShouldZoom;
         _cam = GetComponent<CinemachineVirtualCamera>();
         _playerController = GetComponentInParent<PlayerController>();
         _camBody = _cam.GetCinemachineComponent<CinemachineTrackedDolly>();
@@ -31,15 +30,17 @@ public class CameraController : NetworkBehaviour
             GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = CameraSettings.Instance.CameraSize;
         }
     }
-    private void LateUpdate() => ZoomOutWhileFalling(_playerController.VelocityY);
+    private void LateUpdate()
+    {
+        ZoomOutWhileFalling(_playerController.VelocityY);
+    }
 
     private void ZoomOutWhileFalling(float velocity)
     {
-        if (!_shouldZoom) return;
         var currentVelocity = velocity;
         if (currentVelocity < 0)
         {
-            if (currentVelocity < -59f) //checks if player has enough speed (probably need to change it; max vel is currently about -60.00061...)
+            if (currentVelocity < -50f) //checks if player has enough speed (probably need to change it; max vel is currently about -61.0...)
             {
                 _cam.m_Lens.OrthographicSize = Mathf.MoveTowards(_cam.m_Lens.OrthographicSize, (_defaultZoom + _maxZoom), _zoomSpeed * Time.deltaTime); //smoothly changes the size of lens (need to check it on build if its smooth enough)
                 _camBody.m_PathOffset.z = Mathf.MoveTowards(_camBody.m_PathOffset.z, _camZOffset, _zoomSpeed * Time.deltaTime); //moves the camera by the offset to let the player see incoming obstacles
