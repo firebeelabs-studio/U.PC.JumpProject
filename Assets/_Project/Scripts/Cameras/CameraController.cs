@@ -6,9 +6,9 @@ using System.Collections;
 
 public class CameraController : NetworkBehaviour
 {
-    [SerializeField] private float _maxZoom;
-    [SerializeField] private float _zoomSpeed;
-    [SerializeField] private float _camZOffset = -10f;
+    [SerializeField] private float _maxZoom = 15f;
+    [SerializeField] private float _zoomSpeed = 45f;
+    [SerializeField] private float _camZOffset = 20f;
     private float _elapsedTime;
     private float _defaultZoom;
     private CinemachineVirtualCamera _cam;
