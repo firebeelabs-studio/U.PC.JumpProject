@@ -8,18 +8,18 @@ public class CameraSettings : MonoBehaviour
     public float CameraSize { get; private set; }
     [Header("Zooming")]
     [Space(10)]
-    public bool ShouldZoom;
-    public float MaxZoom { get; private set; } = 15f;
-    public float ZoomSpeed { get; private set; } = 45f;
-    public float CamZOffset { get; private set; } = 20f;
+    public readonly bool ShouldZoom;
+    public readonly float MaxZoom = 15f;
+    public readonly float ZoomSpeed = 45f;
+    public readonly float CamZOffset = 20f;
     [Space(10)]
-    public bool ShouldParallax;
+    public readonly bool ShouldParallax;
     public enum ParallaxAxis
     {
         Vertical,
         Horizontal
     }
-    public ParallaxAxis Axis;
+    public readonly ParallaxAxis Axis;
     private void Awake()
     {
         Instance = this;
