@@ -145,9 +145,6 @@ MonoBehaviour:
   _componentIndexCache: 6
   _addedNetworkObject: {fileID: 1165085243}
   _networkObjectCache: {fileID: 1419814596373140149}
-  _maxZoom: 15
-  _zoomSpeed: 45
-  _camZOffset: 20
 --- !u!1 &1897455045
 GameObject:
   m_ObjectHideFlags: 0
@@ -35555,7 +35552,15 @@ PrefabInstance:
     - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
       propertyPath: _cam
       value: 
-      objectReference: {fileID: 7823926983352566996}
+      objectReference: {fileID: 1165085242}
+    - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 1165085242}
+    - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: _parallaxReferenceObject
+      value: 
+      objectReference: {fileID: 1165085242}
     - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
       propertyPath: backgroundParts.Array.size
       value: 3
@@ -35563,6 +35568,18 @@ PrefabInstance:
     - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
       propertyPath: backgroundParts.Array.data[3].BackgroundPart
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: backgroundParts.Array.data[0].ParallaxEffectPower
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: backgroundParts.Array.data[1].ParallaxEffectPower
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: backgroundParts.Array.data[2].ParallaxEffectPower
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
       propertyPath: backgroundParts.Array.data[3].ParallaxEffectPower

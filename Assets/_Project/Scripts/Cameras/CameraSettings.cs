@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,21 +6,26 @@ using UnityEngine;
 public class CameraSettings : MonoBehaviour
 {
     public static CameraSettings Instance { get; private set; }
-    public float CameraSize { get; private set; }
+    [SerializeField] private float _cameraSize;
+    [Space(15)]
     [Header("Zooming")]
-    [Space(10)]
-    public readonly bool ShouldZoom;
-    public readonly float MaxZoom = 15f;
-    public readonly float ZoomSpeed = 45f;
-    public readonly float CamZOffset = 20f;
-    [Space(10)]
-    public readonly bool ShouldParallax;
+    [SerializeField] private bool _shouldZoom;
+    [SerializeField] private float _maxZoom = 15f;
+    [SerializeField] private float _zoomSpeed = 45f;
+    [SerializeField] private float _camZOffset = 20f;
+    public bool ShouldZoom => _shouldZoom;
+    public float MaxZoom => _maxZoom;
+    public float ZoomSpeed => _zoomSpeed;
+    public float CamZOffset => _camZOffset;
+    public float CameraSize => _cameraSize;
+    [Space(15)]
+    public bool ShouldParallax;
     public enum ParallaxAxis
     {
         Vertical,
         Horizontal
     }
-    public readonly ParallaxAxis Axis;
+    public ParallaxAxis Axis;
     private void Awake()
     {
         Instance = this;
