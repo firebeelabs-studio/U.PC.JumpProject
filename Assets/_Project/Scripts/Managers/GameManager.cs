@@ -1,13 +1,36 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using TarodevController;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public sealed class GameManager : NetworkBehaviour
 {
+    public static GameManager Instance { get; private set; }
     public static List<GameObject> Collectibles = new List<GameObject>();
     public static List<GameObject> Platforms = new List<GameObject>();
     public static PlayerController Player = new PlayerController();
+    
+    [field: SyncObject] public readonly SyncList<User> Users = new SyncList<User>();
+
+    [field: SyncVar] public bool CanStart { get; private set; }
+
+    public GameObject TestObj;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    private void Update()
+    {
+        if (!IsServer) return;
+        Instance.CanStart = !Instance.Users.Any(p => p.IsReady == false);
+    }
+
     private void OnEnable()
     {
         FinishLevel.EndRun += EndRun;
@@ -25,7 +48,7 @@ public class GameManager : MonoBehaviour
         SpawnAllCollectibles();
         SpawnAllPlatforms();
     }
-
+    
     public static void SpawnAllCollectibles()
     {
         Collectibles.ForEach(x => x.SetActive(true));
@@ -38,4 +61,11 @@ public class GameManager : MonoBehaviour
     {
         Player.AllowDoubleJump = false;
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void StartGame()
+    {
+        FindObjectOfType<SceneLoader>().LoadScene();
+    }
+    
 }
