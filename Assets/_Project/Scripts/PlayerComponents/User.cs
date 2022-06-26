@@ -32,6 +32,7 @@ public sealed class User : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
+        if (IsServer) return;
         
         GameManager.Instance.Users.Add(this);
     }
@@ -39,6 +40,8 @@ public sealed class User : NetworkBehaviour
     public override void OnStopServer()
     {
         base.OnStopServer();
+        if (IsServer) return;
+        
         GameManager.Instance.Users.Remove(this);
     }
 

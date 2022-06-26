@@ -459,6 +459,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 730926676}
   _networkObjectCache: {fileID: 730926676}
+  TestObj: {fileID: 388788776838278598, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
 --- !u!4 &730926678
 Transform:
   m_ObjectHideFlags: 0
@@ -1422,14 +1423,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 362dfd7e6009fb44c90beec3df0ad853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useWss: 1
+  _useWss: 0
   _sslConfiguration:
     Enabled: 0
     CertificatePath: 
     CertificatePassword: 
     SslProtocol: 240
   _mtu: 1023
-  _port: 47630
+  _port: 22176
   _maximumClients: 2000
   _clientAddress: eu-west.ssl.cloud.playflow.app
 --- !u!4 &7296508783758433547

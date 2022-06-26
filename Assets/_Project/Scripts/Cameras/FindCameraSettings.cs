@@ -6,12 +6,12 @@ using Cinemachine;
 
 public class FindCameraSettings : NetworkBehaviour
 {
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        if (base.IsOwner)
-        {
-            GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = CameraSettings.Instance.CameraSize;
-        }
-    }
+    // public override void OnStartClient()
+    // {
+    //     base.OnStartClient();
+    //     if (base.IsOwner)
+    //     {
+    //         GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = CameraSettings.Instance.CameraSize;
+    //     }
+    // }
 }

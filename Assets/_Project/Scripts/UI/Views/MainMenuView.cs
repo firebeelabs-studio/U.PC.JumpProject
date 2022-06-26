@@ -14,6 +14,7 @@ public class MainMenuView : View
     public override void Initialize()
     {
         _connectButton.onClick.AddListener(() =>
+        
         {
             //User.Instance.Nick = _nicknameField.text;
             InstanceFinder.ClientManager.StartConnection();

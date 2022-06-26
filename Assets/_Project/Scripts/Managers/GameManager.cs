@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using TarodevController;
@@ -13,8 +14,11 @@ public sealed class GameManager : NetworkBehaviour
     public static List<GameObject> Platforms = new List<GameObject>();
     public static PlayerController Player = new PlayerController();
     
-    [field: SyncObject]
-    public readonly SyncList<User> Users = new SyncList<User>();
+    [field: SyncObject] public readonly SyncList<User> Users = new SyncList<User>();
+
+    [field: SyncVar] public bool CanStart { get; private set; }
+
+    public GameObject TestObj;
 
     private void Awake()
     {
@@ -24,7 +28,7 @@ public sealed class GameManager : NetworkBehaviour
     private void Update()
     {
         if (!IsServer) return;
-
+        Instance.CanStart = !Instance.Users.Any(p => p.IsReady == false);
     }
 
     private void OnEnable()
@@ -58,12 +62,10 @@ public sealed class GameManager : NetworkBehaviour
         Player.AllowDoubleJump = false;
     }
 
+    [ServerRpc(RequireOwnership = false)]
     public void StartGame()
     {
-        if (true)
-        {
-            
-        }
+        FindObjectOfType<SceneLoader>().LoadScene();
     }
     
 }
