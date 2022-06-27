@@ -24,6 +24,7 @@ namespace TarodevController
         private Rigidbody2D _rb;
         private BoxCollider2D _collider;
         private PlayerInput _input;
+        private BoostsNFT _boosts;
         private Vector2 _lastPosition;
         private Vector2 _velocity;
         private Vector2 _speed;
@@ -34,7 +35,10 @@ namespace TarodevController
             _rb = GetComponent<Rigidbody2D>();
             _collider = GetComponent<BoxCollider2D>();
             _input = GetComponent<PlayerInput>();
+            _boosts = GetComponent<BoostsNFT>();
 
+            _boosts.SetNFTBoosts();
+            CalculateTotalStats();
             SetBasicStats();
 
             _defaultColliderSize = _collider.size;
@@ -55,7 +59,7 @@ namespace TarodevController
         void FixedUpdate()
         {
             _fixedFrame++;
-            _frameClamp = _moveClamp;
+            _frameClamp = MoveClamp;
 
             // Calculate velocity
             _velocity = (_rb.position - _lastPosition) / Time.fixedDeltaTime;
@@ -223,8 +227,8 @@ namespace TarodevController
         [Header("WALKING")] 
         
         public float Acceleration = 120;
+        public float MoveClamp = 13;
 
-        [SerializeField] private float _moveClamp = 13;
         [SerializeField] private float _deceleration = 60f;
         [SerializeField] private float _apexBonus = 100;
 
@@ -428,7 +432,6 @@ namespace TarodevController
 
         #endregion
 
-
         #region Move
 
         // We cast our bounds before moving to avoid future collisions
@@ -538,21 +541,32 @@ namespace TarodevController
 
         #endregion
 
-        #region Set & Return Basic Stats
+        #region Set Boosts and Debuffs & Return Basic Stats
 
         private float _basicAcceleration;
         private float _basicJumpHeight;
+        private float _basicMoveClamp;
+
+        private void CalculateTotalStats()
+        {
+            Acceleration = Acceleration + _boosts.AccelerationBoost;
+            MoveClamp = MoveClamp + _boosts.MaxSpeedBoost;
+            _deceleration = _deceleration + _boosts.AccelerationBoost;
+            JumpHeight = JumpHeight + _boosts.HigherJumpBoost;
+        }
 
         public void SetBasicStats()
         {
             _basicAcceleration = Acceleration;
             _basicJumpHeight = JumpHeight;
+            _basicMoveClamp = MoveClamp;
         }
 
         public void ReturnBasicStats()
         {
             Acceleration = _basicAcceleration;
             JumpHeight = _basicJumpHeight;
+            MoveClamp = _basicMoveClamp;
         }
         #endregion
     }

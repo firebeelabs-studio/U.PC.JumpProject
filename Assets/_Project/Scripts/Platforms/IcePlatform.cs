@@ -1,12 +1,10 @@
 using UnityEngine;
 using TarodevController;
-using System.Collections;
 
 public class IcePlatform : MonoBehaviour  
 {
-    //PlayerController _controller = new PlayerController();
     [SerializeField] private float _iceDeceleration = 10;
-    [SerializeField] private float _iceHeightLimit = 35;
+    [SerializeField] private float _iceHeightLimit = 30;
     
     private void OnCollisionStay2D(Collision2D collision) //reduces acceleration when touching ice
     {
