@@ -24,6 +24,7 @@ public sealed class MultiplayerLobbyView : View
         if (!IsInitialized) return;
 
         string playerListText = "Players list:";
+        print(GameManager.Instance.Users.Count);
 
         for (int i = 0; i < GameManager.Instance.Users.Count; i++)
         {

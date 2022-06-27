@@ -168,7 +168,7 @@ namespace TarodevController
         private float _velocityOnCrouch;
         private bool _crouching;
         private int _frameStartedCrouching;
-
+        
         private bool CanStand
         {
             get

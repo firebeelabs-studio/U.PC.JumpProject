@@ -18,8 +18,6 @@ public sealed class GameManager : NetworkBehaviour
 
     [field: SyncVar] public bool CanStart { get; private set; }
 
-    public GameObject TestObj;
-
     private void Awake()
     {
         Instance = this;
@@ -28,7 +26,10 @@ public sealed class GameManager : NetworkBehaviour
     private void Update()
     {
         if (!IsServer) return;
-        Instance.CanStart = !Instance.Users.Any(p => p.IsReady == false);
+        
+        if (Instance.Users.Count == 0) return;
+        
+        Instance.CanStart = Instance.Users.All(p => p.IsReady == true);
     }
 
     private void OnEnable()
