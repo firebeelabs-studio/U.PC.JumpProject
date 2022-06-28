@@ -1,5 +1,6 @@
 using FishNet.Object;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -521,6 +522,11 @@ namespace TarodevController
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
             }
+        }
+
+        public void SlowDown(float slowPower)
+        {
+            _moveClamp -= slowPower;
         }
 
         private Vector2 EvaluateForces()
