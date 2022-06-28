@@ -16,12 +16,10 @@ namespace TarodevController
         public FrameInput Input { get; private set; }
         public Vector2 RawMovement { get; private set; }
         public bool Grounded => _grounded;
-        public float VelocityY => _velocity.y;
         public event Action<bool> OnGroundedChanged;
         public event Action OnJumping, OnDoubleJumping;
         public event Action<bool> OnDashingChanged;
         public event Action<bool> OnCrouchingChanged;
-
         private Rigidbody2D _rb;
         private BoxCollider2D _collider;
         private PlayerInput _input;

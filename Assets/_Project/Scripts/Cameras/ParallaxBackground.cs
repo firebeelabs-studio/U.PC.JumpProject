@@ -7,7 +7,6 @@ public class ParallaxBackground : MonoBehaviour
     [SerializeField] private GameObject _parallaxReferenceObject;
     [SerializeField] private List<ParallaxBackgroundParts> backgroundParts;
     [SerializeField] private float _offsetForDistance = 3f;
-    private float _previousXPos;
     private bool _parallaxAxis;
 
     void Awake()

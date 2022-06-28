@@ -10,8 +10,6 @@ public class SlowingRain : MonoBehaviour
     private float _timer;
     private bool _shouldResetMoveClamp = false;
     private PlayerController _playerController;
-    private int _rndTrigger;
-    private System.Random _rnd = new();
     private void Start()
     {
         _timer = 0;
