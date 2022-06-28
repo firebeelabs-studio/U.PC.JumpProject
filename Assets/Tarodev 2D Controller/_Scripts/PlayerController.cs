@@ -25,6 +25,7 @@ namespace TarodevController
         private PlayerInput _input;
         private Vector2 _lastPosition;
         private Vector2 _velocity;
+        public float VelocityY => _velocity.y;
         private Vector2 _speed;
         private int _fixedFrame;
 
