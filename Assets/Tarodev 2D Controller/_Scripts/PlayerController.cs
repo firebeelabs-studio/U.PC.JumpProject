@@ -524,7 +524,7 @@ namespace TarodevController
             }
         }
 
-        public void SlowDown(float slowPower)
+        public void ChangeMoveClamp(float slowPower)
         {
             _moveClamp -= slowPower;
         }
