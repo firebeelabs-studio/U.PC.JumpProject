@@ -3,27 +3,49 @@ using TarodevController;
 
 public class MudPlatform : MonoBehaviour
 {
-    [SerializeField] private float _mudDeceleration = 100;
-    [SerializeField] private float _reduceSpeed = 10;
-    [SerializeField] private float _mudHeightLimit = 20;
+    private PlayerController _playerController;
 
-    private void OnCollisionStay2D(Collision2D collision) //reduces acceleration, speed & jump range  when touching mud
+    [SerializeField] private float _accReduction; // acceleration reduction value (slide when turn - harder to move)
+    [SerializeField] private float _clampReduction; // reduces max speed - harder to move through
+    [SerializeField] private float _jumpReduction; // reduces height of jump - as higher
+
+    private bool _isTouchingMud = false;
+    private bool _isDebuffActivated = false;
+    
+    private void OnTriggerStay2D(Collider2D collision) //reduces stats when touching mud
     {
-        if (!collision.gameObject.CompareTag("Player")) return;
-        if (collision.gameObject.TryGetComponent(out PlayerController controller))
+        if (collision.gameObject.CompareTag("Player") && !_isTouchingMud)
         {
-            controller.Acceleration = _mudDeceleration;
-            controller.MoveClamp = _reduceSpeed;
-            controller.JumpHeight = _mudHeightLimit;
+            collision.gameObject.TryGetComponent(out _playerController);
+            if (_playerController is null) return;
+            SetDebuffs(_playerController);
+            _isTouchingMud = true;
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision) // return basic acceleration while leaving mud
+    private void OnTriggerExit2D(Collider2D collision) // return basic stats while leaving mud
     {
-        if (!collision.gameObject.CompareTag("Player")) return;
-        if (collision.gameObject.TryGetComponent(out PlayerController controller))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            controller.ReturnBasicStats();
+            collision.gameObject.TryGetComponent(out _playerController);
+            if (_playerController is null) return;
+            RemoveDebuffs(_playerController);
+            _isTouchingMud = false;
         }
+    }
+
+    private void SetDebuffs(PlayerController playerController)
+    {
+        playerController.MudDebuff(_accReduction, _jumpReduction, _clampReduction);
+        _isDebuffActivated = true;
+    }
+
+    private void RemoveDebuffs(PlayerController playerController)
+    {
+        if (_isDebuffActivated)
+        {
+            playerController.MudDebuff(-_accReduction, -_jumpReduction, -_clampReduction);
+        }
+        _isDebuffActivated = false;
     }
 }

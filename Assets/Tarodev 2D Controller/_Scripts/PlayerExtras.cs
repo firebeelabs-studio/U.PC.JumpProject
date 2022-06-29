@@ -26,9 +26,16 @@ namespace TarodevController {
         /// <param name="mode">The force application mode</param>
         /// <param name="cancelMovement">Cancel the current velocity of the player to provide a reliable reaction</param>
         public void AddForce(Vector2 force, PlayerForce mode = PlayerForce.Burst, bool cancelMovement = true);
+
+        public void SetBoosts(float accBoost, float clampBoost, float decBoost);
+
+        public void MudDebuff(float accDebuff, float jumpDebuff, float clampDebuff);
+
+        public void IceDebuff(float accDebuff, float decDebuff);
     }
 
-    public interface IPlayerEffector {
+    public interface IPlayerEffector 
+    {
         public Vector2 EvaluateEffector();
     }
 

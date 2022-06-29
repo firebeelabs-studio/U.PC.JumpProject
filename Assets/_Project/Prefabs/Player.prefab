@@ -15200,7 +15200,6 @@ GameObject:
   - component: {fileID: 741556562764243978}
   - component: {fileID: 5659190502985943681}
   - component: {fileID: -1002222236976936792}
-  - component: {fileID: 3026759672113916912}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -15299,7 +15298,7 @@ MonoBehaviour:
   _crouchSpeedModifier: 0.1
   _crouchSlowdownFrames: 50
   _immediateCrouchSlowdownThreshold: 0.1
-  Acceleration: 120
+  _acceleration: 120
   _moveClamp: 14
   _deceleration: 60
   _apexBonus: 100
@@ -15308,7 +15307,7 @@ MonoBehaviour:
   _minFallSpeed: 80
   _maxFallSpeed: 160
   _groundingForce: -1.5
-  JumpHeight: 35
+  _jumpHeight: 35
   _jumpApexThreshold: 40
   _coyoteTimeThreshold: 7
   _jumpBuffer: 7
@@ -15458,26 +15457,6 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 1419814596373140149}
   <Nick>k__BackingField: 
   ControlledPlayer: {fileID: 0}
---- !u!114 &3026759672113916912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7514181437703828009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f59fb0183c52e9b48bf59ac5cb5dee2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hasAccelerationNFT: 1
-  _hasMaxSpeedNFT: 0
-  _hasBetterControlNFT: 0
-  _hasHigherJumpNFT: 0
-  AccelerationBoost: 0
-  MaxSpeedBoost: 0
-  BetterControlBoost: 0
-  HigherJumpBoost: 0
 --- !u!1 &7514181437753337213
 GameObject:
   m_ObjectHideFlags: 0

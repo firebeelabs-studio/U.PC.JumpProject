@@ -1,53 +1,37 @@
 using UnityEngine;
+using TarodevController;
 
 public class BoostsNFT : MonoBehaviour
 {
+    public PlayerController _playerController;
+    
     [SerializeField] private bool _hasAccelerationNFT;
     [SerializeField] private bool _hasMaxSpeedNFT;
     [SerializeField] private bool _hasBetterControlNFT;
-    [SerializeField] private bool _hasHigherJumpNFT;
 
-    public float AccelerationBoost;
-    public float MaxSpeedBoost;
-    public float BetterControlBoost;
-    public float HigherJumpBoost;
+    [SerializeField] private float _accelerationBoost;
+    [SerializeField] private float _maxSpeedBoost;
+    [SerializeField] private float _betterControlBoost;
 
-    public void SetNFTBoosts()
+    [ContextMenu("Do Something")]
+    public void Boost()
     {
-        if (_hasAccelerationNFT)
+        if (!_hasAccelerationNFT)
         {
-            AccelerationBoost = 10;
+            _accelerationBoost = 0;
         }
-        else
+        if (!_hasMaxSpeedNFT)
         {
-            AccelerationBoost = 0;
+            _maxSpeedBoost = 0;
         }
-        
-        if (_hasMaxSpeedNFT)
+        if (!_hasBetterControlNFT)
         {
-            MaxSpeedBoost = 2;
+            _betterControlBoost = 0;
         }
-        else
-        {
-            MaxSpeedBoost = 0;
-        }
-        
-        if (_hasBetterControlNFT) 
-        { 
-            BetterControlBoost = 10; 
-        } 
-        else 
-        { 
-            BetterControlBoost = 0; 
-        }
-        
-        if (_hasHigherJumpNFT) 
-        { 
-            HigherJumpBoost = 2; 
-        } 
-        else 
-        { 
-            HigherJumpBoost = 0; 
-        }
+
+        _playerController = FindObjectOfType<PlayerController>();
+        if (_playerController is null) return;
+        _playerController.SetBoosts(_accelerationBoost, _maxSpeedBoost, _betterControlBoost);
+
     }
 }

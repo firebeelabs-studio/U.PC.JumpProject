@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7192909479493667436}
   - component: {fileID: 7192909479493667437}
   - component: {fileID: 7024699230684331382}
-  - component: {fileID: 466109035}
+  - component: {fileID: 1828695130}
   m_Layer: 3
   m_Name: Ice Platform
   m_TagString: Untagged
@@ -125,25 +125,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bec8bf3be9e88a479ac3b8b3583dec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _iceDeceleration: 10
-  _iceHeightLimit: 35
---- !u!114 &466109035
-MonoBehaviour:
+  _accReduction: 100
+  _decReduction: 50
+--- !u!61 &1828695130
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7192909479493667409}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f59fb0183c52e9b48bf59ac5cb5dee2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hasAccelerationNFT: 1
-  _hasMaxSpeedNFT: 0
-  _hasBetterControlNFT: 0
-  _hasHigherJumpNFT: 0
-  AccelerationBoost: 0
-  MaxSpeedBoost: 0
-  BetterControlBoost: 0
-  HigherJumpBoost: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.5}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 3, y: 1}
+    adaptiveTilingThreshold: 0.466
+    drawMode: 2
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3, y: 2}
+  m_EdgeRadius: 0
