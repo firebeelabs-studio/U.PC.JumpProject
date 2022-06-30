@@ -35,8 +35,6 @@ namespace TarodevController
             _collider = GetComponent<BoxCollider2D>();
             _input = GetComponent<PlayerInput>();
 
-            SetBasicStats();
-
             _defaultColliderSize = _collider.size;
             _defaultColliderOffset = _collider.offset;
         }
@@ -220,10 +218,9 @@ namespace TarodevController
 
         #region Horizontal
 
-        [Header("WALKING")] 
-        
-        public float Acceleration = 120;
+        [Header("WALKING")]
 
+        [SerializeField] private float _acceleration = 120;
         [SerializeField] private float _moveClamp = 13;
         [SerializeField] private float _deceleration = 60f;
         [SerializeField] private float _apexBonus = 100;
@@ -237,8 +234,8 @@ namespace TarodevController
             if (Input.X != 0)
             {
                 // Set horizontal move speed
-                if (_allowCreeping) _speed.x = Mathf.MoveTowards(_speed.x, _frameClamp * Input.X, Acceleration * Time.fixedDeltaTime);
-                else _speed.x += Input.X * Acceleration * Time.fixedDeltaTime;
+                if (_allowCreeping) _speed.x = Mathf.MoveTowards(_speed.x, _frameClamp * Input.X, _acceleration * Time.fixedDeltaTime);
+                else _speed.x += Input.X * _acceleration * Time.fixedDeltaTime;
 
                 // Clamped by max frame movement
                 _speed.x = Mathf.Clamp(_speed.x, -_frameClamp, _frameClamp);
@@ -311,9 +308,8 @@ namespace TarodevController
         #region Jump
 
         [Header("JUMPING")]
-        
-        public float JumpHeight = 35;
 
+        [SerializeField] private float _jumpHeight = 35;
         [SerializeField] private float _jumpApexThreshold = 40f;
         [SerializeField] private int _coyoteTimeThreshold = 7;
         [SerializeField] private int _jumpBuffer = 7;
@@ -351,7 +347,7 @@ namespace TarodevController
 
             if (_jumpToConsume && CanDoubleJump)
             {
-                _speed.y = JumpHeight;
+                _speed.y = _jumpHeight;
                 _doubleJumpUsable = false;
                 _endedJumpEarly = false;
                 _jumpToConsume = false;
@@ -362,7 +358,7 @@ namespace TarodevController
             // Jump if: grounded or within coyote threshold || sufficient jump buffer
             if ((_jumpToConsume && CanUseCoyote) || HasBufferedJump)
             {
-                _speed.y = JumpHeight;
+                _speed.y = _jumpHeight;
                 _endedJumpEarly = false;
                 _coyoteUsable = false;
                 _jumpToConsume = false;
@@ -427,7 +423,6 @@ namespace TarodevController
         }
 
         #endregion
-
 
         #region Move
 
@@ -503,6 +498,26 @@ namespace TarodevController
             }
         }
 
+        public void SetBoosts(float accBoost, float clampBoost, float decBoost)
+        {
+            _acceleration += accBoost;
+            _moveClamp += clampBoost;
+            _deceleration += decBoost;
+        }
+
+        public void MudDebuff(float accDebuff, float jumpDebuff, float clampDebuff)
+        {
+            _acceleration -= accDebuff;
+            _jumpHeight -= jumpDebuff;
+            _moveClamp -= clampDebuff;
+        }
+
+        public void IceDebuff(float accDebuff, float decDebuff)
+        {
+            _acceleration -= accDebuff;
+            _deceleration -= decDebuff;
+        }
+
         [Header("EFFECTORS")] [SerializeField] private float _forceDecay = 1;
         private Vector2 _forceBuildup;
 
@@ -541,24 +556,6 @@ namespace TarodevController
             return force;
         }
 
-        #endregion
-
-        #region Set & Return Basic Stats
-
-        private float _basicAcceleration;
-        private float _basicJumpHeight;
-
-        public void SetBasicStats()
-        {
-            _basicAcceleration = Acceleration;
-            _basicJumpHeight = JumpHeight;
-        }
-
-        public void ReturnBasicStats()
-        {
-            Acceleration = _basicAcceleration;
-            JumpHeight = _basicJumpHeight;
-        }
         #endregion
     }
 }
