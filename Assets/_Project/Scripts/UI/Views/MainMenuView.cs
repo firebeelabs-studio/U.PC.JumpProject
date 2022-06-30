@@ -8,12 +8,15 @@ using UnityEngine;
 using UnityEngine.UI;
 public class MainMenuView : View
 {
-    [SerializeField] private Button _connectButton;
-    [SerializeField] private TMP_InputField _nicknameField;
+    [SerializeField] private Button _startButton;
+    [SerializeField] private Button _optionsButton;
+    [SerializeField] private Button _levelCreatorButton;
+    [SerializeField] private Button _profileButton;
+    
 
     public override void Initialize()
     {
-        _connectButton.onClick.AddListener(() =>
+        _startButton.onClick.AddListener(() =>
         
         {
             //User.Instance.Nick = _nicknameField.text;

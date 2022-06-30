@@ -37,7 +37,7 @@ namespace FirstGearGames.LobbyAndWorld.Lobbies
                 return;
 
             NetworkObject nob = Instantiate(_lobbyNetworkPrefab);
-            Scene scene = UnitySceneManager.GetSceneByName("Lobby");
+            Scene scene = UnitySceneManager.GetSceneByName("Lobby 1");
             UnitySceneManager.MoveGameObjectToScene(nob.gameObject, scene);
             _networkManager.ServerManager.Spawn(nob.gameObject);
         }

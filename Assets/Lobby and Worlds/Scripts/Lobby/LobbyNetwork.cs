@@ -114,7 +114,7 @@ namespace FirstGearGames.LobbyAndWorld.Lobbies
         /// <summary>
         /// Minimum number of players which may be in a room.
         /// </summary>
-        private const int MINUMUM_PLAYERS = 2;
+        private const int MINUMUM_PLAYERS = 1;
         /// <summary>
         /// Maximum number of players which may be in a room.
         /// </summary>
@@ -225,7 +225,6 @@ namespace FirstGearGames.LobbyAndWorld.Lobbies
         }
         #endregion
 
-
         #region SceneManager callbacks.
         /// <summary>
         /// Called when a clients presence changes for a scene.
@@ -246,8 +245,7 @@ namespace FirstGearGames.LobbyAndWorld.Lobbies
 
         }
         #endregion
-
-
+        
         #region NetworkManager callbacks.
         /// <summary>
         /// Received after a client has it's player instantiated.
