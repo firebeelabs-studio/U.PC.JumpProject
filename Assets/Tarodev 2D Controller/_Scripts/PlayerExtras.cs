@@ -32,6 +32,7 @@ namespace TarodevController {
         public void MudDebuff(float accDebuff, float jumpDebuff, float clampDebuff);
 
         public void IceDebuff(float accDebuff, float decDebuff);
+        public void ChangeMoveClamp(float slowPower);
     }
 
     public interface IPlayerEffector 

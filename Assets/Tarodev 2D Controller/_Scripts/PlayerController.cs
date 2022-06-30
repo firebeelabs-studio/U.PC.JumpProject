@@ -1,5 +1,6 @@
 using FishNet.Object;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,17 +16,16 @@ namespace TarodevController
         public FrameInput Input { get; private set; }
         public Vector2 RawMovement { get; private set; }
         public bool Grounded => _grounded;
-        public float VelocityY => _velocity.y;
         public event Action<bool> OnGroundedChanged;
         public event Action OnJumping, OnDoubleJumping;
         public event Action<bool> OnDashingChanged;
         public event Action<bool> OnCrouchingChanged;
-
         private Rigidbody2D _rb;
         private BoxCollider2D _collider;
         private PlayerInput _input;
         private Vector2 _lastPosition;
         private Vector2 _velocity;
+        public float VelocityY => _velocity.y;
         private Vector2 _speed;
         private int _fixedFrame;
 
@@ -166,7 +166,7 @@ namespace TarodevController
         private float _velocityOnCrouch;
         private bool _crouching;
         private int _frameStartedCrouching;
-
+        
         private bool CanStand
         {
             get
@@ -536,6 +536,11 @@ namespace TarodevController
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
             }
+        }
+
+        public void ChangeMoveClamp(float slowPower)
+        {
+            _moveClamp -= slowPower;
         }
 
         private Vector2 EvaluateForces()

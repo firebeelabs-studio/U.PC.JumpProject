@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using _Project.Scripts.UI;
+using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using TarodevController;
@@ -9,7 +10,7 @@ using UnityEngine;
 public sealed class User : NetworkBehaviour
 {
     public static User Instance { get; private set; }
-
+    public NetworkConnection UserConnection { get; private set; }
     [field: SerializeField]
     [field: SyncVar]
     public string Nick
@@ -32,15 +33,13 @@ public sealed class User : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
-        if (IsServer) return;
-        
+        UserConnection = NetworkObject.LocalConnection;
         GameManager.Instance.Users.Add(this);
     }
 
     public override void OnStopServer()
     {
         base.OnStopServer();
-        if (IsServer) return;
         
         GameManager.Instance.Users.Remove(this);
     }
