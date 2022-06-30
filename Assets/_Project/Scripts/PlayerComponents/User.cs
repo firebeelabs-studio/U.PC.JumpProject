@@ -51,7 +51,7 @@ public sealed class User : NetworkBehaviour
         Instance = this;
         if (IsSpawned)
         {
-            ViewManager.Instance.Initialize();
+            //ViewManager.Instance.Initialize();
         }
     }
     public void ChangeName(string nick)

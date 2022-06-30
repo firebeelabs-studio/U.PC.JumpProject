@@ -27,6 +27,7 @@ namespace TarodevController
         private Vector2 _velocity;
         public float VelocityY => _velocity.y;
         private Vector2 _speed;
+        public Vector2 Speed => _speed;
         private int _fixedFrame;
 
         void Awake()
