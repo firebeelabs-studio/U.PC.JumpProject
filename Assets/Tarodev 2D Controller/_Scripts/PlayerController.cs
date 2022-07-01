@@ -8,7 +8,7 @@ namespace TarodevController
 {
 
     [RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
-    public class PlayerController : NetworkBehaviour, IPlayerController
+    public partial class PlayerController : NetworkBehaviour, IPlayerController
     {
         public bool AllowDoubleJump, AllowDash, AllowCrouch;
 
@@ -465,9 +465,7 @@ namespace TarodevController
         #endregion
 
         #region Effectors & Forces
-
         private readonly List<IPlayerEffector> _usedEffectors = new List<IPlayerEffector>();
-
         /// <summary>
         /// For more passive force effects like moving platforms, underwater etc
         /// </summary>
@@ -497,52 +495,8 @@ namespace TarodevController
                 return Vector2.zero;
             }
         }
-
-        public void SetBoosts(float accBoost, float clampBoost, float decBoost)
-        {
-            _acceleration += accBoost;
-            _moveClamp += clampBoost;
-            _deceleration += decBoost;
-        }
-
-        public void MudDebuff(float accDebuff, float jumpDebuff, float clampDebuff)
-        {
-            _acceleration -= accDebuff;
-            _jumpHeight -= jumpDebuff;
-            _moveClamp -= clampDebuff;
-        }
-
-        public void IceDebuff(float accDebuff, float decDebuff)
-        {
-            _acceleration -= accDebuff;
-            _deceleration -= decDebuff;
-        }
-
         [Header("EFFECTORS")] [SerializeField] private float _forceDecay = 1;
         private Vector2 _forceBuildup;
-
-        public void AddForce(Vector2 force, PlayerForce mode = PlayerForce.Burst, bool cancelMovement = true)
-        {
-            if (cancelMovement) _speed = Vector2.zero;
-
-            switch (mode)
-            {
-                case PlayerForce.Burst:
-                    _speed += force;
-                    break;
-                case PlayerForce.Decay:
-                    _forceBuildup += force * Time.fixedDeltaTime;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
-            }
-        }
-
-        public void ChangeMoveClamp(float slowPower)
-        {
-            _moveClamp -= slowPower;
-        }
-
         private Vector2 EvaluateForces()
         {
             // Prevent bouncing. This *could* cause problems, but I'm yet to find any
