@@ -703,7 +703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50688e6e433e0af43a39d281c75ea81a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveAllObjects: 0
+  _moveAllObjects: 1
   _automaticallyUnload: 1
   _scenes:
   - Matchmaking
@@ -1806,6 +1806,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3282736595509308112, guid: d785c0a56015278438367c51e5c932ab, type: 3}
+      propertyPath: _playerPrefab
+      value: 
+      objectReference: {fileID: 8302329928824072530, guid: 0a1a6fa26e9b4a349ba777425c0a35ee, type: 3}
     - target: {fileID: 3282736595509308125, guid: d785c0a56015278438367c51e5c932ab, type: 3}
       propertyPath: m_RootOrder
       value: 5
