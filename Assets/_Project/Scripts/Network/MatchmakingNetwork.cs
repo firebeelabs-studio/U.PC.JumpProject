@@ -165,7 +165,7 @@ public class MatchmakingNetwork : NetworkBehaviour
     #endregion
 
     #region Manage Rooms
-
+    
     //Updates rooms on all clients. Even these ones in matches. We can ignore that till we will make normal lobby system i guess
     [ObserversRpc]
     public void RpcUpdateRooms(RoomDetails[] roomDetails)
@@ -181,6 +181,45 @@ public class MatchmakingNetwork : NetworkBehaviour
                     break;
                 }
             }
+        }
+    }
+
+    [Client]
+    public static bool CheckForAvailableRoom()
+    {
+        return _instance.CheckForAvailableRoomInternal();
+    }
+
+    private bool CheckForAvailableRoomInternal()
+    { 
+        CmdCheckForAvailableRoom();
+        print(CurrentRoom);
+        print("Pokoje: " +CreatedRooms.Count);
+        if (CurrentRoom is not null)
+        {
+            return true;
+        }
+
+        return false;
+    }
+    //probably it don't have to be server side, we will see
+    [ServerRpc(RequireOwnership = false)]
+    private void CmdCheckForAvailableRoom()
+    {
+        //if someone is already in room - have to move this out to helpers prob, cuz rn we will create new room in this case
+        if (CurrentRoom is not null) return;
+        //if there are no rooms
+        if (CreatedRooms.Count == 0) return;
+        
+        foreach (var room in CreatedRooms)
+        {
+            //if is full
+            if (room.MemberIds.Count >= room.MaxPlayers) continue;
+            //if game already started
+            if (room.IsStarted && room.LockOnStart) continue;
+            
+            //join room
+            CurrentRoom = room;
         }
     }
 

@@ -6,16 +6,30 @@ using UnityEngine;
 
 public class RoomHandler : MonoBehaviour
 {
-    private bool _awaitingForResponse = false;
+    private bool _awaitingForResponseRoomCreate = false;
+    private bool _awaitingForResponseRoomFind = false;
 
-    public void CheckIfThereIsRoom()
+    public void ShowPls()
     {
-        
+        if (CheckIfThereIsRoom())
+        {
+            print("Here it is");
+        }
+        else
+        {
+            print("There is no room");
+            CreateRoom();
+        }
     }
+    public bool CheckIfThereIsRoom()
+    {
+        return MatchmakingNetwork.CheckForAvailableRoom();
+    }
+    
     [ContextMenu("CreateRoomMenu")]
     public void CreateRoom()
     {
-        if (_awaitingForResponse) return;
+        if (_awaitingForResponseRoomCreate) return;
         int playerCount = 1;
         string failedReason = String.Empty;
         //if cannot create
@@ -25,7 +39,7 @@ public class RoomHandler : MonoBehaviour
         }
         else
         {
-            _awaitingForResponse = true;
+            _awaitingForResponseRoomCreate = true;
             MatchmakingNetwork.CreateRoom(playerCount);
         }
     }
