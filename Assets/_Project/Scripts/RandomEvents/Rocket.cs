@@ -106,18 +106,19 @@ public class Rocket : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.TryGetComponent(out PlayerController playerController);
-            if (playerController is null) return;
-            Vector2 direction = collision.transform.position - _rocketObj.transform.position; //gets the direction to which player should be pushed
-            if (playerController.Speed.magnitude > 0)
+            if (collision.TryGetComponent(out PlayerController playerController))
             {
-                playerController.AddForce(direction.normalized * _explosionForce, PlayerForce.Decay, true); //if players moves the explosion is stronger to eliminate the balancing of opposing forces
+                Vector2 direction = collision.transform.position - _rocketObj.transform.position; //gets the direction to which player should be pushed
+                if (playerController.Speed.magnitude > 0)
+                {
+                    playerController.AddForce(direction.normalized * _explosionForce, PlayerForce.Decay, true); //if players moves the explosion is stronger to eliminate the balancing of opposing forces
+                }
+                else
+                {
+                    playerController.AddForce(direction * (_explosionForce / 4), PlayerForce.Decay, true); //if player doesnt move the explosion is weaker
+                }
+                DestroyRocket();
             }
-            else
-            {
-                playerController.AddForce(direction * (_explosionForce/4), PlayerForce.Decay, true); //if player doesnt move the explosion is weaker
-            }
-            DestroyRocket();
         }
     }
     private void OnDrawGizmos()

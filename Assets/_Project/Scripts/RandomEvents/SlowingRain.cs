@@ -20,10 +20,11 @@ public class SlowingRain : MonoBehaviour
         {
             if (_timer < 0)
             {
-                other.TryGetComponent(out _playerController);
-                if (_playerController is null) return;
-                SlowDownPlayer(_playerController);
-                _shouldResetMoveClamp = true;
+                if(other.TryGetComponent(out _playerController))
+                {
+                    SlowDownPlayer(_playerController);
+                    _shouldResetMoveClamp = true;
+                }
             }
             else
             {
