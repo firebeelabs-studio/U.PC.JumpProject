@@ -24,7 +24,8 @@ public class MatchmakingNetwork : NetworkBehaviour
         get { return _instance._currentRoom; }
         private set { _instance._currentRoom = value; }
     }
-    
+
+    protected RoomHandler RoomHandler;
     private RoomDetails _currentRoom;
     private static MatchmakingNetwork _instance;
 
@@ -35,8 +36,12 @@ public class MatchmakingNetwork : NetworkBehaviour
     private void Awake()
     {
         _instance = this;
+        RoomHandler = FindObjectOfType<RoomHandler>();
     }
 
+    #region Initialization
+
+    #endregion
     #region CreateRoom
 
     //Called on client when trying to create a room
@@ -65,7 +70,7 @@ public class MatchmakingNetwork : NetworkBehaviour
         //if nothing failed we are gucci
         if (success)
         {
-            RoomDetails roomDetails = new RoomDetails("x", String.Empty, true, playerCount);
+            RoomDetails roomDetails = new RoomDetails("x", String.Empty, true, 5);
             roomDetails.AddMember(ci.NetworkObject);
             CreatedRooms.Add(roomDetails);
             ConnectionRooms[ci.Owner] = roomDetails;
@@ -184,33 +189,34 @@ public class MatchmakingNetwork : NetworkBehaviour
         }
     }
 
+
     [Client]
-    public static bool CheckForAvailableRoom()
+    public static void CheckForAvailableRoom()
     {
-        return _instance.CheckForAvailableRoomInternal();
+        _instance.CheckForAvailableRoomInternal();
     }
 
-    private bool CheckForAvailableRoomInternal()
+    private void CheckForAvailableRoomInternal()
     { 
         CmdCheckForAvailableRoom();
-        print(CurrentRoom);
-        print("Pokoje: " +CreatedRooms.Count);
-        if (CurrentRoom is not null)
-        {
-            return true;
-        }
-
-        return false;
     }
     //probably it don't have to be server side, we will see
     [ServerRpc(RequireOwnership = false)]
-    private void CmdCheckForAvailableRoom()
+    private void CmdCheckForAvailableRoom(NetworkConnection sender = null)
     {
-        //if someone is already in room - have to move this out to helpers prob, cuz rn we will create new room in this case
-        if (CurrentRoom is not null) return;
-        //if there are no rooms
-        if (CreatedRooms.Count == 0) return;
+        //TODO: Check this twice cuz it was intended to work other way, im too tired to check this now
+        ClientInstance ci;
+        if (!FindClientInstance(sender, out ci))
+            return;
         
+        //if someone is already in room - have to move this out to helpers prob, cuz rn we will create new room in this case
+        //if (CurrentRoom is not null) return;
+        //if there are no rooms
+        if (CreatedRooms.Count == 0)
+        {
+            TargetSendRoomsFailure(ci.Owner, CreatedRooms.Count);
+            return;
+        }
         foreach (var room in CreatedRooms)
         {
             //if is full
@@ -219,8 +225,19 @@ public class MatchmakingNetwork : NetworkBehaviour
             if (room.IsStarted && room.LockOnStart) continue;
             
             //join room
-            CurrentRoom = room;
+            TargetSendRooms(ci.Owner, CreatedRooms.Count);
         }
+    }
+
+    [TargetRpc]
+    private void TargetSendRooms(NetworkConnection conn, int size)
+    {
+        RoomHandler.ThereIsRoom();
+    }
+    [TargetRpc]
+    private void TargetSendRoomsFailure(NetworkConnection conn, int size)
+    {
+        RoomHandler.CreateRoom();
     }
 
     #endregion

@@ -11,25 +11,30 @@ public class RoomHandler : MonoBehaviour
 
     public void ShowPls()
     {
-        if (CheckIfThereIsRoom())
-        {
-            print("Here it is");
-        }
-        else
-        {
-            print("There is no room");
-            CreateRoom();
-        }
+        CheckIfThereIsRoom();
+        // if ()
+        // {
+        //     print("Here it is");
+        // }
+        // else
+        // {
+        //     print("There is no room");
+        //     CreateRoom();
+        // }
     }
-    public bool CheckIfThereIsRoom()
+    public void CheckIfThereIsRoom()
     {
-        return MatchmakingNetwork.CheckForAvailableRoom();
+         MatchmakingNetwork.CheckForAvailableRoom();
     }
-    
+
+    public void ThereIsRoom()
+    {
+        print("UDAŁO SIĘ");
+    }
     [ContextMenu("CreateRoomMenu")]
     public void CreateRoom()
     {
-        if (_awaitingForResponseRoomCreate) return;
+        //if (_awaitingForResponseRoomCreate) return;
         int playerCount = 1;
         string failedReason = String.Empty;
         //if cannot create

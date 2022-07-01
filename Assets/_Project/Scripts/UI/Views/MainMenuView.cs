@@ -18,6 +18,7 @@ public class MainMenuView : View
     [SerializeField] private SceneLoader _sceneLoader;
     
 
+    //dont Call this on client or everything will brake
     public override void Initialize()
     {
         _startButton.onClick.AddListener(() =>
