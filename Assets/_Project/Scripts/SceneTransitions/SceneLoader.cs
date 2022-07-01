@@ -13,6 +13,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private string[] _scenes = new string[0];
     [SerializeField] private bool _replaceScenes;
 
+    [Server(Logging = LoggingType.Off)]
     public void LoadScene()
     {
         if (!InstanceFinder.NetworkManager.IsServer)
@@ -41,7 +42,7 @@ public class SceneLoader : MonoBehaviour
         sld.Options = loadOptions;
         sld.MovedNetworkObjects = movedObjects.ToArray();
         
-        InstanceFinder.SceneManager.LoadGlobalScenes(sld);
+        InstanceFinder.SceneManager.LoadConnectionScenes(sld);
     }
     
 }
