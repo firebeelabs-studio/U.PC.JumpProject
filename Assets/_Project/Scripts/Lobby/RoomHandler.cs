@@ -8,30 +8,17 @@ public class RoomHandler : MonoBehaviour
 {
     private bool _awaitingForResponseRoomCreate = false;
     private bool _awaitingForResponseRoomFind = false;
+    private string _cachedRoomName;
 
     public void ShowPls()
     {
         CheckIfThereIsRoom();
-        // if ()
-        // {
-        //     print("Here it is");
-        // }
-        // else
-        // {
-        //     print("There is no room");
-        //     CreateRoom();
-        // }
     }
     public void CheckIfThereIsRoom()
     {
          MatchmakingNetwork.CheckForAvailableRoom();
     }
 
-    public void ThereIsRoom()
-    {
-        print("UDAŁO SIĘ");
-    }
-    [ContextMenu("CreateRoomMenu")]
     public void CreateRoom()
     {
         //if (_awaitingForResponseRoomCreate) return;
@@ -46,6 +33,13 @@ public class RoomHandler : MonoBehaviour
         {
             _awaitingForResponseRoomCreate = true;
             MatchmakingNetwork.CreateRoom(playerCount);
+            print("Created!");
         }
+    }
+
+    public void JoinRoom(string roomName)
+    {
+        MatchmakingNetwork.JoinRoom(roomName);
+        print(roomName + " joined!");
     }
 }

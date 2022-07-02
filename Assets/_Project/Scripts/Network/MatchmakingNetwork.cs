@@ -1,15 +1,14 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using FirstGearGames.LobbyAndWorld.Clients;
 using FirstGearGames.LobbyAndWorld.Lobbies.JoinCreateRoomCanvases;
 using FishNet;
 using FishNet.Connection;
 using FishNet.Object;
-using UnityEngine;
 
 public class MatchmakingNetwork : NetworkBehaviour
 {
+    #region Public
 
     //currently created rooms
     public List<RoomDetails> CreatedRooms = new List<RoomDetails>();
@@ -17,6 +16,8 @@ public class MatchmakingNetwork : NetworkBehaviour
     public Dictionary<NetworkConnection, RoomDetails> ConnectionRooms = new Dictionary<NetworkConnection, RoomDetails>();
     //called when client creates a room
     public event Action<RoomDetails, NetworkObject> OnClientCreatedRoom;
+    //called when client joins a room
+    public event Action<RoomDetails, NetworkObject> OnClientJoinedRoom;
     //called when a member has joined your room
     public static event Action<NetworkObject> OnMemberJoined;
     public static RoomDetails CurrentRoom
@@ -25,23 +26,31 @@ public class MatchmakingNetwork : NetworkBehaviour
         private set { _instance._currentRoom = value; }
     }
 
+    #endregion
+
+    #region Private
+
     protected RoomHandler RoomHandler;
     private RoomDetails _currentRoom;
     private static MatchmakingNetwork _instance;
 
+    #endregion
+
+    #region Const
 
     private const int MINIMUM_PLAYERS_AMOUNT = 1;
     private const int MAXIMUM_PLAYERS_AMOUNT = 5;
 
+    #endregion
+
+    #region Initialization
     private void Awake()
     {
         _instance = this;
         RoomHandler = FindObjectOfType<RoomHandler>();
     }
-
-    #region Initialization
-
     #endregion
+    
     #region CreateRoom
 
     //Called on client when trying to create a room
@@ -76,7 +85,7 @@ public class MatchmakingNetwork : NetworkBehaviour
             ConnectionRooms[ci.Owner] = roomDetails;
             OnClientCreatedRoom?.Invoke(roomDetails, ci.NetworkObject);
             TargetCreateRoomSuccess(ci.Owner, roomDetails);
-            RpcUpdateRooms(new RoomDetails[] { roomDetails });
+            RpcUpdateRooms(new[] { roomDetails });
 
         }
         else
@@ -142,13 +151,12 @@ public class MatchmakingNetwork : NetworkBehaviour
     }
 
     #endregion
-
+    
     #region Helpers
 
     //Find and out  the ClientInstance for a connection
     private bool FindClientInstance(NetworkConnection conn, out ClientInstance ci)
     {
-        print("in");
         ci = null;
         if (conn is null)
         {
@@ -162,13 +170,41 @@ public class MatchmakingNetwork : NetworkBehaviour
             print("ClientInstance not found for connection :(");
             return false;
         }
-        print("out");
 
         return true;
     }
 
-    #endregion
+    private RoomDetails ReturnRoomDetails(string roomName)
+    {
+        for (int i = 0; i < CreatedRooms.Count; i++)
+        {
+            if (CreatedRooms[i].Name.Equals(roomName, StringComparison.CurrentCultureIgnoreCase))
+            {
+                return CreatedRooms[i];
+            }
+        }
 
+        return null;
+    }
+    
+    //Find room by NetworkObject
+    private RoomDetails ReturnRoomDetails(NetworkObject clientId)
+    {
+        for (int i = 0; i < CreatedRooms.Count; i++)
+        {
+            for (int j = 0; j < CreatedRooms[i].MemberIds.Count; j++)
+            {
+                if (CreatedRooms[i].MemberIds[j] == clientId)
+                {
+                    return CreatedRooms[i];
+                }
+            }
+        }
+        return null;
+    }
+
+    #endregion
+    
     #region Manage Rooms
     
     //Updates rooms on all clients. Even these ones in matches. We can ignore that till we will make normal lobby system i guess
@@ -204,19 +240,20 @@ public class MatchmakingNetwork : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void CmdCheckForAvailableRoom(NetworkConnection sender = null)
     {
-        //TODO: Check this twice cuz it was intended to work other way, im too tired to check this now
         ClientInstance ci;
         if (!FindClientInstance(sender, out ci))
             return;
         
         //if someone is already in room - have to move this out to helpers prob, cuz rn we will create new room in this case
         //if (CurrentRoom is not null) return;
+        
         //if there are no rooms
         if (CreatedRooms.Count == 0)
         {
-            TargetSendRoomsFailure(ci.Owner, CreatedRooms.Count);
+            TargetSendRoomsFailure(ci.Owner);
             return;
         }
+        
         foreach (var room in CreatedRooms)
         {
             //if is full
@@ -225,23 +262,121 @@ public class MatchmakingNetwork : NetworkBehaviour
             if (room.IsStarted && room.LockOnStart) continue;
             
             //join room
-            TargetSendRooms(ci.Owner, CreatedRooms.Count);
+            TargetSendRooms(ci.Owner, room.Name);
+            return;
         }
+        //rooms are full, create new one
+        TargetSendRoomsFailure(ci.Owner);
     }
 
     [TargetRpc]
-    private void TargetSendRooms(NetworkConnection conn, int size)
+    private void TargetSendRooms(NetworkConnection conn, string roomName)
     {
-        RoomHandler.ThereIsRoom();
+        RoomHandler.JoinRoom(roomName);
     }
+    
     [TargetRpc]
-    private void TargetSendRoomsFailure(NetworkConnection conn, int size)
+    private void TargetSendRoomsFailure(NetworkConnection conn)
     {
         RoomHandler.CreateRoom();
     }
 
     #endregion
+    
     #region JoinRoom
+
+    [Client]
+    public static void JoinRoom(string roomName)
+    {
+        _instance.JoinRoomInternal(roomName);
+    }
+
+    private void JoinRoomInternal(string roomName)
+    {
+        CmdJoinRoom(roomName);
+    }
+    
+    [ServerRpc(RequireOwnership = false)]
+    private void CmdJoinRoom(string roomName, NetworkConnection sender = null)
+    {
+        ClientInstance ci;
+        
+        if (!FindClientInstance(sender, out ci)) return;
+
+        string failedReason = string.Empty;
+        RoomDetails roomDetails = null;
+        bool success = OnJoinRoom(roomName, ci.NetworkObject, ref failedReason, ref roomDetails);
+        if (success)
+        {
+            roomDetails.AddMember(ci.NetworkObject);
+            ConnectionRooms[ci.Owner] = roomDetails;
+            TargetJoinRoomSuccess(ci.Owner, roomDetails);
+            OnClientJoinedRoom?.Invoke(roomDetails, ci.NetworkObject);
+
+            RpcUpdateRooms(new[] { roomDetails });
+            foreach (NetworkObject item in roomDetails.MemberIds)
+            {
+                TargetMemberJoined(item.Owner, ci.NetworkObject);
+            }
+        }
+        else
+        {
+            TargetJoinRoomFailed(ci.Owner, failedReason);
+        }
+    }
+
+    private bool OnJoinRoom(string roomName, NetworkObject joiner, ref string failedReason, ref RoomDetails roomDetails)
+    {
+        if (ReturnRoomDetails(joiner) is not null)
+        {
+            failedReason = "You are already in a room.";
+            return false;
+        }
+
+        roomDetails = ReturnRoomDetails(roomName);
+        if (roomDetails is null)
+        {
+            failedReason = "Room does not exist.";
+            return false;
+        }
+        else
+        {
+            //is full
+            if (roomDetails.MemberIds.Count >= roomDetails.MaxPlayers)
+            {
+                failedReason = "Room is full,";
+                return false;
+            }
+            //is started
+            if (roomDetails.IsStarted && roomDetails.LockOnStart)
+            {
+                failedReason = "Room has already started.";
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
+    [TargetRpc]
+    private void TargetJoinRoomSuccess(NetworkConnection conn, RoomDetails roomDetails)
+    {
+        CurrentRoom = roomDetails;
+    }
+
+    [TargetRpc]
+    private void TargetMemberJoined(NetworkConnection conn, NetworkObject member)
+    {
+        if (CurrentRoom is null) return;
+
+        MemberJoined(member);
+    }
+
+    [TargetRpc]
+    private void TargetJoinRoomFailed(NetworkConnection conn, string failedReason)
+    {
+        CurrentRoom = null;
+    }
 
     private void MemberJoined(NetworkObject member)
     {
@@ -249,6 +384,5 @@ public class MatchmakingNetwork : NetworkBehaviour
         OnMemberJoined?.Invoke(member);
     }
     
-
     #endregion
 }
