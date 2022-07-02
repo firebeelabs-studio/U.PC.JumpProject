@@ -28,6 +28,7 @@ namespace FishNet.CodeGenerating.Helping
         internal string SyncDictionary_Name;
         internal string SyncHashSet_Name;
         //Prediction.
+        internal MethodReference NetworkBehaviour_SetLastReconcileTick_MethodRef;
         internal MethodReference NetworkBehaviour_TransformMayChange_MethodRef;
         internal MethodReference NetworkBehaviour_SendReplicateRpc_MethodRef;
         internal MethodReference NetworkBehaviour_SendReconcileRpc_MethodRef;
@@ -159,6 +160,9 @@ namespace FishNet.CodeGenerating.Helping
                     NetworkBehaviour_SendObserversRpc_MethodRef = CodegenSession.ImportReference(mi);
                 else if (mi.Name == nameof(NetworkBehaviour.SendTargetRpc))
                     NetworkBehaviour_SendTargetRpc_MethodRef = CodegenSession.ImportReference(mi);
+                //Prediction.
+                else if (mi.Name == nameof(NetworkBehaviour.SetLastReconcileTick))
+                    NetworkBehaviour_SetLastReconcileTick_MethodRef = CodegenSession.ImportReference(mi);
                 //Misc.
                 else if (mi.Name == nameof(NetworkBehaviour.TransformMayChange))
                     NetworkBehaviour_TransformMayChange_MethodRef = CodegenSession.ImportReference(mi);
@@ -252,7 +256,21 @@ namespace FishNet.CodeGenerating.Helping
         /// <param name="rpcType"></param>
         internal void CreateRpcDelegate(bool runLocally, TypeDefinition typeDef, MethodDefinition readerMethodDef, RpcType rpcType, uint methodHash, CustomAttribute rpcAttribute)
         {
-            
+            //PROSTART            
+            if (CodeStripping.StripBuild)
+            {
+                /* Clients do not need to register serverRpcs since they won't
+                 * get them, just as server doesn't need to register client rpcs. */
+                bool isServerRpc = (rpcType == RpcType.Server);
+                if (
+                    (isServerRpc && CodeStripping.ReleasingForClient) ||
+                       (!isServerRpc && CodeStripping.ReleasingForServer)
+                    )
+                {
+                    return;
+                }
+            }
+            //PROEND
 
             MethodDefinition methodDef = typeDef.GetMethod(NetworkBehaviourProcessor.NETWORKINITIALIZE_EARLY_INTERNAL_NAME);
             ILProcessor processor = methodDef.Body.GetILProcessor();
