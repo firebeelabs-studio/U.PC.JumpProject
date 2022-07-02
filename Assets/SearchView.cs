@@ -1,16 +1,25 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class SearchView : View
 {
     [SerializeField] private TMP_Text _textSearch;
-    public int PlayersCount = 0;
-    
-    private void Update()
+    private int _playersCount = 0;
+    public int PlayersCount
     {
-        _textSearch.text = $"Waiting for players {PlayersCount}/5";
+        get { return _playersCount; }
+        set
+        {
+            _playersCount = value;
+            ChangeText(value);
+        }
+    }
+    private void Start()
+    {
+        ChangeText(PlayersCount);
+    }
+    private void ChangeText(int playersCount)
+    {
+        _textSearch.text = $"Waiting for players {playersCount}/5";
     }
 }

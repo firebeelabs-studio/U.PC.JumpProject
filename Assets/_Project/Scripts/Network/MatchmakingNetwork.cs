@@ -1,14 +1,28 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FirstGearGames.LobbyAndWorld.Clients;
+using FirstGearGames.LobbyAndWorld.Lobbies;
 using FirstGearGames.LobbyAndWorld.Lobbies.JoinCreateRoomCanvases;
 using FishNet;
 using FishNet.Connection;
+using FishNet.Managing.Scened;
 using FishNet.Managing.Server;
 using FishNet.Object;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MatchmakingNetwork : NetworkBehaviour
 {
+    #region Types
+
+    private enum ParamsTypes
+    {
+        ServerLoad,
+        MemberLeft
+    }
+
+    #endregion
     #region Public
 
     //currently created rooms
@@ -19,8 +33,13 @@ public class MatchmakingNetwork : NetworkBehaviour
     public event Action<RoomDetails, NetworkObject> OnClientCreatedRoom;
     //called when client joins a room
     public event Action<RoomDetails, NetworkObject> OnClientJoinedRoom;
+    //Called when the server loads scenes for a room.
+    public event Action<RoomDetails, SceneLoadEndEventArgs> OnServerLoadedScenes;
     //called when a member has joined your room
     public static event Action<NetworkObject> OnMemberJoined;
+    //Called after a member has loaded the game scene for your room.
+    public static event Action<NetworkObject> OnMemberStarted;
+    public static event Action<RoomDetails, NetworkObject> OnClientStarted;
     public static RoomDetails CurrentRoom
     {
         get { return _instance._currentRoom; }
@@ -33,13 +52,14 @@ public class MatchmakingNetwork : NetworkBehaviour
 
     protected RoomHandler RoomHandler;
     private RoomDetails _currentRoom;
+    private SearchView _searchView;
     private static MatchmakingNetwork _instance;
 
     #endregion
 
     #region Serialized
 
-    private SearchView _searchView;
+    [SerializeField] private GameSceneConfigurations _gameSceneConfigurations;
 
     #endregion
     
@@ -57,8 +77,67 @@ public class MatchmakingNetwork : NetworkBehaviour
         RoomHandler = FindObjectOfType<RoomHandler>();
         _searchView = FindObjectOfType<SearchView>();
     }
-    #endregion
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        //just in case first we have to unsubscribe
+        ChangeSubscriptions(false);
+        ChangeSubscriptions(true);
+    }
     
+    public override void OnStopServer()
+    {
+        base.OnStopServer();
+        ChangeSubscriptions(false);
+    }
+
+    private void ChangeSubscriptions(bool subscribe)
+    {
+        if (base.NetworkManager is null) return;
+
+        if (subscribe)
+        {
+            base.NetworkManager.SceneManager.OnLoadEnd += SceneManager_OnLoadEnd;
+            base.NetworkManager.SceneManager.OnClientPresenceChangeEnd += SceneManager_OnClientPresenceChangeEnd;
+        }
+        else
+        {
+            base.NetworkManager.SceneManager.OnLoadEnd -= SceneManager_OnLoadEnd;
+            base.NetworkManager.SceneManager.OnClientPresenceChangeEnd -= SceneManager_OnClientPresenceChangeEnd;
+
+        }
+    }
+    #endregion
+
+    #region SceneManagerCallbacks
+
+    // private void SceneManager_OnClientPresenceChangeEnd()
+
+    private void SceneManager_OnLoadEnd(SceneLoadEndEventArgs obj)
+    {
+        if (obj.QueueData.AsServer)
+        {
+            HandleServerLoadedScenes(obj);
+        }
+    }
+
+    private void SceneManager_OnClientPresenceChangeEnd(ClientPresenceChangeEventArgs obj)
+    {
+        //true if client was added to scene
+        if (obj.Added)
+        {
+            HandleClientLoadedScene(obj);
+        }
+    }
+
+    #endregion
+
+    #region NetworkManager callback
+
+    
+
+    #endregion
     #region CreateRoom
 
     //Called on client when trying to create a room
@@ -159,60 +238,7 @@ public class MatchmakingNetwork : NetworkBehaviour
     }
 
     #endregion
-    
-    #region Helpers
 
-    //Find and out  the ClientInstance for a connection
-    private bool FindClientInstance(NetworkConnection conn, out ClientInstance ci)
-    {
-        ci = null;
-        if (conn is null)
-        {
-            print("Connection is null. We are doomed");
-            return false;
-        }
-
-        ci = ClientInstance.ReturnClientInstance(conn);
-        if (ci is null)
-        {
-            print("ClientInstance not found for connection :(");
-            return false;
-        }
-
-        return true;
-    }
-
-    private RoomDetails ReturnRoomDetails(string roomName)
-    {
-        for (int i = 0; i < CreatedRooms.Count; i++)
-        {
-            if (CreatedRooms[i].Name.Equals(roomName, StringComparison.CurrentCultureIgnoreCase))
-            {
-                return CreatedRooms[i];
-            }
-        }
-
-        return null;
-    }
-    
-    //Find room by NetworkObject
-    private RoomDetails ReturnRoomDetails(NetworkObject clientId)
-    {
-        for (int i = 0; i < CreatedRooms.Count; i++)
-        {
-            for (int j = 0; j < CreatedRooms[i].MemberIds.Count; j++)
-            {
-                if (CreatedRooms[i].MemberIds[j] == clientId)
-                {
-                    return CreatedRooms[i];
-                }
-            }
-        }
-        return null;
-    }
-
-    #endregion
-    
     #region Manage Rooms
     
     //Updates rooms on all clients. Even these ones in matches. We can ignore that till we will make normal lobby system i guess
@@ -397,5 +423,267 @@ public class MatchmakingNetwork : NetworkBehaviour
         OnMemberJoined?.Invoke(member);
     }
     
+    #endregion
+
+    #region StartRoom
+
+    [Client]
+    public static void StartGame()
+    {
+        _instance.StartGameInternal();
+    }
+
+    private void StartGameInternal()
+    {
+        CmdStartGame();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void CmdStartGame(NetworkConnection sender = null)
+    {
+        ClientInstance ci;
+        if (!FindClientInstance(sender, out ci)) return;
+
+        RoomDetails roomDetails = ReturnRoomDetails(ci.NetworkObject);
+        string failedReason = string.Empty;
+        bool success = OnCanStartRoom(roomDetails, ci.NetworkObject, ref failedReason, true);
+        if (success)
+        {
+            if (!roomDetails.IsStarted)
+            {
+                roomDetails.IsStarted = true;
+                SceneLoadData sld = new SceneLoadData(_gameSceneConfigurations.GetGameScenes());
+                LoadOptions loadOptions = new LoadOptions
+                {
+                    LocalPhysics = _gameSceneConfigurations.PhysicsMode,
+                    AllowStacking = true
+                };
+                LoadParams loadParams = new LoadParams
+                {
+                    ServerParams = new object[]
+                    {
+                        ParamsTypes.ServerLoad,
+                        roomDetails,
+                        sld
+                    }
+                };
+                sld.Options = loadOptions;
+                sld.Params = loadParams;
+                
+                //load scene only for the server to make sure its possible, and after that it will get users
+                InstanceFinder.SceneManager.LoadConnectionScenes(sld);
+            }
+            else //if game already started we have to catch new buddy
+            {
+                SceneLookupData[] lookups = SceneLookupData.CreateData(roomDetails.Scenes.ToArray());
+                SceneLoadData sld = new SceneLoadData(lookups);
+                //Load for joining client
+                InstanceFinder.SceneManager.LoadConnectionScenes(ci.Owner, sld);
+            }
+        }
+        else
+        {
+            TargetStartGameFailed(ci.Owner, roomDetails, failedReason);
+        }
+    }
+
+    [TargetRpc]
+    private void TargetStartGameFailed(NetworkConnection ciOwner, RoomDetails roomDetails, string failedReason)
+    {
+        //here we should let players know about the error, but we have no error displaying system rn
+    }
+
+    private bool OnCanStartRoom(RoomDetails roomDetails, NetworkObject clientId, ref string failedReason, bool asServer)
+    {
+        //prob not possible, but if it is we are prepared 8)
+        if (roomDetails is null)
+        {
+            failedReason = "Room information is missing.";
+            return false;
+        }
+
+        //also prob not possible
+        if (roomDetails.IsStarted && roomDetails.LockOnStart)
+        {
+            failedReason = "Room has already started. Try another room.";
+            return false;
+        }
+        
+        //Not enough players.
+        if (roomDetails.MemberIds.Count < 1)
+        {
+            failedReason = "There must be at least two players to start a game.";
+            return false;
+        }
+        
+        //No configured scenes.
+        string[] scenes = _gameSceneConfigurations.GetGameScenes();
+        if (scenes == null || scenes.Length == 0)
+        {
+            failedReason = "No scenes are specified as the game scene.";
+            return false;
+        }
+        
+        return true;
+    }
+
+    //called on the server when the server finishes a scene load
+    private void HandleServerLoadedScenes(SceneLoadEndEventArgs args)
+    {
+        object[] parameters = args.QueueData.SceneLoadData.Params.ServerParams;
+        //this can happen only when loading scene for client loded it before server
+        if (parameters is null || parameters.Length == 0) return;
+
+        ParamsTypes pt = (ParamsTypes)parameters[0];
+        if (pt == ParamsTypes.ServerLoad)
+        {
+            ServerLoadedScene(args);
+        }
+    }
+    //called once server has laoded scene for a room
+    private void ServerLoadedScene(SceneLoadEndEventArgs args)
+    {
+        LoadParams lp = args.QueueData.SceneLoadData.Params;
+        if (lp is null || lp.ServerParams.Length < 2) return;
+
+        object[] parameters = lp.ServerParams;
+        RoomDetails roomDetails = (RoomDetails)parameters[1];
+
+        HashSet<Scene> scenes = new HashSet<Scene>();
+        foreach (Scene s in args.LoadedScenes)
+        {
+            scenes.Add(s);
+        }
+        //scenes must be stored in roomdetails so the server knows which to unload
+        roomDetails.Scenes = scenes;
+        OnServerLoadedScenes?.Invoke(roomDetails, args);
+        
+        //Load clients into scenes
+        NetworkConnection[] conns = new NetworkConnection[roomDetails.MemberIds.Count];
+        for (int i = 0; i < roomDetails.MemberIds.Count; i++)
+        {
+            conns[i] = roomDetails.MemberIds[i].Owner;
+        }
+        
+        //Build sceneloaddata
+        SceneLoadData sld = new SceneLoadData(args.LoadedScenes);
+        LoadOptions lo = new LoadOptions()
+        {
+            AllowStacking = true
+        };
+        sld.Options = lo;
+        
+        //Load connections in
+        InstanceFinder.SceneManager.LoadConnectionScenes(conns,sld);
+        
+        //Update rooms to clinets
+        RpcUpdateRooms(new[] { roomDetails });
+    }
+
+    private void HandleClientLoadedScene(ClientPresenceChangeEventArgs args)
+    {
+        //if client is loading into lobby scene there's no reason to check room
+        if (args.Scene == gameObject.scene) return;
+        
+        //find roomdetails for client loaded
+        if (ConnectionRooms.TryGetValue(args.Connection, out RoomDetails roomDetails))
+        {
+            //initialize this only if not already started, it will run once for every loaded scene
+            if (!roomDetails.StartedMembers.Contains(args.Connection.FirstObject))
+            {
+                roomDetails.AddStartedMember(args.Connection.FirstObject);
+                OnClientStarted?.Invoke(roomDetails, args.Connection.FirstObject);
+                TargetLeaveLobby(args.Connection, roomDetails);
+                foreach (NetworkObject item in roomDetails.MemberIds)
+                {
+                    TargetMemberStarted(item.Owner, item);
+                }
+            }
+        }
+        else //Room details not found, client have to unload scene
+        {
+            SceneUnloadData sud = new SceneUnloadData(args.Scene.name);
+            InstanceFinder.SceneManager.UnloadConnectionScenes(args.Connection, sud);
+            TargetLeaveRoomSuccess(args.Connection);
+        }
+    }
+
+    //Called after succesfully leaving a room.
+    [TargetRpc]
+    private void TargetLeaveRoomSuccess(NetworkConnection argsConnection)
+    {
+        //
+    }
+
+    //Called when member has loaded game scenes for your room
+    [TargetRpc]
+    private void TargetMemberStarted(NetworkConnection conn, NetworkObject member)
+    {
+        //we dont wanna do this if user left room
+        if (CurrentRoom is null) return;
+        
+        CurrentRoom.AddStartedMember(member);
+        OnMemberStarted?.Invoke(member);
+    }
+
+    [TargetRpc]
+    private void TargetLeaveLobby(NetworkConnection conn, RoomDetails roomDetails)
+    {
+        //tells a client to leave the lobby
+    }
+
+    #endregion
+    
+    #region Helpers
+
+    //Find and out  the ClientInstance for a connection
+    private bool FindClientInstance(NetworkConnection conn, out ClientInstance ci)
+    {
+        ci = null;
+        if (conn is null)
+        {
+            print("Connection is null. We are doomed");
+            return false;
+        }
+
+        ci = ClientInstance.ReturnClientInstance(conn);
+        if (ci is null)
+        {
+            print("ClientInstance not found for connection :(");
+            return false;
+        }
+
+        return true;
+    }
+
+    private RoomDetails ReturnRoomDetails(string roomName)
+    {
+        for (int i = 0; i < CreatedRooms.Count; i++)
+        {
+            if (CreatedRooms[i].Name.Equals(roomName, StringComparison.CurrentCultureIgnoreCase))
+            {
+                return CreatedRooms[i];
+            }
+        }
+
+        return null;
+    }
+    
+    //Find room by NetworkObject
+    private RoomDetails ReturnRoomDetails(NetworkObject clientId)
+    {
+        for (int i = 0; i < CreatedRooms.Count; i++)
+        {
+            for (int j = 0; j < CreatedRooms[i].MemberIds.Count; j++)
+            {
+                if (CreatedRooms[i].MemberIds[j] == clientId)
+                {
+                    return CreatedRooms[i];
+                }
+            }
+        }
+        return null;
+    }
+
     #endregion
 }

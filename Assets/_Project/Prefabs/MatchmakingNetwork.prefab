@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5360224991450117129}
   - component: {fileID: 5360224991450117128}
   - component: {fileID: 5360224991450117367}
+  - component: {fileID: 7448196045994286981}
   m_Layer: 0
   m_Name: MatchmakingNetwork
   m_TagString: Untagged
@@ -49,6 +50,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 5360224991450117128}
   _networkObjectCache: {fileID: 5360224991450117128}
+  _gameSceneConfigurations: {fileID: 7448196045994286981}
 --- !u!114 &5360224991450117128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,6 +65,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkBehaviours:
   - {fileID: 5360224991450117129}
+  - {fileID: 5360224991450117367}
   SceneTransformProperties:
     Position: {x: 783.6113, y: 479.3794, z: -4.6836696}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -70,7 +73,7 @@ MonoBehaviour:
   _isNetworked: 1
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  _prefabId: 5
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects:
@@ -88,9 +91,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71fd7f855ec523429999fc4e14a1928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 5360224991450117128}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 5360224991450117128}
   _overrideType: 3
   _setHostVisibility: 1
   _observerConditions: []
+--- !u!114 &7448196045994286981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5360224991450117131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1e8d5817e2d41346b280935473e872c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _physicsMode: 2
+  _scenes:
+  - {fileID: 102900000, guid: 4865e19ade7d2b643bbf46cf820a9cc9, type: 3}
+  _sceneNames:
+  - strykusLevel2

@@ -41,6 +41,6 @@ public class RoomHandler : MonoBehaviour
     public void JoinRoom(string roomName)
     {
         MatchmakingNetwork.JoinRoom(roomName);
-        print(roomName + " joined!");
+        MatchmakingNetwork.StartGame();
     }
 }
