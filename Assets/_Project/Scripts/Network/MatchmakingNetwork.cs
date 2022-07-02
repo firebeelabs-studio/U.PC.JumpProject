@@ -4,6 +4,7 @@ using FirstGearGames.LobbyAndWorld.Clients;
 using FirstGearGames.LobbyAndWorld.Lobbies.JoinCreateRoomCanvases;
 using FishNet;
 using FishNet.Connection;
+using FishNet.Managing.Server;
 using FishNet.Object;
 
 public class MatchmakingNetwork : NetworkBehaviour
@@ -36,6 +37,12 @@ public class MatchmakingNetwork : NetworkBehaviour
 
     #endregion
 
+    #region Serialized
+
+    private SearchView _searchView;
+
+    #endregion
+    
     #region Const
 
     private const int MINIMUM_PLAYERS_AMOUNT = 1;
@@ -48,6 +55,7 @@ public class MatchmakingNetwork : NetworkBehaviour
     {
         _instance = this;
         RoomHandler = FindObjectOfType<RoomHandler>();
+        _searchView = FindObjectOfType<SearchView>();
     }
     #endregion
     
@@ -222,6 +230,11 @@ public class MatchmakingNetwork : NetworkBehaviour
                     break;
                 }
             }
+        }
+
+        if (CurrentRoom is not null)
+        {
+            _searchView.PlayersCount = CurrentRoom.MemberIds.Count;
         }
     }
 

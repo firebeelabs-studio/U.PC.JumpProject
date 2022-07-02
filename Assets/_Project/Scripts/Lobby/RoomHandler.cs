@@ -21,6 +21,7 @@ public class RoomHandler : MonoBehaviour
 
     public void CreateRoom()
     {
+        //TODO: block this
         //if (_awaitingForResponseRoomCreate) return;
         int playerCount = 1;
         string failedReason = String.Empty;
