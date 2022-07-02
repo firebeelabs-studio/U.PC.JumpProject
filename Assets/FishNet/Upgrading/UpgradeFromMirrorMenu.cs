@@ -43,30 +43,30 @@ namespace FishNet.Upgrading.Mirror.Editing
         [MenuItem("Fish-Networking/Upgrading/From Mirror/Remove Defines", false, 2)]
         private static void RemoveDefines()
         {
-            string currentDefines = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
-            /* Convert current defines into a hashset. This is so we can
-             * determine if any of our defines were added. Only save playersettings
-             * when a define is added. */
-            HashSet<string> definesHs = new HashSet<string>();
-            string[] currentArr = currentDefines.Split(';');
-
-            bool removed = false;
-            //Add any define which doesn't contain MIRROR.
-            foreach (string item in currentArr)
-            {
-                string itemLower = item.ToLower();
-                if (itemLower != "mirror" && !itemLower.StartsWith("mirror_"))
-                    definesHs.Add(item);
-                else
-                    removed = true;
-            }
-
-            if (removed)
-            {
-                Debug.Log("Removed Mirror defines to player settings.");
-                string changedDefines = string.Join(";", definesHs);
-                PlayerSettings.SetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup, changedDefines);
-            }
+            // string currentDefines = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+            // /* Convert current defines into a hashset. This is so we can
+            //  * determine if any of our defines were added. Only save playersettings
+            //  * when a define is added. */
+            // HashSet<string> definesHs = new HashSet<string>();
+            // string[] currentArr = currentDefines.Split(';');
+            //
+            // bool removed = false;
+            // //Add any define which doesn't contain MIRROR.
+            // foreach (string item in currentArr)
+            // {
+            //     string itemLower = item.ToLower();
+            //     if (itemLower != "mirror" && !itemLower.StartsWith("mirror_"))
+            //         definesHs.Add(item);
+            //     else
+            //         removed = true;
+            // }
+            //
+            // if (removed)
+            // {
+            //     Debug.Log("Removed Mirror defines to player settings.");
+            //     string changedDefines = string.Join(";", definesHs);
+            //     PlayerSettings.SetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup, changedDefines);
+            // }
         }
 
 

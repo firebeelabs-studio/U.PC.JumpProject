@@ -1,6 +1,5 @@
-using System.Collections;
+
 using System.Collections.Generic;
-using FirstGearGames.LobbyAndWorld.Clients;
 using FishNet;
 using UnityEngine;
 using FishNet.Connection;

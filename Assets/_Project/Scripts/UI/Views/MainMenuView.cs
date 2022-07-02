@@ -1,12 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using FirstGearGames.LobbyAndWorld.Lobbies;
-using FishNet;
-using FishNet.Managing.Scened;
-using FishNet.Object;
-using TarodevController;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 public class MainMenuView : View
