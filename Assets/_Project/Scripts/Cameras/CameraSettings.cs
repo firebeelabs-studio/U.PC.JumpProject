@@ -19,6 +19,7 @@ public class CameraSettings : MonoBehaviour
     public float CamZOffset => _camZOffset;
     public float CameraSize => _cameraSize;
     [Space(15)]
+    [Header("Parallax")]
     public bool ShouldParallax;
     public enum ParallaxAxis
     {
@@ -26,6 +27,9 @@ public class CameraSettings : MonoBehaviour
         Horizontal
     }
     public ParallaxAxis Axis;
+    [Space(15)]
+    [Header("ZoomingAreas")]
+    public List<WaypointsToZoom> zoomWaypoints = new();
     private void Awake()
     {
         Instance = this;
