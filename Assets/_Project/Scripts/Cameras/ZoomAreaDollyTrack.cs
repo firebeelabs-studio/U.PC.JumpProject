@@ -48,7 +48,7 @@ public class ZoomAreaDollyTrack : MonoBehaviour
     private void Update()
     {
         var currentPosition = (int)_cameraBody.m_PathPosition;
-        if (currentPosition < _waypointsToZoom[0].waypointNumber || currentPosition > _waypointsToZoom[^1].waypointNumber) return;
+        if ((currentPosition < _waypointsToZoom[0].waypointNumber || currentPosition > _waypointsToZoom[^1].waypointNumber) && _cmcamera.m_Lens.OrthographicSize != _defaultZoom) return;
         for (int i = 0; i <= _waypointsToZoom.Count - 1; i++)
         {
             if (i + 1 > _waypointsToZoom.Count - 1) return;
