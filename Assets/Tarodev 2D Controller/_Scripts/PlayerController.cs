@@ -10,6 +10,9 @@ namespace TarodevController
     [RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
     public partial class PlayerController : NetworkBehaviour, IPlayerController
     {
+        //temp
+        public bool CanMove;
+        
         public bool AllowDoubleJump, AllowDash, AllowCrouch;
 
         // Public for external hooks
@@ -29,6 +32,7 @@ namespace TarodevController
         private Vector2 _speed;
         public Vector2 Speed => _speed;
         private int _fixedFrame;
+   
 
         void Awake()
         {
@@ -75,6 +79,7 @@ namespace TarodevController
 
         private void GatherInput()
         {
+            if (!CanMove) return;
             Input = _input.GatherInput();
             if (Input.DashDown) _dashToConsume = true;
             if (Input.JumpDown)

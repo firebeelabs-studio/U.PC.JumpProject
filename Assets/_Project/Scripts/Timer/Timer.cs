@@ -32,9 +32,7 @@ public class Timer : NetworkBehaviour
     public override void OnStartNetwork()
     {
         base.OnStartNetwork();
-        _isRunStarted = true;
         _initialized = true;
-        _starTime = Time.time;
         //temp
         _timerText = GameObject.Find("TimerText").GetComponent<TextMeshProUGUI>();
     }
@@ -56,7 +54,7 @@ public class Timer : NetworkBehaviour
         _timerText.text = _timeInSeconds.ToString();
     }
 
-    private void RunStart()
+    public void RunStart()
     {
         _starTime = Time.time;
         _isRunStarted = true;

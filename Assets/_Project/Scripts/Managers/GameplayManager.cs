@@ -1,19 +1,25 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using FishNet;
 using FishNet.Connection;
 using FishNet.Managing.Scened;
 using FishNet.Object;
+using TarodevController;
 using UnityEngine;
 
 public class GameplayManager : NetworkBehaviour
 {
     [SerializeField] private Vector2 _spawnPoint;
     [SerializeField] private NetworkObject _playerPrefab;
+    [SerializeField] private Timer _timer;
 
     private RoomDetails _roomDetails;
     private MatchmakingNetwork _matchmakingNetwork;
     private List<NetworkObject> _spawnedPlayerObjects = new();
+    private bool _isStarted;
+
+    #region Initialize
 
     private void OnDestroy()
     {
@@ -58,12 +64,9 @@ public class GameplayManager : NetworkBehaviour
         if (roomDetails != _roomDetails) return;
 
         if (client is null || client.Owner is null) return;
+        
+        SpawnPlayer(client.Owner);
 
-        //Check if all users are loaded, we don't wanna start game before everyone will be here
-        //if (roomDetails.MemberIds.Count == roomDetails.StartedMembers.Count)
-        {
-            SpawnPlayer(client.Owner);
-        }
     }
 
     private void SpawnPlayer(NetworkConnection conn)
@@ -80,6 +83,8 @@ public class GameplayManager : NetworkBehaviour
         RpcTeleport(netIdent, _spawnPoint);
     }
 
+    #endregion
+
     [ObserversRpc]
     private void RpcTeleport(NetworkObject ident, Vector2 position)
     {
@@ -88,10 +93,28 @@ public class GameplayManager : NetworkBehaviour
 
     private void Update()
     {
-        if (_roomDetails.MemberIds.Count == _roomDetails.StartedMembers.Count)
+        if (_roomDetails.MemberIds.Count == _roomDetails.StartedMembers.Count && !_isStarted)
         {
-            //invoke timer
-            print("Everyone are in " + _roomDetails.MemberIds.Count);
+            //dirty, but works, have to clean this temp
+            _isStarted = true;
+           StartCoroutine(WaitBeforeStart());
         }
+    }
+
+    IEnumerator WaitBeforeStart()
+    {
+        //now it's only waiting few seconds before start, but we have to show some feedback to players
+        yield return new WaitForSeconds(3);
+        foreach (var player in _spawnedPlayerObjects)
+        {
+            LetPlayerMove(player.Owner, player);
+        }
+        _timer.RunStart();
+    }
+
+    [TargetRpc]
+    private void LetPlayerMove(NetworkConnection conn, NetworkObject obj)
+    {
+        obj.GetComponent<PlayerController>().CanMove = true;
     }
 }
