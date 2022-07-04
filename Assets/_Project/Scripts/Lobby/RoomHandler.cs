@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class RoomHandler : MonoBehaviour
 {
-    private bool _awaitingForResponseRoomCreate = false;
-    private bool _awaitingForResponseRoomFind = false;
+    [SerializeField] private GameObject _UI;
+    private bool _awaitingForResponseRoomCreate;
+    private bool _awaitingForResponseRoomFind;
     private string _cachedRoomName;
 
     public void ShowPls()
@@ -38,6 +39,16 @@ public class RoomHandler : MonoBehaviour
     public void JoinRoom(string roomName)
     {
         MatchmakingNetwork.JoinRoom(roomName);
+    }
+
+    public void StartGame()
+    {
         MatchmakingNetwork.StartGame();
+    }
+
+    public void HideUI()
+    {
+        //temp solution
+        _UI.SetActive(false);
     }
 }

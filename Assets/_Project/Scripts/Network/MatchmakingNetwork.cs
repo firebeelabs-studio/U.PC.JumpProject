@@ -10,6 +10,8 @@ using UnityEngine.SceneManagement;
 
 public class MatchmakingNetwork : NetworkBehaviour
 {
+    [SerializeField] Camera _camera;
+    
     #region Types
 
     private enum ParamsTypes
@@ -19,6 +21,7 @@ public class MatchmakingNetwork : NetworkBehaviour
     }
 
     #endregion
+    
     #region Public
 
     //currently created rooms
@@ -29,13 +32,17 @@ public class MatchmakingNetwork : NetworkBehaviour
     public event Action<RoomDetails, NetworkObject> OnClientCreatedRoom;
     //called when client joins a room
     public event Action<RoomDetails, NetworkObject> OnClientJoinedRoom;
+    //Called when client leaves a room
+    public event Action<RoomDetails, NetworkObject> OnClientLeftRoom;
     //Called when the server loads scenes for a room.
     public event Action<RoomDetails, SceneLoadEndEventArgs> OnServerLoadedScenes;
     //called when a member has joined your room
     public static event Action<NetworkObject> OnMemberJoined;
     //Called after a member has loaded the game scene for your room.
     public static event Action<NetworkObject> OnMemberStarted;
-    public static event Action<RoomDetails, NetworkObject> OnClientStarted;
+    public event Action<RoomDetails, NetworkObject> OnClientStarted;
+    public event Action<NetworkConnection, RoomDetails> OnClientStarted2;
+    
     public static RoomDetails CurrentRoom
     {
         get { return _instance._currentRoom; }
@@ -72,6 +79,10 @@ public class MatchmakingNetwork : NetworkBehaviour
         _instance = this;
         RoomHandler = FindObjectOfType<RoomHandler>();
         _searchView = FindObjectOfType<SearchView>();
+        _camera = FindObjectOfType<Camera>();
+        //TODO: add delisting
+        InstanceFinder.SceneManager.OnLoadEnd += FlexSceneManager_OnLoadSceneEnd;
+        OnClientStarted2 += OnClientStarted_HideUI;
     }
 
     public override void OnStartServer()
@@ -90,25 +101,48 @@ public class MatchmakingNetwork : NetworkBehaviour
 
     private void ChangeSubscriptions(bool subscribe)
     {
-        if (base.NetworkManager is null) return;
+        if (NetworkManager is null) return;
 
         if (subscribe)
         {
-            base.NetworkManager.SceneManager.OnLoadEnd += SceneManager_OnLoadEnd;
-            base.NetworkManager.SceneManager.OnClientPresenceChangeEnd += SceneManager_OnClientPresenceChangeEnd;
+            NetworkManager.SceneManager.OnLoadEnd += SceneManager_OnLoadEnd;
+            NetworkManager.SceneManager.OnClientPresenceChangeEnd += SceneManager_OnClientPresenceChangeEnd;
         }
         else
         {
-            base.NetworkManager.SceneManager.OnLoadEnd -= SceneManager_OnLoadEnd;
-            base.NetworkManager.SceneManager.OnClientPresenceChangeEnd -= SceneManager_OnClientPresenceChangeEnd;
+            NetworkManager.SceneManager.OnLoadEnd -= SceneManager_OnLoadEnd;
+            NetworkManager.SceneManager.OnClientPresenceChangeEnd -= SceneManager_OnClientPresenceChangeEnd;
 
+        }
+    }
+
+    //prob have to move to another script
+    private void FlexSceneManager_OnLoadSceneEnd(SceneLoadEndEventArgs obj)
+    {
+        if (!obj.QueueData.AsServer) return;
+        
+        object[] p = obj.QueueData.SceneLoadData.Params.ServerParams;
+        if (p is not null && p.Length > 1)
+        {
+            RoomDetails rd = (RoomDetails)p[1];
+
+            foreach (Scene s in obj.LoadedScenes)
+            {
+                GameObject[] gos = s.GetRootGameObjects();
+                for (int i = 0; i < gos.Length; i++)
+                {
+                    if (gos[i].TryGetComponent(out GameplayManager gpm))
+                    {
+                        gpm.Initialize(rd, this);
+                        break;
+                    }
+                }
+            }
         }
     }
     #endregion
 
     #region SceneManagerCallbacks
-
-    // private void SceneManager_OnClientPresenceChangeEnd()
 
     private void SceneManager_OnLoadEnd(SceneLoadEndEventArgs obj)
     {
@@ -134,6 +168,7 @@ public class MatchmakingNetwork : NetworkBehaviour
     
 
     #endregion
+    
     #region CreateRoom
 
     //Called on client when trying to create a room
@@ -152,7 +187,7 @@ public class MatchmakingNetwork : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void CmdCreateRoom(int playerCount, NetworkConnection sender = null)
     {
-        
+        print("starting creating room");
         ClientInstance ci;
         if(!FindClientInstance(sender, out ci)) return;
         print("RpcCall");
@@ -167,6 +202,7 @@ public class MatchmakingNetwork : NetworkBehaviour
             CreatedRooms.Add(roomDetails);
             ConnectionRooms[ci.Owner] = roomDetails;
             OnClientCreatedRoom?.Invoke(roomDetails, ci.NetworkObject);
+            TargetJoinRoomSuccess(ci.Owner, roomDetails);
             TargetCreateRoomSuccess(ci.Owner, roomDetails);
             RpcUpdateRooms(new[] { roomDetails });
 
@@ -194,8 +230,9 @@ public class MatchmakingNetwork : NetworkBehaviour
     {
         CurrentRoom = roomDetails;
         print("Room created");
+        
         //send member joined to self
-        MemberJoined(InstanceFinder.ClientManager.Connection.FirstObject);
+        //MemberJoined(InstanceFinder.ClientManager.Connection.FirstObject);
     }
 
     public static bool SanitizePlayerCount(int count, ref string failedReason)
@@ -254,8 +291,14 @@ public class MatchmakingNetwork : NetworkBehaviour
             }
         }
 
+        print("trying update playercount");
         if (CurrentRoom is not null)
         {
+            print("Updated");
+            foreach (var VARIABLE in CurrentRoom.MemberIds)
+            {
+                print("id: " + VARIABLE);
+            }
             _searchView.PlayersCount = CurrentRoom.MemberIds.Count;
         }
     }
@@ -276,8 +319,7 @@ public class MatchmakingNetwork : NetworkBehaviour
     private void CmdCheckForAvailableRoom(NetworkConnection sender = null)
     {
         ClientInstance ci;
-        if (!FindClientInstance(sender, out ci))
-            return;
+        if (!FindClientInstance(sender, out ci)) return;
         
         //if someone is already in room - have to move this out to helpers prob, cuz rn we will create new room in this case
         //if (CurrentRoom is not null) return;
@@ -285,6 +327,7 @@ public class MatchmakingNetwork : NetworkBehaviour
         //if there are no rooms
         if (CreatedRooms.Count == 0)
         {
+            print("No rooms sending create room order to player");
             TargetSendRoomsFailure(ci.Owner);
             return;
         }
@@ -297,9 +340,11 @@ public class MatchmakingNetwork : NetworkBehaviour
             if (room.IsStarted && room.LockOnStart) continue;
             
             //join room
+            print("Joined");
             TargetSendRooms(ci.Owner, room.Name);
             return;
         }
+        print("Rooms are full");
         //rooms are full, create new one
         TargetSendRoomsFailure(ci.Owner);
     }
@@ -374,20 +419,18 @@ public class MatchmakingNetwork : NetworkBehaviour
             failedReason = "Room does not exist.";
             return false;
         }
-        else
+
+        //is full
+        if (roomDetails.MemberIds.Count >= roomDetails.MaxPlayers)
         {
-            //is full
-            if (roomDetails.MemberIds.Count >= roomDetails.MaxPlayers)
-            {
-                failedReason = "Room is full,";
-                return false;
-            }
-            //is started
-            if (roomDetails.IsStarted && roomDetails.LockOnStart)
-            {
-                failedReason = "Room has already started.";
-                return false;
-            }
+            failedReason = "Room is full,";
+            return false;
+        }
+        //is started
+        if (roomDetails.IsStarted && roomDetails.LockOnStart)
+        {
+            failedReason = "Room has already started.";
+            return false;
         }
 
         return true;
@@ -437,6 +480,7 @@ public class MatchmakingNetwork : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void CmdStartGame(NetworkConnection sender = null)
     {
+        print("starting...");
         ClientInstance ci;
         if (!FindClientInstance(sender, out ci)) return;
 
@@ -452,7 +496,7 @@ public class MatchmakingNetwork : NetworkBehaviour
                 LoadOptions loadOptions = new LoadOptions
                 {
                     LocalPhysics = _gameSceneConfigurations.PhysicsMode,
-                    AllowStacking = true
+                    AllowStacking = true,
                 };
                 LoadParams loadParams = new LoadParams
                 {
@@ -465,7 +509,6 @@ public class MatchmakingNetwork : NetworkBehaviour
                 };
                 sld.Options = loadOptions;
                 sld.Params = loadParams;
-                
                 //load scene only for the server to make sure its possible, and after that it will get users
                 InstanceFinder.SceneManager.LoadConnectionScenes(sld);
             }
@@ -487,6 +530,13 @@ public class MatchmakingNetwork : NetworkBehaviour
     private void TargetStartGameFailed(NetworkConnection ciOwner, RoomDetails roomDetails, string failedReason)
     {
         //here we should let players know about the error, but we have no error displaying system rn
+    }
+    
+    //temp
+    [TargetRpc]
+    private void OnClientStarted_HideUI(NetworkConnection arg2, RoomDetails arg1)
+    {
+        RoomHandler.HideUI();
     }
 
     private bool OnCanStartRoom(RoomDetails roomDetails, NetworkObject clientId, ref string failedReason, bool asServer)
@@ -563,7 +613,7 @@ public class MatchmakingNetwork : NetworkBehaviour
         
         //Build sceneloaddata
         SceneLoadData sld = new SceneLoadData(args.LoadedScenes);
-        LoadOptions lo = new LoadOptions()
+        LoadOptions lo = new LoadOptions
         {
             AllowStacking = true
         };
@@ -589,6 +639,7 @@ public class MatchmakingNetwork : NetworkBehaviour
             {
                 roomDetails.AddStartedMember(args.Connection.FirstObject);
                 OnClientStarted?.Invoke(roomDetails, args.Connection.FirstObject);
+                OnClientStarted2?.Invoke(args.Connection, roomDetails);
                 TargetLeaveLobby(args.Connection, roomDetails);
                 foreach (NetworkObject item in roomDetails.MemberIds)
                 {
@@ -626,6 +677,8 @@ public class MatchmakingNetwork : NetworkBehaviour
     private void TargetLeaveLobby(NetworkConnection conn, RoomDetails roomDetails)
     {
         //tells a client to leave the lobby
+        //TODO: take this out
+        _camera.gameObject.SetActive(false);
     }
 
     #endregion

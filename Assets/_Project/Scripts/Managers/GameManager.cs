@@ -13,10 +13,6 @@ public sealed class GameManager : NetworkBehaviour
     public static List<GameObject> Collectibles = new List<GameObject>();
     public static List<GameObject> Platforms = new List<GameObject>();
     public static PlayerController Player = new PlayerController();
-    
-    [field: SyncObject] public readonly SyncList<User> Users = new SyncList<User>();
-
-    [field: SyncVar] public bool CanStart { get; private set; }
 
     private void Awake()
     {
@@ -27,9 +23,6 @@ public sealed class GameManager : NetworkBehaviour
     {
         if (!IsServer) return;
         
-        if (Instance.Users.Count == 0) return;
-        
-        Instance.CanStart = Instance.Users.All(p => p.IsReady == true);
     }
 
     private void OnEnable()

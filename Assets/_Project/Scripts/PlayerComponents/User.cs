@@ -34,14 +34,14 @@ public sealed class User : NetworkBehaviour
     {
         base.OnStartServer();
         UserConnection = NetworkObject.LocalConnection;
-        GameManager.Instance.Users.Add(this);
+        //GameManager.Instance.Users.Add(this);
     }
 
     public override void OnStopServer()
     {
         base.OnStopServer();
         
-        GameManager.Instance.Users.Remove(this);
+        //GameManager.Instance.Users.Remove(this);
     }
 
     public override void OnStartClient()
