@@ -3,7 +3,7 @@ using TarodevController;
 
 public class BoostsNFT : MonoBehaviour
 {
-    public PlayerController _playerController;
+    private PlayerController _playerController;
     
     [SerializeField] private bool _hasAccelerationNFT;
     [SerializeField] private bool _hasMaxSpeedNFT;
