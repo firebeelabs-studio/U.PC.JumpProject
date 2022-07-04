@@ -197,6 +197,7 @@ MonoBehaviour:
   _sceneId: 16151627473570948620
   _sceneNetworkObjects:
   - {fileID: 39860119}
+  - {fileID: 639296430}
   - {fileID: 4862127297083502684}
 --- !u!1 &167022702
 GameObject:
@@ -23224,6 +23225,84 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &639296429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 639296432}
+  - component: {fileID: 639296431}
+  - component: {fileID: 639296430}
+  m_Layer: 0
+  m_Name: GameplayManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &639296430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639296429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkBehaviours:
+  - {fileID: 639296431}
+  SceneTransformProperties:
+    Position: {x: 971.0485, y: 560.519, z: -4.672842}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    LocalScale: {x: 1, y: 1, z: 1}
+  _isNetworked: 1
+  _hasParentNetworkObjectAtEdit: 0
+  NetworkObserver: {fileID: 0}
+  _prefabId: -1
+  _scenePathHash: 3760593820
+  _sceneId: 16151627472535864680
+  _sceneNetworkObjects:
+  - {fileID: 39860119}
+  - {fileID: 639296430}
+  - {fileID: 4862127297083502684}
+--- !u!114 &639296431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639296429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa621fdea34d44344929974ccddfd221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 639296430}
+  _networkObjectCache: {fileID: 639296430}
+  _spawnPoint: {x: 0, y: 0}
+  _playerPrefab: {fileID: 1419814596373140149, guid: 4cc84fa9d8ad2e14f89ff82e7dfae793, type: 3}
+--- !u!4 &639296432
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639296429}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 971.0485, y: 560.519, z: -4.672842}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &680872863 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 970441465181029926, guid: 7ad3e6761c0ae5943b199ac72099b059, type: 3}
@@ -25084,6 +25163,7 @@ MonoBehaviour:
   _sceneId: 16151627470491074449
   _sceneNetworkObjects:
   - {fileID: 39860119}
+  - {fileID: 639296430}
   - {fileID: 4862127297083502684}
 --- !u!114 &4862127297238562048
 MonoBehaviour:
@@ -25147,7 +25227,6 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 4862127297083502684}
   _networkObjectCache: {fileID: 4862127297083502684}
-  TestObj: {fileID: 0}
 --- !u!4 &4862127297919512522
 Transform:
   m_ObjectHideFlags: 0
@@ -25327,6 +25406,18 @@ PrefabInstance:
     - target: {fileID: 4979480409746540761, guid: c837009158deb0d43a03f78cbcb6e1f4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979480409746540766, guid: c837009158deb0d43a03f78cbcb6e1f4, type: 3}
+      propertyPath: Axis
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979480409746540766, guid: c837009158deb0d43a03f78cbcb6e1f4, type: 3}
+      propertyPath: _cameraSize
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979480409746540766, guid: c837009158deb0d43a03f78cbcb6e1f4, type: 3}
+      propertyPath: ShouldParallax
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c837009158deb0d43a03f78cbcb6e1f4, type: 3}

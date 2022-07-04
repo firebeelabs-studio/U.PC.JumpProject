@@ -50,6 +50,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 5360224991450117128}
   _networkObjectCache: {fileID: 5360224991450117128}
+  _camera: {fileID: 0}
   _gameSceneConfigurations: {fileID: 7448196045994286981}
 --- !u!114 &5360224991450117128
 MonoBehaviour:
@@ -73,7 +74,7 @@ MonoBehaviour:
   _isNetworked: 1
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: 5
+  _prefabId: 6
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects:
@@ -109,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6554c77030df8334bb41d5f26353839c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _physicsMode: 2
+  _physicsMode: -1
   _scenes:
   - {fileID: 102900000, guid: 4865e19ade7d2b643bbf46cf820a9cc9, type: 3}
   _sceneNames:
