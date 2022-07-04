@@ -20,13 +20,13 @@ public class GhostManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        FinishLevel.EndRun += EndRun;
+        // FinishLevel.EndRun += EndRun;
         StartRun.RunStart += RunStart;
     }
 
     private void OnDisable()
     {
-        FinishLevel.EndRun -= EndRun;
+        // FinishLevel.EndRun -= EndRun;
         StartRun.RunStart -= RunStart;
     }
 

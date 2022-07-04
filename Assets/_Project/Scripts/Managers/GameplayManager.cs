@@ -10,10 +10,11 @@ using UnityEngine;
 
 public class GameplayManager : NetworkBehaviour
 {
+    public event Action<NetworkConnection> EndRun;
+
     [SerializeField] private Vector2 _spawnPoint;
     [SerializeField] private NetworkObject _playerPrefab;
     [SerializeField] private Timer _timer;
-
     private RoomDetails _roomDetails;
     private MatchmakingNetwork _matchmakingNetwork;
     private List<NetworkObject> _spawnedPlayerObjects = new();
@@ -30,12 +31,14 @@ public class GameplayManager : NetworkBehaviour
         }
     }
 
+    [Server]
     public void Initialize(RoomDetails roomDetails, MatchmakingNetwork matchmakingNetwork)
     {
         _roomDetails = roomDetails;
         _matchmakingNetwork = matchmakingNetwork;
         _matchmakingNetwork.OnClientStarted += MatchmakingNetwork_OnClientStarted;
         _matchmakingNetwork.OnClientLeftRoom += MatchmakingNetwork_OnClientLeftRoom;
+        EndRun += OnEndRun_SetTimer;
     }
 
     private void MatchmakingNetwork_OnClientLeftRoom(RoomDetails arg1, NetworkObject arg2)
@@ -69,6 +72,7 @@ public class GameplayManager : NetworkBehaviour
 
     }
 
+    //Here we can initialize Player stats via nft, skins etc.
     private void SpawnPlayer(NetworkConnection conn)
     {
         //Create object and move it to proper scene
@@ -91,6 +95,8 @@ public class GameplayManager : NetworkBehaviour
         ident.transform.position = position;
     }
 
+    //i don't like this one, but atm i dont see any better solution
+    [Server]
     private void Update()
     {
         if (_roomDetails.MemberIds.Count == _roomDetails.StartedMembers.Count && !_isStarted)
@@ -107,14 +113,37 @@ public class GameplayManager : NetworkBehaviour
         yield return new WaitForSeconds(3);
         foreach (var player in _spawnedPlayerObjects)
         {
-            LetPlayerMove(player.Owner, player);
+            TargetLetPlayerMove(player.Owner, player);
         }
         _timer.RunStart();
     }
 
     [TargetRpc]
-    private void LetPlayerMove(NetworkConnection conn, NetworkObject obj)
+    private void TargetLetPlayerMove(NetworkConnection conn, NetworkObject obj)
     {
         obj.GetComponent<PlayerController>().CanMove = true;
     }
+
+    #region FinishRun
+
+    [Server]
+    public void PlayerEndRun(NetworkConnection conn)
+    {
+        EndRun?.Invoke(conn);
+    }
+    [Server]
+    private void OnEndRun_SetTimer(NetworkConnection conn)
+    {
+        _timer.EndRun(conn, _spawnedPlayerObjects.Count);
+    }
+
+    [TargetRpc]
+    private void TargetBlockPlayerMovement(NetworkConnection conn, NetworkObject obj)
+    {
+        obj.GetComponent<PlayerController>().CanMove = false;
+    }
+
+    #endregion
+
+    
 }

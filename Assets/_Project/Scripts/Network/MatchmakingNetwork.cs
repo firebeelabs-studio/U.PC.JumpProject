@@ -187,10 +187,8 @@ public class MatchmakingNetwork : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void CmdCreateRoom(int playerCount, NetworkConnection sender = null)
     {
-        print("starting creating room");
         ClientInstance ci;
         if(!FindClientInstance(sender, out ci)) return;
-        print("RpcCall");
         string failedReason = string.Empty;
         bool success = OnCreateRoom(playerCount, ref failedReason);
 
@@ -229,8 +227,7 @@ public class MatchmakingNetwork : NetworkBehaviour
     private void TargetCreateRoomSuccess(NetworkConnection ciOwner, RoomDetails roomDetails)
     {
         CurrentRoom = roomDetails;
-        print("Room created");
-        
+
         //send member joined to self
         //MemberJoined(InstanceFinder.ClientManager.Connection.FirstObject);
     }
@@ -290,11 +287,9 @@ public class MatchmakingNetwork : NetworkBehaviour
                 }
             }
         }
-
-        print("trying update playercount");
+        
         if (CurrentRoom is not null)
         {
-            print("Updated");
             foreach (var VARIABLE in CurrentRoom.MemberIds)
             {
                 print("id: " + VARIABLE);
@@ -340,11 +335,9 @@ public class MatchmakingNetwork : NetworkBehaviour
             if (room.IsStarted && room.LockOnStart) continue;
             
             //join room
-            print("Joined");
             TargetSendRooms(ci.Owner, room.Name);
             return;
         }
-        print("Rooms are full");
         //rooms are full, create new one
         TargetSendRoomsFailure(ci.Owner);
     }
@@ -480,7 +473,6 @@ public class MatchmakingNetwork : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void CmdStartGame(NetworkConnection sender = null)
     {
-        print("starting...");
         ClientInstance ci;
         if (!FindClientInstance(sender, out ci)) return;
 

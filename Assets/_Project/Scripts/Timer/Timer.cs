@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using TMPro;
 using UnityEngine;
 
+//TODO: make this script server only
 public class Timer : NetworkBehaviour
 {
     [SerializeField]
@@ -17,18 +20,8 @@ public class Timer : NetworkBehaviour
     [SyncVar(OnChange = nameof(On_TimeChange))]
     private float _timeInSeconds;
 
-
-    // private void OnEnable()
-    // {
-    //     FinishLevel.EndRun += EndRun;
-    //     StartRun.RunStart += RunStart;
-    // }
-    //
-    // private void OnDisable()
-    // {
-    //     FinishLevel.EndRun -= EndRun;
-    //     StartRun.RunStart -= RunStart;
-    // }
+    private Dictionary<NetworkConnection, float> _finishes = new();
+    
     public override void OnStartNetwork()
     {
         base.OnStartNetwork();
@@ -37,6 +30,7 @@ public class Timer : NetworkBehaviour
         _timerText = GameObject.Find("TimerText").GetComponent<TextMeshProUGUI>();
     }
 
+    [Server]
     private void Update()
     {
         if (!_isRunStarted || !_initialized) return;
@@ -60,8 +54,25 @@ public class Timer : NetworkBehaviour
         _isRunStarted = true;
     }
 
-    private void EndRun()
+    public void EndRun(NetworkConnection conn, int playerCount)
     {
-        _isRunStarted = false;
+        //prevents running this code few times
+        if (!_isRunStarted) return;
+        
+        if (!_finishes.ContainsKey(conn))
+        {
+            _finishes.Add(conn, _timeInSeconds);
+        }
+
+        if (_finishes.Count >= playerCount)
+        {
+            _isRunStarted = false;
+            int temp = 1;
+            foreach (var finisher in _finishes.Values)
+            {
+                print($"Place {temp} time: {finisher}");
+                temp++;
+            }
+        }
     }
 }
