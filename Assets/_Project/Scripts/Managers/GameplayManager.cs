@@ -85,4 +85,13 @@ public class GameplayManager : NetworkBehaviour
     {
         ident.transform.position = position;
     }
+
+    private void Update()
+    {
+        if (_roomDetails.MemberIds.Count == _roomDetails.StartedMembers.Count)
+        {
+            //invoke timer
+            print("Everyone are in " + _roomDetails.MemberIds.Count);
+        }
+    }
 }
