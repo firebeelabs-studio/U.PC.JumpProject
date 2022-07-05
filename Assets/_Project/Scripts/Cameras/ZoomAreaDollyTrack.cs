@@ -14,9 +14,7 @@ public class ZoomAreaDollyTrack : MonoBehaviour
     private float _defaultZoom;
     private float _zoomSpeed;
     private int _previousWaypoint, _nextWaypoint;
-    private bool _shouldZoom = true;
     private float _targetSize;
-    private bool _canZoom = true;
 
     private void Awake()
     {
@@ -55,20 +53,16 @@ public class ZoomAreaDollyTrack : MonoBehaviour
     }
     private void Zoom(int waypointNumber)
     {
-        if (!_canZoom) return;   
-        if (_zoomWaypoints[waypointNumber].zoomType == WaypointsToZoom.ZoomType.ZoomIn)
+        var index = waypointNumber - _zoomWaypoints[0].waypointNumber; //always gets first index of list
+        if (_zoomWaypoints[index].zoomType == WaypointsToZoom.ZoomType.ZoomIn)
         {
-            _targetSize = _defaultZoom + _zoomWaypoints[waypointNumber].zoomValue;
+            _targetSize = _defaultZoom - _zoomWaypoints[index].zoomValue;
         }
         else
         {
-            _targetSize = _defaultZoom - _zoomWaypoints[waypointNumber].zoomValue;
+            _targetSize = _defaultZoom + _zoomWaypoints[index].zoomValue;
         }
-        if (_vcam.m_Lens.OrthographicSize == _targetSize)
-        {
-            _canZoom = false;
-            return;
-        }
+        if (_vcam.m_Lens.OrthographicSize == _targetSize) return;
         _vcam.m_Lens.OrthographicSize = Mathf.MoveTowards(_vcam.m_Lens.OrthographicSize, _targetSize, _zoomSpeed * Time.deltaTime);
     }
     private void ZoomReset()
@@ -76,10 +70,6 @@ public class ZoomAreaDollyTrack : MonoBehaviour
         if (_vcam.m_Lens.OrthographicSize != _defaultZoom)
         {
             _vcam.m_Lens.OrthographicSize = Mathf.MoveTowards(_vcam.m_Lens.OrthographicSize, _defaultZoom, _zoomSpeed * Time.deltaTime);
-        }
-        else
-        {
-            _canZoom = true;
         }
     }
     private void CheckPosition(float currentPos)
@@ -97,17 +87,19 @@ public class ZoomAreaDollyTrack : MonoBehaviour
         }
         else
         {
-            if (currentPos >= _previousWaypoint)
+            if (currentPos >= _previousWaypoint && currentPos < _nextWaypoint) //checks if current position if between two waypoints
             {
-                ChangeWaypoints(true);
+                Zoom(_previousWaypoint);
             }
-            else
+            else if (_previousWaypoint != _zoomWaypoints[0].waypointNumber && currentPos < _previousWaypoint) //checks if player passed previous ( <--O-- ) waypoint and decrease it's numbers by 1
             {
                 ChangeWaypoints(false);
             }
-            Zoom(_previousWaypoint);
+            else if (_nextWaypoint != _zoomWaypoints[^1].waypointNumber && currentPos > _nextWaypoint) //checks if player passed next ( --O--> ) waypoint and increase it's numbers by 1
+            {
+                ChangeWaypoints(true);
+            }
         }
-        
     }
     private void ChangeWaypoints(bool doIncrement)
     {
@@ -121,6 +113,5 @@ public class ZoomAreaDollyTrack : MonoBehaviour
             _previousWaypoint -= 1;
             _nextWaypoint -= 1;
         }
-        _canZoom = true;
     }
 }
