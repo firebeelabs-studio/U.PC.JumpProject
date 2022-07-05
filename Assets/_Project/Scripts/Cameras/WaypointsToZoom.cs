@@ -9,6 +9,7 @@ public class WaypointsToZoom
     public enum ZoomType
     {
         ZoomIn,
-        ZoomOut
+        ZoomOut,
+        ResetToDefault
     }
 }

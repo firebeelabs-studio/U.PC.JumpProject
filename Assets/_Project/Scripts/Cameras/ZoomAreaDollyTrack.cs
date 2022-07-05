@@ -27,43 +27,62 @@ public class ZoomAreaDollyTrack : MonoBehaviour
     }
     private void Start()
     {
-        if (_zoomWaypoints.Count == 0) //disables script if there's no waypoints to zooming
+        if (_zoomWaypoints.Count < 2) //disables script if there's no at least 2 waypoints to zoom
         {
             enabled = false;
         }
-        if (_zoomWaypoints.Count > _dollyTrack.m_Waypoints.Length) //if there's more waypoints in list than waypoints for real(dolly track) it removes excess
+        else
         {
-            _zoomWaypoints.RemoveRange((int)_dollyTrack.m_Waypoints.Length, (int)(_zoomWaypoints.Count - _dollyTrack.m_Waypoints.Length));
-        }
-        foreach (WaypointsToZoom waypoint in _zoomWaypoints)
-        {
-            if (waypoint.zoomValue < 0) //if entered the negative value it changes it to positive
+            if (_zoomWaypoints.Count > _dollyTrack.m_Waypoints.Length-1) //if there's more waypoints in list than waypoints for real (dolly track) it removes excess
             {
-                waypoint.zoomValue *= -1;
+                _zoomWaypoints.RemoveRange((int)_dollyTrack.m_Waypoints.Length-1, (int)(_zoomWaypoints.Count - _dollyTrack.m_Waypoints.Length));
             }
+            foreach (WaypointsToZoom waypoint in _zoomWaypoints)
+            {
+                if (waypoint.zoomValue < 0) //if entered the negative value it changes it to positive
+                {
+                    waypoint.zoomValue *= -1;
+                }
+                if (waypoint.zoomType == WaypointsToZoom.ZoomType.ResetToDefault)
+                {
+                    waypoint.zoomValue = 0;
+                }
+            }
+            _zoomWaypoints = _zoomWaypoints.OrderBy(x => x.waypointNumber).ToList(); //sorts list ascending (0 -> 1 -> 2...)
+            if (_zoomWaypoints[^1].waypointNumber == _dollyTrack.m_Waypoints.Length-1)
+            {
+                _zoomWaypoints.Remove(_zoomWaypoints[^1]);
+            }
+            _previousWaypoint = _zoomWaypoints[0].waypointNumber;
+            _nextWaypoint = _zoomWaypoints[1].waypointNumber;
         }
-        _zoomWaypoints = _zoomWaypoints.OrderBy(x => x.waypointNumber).ToList(); //sorts list ascending (0 -> 1 -> 2...)
-        _previousWaypoint = _zoomWaypoints[0].waypointNumber;
-        _nextWaypoint = _zoomWaypoints[1].waypointNumber;
     }
     private void Update()
     {
-        var currentPosition = _cameraBody.m_PathPosition;
+        float currentPosition = _cameraBody.m_PathPosition;
         CheckPosition(currentPosition);
     }
     private void Zoom(int waypointNumber)
     {
-        var index = waypointNumber - _zoomWaypoints[0].waypointNumber; //always gets first index of list
-        if (_zoomWaypoints[index].zoomType == WaypointsToZoom.ZoomType.ZoomIn)
+        int index = waypointNumber - _zoomWaypoints[0].waypointNumber; //always gets first index of list
+        if (_zoomWaypoints[index].zoomType == WaypointsToZoom.ZoomType.ResetToDefault)
         {
-            _targetSize = _defaultZoom - _zoomWaypoints[index].zoomValue;
+            ZoomReset();
         }
         else
         {
-            _targetSize = _defaultZoom + _zoomWaypoints[index].zoomValue;
+            if (_zoomWaypoints[index].zoomType == WaypointsToZoom.ZoomType.ZoomIn)
+            {
+                _targetSize = _defaultZoom - _zoomWaypoints[index].zoomValue;
+            }
+            else
+            {
+                _targetSize = _defaultZoom + _zoomWaypoints[index].zoomValue;
+            }
+            if (_vcam.m_Lens.OrthographicSize == _targetSize) return;
+            _vcam.m_Lens.OrthographicSize = Mathf.MoveTowards(_vcam.m_Lens.OrthographicSize, _targetSize, _zoomSpeed * Time.deltaTime);
         }
-        if (_vcam.m_Lens.OrthographicSize == _targetSize) return;
-        _vcam.m_Lens.OrthographicSize = Mathf.MoveTowards(_vcam.m_Lens.OrthographicSize, _targetSize, _zoomSpeed * Time.deltaTime);
+        
     }
     private void ZoomReset()
     {
@@ -74,12 +93,9 @@ public class ZoomAreaDollyTrack : MonoBehaviour
     }
     private void CheckPosition(float currentPos)
     {
-        if ((currentPos < _zoomWaypoints[0].waypointNumber || currentPos > _zoomWaypoints[^1].waypointNumber)) //checks if position of camera is before/after the first/last waypoint
+        if ((currentPos < _zoomWaypoints[0].waypointNumber || currentPos >= _zoomWaypoints[^1].waypointNumber)) //checks if position of camera is before/after the first/last waypoint
         {
-            if (_vcam.m_Lens.OrthographicSize == _defaultZoom) //checks if zoom is set to default
-            {
-                return;
-            }
+            if (_vcam.m_Lens.OrthographicSize == _defaultZoom) return; //checks if zoom is set to default
             else
             {
                 ZoomReset();
