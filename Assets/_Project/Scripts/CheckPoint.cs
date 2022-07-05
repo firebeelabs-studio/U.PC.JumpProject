@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Object;
 using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
@@ -10,6 +11,7 @@ public class CheckPoint : MonoBehaviour
     {
         _spawnManager = FindObjectOfType<Respawn>();
     }
+    
     private void Start()
     {
         _respawnPos = transform.GetChild(0).transform;
@@ -17,6 +19,6 @@ public class CheckPoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        _spawnManager.ChangeSpawnPos(_respawnPos);
+        _spawnManager.ChangeSpawnPos(collision.GetComponent<NetworkObject>().Owner, _respawnPos);
     }
 }

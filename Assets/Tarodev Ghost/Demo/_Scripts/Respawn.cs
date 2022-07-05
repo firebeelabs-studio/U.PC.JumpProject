@@ -1,33 +1,58 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using FishNet.Connection;
+using FishNet.Object;
 using UnityEngine;
 
-public class Respawn : MonoBehaviour {
+public class Respawn : NetworkBehaviour 
+{
+    //resp per connection
+    public Dictionary<NetworkConnection, Transform> _respPoints = new();
+    //wait before resp
     [SerializeField] private float _penaltyTime = 2;
+    //start pos rename that
     [SerializeField] private Transform _respawnPos;
-    private Transform _startPos;
     private float _timeStartedPenalty;
-
-
+    
     private void Start()
     {
         // FinishLevel.EndRun += EndRun;
-        StartRun.RunStart += RunStart;
-        _startPos = _respawnPos;
     }
 
-    public void ChangeSpawnPos(Transform newPos) => _respawnPos = newPos;
+    public void FirstInitialize(List<NetworkObject> players)
+    {
+        //For each player set default respawn
+        foreach (NetworkObject player in players)
+        {
+            _respPoints.Add(player.Owner, _respawnPos);
+        }
+    }
 
-    private void EndRun() => _respawnPos = _startPos;
-    private void RunStart() => _respawnPos = _startPos;
-
-    public IEnumerator RespawnPlayer(Transform player) {
+    [ServerRpc(RequireOwnership = false)]
+    public void ChangeSpawnPos(NetworkConnection conn, Transform newPos)
+    {
+        print("SpawnChanged");
+        _respPoints[conn] = newPos;
+    }
+    //private void EndRun() => _respawnPos = _startPos;
+    
+    public IEnumerator RespawnPlayer(Transform player, NetworkConnection conn) {
         _timeStartedPenalty = Time.time;
         do {
-            player.position = _respawnPos.position;
+            print("RespMePls");
+            SpawnPlayerServer(player, conn);
             GameManager.SpawnAllCollectibles();
             yield return null;
         } while (_timeStartedPenalty + _penaltyTime > Time.time);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SpawnPlayerServer(Transform player, NetworkConnection conn)
+    {
+        player.position = _respPoints[conn].position;
+        print("Respawned");
     }
 
     private void OnDrawGizmosSelected() {

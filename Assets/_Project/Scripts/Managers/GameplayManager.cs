@@ -15,6 +15,7 @@ public class GameplayManager : NetworkBehaviour
     [SerializeField] private Vector2 _spawnPoint;
     [SerializeField] private NetworkObject _playerPrefab;
     [SerializeField] private Timer _timer;
+    [SerializeField] private Respawn _respManager;
     private RoomDetails _roomDetails;
     private MatchmakingNetwork _matchmakingNetwork;
     private List<NetworkObject> _spawnedPlayerObjects = new();
@@ -103,6 +104,7 @@ public class GameplayManager : NetworkBehaviour
         {
             //dirty, but works, have to clean this temp
             _isStarted = true;
+            _respManager.FirstInitialize(_roomDetails.MemberIds);
            StartCoroutine(WaitBeforeStart());
         }
     }
