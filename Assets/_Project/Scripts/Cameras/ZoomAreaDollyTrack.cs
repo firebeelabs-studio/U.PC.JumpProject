@@ -53,6 +53,8 @@ public class ZoomAreaDollyTrack : MonoBehaviour
             {
                 _zoomWaypoints.Remove(_zoomWaypoints[^1]);
             }
+            WaypointsToZoom lastEmptyWaypoint = new(_zoomWaypoints.Count+1, 0,WaypointsToZoom.ZoomType.ResetToDefault);
+            _zoomWaypoints.Add(lastEmptyWaypoint); //adds empty waypoint at the end of list
             _previousWaypoint = _zoomWaypoints[0].waypointNumber;
             _nextWaypoint = _zoomWaypoints[1].waypointNumber;
         }
@@ -82,7 +84,6 @@ public class ZoomAreaDollyTrack : MonoBehaviour
             if (_vcam.m_Lens.OrthographicSize == _targetSize) return;
             _vcam.m_Lens.OrthographicSize = Mathf.MoveTowards(_vcam.m_Lens.OrthographicSize, _targetSize, _zoomSpeed * Time.deltaTime);
         }
-        
     }
     private void ZoomReset()
     {
