@@ -93,25 +93,17 @@ public class ZoomAreaDollyTrack : MonoBehaviour
             }
             else if (_previousWaypoint != _zoomWaypoints[0].waypointNumber && currentPos < _previousWaypoint) //checks if player passed previous ( <--O-- ) waypoint and decrease it's numbers by 1
             {
-                ChangeWaypoints(false);
+                ChangeWaypoints(-1);
             }
             else if (_nextWaypoint != _zoomWaypoints[^1].waypointNumber && currentPos > _nextWaypoint) //checks if player passed next ( --O--> ) waypoint and increase it's numbers by 1
             {
-                ChangeWaypoints(true);
+                ChangeWaypoints(1);
             }
         }
     }
-    private void ChangeWaypoints(bool doIncrement)
+    private void ChangeWaypoints(int changeValue)
     {
-        if (doIncrement)
-        {
-            _previousWaypoint += 1;
-            _nextWaypoint += 1;
-        }
-        else
-        {
-            _previousWaypoint -= 1;
-            _nextWaypoint -= 1;
-        }
+        _previousWaypoint += changeValue;
+        _nextWaypoint += changeValue;
     }
 }
