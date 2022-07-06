@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1165085243}
   - component: {fileID: 18804888}
   - component: {fileID: 740521572428383995}
+  - component: {fileID: 4999861858797138158}
   m_Layer: 0
   m_Name: CM vcam2
   m_TagString: Untagged
@@ -145,6 +146,26 @@ MonoBehaviour:
   _componentIndexCache: 9
   _addedNetworkObject: {fileID: 1165085243}
   _networkObjectCache: {fileID: 1419814596373140149}
+--- !u!114 &4999861858797138158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1165085242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caff56ab194e37a47a9ee9d6947aabf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dollyTrack: {fileID: 0}
+  _waypointsToZoom:
+  - waypointNumber: 1
+    zoomValue: 5
+    zoomType: 1
+  - waypointNumber: 2
+    zoomValue: 5
+    zoomType: 0
 --- !u!1 &1897455045
 GameObject:
   m_ObjectHideFlags: 0
