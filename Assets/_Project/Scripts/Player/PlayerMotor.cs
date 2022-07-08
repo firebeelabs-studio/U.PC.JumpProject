@@ -9,19 +9,20 @@ using UnityEngine;
 
 public class PlayerMotor : NetworkBehaviour
 {
-    //tutaj inputy
+    public FrameInput Input { get; private set; }
+    private PlayerInput _input;
 
     public struct MoveData
     {
         public float Horizontal;
         public float Vertical;
-        public bool Jump;
+        public bool JumpHeld;
 
-        public MoveData(float horizontal, float vertical, bool jump)
+        public MoveData(float horizontal, float vertical, bool jumpHeld)
         {
             Horizontal = horizontal;
             Vertical = vertical;
-            Jump = jump;
+            JumpHeld = jumpHeld;
         }
     }
     public struct ReconcileData
@@ -39,18 +40,19 @@ public class PlayerMotor : NetworkBehaviour
             AngularVelocity = angularVelocity;
         }
     }
-
-    private PlayerController _playerController;
+    
     private Vector3 _velocity;
     private Vector3 _angularVelocity;
     //true if subscribed to events
     private bool _subscribed;
     private Rigidbody2D _rigidbody;
+    private PlayerMovement _playerMovement;
 
     private void Awake()
     {
-        _playerController = GetComponent<PlayerController>();
         _rigidbody = GetComponent<Rigidbody2D>();
+        _input = GetComponent<PlayerInput>();
+        _playerMovement = GetComponent<PlayerMovement>();
     }
 
     public override void OnStartNetwork()
@@ -106,9 +108,7 @@ public class PlayerMotor : NetworkBehaviour
     {
         transform.position = rd.Position;
         transform.rotation = rd.Rotation;
-        _rigidbody.velocity = rd.Velocity;
-        _rigidbody.velocity = rd.AngularVelocity;
-        
+
     }
 
     [Server]
@@ -124,14 +124,40 @@ public class PlayerMotor : NetworkBehaviour
     [Replicate]
     private void Move(MoveData md, bool asServer, bool replaying = false)
     {
-        _playerController.JumpAndGravity();
-        _playerController.CalculateHorizontal();
-        _playerController.RunCollisionChecks();
-        _playerController.MoveCharacter();
+        _playerMovement.RunCollisionChecks();
+        _playerMovement.CalculateJumpApex();
+        _playerMovement.CalculateGravity();
+        _playerMovement.CalculateJump(md.JumpHeld);
+        _playerMovement.SetMoveClamp();
+        _playerMovement.CalculateHorizontalMovement(md.Horizontal);
+        _playerMovement.MoveCharacter();
+        
+        // Vector2 forces = new Vector2(md.Horizontal, md.Vertical) * 5;
+        // _rigidbody.AddForce(forces);
+        // _playerController.JumpAndGravity();
+        // _playerController.CalculateHorizontal();
+        // _playerController.RunCollisionChecks();
+        // _playerController.MoveCharacter();
     }
 
+    
     private void CheckInput(out MoveData md)
     {
-        md = new MoveData(_playerController.Input.Y, _playerController.Input.X, _playerController.Input.JumpDown);
+        md = default;
+        Input = _input.GatherInput();
+        
+        // if (Input.DashDown) _dashToConsume = true;
+        if (Input.JumpDown)
+        {
+            _playerMovement.PlayerPressedJump();
+        }
+
+        float horizontal = Input.X;
+        float vertical = Input.Y;
+        
+        //if player is not moving, and not jumping we don't wanna update anything
+        if (Input.X == 0f && !Input.JumpHeld) return;
+        
+        md = new MoveData(horizontal, vertical, Input.JumpHeld);
     }
 }

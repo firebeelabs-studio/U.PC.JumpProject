@@ -15203,6 +15203,7 @@ GameObject:
   - component: {fileID: -7711716785194905291}
   - component: {fileID: -4032707631719175513}
   - component: {fileID: 3937777349610990755}
+  - component: {fileID: -2333413260443057676}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -15282,7 +15283,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7514181437703828009}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fe5bc01186854c47911e2ac6f4d9b9b, type: 3}
   m_Name: 
@@ -15513,6 +15514,37 @@ MonoBehaviour:
   _componentIndexCache: 8
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
+--- !u!114 &-2333413260443057676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7514181437703828009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49aed844b4b368249a806e530a4efe7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllowDoubleJump: 0
+  _collider: {fileID: 7514181437703828015}
+  _acceleration: 120
+  _moveClamp: 13
+  _deceleration: 60
+  _apexBonus: 100
+  _jumpHeight: 35
+  _jumpApexThreshold: 40
+  _coyoteTimeThreshold: 7
+  _jumpBuffer: 7
+  _jumpEndEarlyGravityModifier: 3
+  _fallClamp: -60
+  _minFallSpeed: 80
+  _maxFallSpeed: 160
+  _groundingForce: -1.5
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  _detectionRayLength: 0.1
 --- !u!1 &7514181437753337213
 GameObject:
   m_ObjectHideFlags: 0
