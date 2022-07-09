@@ -17,7 +17,7 @@ public class CircularMovingPlatforms : MonoBehaviour
         {
             float angle = i * _angleStep; //setting the starting angle depending on index
             Vector2 newPos = new Vector2(transform.position.x + Mathf.Cos(angle) * _radius, transform.position.y + Mathf.Sin(angle) * _radius); //creating new vector for each platform's position
-            _platforms[i].transform.position = newPos;
+            _platforms[i].position = newPos;
             if (_platforms[i].TryGetComponent<PlatformCircularEffector>(out PlatformCircularEffector effector))
             {
                 effector.Angle = angle;

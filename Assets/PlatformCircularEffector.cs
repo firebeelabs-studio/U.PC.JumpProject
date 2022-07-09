@@ -6,7 +6,7 @@ public class PlatformCircularEffector : MonoBehaviour, IPlayerEffector
     public float Angle;
     public float Radius;
     public float Speed;
-    [SerializeField] private GameObject _axisObj;
+    [SerializeField] private Transform _axisObj;
     private Rigidbody2D _rb;
     private Vector2 _change, _lastPos, _nextPos;
     private float _nextPosX, _nextPosY;
@@ -19,8 +19,8 @@ public class PlatformCircularEffector : MonoBehaviour, IPlayerEffector
     {
         Angle += Time.fixedDeltaTime * Speed; //increasing angle value
         
-        _nextPosX = _axisObj.transform.position.x + Mathf.Cos(Angle) * Radius; //calculating new x position around the axis (parent object)
-        _nextPosY = _axisObj.transform.position.y + Mathf.Sin(Angle) * Radius; //calculating new y position around the axis (parent object)
+        _nextPosX = _axisObj.position.x + Mathf.Cos(Angle) * Radius; //calculating new x position around the axis (parent object)
+        _nextPosY = _axisObj.position.y + Mathf.Sin(Angle) * Radius; //calculating new y position around the axis (parent object)
         _nextPos = new(_nextPosX, _nextPosY); //applying the new position
         _rb.MovePosition(_nextPos);
         if (Angle >= 360f)
