@@ -7,7 +7,7 @@ public class CircularMovingPlatforms : MonoBehaviour
 {
     [SerializeField] private float _radius;
     [SerializeField]private float _speed;
-    [SerializeField] private GameObject[] _platforms;
+    [SerializeField] private Transform[] _platforms;
     private float _angleStep;
 
     private void Start()
