@@ -41,7 +41,7 @@ public class GuilottineObstacle : MonoBehaviour
         else
         {
             _angle += Time.deltaTime * _speed;
-            if (_blade.activeInHierarchy)
+            if (_obstacleType == Obstacle.Blade)
             {
                 MoveObstacle(_blade);
             }
