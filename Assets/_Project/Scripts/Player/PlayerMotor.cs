@@ -136,8 +136,8 @@ public class PlayerMotor : NetworkBehaviour
             //_playerMovement.CalculateGravity();
             //_playerMovement.CalculateJump(_clientMoveData.JumpHeld);
             _playerMovement.SetMoveClamp();
-            _playerMovement.CalculateHorizontalMovement(_clientMoveData.Horizontal, Time.deltaTime);
-            _playerMovement.MoveCharacter(Time.deltaTime);
+            _playerMovement.CalculateHorizontalMovement(_clientMoveData.Horizontal, (float)TimeManager.TickDelta);
+            _playerMovement.MoveCharacter((float)TimeManager.TickDelta);
         }
     }
 

@@ -19,7 +19,6 @@ namespace FishNet.Example.Prediction.CharacterControllers
         {
             public float Horizontal;
             public float Vertical;
-            
         }
         public struct ReconcileData
         {
@@ -107,7 +106,6 @@ namespace FishNet.Example.Prediction.CharacterControllers
         {
             transform.position = rd.Position;
             transform.rotation = rd.Rotation;
-
         }
 
 
