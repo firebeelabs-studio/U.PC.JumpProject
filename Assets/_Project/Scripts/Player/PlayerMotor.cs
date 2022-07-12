@@ -17,12 +17,14 @@ public class PlayerMotor : NetworkBehaviour
         public float Horizontal;
         public float Vertical;
         public bool JumpHeld;
+        public bool Jump;
 
-        public MoveData(float horizontal, float vertical, bool jumpHeld)
+        public MoveData(float horizontal, float vertical, bool jumpHeld, bool jump)
         {
             Horizontal = horizontal;
             Vertical = vertical;
             JumpHeld = jumpHeld;
+            Jump = jump;
         }
     }
     public struct ReconcileData
@@ -30,9 +32,9 @@ public class PlayerMotor : NetworkBehaviour
         public Vector3 Position;
         public Quaternion Rotation;
         public Vector3 Velocity;
-        public Vector3 AngularVelocity;
+        public float AngularVelocity;
 
-        public ReconcileData(Vector3 position, Quaternion rotation, Vector3 velocity, Vector3 angularVelocity)
+        public ReconcileData(Vector3 position, Quaternion rotation, Vector3 velocity, float angularVelocity)
         {
             Position = position;
             Rotation = rotation;
@@ -40,9 +42,9 @@ public class PlayerMotor : NetworkBehaviour
             AngularVelocity = angularVelocity;
         }
     }
-    
+
+    private MoveData _clientMoveData;
     private Vector3 _velocity;
-    private Vector3 _angularVelocity;
     //true if subscribed to events
     private bool _subscribed;
     private Rigidbody2D _rigidbody;
@@ -80,14 +82,23 @@ public class PlayerMotor : NetworkBehaviour
         {
             TimeManager.OnTick += TimeManager_OnTick;
             TimeManager.OnPostTick += TimeManager_OnPostTick;
+            TimeManager.OnUpdate += TimeManager_OnFixedUpdate;
         }
         else
         {
-            TimeManager.OnTick += TimeManager_OnTick;
-            TimeManager.OnPostTick += TimeManager_OnPostTick;
+            TimeManager.OnTick -= TimeManager_OnTick;
+            TimeManager.OnPostTick -= TimeManager_OnPostTick;
         }
     }
-    
+    [Reconcile]
+    private void Reconciliation(ReconcileData rd, bool asServer)
+    {
+        transform.position = rd.Position;
+        // transform.rotation = rd.Rotation;
+        _rigidbody.velocity = rd.Velocity;
+        _rigidbody.angularVelocity = rd.AngularVelocity;
+    }
+        
     private void TimeManager_OnTick()
     {
         if (IsOwner)
@@ -100,64 +111,75 @@ public class PlayerMotor : NetworkBehaviour
         if (IsServer)
         {
             Move(default, true);
+            ReconcileData rd = new ReconcileData(transform.position, transform.rotation, _rigidbody.velocity, _rigidbody.angularVelocity);
+            Reconciliation(rd, true);
         }
-    }
-
-    [Reconcile]
-    private void Reconciliation(ReconcileData rd, bool asServer)
-    {
-        transform.position = rd.Position;
-        transform.rotation = rd.Rotation;
-
     }
 
     [Server]
     private void TimeManager_OnPostTick()
     {
-        if (IsServer)
+        // if (IsServer)
+        // {
+        //     ReconcileData rd = new ReconcileData(transform.position, transform.rotation, _rigidbody.velocity, _rigidbody.angularVelocity);
+        //     Reconciliation(rd, true);
+        // }
+    }
+
+    private void TimeManager_OnFixedUpdate()
+    {
+        if (IsOwner)
         {
-            ReconcileData rd = new ReconcileData(transform.position, transform.rotation, _velocity, _angularVelocity);
-            Reconciliation(rd, true);
+            //_playerMovement.PlayerPressedJump(_clientMoveData.Jump);
+            _playerMovement.RunCollisionChecks();
+            //_playerMovement.CalculateJumpApex();
+            //_playerMovement.CalculateGravity();
+            //_playerMovement.CalculateJump(_clientMoveData.JumpHeld);
+            _playerMovement.SetMoveClamp();
+            _playerMovement.CalculateHorizontalMovement(_clientMoveData.Horizontal, Time.deltaTime);
+            _playerMovement.MoveCharacter(Time.deltaTime);
         }
     }
 
     [Replicate]
     private void Move(MoveData md, bool asServer, bool replaying = false)
     {
-        _playerMovement.RunCollisionChecks();
-        _playerMovement.CalculateJumpApex();
-        _playerMovement.CalculateGravity();
-        _playerMovement.CalculateJump(md.JumpHeld);
-        _playerMovement.SetMoveClamp();
-        _playerMovement.CalculateHorizontalMovement(md.Horizontal);
-        _playerMovement.MoveCharacter();
+        if (asServer || replaying)
+        {
+            //here time track
+            //_playerMovement.PlayerPressedJump(md.Jump);
+            _playerMovement.RunCollisionChecks();
+            //_playerMovement.CalculateJumpApex();
+            //time multiplied
+            //_playerMovement.CalculateGravity();
+            //time track
+            //_playerMovement.CalculateJump(md.JumpHeld);
+            //hard to say
+            _playerMovement.SetMoveClamp();
+            //time
+            _playerMovement.CalculateHorizontalMovement(md.Horizontal, (float)TimeManager.TickDelta);
+            //time
+            _playerMovement.MoveCharacter((float)TimeManager.TickDelta);
+        }
+        else
+        {
+            _clientMoveData = md;
+        }
         
-        // Vector2 forces = new Vector2(md.Horizontal, md.Vertical) * 5;
-        // _rigidbody.AddForce(forces);
-        // _playerController.JumpAndGravity();
-        // _playerController.CalculateHorizontal();
-        // _playerController.RunCollisionChecks();
-        // _playerController.MoveCharacter();
     }
-
     
     private void CheckInput(out MoveData md)
     {
         md = default;
         Input = _input.GatherInput();
-        
-        // if (Input.DashDown) _dashToConsume = true;
-        if (Input.JumpDown)
-        {
-            _playerMovement.PlayerPressedJump();
-        }
 
+        bool pressedJump = Input.JumpDown;
+        bool jumpHeld = Input.JumpHeld;
         float horizontal = Input.X;
         float vertical = Input.Y;
         
         //if player is not moving, and not jumping we don't wanna update anything
-        if (Input.X == 0f && !Input.JumpHeld) return;
-        
-        md = new MoveData(horizontal, vertical, Input.JumpHeld);
+        if (horizontal == 0f && !Input.JumpHeld && !pressedJump) return;
+        md = new MoveData(horizontal, vertical, jumpHeld, pressedJump);
     }
 }

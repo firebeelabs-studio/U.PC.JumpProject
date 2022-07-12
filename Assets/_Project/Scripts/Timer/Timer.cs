@@ -27,7 +27,7 @@ public class Timer : NetworkBehaviour
         base.OnStartNetwork();
         _initialized = true;
         //temp
-        _timerText = GameObject.Find("TimerText").GetComponent<TextMeshProUGUI>();
+//        _timerText = GameObject.Find("TimerText").GetComponent<TextMeshProUGUI>();
     }
 
     [Server]

@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
         _timeManager = InstanceFinder.TimeManager;
     }
 
+    //TODO: move this to playermotor OnUpdate
     private void FixedUpdate()
     {
         _fixedFrame++;
@@ -37,14 +38,15 @@ public class PlayerMovement : MonoBehaviour
         _moveClampUpdatedEveryFrame = _moveClamp;
     }
 
-    public void PlayerPressedJump()
+    public void PlayerPressedJump(bool jumpPressed)
     {
+        if (!jumpPressed) return;
         _lastFrameJumpPressed = _fixedFrame;
         _jumpToConsume = true;
     }
-    public void MoveCharacter()
+    public void MoveCharacter(float delta)
     {
-        var move = _speed * (float)_timeManager.TickDelta;
+        var move = _speed * delta;
         _rb.MovePosition(_rb.position + move);
     }
 
@@ -60,24 +62,24 @@ public class PlayerMovement : MonoBehaviour
     //this move clamp is used to slow player in crawling etc. (based on default move clamp)
     private float _moveClampUpdatedEveryFrame;
 
-    public void CalculateHorizontalMovement(float inputX)
+    public void CalculateHorizontalMovement(float inputX, float delta)
     {
         if (inputX != 0)
         {
             //set horizontal move speed
-            _speed.x += inputX * _acceleration * (float)_timeManager.TickDelta;
+            _speed.x += inputX * _acceleration * delta;
              
             //this clamp prevents infinitely stacking speed, it's based on frameClamp so crawling etc. won't break anything 
             _speed.x = Mathf.Clamp(_speed.x, -_moveClampUpdatedEveryFrame, _moveClampUpdatedEveryFrame);
              
             //apply bonus at the apex of a jump
             var apexBonus = Mathf.Sign(inputX) * _apexBonus * _apexPoint;
-            _speed.x += apexBonus * (float)_timeManager.TickDelta;
+            _speed.x += apexBonus * delta;
         }
         else
         {
             //no input slow down player using deceleration (mario like stop)
-            _speed.x = Mathf.MoveTowards(_speed.x, 0, _deceleration * (float)_timeManager.TickDelta);
+            _speed.x = Mathf.MoveTowards(_speed.x, 0, _deceleration * delta);
         }
         
         if (!_grounded && (_speed.x > 0 && _colRight || _speed.x < 0 && _colLeft))
@@ -133,26 +135,19 @@ public class PlayerMovement : MonoBehaviour
         {
             _speed.y = _jumpHeight;
             _doubleJumpUsable = false;
-            //set to false, so player won't get affected by fall multiplier
             _useShortJumpFallMultiplier = false;
             _jumpToConsume = false;
-            //this one is our improvement, we have double jump only after picking boost 
             AllowDoubleJump = false;
         }
         
         //jump if grounded or within coyote threshold or player did buffered jump
         if (_jumpToConsume && CanUseCoyote || HasBufferedJump)
         {
-            //set how high player should move
             _speed.y = _jumpHeight;
             _useShortJumpFallMultiplier = false;
-            //we shouldn't let player use coyote if already jumped
             _canUseCoyote = false;
-            //if we already've jumped we can't do this second time in legal way
             _jumpToConsume = false;
-            //frame on which player jumped
-            _timeLeftGrounded = _fixedFrame;
-            //doesn't matter if we jumped normally or via buffer we don't wanna let player use this in air 
+            _frameOnWhichPlayerLeftGround = _fixedFrame;
             _executedBufferedJump = true;
         }
 
@@ -169,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //if can use coyote, is in the air, and time elapsed since last ground touch is in coyoteThreshold range
-    private bool CanUseCoyote => _canUseCoyote && !_grounded && _timeLeftGrounded + _coyoteTimeThreshold > _fixedFrame;
+    private bool CanUseCoyote => _canUseCoyote && !_grounded && _frameOnWhichPlayerLeftGround + _coyoteTimeThreshold > _fixedFrame;
     
     //if is grounded and didn't already buffer jumped or isn't stacked AND player last time pressed space in jump buffer threshold time
     private bool HasBufferedJump => ((_grounded && !_executedBufferedJump) || _cornerStuck) && _lastFrameJumpPressed + _jumpBuffer > _fixedFrame;
@@ -227,7 +222,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _hittingCeiling, _grounded, _colRight, _colLeft;
 
     //used to calculate coyote time - last frame when we were touching ground / first when we left ground
-    private float _timeLeftGrounded;
+    private float _frameOnWhichPlayerLeftGround;
 
     public void RunCollisionChecks()
     {
@@ -242,7 +237,7 @@ public class PlayerMovement : MonoBehaviour
         //triggered on first leaving ground
         if (_grounded && !groundCheck)
         {
-            _timeLeftGrounded = _fixedFrame;
+            _frameOnWhichPlayerLeftGround = _fixedFrame;
         }
         //triggered on first ground touch
         else if (!_grounded && groundCheck)
