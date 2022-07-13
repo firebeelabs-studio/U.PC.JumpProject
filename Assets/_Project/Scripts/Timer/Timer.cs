@@ -19,6 +19,8 @@ public class Timer : NetworkBehaviour
     private bool _initialized;
     [SyncVar(OnChange = nameof(On_TimeChange))]
     private float _timeInSeconds;
+    //Timer display
+    private float _minutes, _seconds;
 
     private Dictionary<NetworkConnection, float> _finishes = new();
     
@@ -44,8 +46,9 @@ public class Timer : NetworkBehaviour
     private void On_TimeChange(float prevValue, float newValue, bool asServer)
     {
         if (asServer) return;
-
-        _timerText.text = _timeInSeconds.ToString();
+        _minutes = (int)(_timeInSeconds / 60f);
+        _seconds = (int)(_timeInSeconds % 60f);
+        _timerText.SetText(_minutes.ToString("00") + ":" + _seconds.ToString("00"));
     }
 
     public void RunStart()
