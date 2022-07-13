@@ -28,8 +28,8 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         _fixedFrame++;
-        _velocity = (_rb.position - _lastPosition) / Time.fixedDeltaTime;
-        _lastPosition = _rb.position;
+        // _velocity = (_rb.position - _lastPosition) / Time.fixedDeltaTime;
+        // _lastPosition = _rb.position;
     }
 
     //we can't do this inside update prob.

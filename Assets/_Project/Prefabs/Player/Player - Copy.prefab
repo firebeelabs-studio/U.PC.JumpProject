@@ -107,6 +107,7 @@ MonoBehaviour:
     Rotation: {x: -0, y: -0, z: -0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
+  _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 1
   NetworkObserver: {fileID: 0}
   _prefabId: -1
@@ -127,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef0dea4a91b007b4c8f476b2015391a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 9
+  _componentIndexCache: 8
   _addedNetworkObject: {fileID: 1165085243}
   _networkObjectCache: {fileID: 1419814596373140149}
 --- !u!114 &740521572428383995
@@ -142,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc25db53452b147418a159fcccc1297c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 10
+  _componentIndexCache: 9
   _addedNetworkObject: {fileID: 1165085243}
   _networkObjectCache: {fileID: 1419814596373140149}
 --- !u!1 &1897455045
@@ -14917,7 +14918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed64777653726cc49995b9deb2ce058f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 11
+  _componentIndexCache: 10
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
   _text: {fileID: 4757097231591842930}
@@ -15193,17 +15194,15 @@ GameObject:
   - component: {fileID: 7514181438102116272}
   - component: {fileID: 7514181437703828012}
   - component: {fileID: 7514181437703828015}
-  - component: {fileID: 7514181437703828014}
   - component: {fileID: 1419814596576636796}
   - component: {fileID: 1419814596373140149}
   - component: {fileID: 5659190502985943681}
   - component: {fileID: -1002222236976936792}
   - component: {fileID: -7711716785194905291}
   - component: {fileID: 3937777349610990755}
-  - component: {fileID: -2333413260443057676}
   - component: {fileID: -2802063859455619531}
   m_Layer: 6
-  m_Name: Player
+  m_Name: Player - Copy
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15244,7 +15243,7 @@ Rigidbody2D:
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -15274,51 +15273,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.35}
   m_EdgeRadius: 0
---- !u!114 &7514181437703828014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7514181437703828009}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fe5bc01186854c47911e2ac6f4d9b9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 1419814596373140149}
-  _networkObjectCache: {fileID: 1419814596373140149}
-  CanMove: 0
-  AllowDoubleJump: 0
-  AllowDash: 1
-  AllowCrouch: 1
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  _detectionRayLength: 0.1
-  _crouchSizeModifier: 0.5
-  _crouchSpeedModifier: 0.1
-  _crouchSlowdownFrames: 50
-  _immediateCrouchSlowdownThreshold: 0.1
-  _acceleration: 120
-  _moveClamp: 14
-  _deceleration: 60
-  _apexBonus: 100
-  _allowCreeping: 0
-  _fallClamp: -60
-  _minFallSpeed: 80
-  _maxFallSpeed: 160
-  _groundingForce: -1.5
-  _jumpHeight: 35
-  _jumpApexThreshold: 40
-  _coyoteTimeThreshold: 7
-  _jumpBuffer: 7
-  _jumpEndEarlyGravityModifier: 3
-  _dashPower: 30
-  _dashLength: 6
-  _dashEndHorizontalMultiplier: 0.25
-  _forceDecay: 1
 --- !u!114 &1419814596576636796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15347,14 +15301,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _networkBehaviours:
-  - {fileID: 7514181437703828014}
+  - {fileID: 0}
   - {fileID: 1419814596576636796}
   - {fileID: 5659190502985943681}
   - {fileID: -1002222236976936792}
   - {fileID: -7711716785194905291}
   - {fileID: 3937777349610990755}
   - {fileID: -2802063859455619531}
-  - {fileID: 0}
   - {fileID: 3685620666536625999}
   - {fileID: 18804888}
   - {fileID: 740521572428383995}
@@ -15364,9 +15317,10 @@ MonoBehaviour:
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 0.95, y: 1, z: 1}
   _isNetworked: 1
+  _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: 3
+  _prefabId: 4
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects:
@@ -15438,36 +15392,6 @@ MonoBehaviour:
   _componentIndexCache: 5
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
---- !u!114 &-2333413260443057676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7514181437703828009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49aed844b4b368249a806e530a4efe7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AllowDoubleJump: 0
-  _acceleration: 120
-  _moveClamp: 13
-  _deceleration: 60
-  _apexBonus: 100
-  _jumpHeight: 35
-  _jumpApexThreshold: 40
-  _coyoteTimeThreshold: 7
-  _jumpBuffer: 7
-  _jumpEndEarlyGravityModifier: 3
-  _fallClamp: -60
-  _minFallSpeed: 80
-  _maxFallSpeed: 160
-  _groundingForce: -1.5
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  _detectionRayLength: 0.1
 --- !u!114 &-2802063859455619531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15483,7 +15407,7 @@ MonoBehaviour:
   _componentIndexCache: 6
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
-  _graphicalObject: {fileID: 7514181438401602125}
+  _graphicalObject: {fileID: 7514181438731622076}
   _smoothTicks: 1
   _durationType: 0
   _smoothingDuration: 0.125
@@ -15493,7 +15417,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 0}
   _rigidbody2d: {fileID: 7514181437703828012}
   _networkTransform: {fileID: 0}
-  _predictionRatio: 1
+  _predictionRatio: 0
 --- !u!1 &7514181437753337213
 GameObject:
   m_ObjectHideFlags: 0
@@ -30504,7 +30428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84990c27003994244b4fad6fc06fb684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 8
+  _componentIndexCache: 7
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
   _cam: {fileID: 1165085245}

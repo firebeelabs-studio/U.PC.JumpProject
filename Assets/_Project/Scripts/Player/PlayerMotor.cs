@@ -5,13 +5,13 @@ using FishNet.Example.Prediction.Transforms;
 using FishNet.Object;
 using FishNet.Object.Prediction;
 using TarodevController;
+using TMPro;
 using UnityEngine;
 
 public class PlayerMotor : NetworkBehaviour
 {
     public FrameInput Input { get; private set; }
     private PlayerInput _input;
-
     public struct MoveData
     {
         public float Horizontal;
@@ -32,31 +32,46 @@ public class PlayerMotor : NetworkBehaviour
         public Vector3 Position;
         public Quaternion Rotation;
         public Vector3 Velocity;
+        public Vector2 Speed;
         public float AngularVelocity;
 
-        public ReconcileData(Vector3 position, Quaternion rotation, Vector3 velocity, float angularVelocity)
+        public ReconcileData(Vector3 position, Quaternion rotation, Vector3 velocity, float angularVelocity, Vector2 speed)
         {
             Position = position;
             Rotation = rotation;
             Velocity = velocity;
             AngularVelocity = angularVelocity;
+            Speed = speed;
         }
     }
 
     private MoveData _clientMoveData;
     private Vector3 _velocity;
+
+    private Vector2 _speed;
     //true if subscribed to events
     private bool _subscribed;
     private Rigidbody2D _rigidbody;
-    private PlayerMovement _playerMovement;
+    private PawnMovement _pawn;
+    
+    [Header("WALKING")]
+
+    [SerializeField] private float _acceleration = 120;
+    [SerializeField] private float _moveClamp = 13;
+    [SerializeField] private float _deceleration = 60f;
+    [SerializeField] private float _apexBonus = 100;
+    //this move clamp is used to slow player in crawling etc. (based on default move clamp)
+    private float _moveClampUpdatedEveryFrame = 13;
+    
+    #region Initalization
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _input = GetComponent<PlayerInput>();
-        _playerMovement = GetComponent<PlayerMovement>();
+        _pawn = GetComponent<PawnMovement>();
     }
-
+    
     public override void OnStartNetwork()
     {
         base.OnStartNetwork();
@@ -82,7 +97,6 @@ public class PlayerMotor : NetworkBehaviour
         {
             TimeManager.OnTick += TimeManager_OnTick;
             TimeManager.OnPostTick += TimeManager_OnPostTick;
-            TimeManager.OnUpdate += TimeManager_OnFixedUpdate;
         }
         else
         {
@@ -90,15 +104,9 @@ public class PlayerMotor : NetworkBehaviour
             TimeManager.OnPostTick -= TimeManager_OnPostTick;
         }
     }
-    [Reconcile]
-    private void Reconciliation(ReconcileData rd, bool asServer)
-    {
-        transform.position = rd.Position;
-        // transform.rotation = rd.Rotation;
-        _rigidbody.velocity = rd.Velocity;
-        _rigidbody.angularVelocity = rd.AngularVelocity;
-    }
-        
+
+    #endregion
+    
     private void TimeManager_OnTick()
     {
         if (IsOwner)
@@ -111,61 +119,34 @@ public class PlayerMotor : NetworkBehaviour
         if (IsServer)
         {
             Move(default, true);
-            ReconcileData rd = new ReconcileData(transform.position, transform.rotation, _rigidbody.velocity, _rigidbody.angularVelocity);
-            Reconciliation(rd, true);
         }
     }
 
     [Server]
     private void TimeManager_OnPostTick()
     {
-        // if (IsServer)
-        // {
-        //     ReconcileData rd = new ReconcileData(transform.position, transform.rotation, _rigidbody.velocity, _rigidbody.angularVelocity);
-        //     Reconciliation(rd, true);
-        // }
-    }
-
-    private void TimeManager_OnFixedUpdate()
-    {
-        if (IsOwner)
+        if (IsServer)
         {
-            //_playerMovement.PlayerPressedJump(_clientMoveData.Jump);
-            _playerMovement.RunCollisionChecks();
-            //_playerMovement.CalculateJumpApex();
-            //_playerMovement.CalculateGravity();
-            //_playerMovement.CalculateJump(_clientMoveData.JumpHeld);
-            _playerMovement.SetMoveClamp();
-            _playerMovement.CalculateHorizontalMovement(_clientMoveData.Horizontal, (float)TimeManager.TickDelta);
-            _playerMovement.MoveCharacter((float)TimeManager.TickDelta);
+            ReconcileData rd = new ReconcileData(transform.position, transform.rotation, _rigidbody.velocity, _rigidbody.angularVelocity, _speed);
+            Reconciliation(rd, true);
         }
     }
 
     [Replicate]
     private void Move(MoveData md, bool asServer, bool replaying = false)
     {
-        if (asServer || replaying)
-        {
-            //here time track
-            //_playerMovement.PlayerPressedJump(md.Jump);
-            _playerMovement.RunCollisionChecks();
-            //_playerMovement.CalculateJumpApex();
-            //time multiplied
-            //_playerMovement.CalculateGravity();
-            //time track
-            //_playerMovement.CalculateJump(md.JumpHeld);
-            //hard to say
-            _playerMovement.SetMoveClamp();
-            //time
-            _playerMovement.CalculateHorizontalMovement(md.Horizontal, (float)TimeManager.TickDelta);
-            //time
-            _playerMovement.MoveCharacter((float)TimeManager.TickDelta);
-        }
-        else
-        {
-            _clientMoveData = md;
-        }
-        
+        _speed = _pawn.CalculateHorizontalMovement(_speed, _acceleration, _deceleration, _moveClampUpdatedEveryFrame, md.Horizontal, (float)TimeManager.TickDelta);
+        _pawn.MoveCharacter(_rigidbody, _speed, (float)TimeManager.TickDelta);
+    }
+
+    [Reconcile]
+    private void Reconciliation(ReconcileData rd, bool asServer)
+    {
+        transform.position = rd.Position;
+        transform.rotation = rd.Rotation;
+        _rigidbody.velocity = rd.Velocity;
+        _rigidbody.angularVelocity = rd.AngularVelocity;
+        _speed = rd.Speed;
     }
     
     private void CheckInput(out MoveData md)
