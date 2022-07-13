@@ -1,29 +1,51 @@
 using UnityEngine;
 using TarodevController;
+using System;
 
 public class BouncePlatform : MonoBehaviour
 {
     [SerializeField] private float _bounceForce = 20;
     [SerializeField] private float _horizontalBoost = 1;
     [SerializeField] private float _cameraZoomOutDuration;
+    [SerializeField] private GameObject _playerSimulation;
+    [SerializeField] private JumpSimulation _jumpSimulation;
+   
     private Vector2 _bounceDirectionVector;
     private bool _cancelMovement = true;
+    private float sinDegree;
+    private float cosDegree;
 
-    private void Start()
+    public float Vx => sinDegree * _bounceForce * _horizontalBoost;
+    public float Vy => cosDegree * _bounceForce;
+
+    void Awake()
     {
-            float degreeInRadians = (transform.transform.eulerAngles.z * (Mathf.PI)) / 180;
-            float sinDegree = Mathf.Sin(degreeInRadians);
-            float cosDegree = Mathf.Cos(degreeInRadians);
-            _bounceDirectionVector = new Vector2(-sinDegree*_horizontalBoost, cosDegree);
+        _playerSimulation.SetActive(false);
+        CalculateForces();
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player")) return;
-
         if (collision.TryGetComponent(out IPlayerController controller))
         {
             controller.AddForce(_bounceDirectionVector * _bounceForce, PlayerForce.Burst, _cancelMovement);
+
         }
+    }
+
+    void CalculateForces()
+    {
+        float degreeInRadians = (transform.transform.eulerAngles.z * (Mathf.PI)) / 180;
+        sinDegree = Mathf.Sin(degreeInRadians);
+        cosDegree = Mathf.Cos(degreeInRadians);
+        _bounceDirectionVector = new Vector2(-sinDegree * _horizontalBoost, cosDegree);
+    }
+
+    [ContextMenu("Create Path")]
+    void SetPath()
+    {
+        CalculateForces();
+        _jumpSimulation.CreatePath();
     }
 }
