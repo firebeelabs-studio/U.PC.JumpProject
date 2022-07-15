@@ -158,14 +158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caff56ab194e37a47a9ee9d6947aabf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dollyTrack: {fileID: 0}
-  _waypointsToZoom:
-  - waypointNumber: 1
-    zoomValue: 5
-    zoomType: 1
-  - waypointNumber: 2
-    zoomValue: 5
-    zoomType: 0
 --- !u!1 &1897455045
 GameObject:
   m_ObjectHideFlags: 0
@@ -15310,7 +15302,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
-  CanMove: 0
+  CanMove: 1
   AllowDoubleJump: 0
   AllowDash: 1
   AllowCrouch: 1
@@ -30281,7 +30273,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.367
+  m_Volume: 0.186
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -30291,7 +30283,7 @@ AudioSource:
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
-  Pan2D: 0
+  Pan2D: -0.22
   rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
@@ -30495,9 +30487,9 @@ MonoBehaviour:
   _moveParticles: {fileID: 7514181438968845991}
   _landParticles: {fileID: 7514181437935369047}
   _footsteps:
-  - {fileID: 8300000, guid: 5d94063f45167b04ab62585e436da58c, type: 3}
-  - {fileID: 8300000, guid: b5803c17557c59c40bf3a6d69cb46cb3, type: 3}
-  - {fileID: 8300000, guid: 1876767bf7cbf284394dc3817af9593c, type: 3}
+  - {fileID: 8300000, guid: 6e5c60e411ca1994a83d72f3a7f039a4, type: 3}
+  - {fileID: 8300000, guid: fad25b7d0c6c3d0429bb8dfc454ea4b0, type: 3}
+  - {fileID: 8300000, guid: 9b31b2874dcf7654495e15afbf700582, type: 3}
   _maxTilt: 5
   _tiltSpeed: 30
   _maxIdleSpeed: 2
@@ -30505,15 +30497,15 @@ MonoBehaviour:
   _crouchScaleModifier: {x: 1, y: 0.7}
   _sprite: {fileID: 7514181438401602115}
   _doubleJumpParticles: {fileID: 1419814596902790255}
-  _doubleJumpClip: {fileID: 8300000, guid: 0d11fd7368b306b4c900241e3dadf28f, type: 3}
-  _dashClip: {fileID: 8300000, guid: 6d2d16f85c087ea419d323141cd2145c, type: 3}
+  _doubleJumpClip: {fileID: 8300000, guid: 9790bd4c795a92b43b533687c15c5db3, type: 3}
+  _dashClip: {fileID: 8300000, guid: a92c031b25c96c045b128ee508e9cb15, type: 3}
   _dashParticles: {fileID: 1419814595641668045}
   _dashRingParticles: {fileID: 1419814595004857159}
   _dashRingTransform: {fileID: 1419814595525001861}
   _slideClips:
-  - {fileID: 8300000, guid: 8fdca7d062c9999429d95ab7c56a5986, type: 3}
-  - {fileID: 8300000, guid: b18b6bd081c46eb48890d12e052cbbd9, type: 3}
-  - {fileID: 8300000, guid: a42ad5ad97b59d042bb11c6713a26100, type: 3}
+  - {fileID: 8300000, guid: f98c2bfa79fe9604a9adffa8d1fb4909, type: 3}
+  - {fileID: 8300000, guid: a21ce0538cae7d24e88cde99632cf27a, type: 3}
+  - {fileID: 8300000, guid: 1aee5e6ff058e2d4c926a5d6ac4ee617, type: 3}
 --- !u!1 &7514181438811379731
 GameObject:
   m_ObjectHideFlags: 0

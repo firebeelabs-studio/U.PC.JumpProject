@@ -16,6 +16,7 @@ public class KillPlayer : MonoBehaviour
         {
             StartCoroutine(_spawnManager.RespawnPlayer(col.transform));
             GameManager.ResetPlayerPowers();
+            FindObjectOfType<AudioManager>().Play("Death");
         }
     }
 }

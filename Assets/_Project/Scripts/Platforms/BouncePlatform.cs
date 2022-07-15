@@ -29,8 +29,8 @@ public class BouncePlatform : MonoBehaviour
         if (!collision.CompareTag("Player")) return;
         if (collision.TryGetComponent(out IPlayerController controller))
         {
+            FindObjectOfType<AudioManager>().Play("LandingBouncer");
             controller.AddForce(_bounceDirectionVector * _bounceForce, PlayerForce.Burst, _cancelMovement);
-
         }
     }
 

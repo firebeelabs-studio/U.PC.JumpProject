@@ -17,6 +17,7 @@ public class FinishLevel : NetworkBehaviour
         if (col.CompareTag("Player") && !_collided)
         {
             SendMessage(col.GetComponent<NetworkObject>().Owner);
+            FindObjectOfType<AudioManager>().Play("Finish");
         }
     }
 

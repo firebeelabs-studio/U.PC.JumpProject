@@ -18,5 +18,6 @@ public class CheckPoint : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         _spawnManager.ChangeSpawnPos(_respawnPos);
+        //FindObjectOfType<AudioManager>().Play("Checkpoint");
     }
 }
