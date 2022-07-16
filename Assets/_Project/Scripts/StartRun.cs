@@ -11,5 +11,7 @@ public class StartRun : MonoBehaviour
     {
         RunStart?.Invoke();
         //start timer
+
+        FindObjectOfType<AudioManager>().Play("Start");
     }
 }

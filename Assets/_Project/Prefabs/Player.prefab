@@ -30272,14 +30272,14 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.186
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 151
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -30487,9 +30487,9 @@ MonoBehaviour:
   _moveParticles: {fileID: 7514181438968845991}
   _landParticles: {fileID: 7514181437935369047}
   _footsteps:
-  - {fileID: 8300000, guid: 6e5c60e411ca1994a83d72f3a7f039a4, type: 3}
-  - {fileID: 8300000, guid: fad25b7d0c6c3d0429bb8dfc454ea4b0, type: 3}
-  - {fileID: 8300000, guid: 9b31b2874dcf7654495e15afbf700582, type: 3}
+  - {fileID: 8300000, guid: ec565f596be5c2047a007664a8e975e4, type: 3}
+  - {fileID: 8300000, guid: 3fb56acac2f0c58438569855617de4d6, type: 3}
+  - {fileID: 8300000, guid: d2a4884a5510db1439523dc523d534e8, type: 3}
   _maxTilt: 5
   _tiltSpeed: 30
   _maxIdleSpeed: 2
@@ -30497,15 +30497,15 @@ MonoBehaviour:
   _crouchScaleModifier: {x: 1, y: 0.7}
   _sprite: {fileID: 7514181438401602115}
   _doubleJumpParticles: {fileID: 1419814596902790255}
-  _doubleJumpClip: {fileID: 8300000, guid: 9790bd4c795a92b43b533687c15c5db3, type: 3}
-  _dashClip: {fileID: 8300000, guid: a92c031b25c96c045b128ee508e9cb15, type: 3}
+  _doubleJumpClip: {fileID: 8300000, guid: 54c82f74018d0bd4e8602f10f6dc4f94, type: 3}
+  _dashClip: {fileID: 8300000, guid: 9b514a12910de53438d1c8d893bbb990, type: 3}
   _dashParticles: {fileID: 1419814595641668045}
   _dashRingParticles: {fileID: 1419814595004857159}
   _dashRingTransform: {fileID: 1419814595525001861}
   _slideClips:
-  - {fileID: 8300000, guid: f98c2bfa79fe9604a9adffa8d1fb4909, type: 3}
-  - {fileID: 8300000, guid: a21ce0538cae7d24e88cde99632cf27a, type: 3}
-  - {fileID: 8300000, guid: 1aee5e6ff058e2d4c926a5d6ac4ee617, type: 3}
+  - {fileID: 8300000, guid: 38257ed28f174964db3a2ab2c134f1b3, type: 3}
+  - {fileID: 8300000, guid: 1dbe1817a18414d44befd8cc4e634e19, type: 3}
+  - {fileID: 8300000, guid: d2a1a8805d9445349afb3ba4b492189f, type: 3}
 --- !u!1 &7514181438811379731
 GameObject:
   m_ObjectHideFlags: 0

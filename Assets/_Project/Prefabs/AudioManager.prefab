@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6216204186725048168
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6216204186725048169}
+  - component: {fileID: 6216204186725048170}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6216204186725048169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6216204186725048168}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6216204186725048170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6216204186725048168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3977a91c2ddcca64b9bf2176c4203eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - Name: Start
+    Clip: {fileID: 8300000, guid: 313d04107fec51a47a6fa94253172965, type: 3}
+    Volume: 1
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: Finish
+    Clip: {fileID: 8300000, guid: fa9d6c2aea9d1aa4aad0ed02ee9796d0, type: 3}
+    Volume: 1
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: PowerUp
+    Clip: {fileID: 8300000, guid: 32f486ee7e1f5ea41a84c9c66e8543a9, type: 3}
+    Volume: 1
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: Bouncer
+    Clip: {fileID: 8300000, guid: dad29bf3f7af4c14fab92e92d5b14788, type: 3}
+    Volume: 1
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: Death
+    Clip: {fileID: 8300000, guid: c92534cda7fdde6438416944f19985c4, type: 3}
+    Volume: 1
+    Pitch: 1
+    Source: {fileID: 0}

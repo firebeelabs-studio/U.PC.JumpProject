@@ -16,7 +16,7 @@ public class ActivateSkill : MonoBehaviour
             collision.GetComponent<PlayerController>().AllowDoubleJump = true;
             gameObject.SetActive(false);
 
-            FindObjectOfType<AudioManager>().Play("PickupPowerUp");
+            FindObjectOfType<AudioManager>().Play("PowerUp");
         }
     }
 }
