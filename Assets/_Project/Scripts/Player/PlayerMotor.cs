@@ -186,7 +186,7 @@ public class PlayerMotor : NetworkBehaviour
     {
         if (IsServer)
         {
-            ReconcileData rd = new ReconcileData(transform.position, transform.rotation, _velocity, _rigidbody.angularVelocity, _speed, _fixedFrame);
+            ReconcileData rd = new ReconcileData(transform.position, transform.rotation, _rigidbody.velocity, _rigidbody.angularVelocity, _speed, _fixedFrame);
             Reconciliation(rd, true);
         }
     }
