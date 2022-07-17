@@ -59,7 +59,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &6226359352672468353
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   _detectionRayLength: 0.1
-  _jumpHeight: 5
+  _jumpHeight: 35
   _jumpApexThreshold: 40
   _coyoteTimeThreshold: 7
   _jumpBuffer: 7

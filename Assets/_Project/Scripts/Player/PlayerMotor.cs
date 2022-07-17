@@ -52,6 +52,7 @@ public class PlayerMotor : NetworkBehaviour
     private Vector3 _velocity;
 
     private Vector2 _speed;
+    private Vector2 _lastPosition;
     //true if subscribed to events
     private bool _subscribed;
     private Rigidbody2D _rigidbody;
@@ -163,20 +164,20 @@ public class PlayerMotor : NetworkBehaviour
             CheckInput(out MoveData md);
             Move(md, false);
             _ticks++;
-            if (_ticks % 60 == 0)
-            {
+            // if (_ticks % 10 == 0)
+            // {
                 _fixedFrame++;
-            }
+            // }
         }
 
         if (IsServer)
         {
             Move(default, true);
             _ticks++;
-            if (_ticks % 60 == 0)
-            {
+            // if (_ticks % 60 == 0)
+            // {
                 _fixedFrame++;
-            }
+            // }
         }
     }
 
@@ -185,7 +186,7 @@ public class PlayerMotor : NetworkBehaviour
     {
         if (IsServer)
         {
-            ReconcileData rd = new ReconcileData(transform.position, transform.rotation, _rigidbody.velocity, _rigidbody.angularVelocity, _speed, _fixedFrame);
+            ReconcileData rd = new ReconcileData(transform.position, transform.rotation, _velocity, _rigidbody.angularVelocity, _speed, _fixedFrame);
             Reconciliation(rd, true);
         }
     }
@@ -198,12 +199,15 @@ public class PlayerMotor : NetworkBehaviour
             _lastFrameJumpPressed = _fixedFrame;
             _jumpToConsume = true;
         }
+        _velocity = (_rigidbody.position - _lastPosition) / (float)TimeManager.TickDelta;
+        _lastPosition = _velocity;
 
         RunCollisionChecks();
         // print($"Is grounded: {_grounded} IsExecutedBuffer {_executedBufferedJump} Last frame jump pressed: {_lastFrameJumpPressed} Fixed frame: {_fixedFrame} Threshold: {_jumpBuffer}");
         // print($"has buffer  " +HasBufferedJump);
+        CalculateJumpApex();
         _speed.y = CalculateJump(_jumpToConsume, _speed);
-        _speed.y = _pawn.CalculateGravity(_speed, _grounded, _fallClamp, _useShortJumpFallMultiplier, _fallSpeed, _jumpEndEarlyGravityModifier, (float)TimeManager.TickDelta);
+        _speed.y = CalculateGravity();
         _speed = _pawn.CalculateHorizontalMovement(_speed, _acceleration, _deceleration, _moveClampUpdatedEveryFrame, md.Horizontal, (float)TimeManager.TickDelta, _grounded, _colRight, _colLeft);
         _pawn.MoveCharacter(_rigidbody, _speed, (float)TimeManager.TickDelta);
     }
@@ -292,10 +296,10 @@ public class PlayerMotor : NetworkBehaviour
     }
     
     //if can use coyote, is in the air, and time elapsed since last ground touch is in coyoteThreshold range
-    private bool CanUseCoyote => _canUseCoyote && !_grounded && _frameOnWhichPlayerLeftGround + _coyoteTimeThreshold > _fixedFrame;
+    private bool CanUseCoyote => _canUseCoyote && !_grounded && _frameOnWhichPlayerLeftGround >= _fixedFrame -20;
     
     //if is grounded and didn't already buffer jumped or isn't stacked AND player last time pressed space in jump buffer threshold time
-    private bool HasBufferedJump => ((_grounded && !_executedBufferedJump)) && _lastFrameJumpPressed + _jumpBuffer > _fixedFrame;
+    private bool HasBufferedJump => ((_grounded && !_executedBufferedJump)) && _lastFrameJumpPressed >= _fixedFrame -20                          ;
     
     //if double jump ability is unlocked and player is on the ground and isn't in coyote time threshold (didn't left ground before jump)
     private bool CanDoubleJump => AllowDoubleJump && _doubleJumpUsable && !_canUseCoyote;
@@ -337,5 +341,42 @@ public class PlayerMotor : NetworkBehaviour
         }
 
         return speed.y;
+    }
+
+    public float CalculateGravity()
+    {
+        {
+            if (_grounded)
+            {
+            
+            }
+            else
+            {
+                //if player stopped jump faster multiply forces
+                float fallSpeedCalculated = _useShortJumpFallMultiplier && _speed.y > 0 ? _fallSpeed * _jumpEndEarlyGravityModifier : _fallSpeed;
+                _speed.y -= fallSpeedCalculated * (float)TimeManager.TickDelta;
+                print(_speed.y);
+                //hola hola amigo, don't fall too fast
+                if (_speed.y < _fallClamp)
+                {
+                    _speed.y = _fallClamp;
+                }
+            }
+
+            return _speed.y;
+        }
+    }
+    private void CalculateJumpApex()
+    {
+        if (!_grounded)
+        {
+            // Gets stronger the closer to the top of the jump
+            _apexPoint = Mathf.InverseLerp(_jumpApexThreshold, 0, Mathf.Abs(_velocity.y));
+            _fallSpeed = Mathf.Lerp(_minFallSpeed, _maxFallSpeed, _apexPoint);
+        }
+        else
+        {
+            _apexPoint = 0;
+        }
     }
 }
