@@ -10,7 +10,7 @@ public class PawnMovement : MonoBehaviour
         rb.MovePosition(rb.position + move);
     }
     
-    public Vector2 CalculateHorizontalMovement(Vector2 speed, float acceleration, float deceleration, float moveClampUpdatedEveryFrame, float inputX, float delta)
+    public Vector2 CalculateHorizontalMovement(Vector2 speed, float acceleration, float deceleration, float moveClampUpdatedEveryFrame, float inputX, float delta, bool grounded, bool colRight, bool colLeft)
     {
         if (inputX != 0)
         {
@@ -30,11 +30,32 @@ public class PawnMovement : MonoBehaviour
             speed.x = 0;
         }
 
+        if (!grounded && (speed.x > 0 && colRight || speed.x < 0 && colLeft))
+        {
+            // Don't pile up useless horizontal (prevents sticking to walls mid-air)
+            speed.x = 0;
+        }
         return speed;
-        // if (!_grounded && (speed.x > 0 && _colRight || speed.x < 0 && _colLeft))
-        // {
-        //     // Don't pile up useless horizontal (prevents sticking to walls mid-air)
-        //     speed.x = 0;
-        // }
+    }
+
+    public float CalculateGravity(Vector2 speed, bool grounded, float fallClamp, bool useShortJumpFallMultiplier, float fallSpeed, float jumpEndEarlyGravityModifier, float delta)
+    {
+        if (grounded)
+        {
+            
+        }
+        else
+        {
+            //if player stopped jump faster multiply forces
+            float fallSpeedCalculated = useShortJumpFallMultiplier && speed.y > 0 ? fallSpeed * jumpEndEarlyGravityModifier : fallSpeed;
+            speed.y -= fallSpeedCalculated * delta;
+            //hola hola amigo, don't fall too fast
+            if (speed.y < fallClamp)
+            {
+                speed.y = fallClamp;
+            }
+        }
+
+        return speed.y;
     }
 }

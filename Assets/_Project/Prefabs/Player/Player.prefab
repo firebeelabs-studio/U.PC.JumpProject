@@ -149,6 +149,24 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 6226359352672468355}
   _networkObjectCache: {fileID: 6226359352672468355}
+  _acceleration: 120
+  _moveClamp: 13
+  _deceleration: 60
+  _apexBonus: 100
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  _detectionRayLength: 0.1
+  _jumpHeight: 5
+  _jumpApexThreshold: 40
+  _coyoteTimeThreshold: 7
+  _jumpBuffer: 7
+  _jumpEndEarlyGravityModifier: 3
+  AllowDoubleJump: 0
+  _fallClamp: -60
+  _minFallSpeed: 80
+  _maxFallSpeed: 160
+  _groundingForce: -1.5
 --- !u!114 &6226359352672468365
 MonoBehaviour:
   m_ObjectHideFlags: 0
