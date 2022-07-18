@@ -10,7 +10,7 @@ public class PawnMovement : MonoBehaviour
         rb.MovePosition(rb.position + move);
     }
     
-    public Vector2 CalculateHorizontalMovement(Vector2 speed, float acceleration, float deceleration, float moveClampUpdatedEveryFrame, float inputX, float delta, bool grounded, bool colRight, bool colLeft)
+    public float CalculateHorizontalMovement(Vector2 speed, float acceleration, float deceleration, float moveClampUpdatedEveryFrame, float inputX, float delta, bool grounded, bool colRight, bool colLeft)
     {
         if (inputX != 0)
         {
@@ -35,7 +35,7 @@ public class PawnMovement : MonoBehaviour
             // Don't pile up useless horizontal (prevents sticking to walls mid-air)
             speed.x = 0;
         }
-        return speed;
+        return speed.x;
     }
 
     public float CalculateGravity(Vector2 speed, bool grounded, float fallClamp, bool useShortJumpFallMultiplier, float fallSpeed, float jumpEndEarlyGravityModifier, float delta)

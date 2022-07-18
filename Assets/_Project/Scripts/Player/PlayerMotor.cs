@@ -33,11 +33,14 @@ public class PlayerMotor : NetworkBehaviour
         public Vector3 Position;
         public Quaternion Rotation;
         public Vector3 Velocity;
+        public Vector3 CustomVelocity;
         public Vector2 Speed;
+        public Vector2 LastPosition;
         public float AngularVelocity;
+        public float FallSpeed;
         public int FixedFrame;
 
-        public ReconcileData(Vector3 position, Quaternion rotation, Vector3 velocity, float angularVelocity, Vector2 speed, int fixedFrame)
+        public ReconcileData(Vector3 position, Quaternion rotation, Vector3 velocity, Vector3 customVelocity, float angularVelocity, Vector2 speed, int fixedFrame, float fallSpeed, Vector2 lastPosition)
         {
             Position = position;
             Rotation = rotation;
@@ -45,6 +48,9 @@ public class PlayerMotor : NetworkBehaviour
             AngularVelocity = angularVelocity;
             Speed = speed;
             FixedFrame = fixedFrame;
+            FallSpeed = fallSpeed;
+            LastPosition = lastPosition;
+            CustomVelocity = customVelocity;
         }
     }
 
@@ -186,7 +192,7 @@ public class PlayerMotor : NetworkBehaviour
     {
         if (IsServer)
         {
-            ReconcileData rd = new ReconcileData(transform.position, transform.rotation, _rigidbody.velocity, _rigidbody.angularVelocity, _speed, _fixedFrame);
+            ReconcileData rd = new ReconcileData(transform.position, transform.rotation, _rigidbody.velocity, _velocity, _rigidbody.angularVelocity, _speed, _fixedFrame, _fallSpeed, _lastPosition);
             Reconciliation(rd, true);
         }
     }
@@ -206,9 +212,9 @@ public class PlayerMotor : NetworkBehaviour
         // print($"Is grounded: {_grounded} IsExecutedBuffer {_executedBufferedJump} Last frame jump pressed: {_lastFrameJumpPressed} Fixed frame: {_fixedFrame} Threshold: {_jumpBuffer}");
         // print($"has buffer  " +HasBufferedJump);
         CalculateJumpApex();
+        _speed.y = CalculateGravity(_fallSpeed, md);
         _speed.y = CalculateJump(_jumpToConsume, _speed);
-        _speed.y = CalculateGravity();
-        _speed = _pawn.CalculateHorizontalMovement(_speed, _acceleration, _deceleration, _moveClampUpdatedEveryFrame, md.Horizontal, (float)TimeManager.TickDelta, _grounded, _colRight, _colLeft);
+        _speed.x = _pawn.CalculateHorizontalMovement(_speed, _acceleration, _deceleration, _moveClampUpdatedEveryFrame, md.Horizontal, (float)TimeManager.TickDelta, _grounded, _colRight, _colLeft);
         _pawn.MoveCharacter(_rigidbody, _speed, (float)TimeManager.TickDelta);
     }
 
@@ -221,6 +227,9 @@ public class PlayerMotor : NetworkBehaviour
         _rigidbody.angularVelocity = rd.AngularVelocity;
         _speed = rd.Speed;
         _fixedFrame = rd.FixedFrame;
+        _fallSpeed = rd.FallSpeed;
+        _velocity = rd.CustomVelocity;
+        _lastPosition = rd.LastPosition;
     }
     
     private void CheckInput(out MoveData md)
@@ -343,17 +352,34 @@ public class PlayerMotor : NetworkBehaviour
         return speed.y;
     }
 
-    public float CalculateGravity()
+    public float CalculateGravity(float fallSpeed, MoveData md)
     {
         {
             if (_grounded)
             {
-            
+                if (md.Horizontal == 0) return _speed.y;
+                
+                _speed.y = _groundingForce;
+                foreach (var hit in _hitsDown)
+                {
+                    if (hit.collider.isTrigger) continue;
+                    var slopePerp = Vector2.Perpendicular(hit.normal).normalized;
+
+                    var slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
+                    // This needs improvement. Prioritize front hit for smoother slope apex
+                    if (slopeAngle != 0)
+                    {
+                        _speed.y = _speed.x * -slopePerp.y;
+                        _speed.y += _groundingForce; // Honestly, this feels like cheating. I'll work on it
+                        break;
+                    }
+                }
+
             }
             else
             {
                 //if player stopped jump faster multiply forces
-                float fallSpeedCalculated = _useShortJumpFallMultiplier && _speed.y > 0 ? _fallSpeed * _jumpEndEarlyGravityModifier : _fallSpeed;
+                float fallSpeedCalculated = _useShortJumpFallMultiplier && _speed.y > 0 ? fallSpeed * _jumpEndEarlyGravityModifier : fallSpeed;
                 _speed.y -= fallSpeedCalculated * (float)TimeManager.TickDelta;
                 print(_speed.y);
                 //hola hola amigo, don't fall too fast

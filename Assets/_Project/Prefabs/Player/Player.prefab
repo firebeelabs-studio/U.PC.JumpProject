@@ -62,7 +62,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541417557}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.172573, z: -10}
+  m_LocalPosition: {x: -0.00000023841858, y: 6.172573, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -220,7 +220,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643176316}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.172573, z: -10}
+  m_LocalPosition: {x: -0.00000023841858, y: 6.172573, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -294,7 +294,7 @@ MonoBehaviour:
   - {fileID: 643176318}
   - {fileID: 643176317}
   SceneTransformProperties:
-    Position: {x: 2.7867253, y: -16.929277, z: -10}
+    Position: {x: 1.6803026, y: -16.922531, z: -10}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
@@ -557,7 +557,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &6226359352672468353
 BoxCollider2D:
@@ -619,14 +619,14 @@ MonoBehaviour:
   - {fileID: 643176318}
   - {fileID: 643176317}
   SceneTransformProperties:
-    Position: {x: 4.33, y: -19.25, z: 0.389233}
+    Position: {x: 3.2235775, y: -19.243254, z: 0.389233}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: 10
+  _prefabId: 11
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects:
@@ -764,8 +764,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6226359352912642242}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.24, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalPosition: {x: 0, y: -0.2356, z: 0}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6226359352906661693}
@@ -812,7 +812,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b2bdfab1fc08c2a41a147c55b798c8ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: add356701612e504991c322dd9731387, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
