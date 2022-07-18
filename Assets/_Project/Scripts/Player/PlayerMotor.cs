@@ -296,10 +296,10 @@ public class PlayerMotor : NetworkBehaviour
     }
     
     //if can use coyote, is in the air, and time elapsed since last ground touch is in coyoteThreshold range
-    private bool CanUseCoyote => _canUseCoyote && !_grounded && _frameOnWhichPlayerLeftGround >= _fixedFrame -20;
+    private bool CanUseCoyote => _canUseCoyote && !_grounded && _frameOnWhichPlayerLeftGround >= _fixedFrame - 20;
     
     //if is grounded and didn't already buffer jumped or isn't stacked AND player last time pressed space in jump buffer threshold time
-    private bool HasBufferedJump => ((_grounded && !_executedBufferedJump)) && _lastFrameJumpPressed >= _fixedFrame -20                          ;
+    private bool HasBufferedJump => ((_grounded && !_executedBufferedJump)) && _lastFrameJumpPressed >= _fixedFrame -20;
     
     //if double jump ability is unlocked and player is on the ground and isn't in coyote time threshold (didn't left ground before jump)
     private bool CanDoubleJump => AllowDoubleJump && _doubleJumpUsable && !_canUseCoyote;
@@ -377,6 +377,20 @@ public class PlayerMotor : NetworkBehaviour
         else
         {
             _apexPoint = 0;
+        }
+    }
+    
+    public void AddForce(Vector2 force, PlayerForce mode = PlayerForce.Burst, bool cancelMovement = true)
+    {
+        if (cancelMovement) _speed = Vector2.zero;
+
+        switch (mode)
+        {
+            case PlayerForce.Burst:
+                _speed += force;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
         }
     }
 }
