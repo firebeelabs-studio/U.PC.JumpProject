@@ -20,7 +20,7 @@ public class CameraController : NetworkBehaviour
         _defaultZoom = CameraSettings.Instance.CameraSize;
         _shouldZoom = CameraSettings.Instance.ShouldZoom;
         _cam = GetComponent<CinemachineVirtualCamera>();
-        _playerController = GetComponentInParent<PlayerController>();
+        //_playerController = GetComponentInParent<PlayerController>();
         _camBody = _cam.GetCinemachineComponent<CinemachineTrackedDolly>();
     }
     private void Start()
@@ -40,7 +40,7 @@ public class CameraController : NetworkBehaviour
             _cam.m_Lens.OrthographicSize = CameraSettings.Instance.CameraSize;
         }
     }
-    private void LateUpdate() => ZoomOutWhileFalling(_playerController.VelocityY);
+    //private void LateUpdate() => ZoomOutWhileFalling(_playerController.VelocityY);
 
     private void ZoomOutWhileFalling(float velocity)
     {

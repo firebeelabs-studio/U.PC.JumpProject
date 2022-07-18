@@ -57,14 +57,15 @@ public class PlayerNameTracker : NetworkBehaviour
 
     public static string GetPlayerName(NetworkConnection conn)
     {
-        if (_instance._playerNames.TryGetValue(conn, out string result))
-        {
-            return result;
-        }
-        else
-        {
-            return string.Empty;
-        }
+        // if (_instance._playerNames.TryGetValue(conn, out string result))
+        // {
+        //     return result;
+        // }
+        // else
+        // {
+        //     return string.Empty;
+        // }
+        return string.Empty;
     }
 
     //lets clients set name

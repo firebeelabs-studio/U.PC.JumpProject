@@ -73,6 +73,7 @@ public class GameplayManager : NetworkBehaviour
     }
 
     //Here we can initialize Player stats via nft, skins etc.
+    [Server]
     private void SpawnPlayer(NetworkConnection conn)
     {
         //Create object and move it to proper scene
@@ -99,12 +100,12 @@ public class GameplayManager : NetworkBehaviour
     [Server]
     private void Update()
     {
-        if (_roomDetails.MemberIds.Count == _roomDetails.StartedMembers.Count && !_isStarted)
-        {
-            //dirty, but works, have to clean this temp
-            _isStarted = true;
-           StartCoroutine(WaitBeforeStart());
-        }
+        // if (_roomDetails.MemberIds.Count == _roomDetails.StartedMembers.Count && !_isStarted)
+        // {
+        //     //dirty, but works, have to clean this temp
+        //     _isStarted = true;
+        //    StartCoroutine(WaitBeforeStart());
+        // }
     }
 
     IEnumerator WaitBeforeStart()

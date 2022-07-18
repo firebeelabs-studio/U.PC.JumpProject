@@ -199,6 +199,7 @@ MonoBehaviour:
   - {fileID: 39860119}
   - {fileID: 639296430}
   - {fileID: 842360662}
+  - {fileID: 2053229456}
   - {fileID: 4862127297083502684}
 --- !u!1 &167022702
 GameObject:
@@ -23237,6 +23238,7 @@ GameObject:
   - component: {fileID: 639296432}
   - component: {fileID: 639296431}
   - component: {fileID: 639296430}
+  - component: {fileID: 639296433}
   m_Layer: 0
   m_Name: GameplayManager
   m_TagString: Untagged
@@ -23269,10 +23271,10 @@ MonoBehaviour:
   _scenePathHash: 3760593820
   _sceneId: 16151627472535864680
   _sceneNetworkObjects:
-  - {fileID: 2053229456}
   - {fileID: 39860119}
   - {fileID: 639296430}
   - {fileID: 842360662}
+  - {fileID: 2053229456}
   - {fileID: 4862127297083502684}
 --- !u!114 &639296431
 MonoBehaviour:
@@ -23289,7 +23291,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 639296430}
   _networkObjectCache: {fileID: 639296430}
-  _spawnPoint: {x: 0, y: 0}
+  _spawnPoint: {x: 2.22, y: -18}
   _playerPrefab: {fileID: 1419814596373140149, guid: 4cc84fa9d8ad2e14f89ff82e7dfae793, type: 3}
   _timer: {fileID: 842360663}
 --- !u!4 &639296432
@@ -23307,6 +23309,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &639296433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639296429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d2949c8cfab8ac499184ca69cbb0767, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &680872863 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 970441465181029926, guid: 7ad3e6761c0ae5943b199ac72099b059, type: 3}
@@ -23516,10 +23530,10 @@ MonoBehaviour:
   _scenePathHash: 3760593820
   _sceneId: 16151627473777472854
   _sceneNetworkObjects:
-  - {fileID: 2053229456}
   - {fileID: 39860119}
   - {fileID: 639296430}
   - {fileID: 842360662}
+  - {fileID: 2053229456}
   - {fileID: 4862127297083502684}
 --- !u!114 &842360663
 MonoBehaviour:
@@ -25093,10 +25107,10 @@ MonoBehaviour:
   _scenePathHash: 3760593820
   _sceneId: 16151627472455879047
   _sceneNetworkObjects:
-  - {fileID: 2053229456}
   - {fileID: 39860119}
   - {fileID: 639296430}
   - {fileID: 842360662}
+  - {fileID: 2053229456}
   - {fileID: 4862127297083502684}
 --- !u!1001 &1062108272142642371
 PrefabInstance:
@@ -25279,10 +25293,10 @@ MonoBehaviour:
   _scenePathHash: 3760593820
   _sceneId: 16151627470491074449
   _sceneNetworkObjects:
-  - {fileID: 2053229456}
   - {fileID: 39860119}
   - {fileID: 639296430}
   - {fileID: 842360662}
+  - {fileID: 2053229456}
   - {fileID: 4862127297083502684}
 --- !u!114 &4862127297919512521
 MonoBehaviour:
