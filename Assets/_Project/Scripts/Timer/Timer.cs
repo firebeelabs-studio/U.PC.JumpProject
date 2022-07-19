@@ -79,6 +79,8 @@ public class Timer : NetworkBehaviour
     }
     public void DisplayCountdown(float value)
     {
+        if (_countdownText == null) return;
+
         _countdownValue = (int)value;
         if (value >= 1)
         {
