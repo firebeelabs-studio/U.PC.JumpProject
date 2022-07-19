@@ -90,7 +90,7 @@ public class Timer : NetworkBehaviour
         }
         else
         {
-            _countdownText.SetText(string.Empty);
+            _countdownText.gameObject.SetActive(false);
         }
     }
 }

@@ -23293,7 +23293,7 @@ MonoBehaviour:
   _spawnPoint: {x: 0, y: 0}
   _playerPrefab: {fileID: 1419814596373140149, guid: 4cc84fa9d8ad2e14f89ff82e7dfae793, type: 3}
   _timer: {fileID: 842360663}
-  _countdownValue: 4
+  _countdownValue: 3
 --- !u!4 &639296432
 Transform:
   m_ObjectHideFlags: 0
@@ -23539,7 +23539,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 842360662}
   _networkObjectCache: {fileID: 842360662}
   _timerText: {fileID: 1959010018}
-  _countdownText: {fileID: 0}
+  _countdownText: {fileID: 1156826100}
 --- !u!4 &842360664
 Transform:
   m_ObjectHideFlags: 0
@@ -23659,6 +23659,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7246650706481345687, guid: f6b36b0a5bb856f418b3d0181c695654, type: 3}
   m_PrefabInstance: {fileID: 7246650705486067556}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1156826100 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7246650706481345680, guid: f6b36b0a5bb856f418b3d0181c695654, type: 3}
+  m_PrefabInstance: {fileID: 7246650705486067556}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1189802475 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8420694002215377872, guid: a53e2a737d94f674c937965b7a926bc3, type: 3}
