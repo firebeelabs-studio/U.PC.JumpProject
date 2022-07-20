@@ -294,12 +294,12 @@ MonoBehaviour:
   - {fileID: 643176318}
   - {fileID: 643176317}
   SceneTransformProperties:
-    Position: {x: 1.6803026, y: -16.922531, z: -10}
+    Position: {x: 2.786725, y: -16.929277, z: -10}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 0
+  _hasParentNetworkObjectAtEdit: 1
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 0
@@ -323,9 +323,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef0dea4a91b007b4c8f476b2015391a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 643176319}
-  _networkObjectCache: {fileID: 643176319}
+  _networkObjectCache: {fileID: 6226359352672468355}
 --- !u!114 &643176317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,9 +338,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc25db53452b147418a159fcccc1297c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 1
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 643176319}
-  _networkObjectCache: {fileID: 643176319}
+  _networkObjectCache: {fileID: 6226359352672468355}
 --- !u!1 &1674038428
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +366,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1674038428}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.7867253, y: 0.12927818, z: 10}
+  m_LocalPosition: {x: -71.04, y: 0.12927818, z: 10}
   m_LocalScale: {x: 1, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -619,7 +619,7 @@ MonoBehaviour:
   - {fileID: 643176318}
   - {fileID: 643176317}
   SceneTransformProperties:
-    Position: {x: 3.2235775, y: -19.243254, z: 0.389233}
+    Position: {x: 4.33, y: -19.25, z: 0.389233}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
@@ -659,7 +659,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   _detectionRayLength: 0.1
-  _jumpHeight: 35
+  _jumpHeight: 50
   _jumpApexThreshold: 40
   _coyoteTimeThreshold: 7
   _jumpBuffer: 7
@@ -694,7 +694,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 0}
   _rigidbody2d: {fileID: 6226359352672468352}
   _networkTransform: {fileID: 0}
-  _predictionRatio: 0
+  _predictionRatio: 0.324
 --- !u!114 &4899719430961015575
 MonoBehaviour:
   m_ObjectHideFlags: 0

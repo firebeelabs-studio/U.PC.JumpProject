@@ -170,20 +170,14 @@ public class PlayerMotor : NetworkBehaviour
             CheckInput(out MoveData md);
             Move(md, false);
             _ticks++;
-            // if (_ticks % 10 == 0)
-            // {
-                _fixedFrame++;
-            // }
+            _fixedFrame++;
         }
 
         if (IsServer)
         {
             Move(default, true);
             _ticks++;
-            // if (_ticks % 60 == 0)
-            // {
-                _fixedFrame++;
-            // }
+            _fixedFrame++;
         }
     }
 
@@ -207,14 +201,11 @@ public class PlayerMotor : NetworkBehaviour
         }
         _velocity = (_rigidbody.position - _lastPosition) / (float)TimeManager.TickDelta;
         _lastPosition = _velocity;
-
         RunCollisionChecks();
-        // print($"Is grounded: {_grounded} IsExecutedBuffer {_executedBufferedJump} Last frame jump pressed: {_lastFrameJumpPressed} Fixed frame: {_fixedFrame} Threshold: {_jumpBuffer}");
-        // print($"has buffer  " +HasBufferedJump);
+        _speed.x = _pawn.CalculateHorizontalMovement(_speed, _acceleration, _deceleration, _moveClampUpdatedEveryFrame, md.Horizontal, (float)TimeManager.TickDelta, _grounded, _colRight, _colLeft);
         CalculateJumpApex();
         _speed.y = CalculateGravity(_fallSpeed, md);
-        _speed.y = CalculateJump(_jumpToConsume, _speed);
-        _speed.x = _pawn.CalculateHorizontalMovement(_speed, _acceleration, _deceleration, _moveClampUpdatedEveryFrame, md.Horizontal, (float)TimeManager.TickDelta, _grounded, _colRight, _colLeft);
+        _speed.y = CalculateJump(md.Jump, _speed);
         _pawn.MoveCharacter(_rigidbody, _speed, (float)TimeManager.TickDelta);
     }
 
@@ -327,10 +318,9 @@ public class PlayerMotor : NetworkBehaviour
         
         //jump if grounded or within coyote threshold or player did buffered jump
         //print($"Jump: {jumpHeld} Coyote: {CanUseCoyote} HasBufferedJump: {HasBufferedJump}");
-        if (jumpHeld && CanUseCoyote || HasBufferedJump)
+        if (jumpHeld)
         {
             speed.y = _jumpHeight;
-            print("jump" + " " + speed.y);
             _useShortJumpFallMultiplier = false;
             _canUseCoyote = false;
             _jumpToConsume = false;
@@ -354,43 +344,40 @@ public class PlayerMotor : NetworkBehaviour
 
     public float CalculateGravity(float fallSpeed, MoveData md)
     {
+        if (_grounded)
         {
-            if (_grounded)
-            {
-                if (md.Horizontal == 0) return _speed.y;
+            if (md.Horizontal == 0) return _speed.y;
                 
-                _speed.y = _groundingForce;
-                foreach (var hit in _hitsDown)
-                {
-                    if (hit.collider.isTrigger) continue;
-                    var slopePerp = Vector2.Perpendicular(hit.normal).normalized;
-
-                    var slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
-                    // This needs improvement. Prioritize front hit for smoother slope apex
-                    if (slopeAngle != 0)
-                    {
-                        _speed.y = _speed.x * -slopePerp.y;
-                        _speed.y += _groundingForce; // Honestly, this feels like cheating. I'll work on it
-                        break;
-                    }
-                }
-
-            }
-            else
+            _speed.y = _groundingForce;
+            foreach (var hit in _hitsDown)
             {
-                //if player stopped jump faster multiply forces
-                float fallSpeedCalculated = _useShortJumpFallMultiplier && _speed.y > 0 ? fallSpeed * _jumpEndEarlyGravityModifier : fallSpeed;
-                _speed.y -= fallSpeedCalculated * (float)TimeManager.TickDelta;
-                print(_speed.y);
-                //hola hola amigo, don't fall too fast
-                if (_speed.y < _fallClamp)
+                if (hit.collider.isTrigger) continue;
+                var slopePerp = Vector2.Perpendicular(hit.normal).normalized;
+            
+                var slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
+                // This needs improvement. Prioritize front hit for smoother slope apex
+                if (slopeAngle != 0)
                 {
-                    _speed.y = _fallClamp;
+                    _speed.y = _speed.x * -slopePerp.y;
+                    _speed.y += _groundingForce; // Honestly, this feels like cheating. I'll work on it
+                    break;
                 }
             }
-
-            return _speed.y;
         }
+        else
+        {
+            //if player stopped jump faster multiply forces
+            float fallSpeedCalculated = _useShortJumpFallMultiplier && _speed.y > 0 ? fallSpeed * _jumpEndEarlyGravityModifier : fallSpeed;
+            _speed.y -= fallSpeedCalculated * (float)TimeManager.TickDelta;
+            print(_speed.y);
+            //hola hola amigo, don't fall too fast
+            if (_speed.y < _fallClamp)
+            {
+                _speed.y = _fallClamp;
+            }
+        }
+
+        return _speed.y;
     }
     private void CalculateJumpApex()
     {
