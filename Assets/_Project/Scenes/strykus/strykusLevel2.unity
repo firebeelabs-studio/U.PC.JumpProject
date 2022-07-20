@@ -23238,6 +23238,7 @@ GameObject:
   - component: {fileID: 639296432}
   - component: {fileID: 639296431}
   - component: {fileID: 639296430}
+  - component: {fileID: 639296433}
   m_Layer: 0
   m_Name: GameplayManager
   m_TagString: Untagged
@@ -23290,7 +23291,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 639296430}
   _networkObjectCache: {fileID: 639296430}
-  _spawnPoint: {x: 0, y: 0}
+  _spawnPoint: {x: 2.22, y: -18}
   _playerPrefab: {fileID: 1419814596373140149, guid: 4cc84fa9d8ad2e14f89ff82e7dfae793, type: 3}
   _timer: {fileID: 842360663}
   _countdownValue: 3
@@ -23309,6 +23310,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &639296433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639296429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d2949c8cfab8ac499184ca69cbb0767, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &680872863 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 970441465181029926, guid: 7ad3e6761c0ae5943b199ac72099b059, type: 3}

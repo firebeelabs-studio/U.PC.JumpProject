@@ -76,6 +76,7 @@ public class GameplayManager : NetworkBehaviour
     }
 
     //Here we can initialize Player stats via nft, skins etc.
+    [Server]
     private void SpawnPlayer(NetworkConnection conn)
     {
         //Create object and move it to proper scene
