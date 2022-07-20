@@ -15,10 +15,13 @@ public class GameplayManager : NetworkBehaviour
     [SerializeField] private Vector2 _spawnPoint;
     [SerializeField] private NetworkObject _playerPrefab;
     [SerializeField] private Timer _timer;
+    [SerializeField] private float _countdownValue = 4;
     private RoomDetails _roomDetails;
     private MatchmakingNetwork _matchmakingNetwork;
     private List<NetworkObject> _spawnedPlayerObjects = new();
     private bool _isStarted;
+    private bool _shouldStartCountdown = false;
+    private float _countdownValueForDisplaying;
 
     #region Initialize
 
@@ -100,18 +103,25 @@ public class GameplayManager : NetworkBehaviour
     [Server]
     private void Update()
     {
-        // if (_roomDetails.MemberIds.Count == _roomDetails.StartedMembers.Count && !_isStarted)
-        // {
-        //     //dirty, but works, have to clean this temp
-        //     _isStarted = true;
-        //    StartCoroutine(WaitBeforeStart());
-        // }
+        if (_roomDetails.MemberIds.Count == _roomDetails.StartedMembers.Count && !_isStarted)
+        {
+            //dirty, but works, have to clean this temp
+            _isStarted = true;
+            StartCoroutine(WaitBeforeStart());
+        }
+        if (_shouldStartCountdown && _countdownValueForDisplaying > 0)
+        {
+            _countdownValueForDisplaying -= Time.deltaTime;
+            _timer.DisplayCountdown(_countdownValueForDisplaying);
+        }
     }
 
     IEnumerator WaitBeforeStart()
     {
         //now it's only waiting few seconds before start, but we have to show some feedback to players
-        yield return new WaitForSeconds(3);
+        _shouldStartCountdown = true;
+        _countdownValueForDisplaying = _countdownValue + 1;
+        yield return new WaitForSeconds(_countdownValue);
         foreach (var player in _spawnedPlayerObjects)
         {
             TargetLetPlayerMove(player.Owner, player);
