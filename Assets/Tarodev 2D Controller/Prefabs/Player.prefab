@@ -19467,6 +19467,7 @@ GameObject:
   - component: {fileID: 8931638541987077539}
   - component: {fileID: 8931638541987077538}
   - component: {fileID: 1386545392}
+  - component: {fileID: 1963229306301228989}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -19549,9 +19550,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fe5bc01186854c47911e2ac6f4d9b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _allowDoubleJump: 0
-  _allowDash: 1
-  _allowCrouch: 1
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 1963229306301228989}
+  _networkObjectCache: {fileID: 1963229306301228989}
+  CanMove: 0
+  AllowDoubleJump: 0
+  AllowDash: 0
+  AllowCrouch: 0
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -19590,6 +19595,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de059b5d0632cab4b9821c96eb9735a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 1
+  _addedNetworkObject: {fileID: 1963229306301228989}
+  _networkObjectCache: {fileID: 1963229306301228989}
+--- !u!114 &1963229306301228989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8931638541987077541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkBehaviours:
+  - {fileID: 8931638541987077538}
+  - {fileID: 1386545392}
+  SceneTransformProperties:
+    Position: {x: -1.8858023, y: 0.5708461, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    LocalScale: {x: 1, y: 1, z: 1}
+  _isNetworked: 1
+  _isGlobal: 0
+  _hasParentNetworkObjectAtEdit: 0
+  NetworkObserver: {fileID: 0}
+  _prefabId: -1
+  _scenePathHash: 0
+  _sceneId: 0
+  _sceneNetworkObjects: []
 --- !u!1 &8931638542005127921
 GameObject:
   m_ObjectHideFlags: 0
@@ -29617,7 +29652,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8931638543184989632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.685, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0253906, y: 1.34375, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -29665,7 +29700,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9ec0ca269ec0b4f4fa12877c83d9dd88, type: 3}
+  m_Sprite: {fileID: 21300000, guid: add356701612e504991c322dd9731387, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
