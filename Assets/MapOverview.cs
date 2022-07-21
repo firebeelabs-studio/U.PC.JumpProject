@@ -35,16 +35,15 @@ public class MapOverview : MonoBehaviour
 
     private void OverviewInProgress()
     {
-        if (_overviewStarted)
+        if (!_overviewStarted) return;
+        
+        if (_cameraBody.m_PathPosition < _dollyTrack.PathLength)
         {
-            if (_cameraBody.m_PathPosition < _dollyTrack.PathLength)
-            {
-                _cameraBody.m_PathPosition += Time.deltaTime * _speedForOverviewCamera;
-            }
-            else if (_cameraBody.m_PathPosition >= _dollyTrack.PathLength && !_overviewEnded)
-            {
-                EndMapOverview();
-            }
+            _cameraBody.m_PathPosition += Time.deltaTime * _speedForOverviewCamera;
+        }
+        else if (_cameraBody.m_PathPosition >= _dollyTrack.PathLength && !_overviewEnded)
+        {
+            EndMapOverview();
         }
     }
 
