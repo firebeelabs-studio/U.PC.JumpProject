@@ -10,7 +10,9 @@ public class PawnMovement : MonoBehaviour
         rb.MovePosition(rb.position + move);
     }
     
-    public float CalculateHorizontalMovement(Vector2 speed, float acceleration, float deceleration, float moveClampUpdatedEveryFrame, float inputX, float delta, bool grounded, bool colRight, bool colLeft)
+    public float CalculateHorizontalMovement(Vector2 speed, float acceleration, float deceleration,
+        float moveClampUpdatedEveryFrame, float inputX, float delta, bool grounded, bool colRight, bool colLeft,
+        float apexBonus, float apexPoint)
     {
         if (inputX != 0)
         {
@@ -21,11 +23,13 @@ public class PawnMovement : MonoBehaviour
             speed.x = Mathf.Clamp(speed.x, -moveClampUpdatedEveryFrame, moveClampUpdatedEveryFrame);
              
             //apply bonus at the apex of a jump
-            // var apexBonus = Mathf.Sign(inputX) * _apexBonus * _apexPoint;
-            // speed.x += apexBonus * delta;
+            var apexBonusCalculated = Mathf.Sign(inputX) * apexBonus * apexPoint;
+            speed.x += apexBonusCalculated * delta;
         }
         else
         {
+            //TODO: deceleration here
+            //Mathf.MoveTowards(_speed.x, 0, _deceleration * Time.fixedDeltaTime);
             //no input slow down player using deceleration (mario like stop)
             speed.x = 0;
         }

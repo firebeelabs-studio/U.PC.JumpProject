@@ -38,9 +38,12 @@ public class PlayerMotor : NetworkBehaviour
         public Vector2 LastPosition;
         public float AngularVelocity;
         public float FallSpeed;
+        public float ApexBonus;
+        public float ApexPoint;
         public int FixedFrame;
+        public bool UseShortJumpFallMultiplier;
 
-        public ReconcileData(Vector3 position, Quaternion rotation, Vector3 velocity, Vector3 customVelocity, float angularVelocity, Vector2 speed, int fixedFrame, float fallSpeed, Vector2 lastPosition)
+        public ReconcileData(Vector3 position, Quaternion rotation, Vector3 velocity, Vector3 customVelocity, float angularVelocity, Vector2 speed, int fixedFrame, float fallSpeed, Vector2 lastPosition, float apexBonus, float apexPoint, bool useShortJumpFallMultiplier)
         {
             Position = position;
             Rotation = rotation;
@@ -51,6 +54,9 @@ public class PlayerMotor : NetworkBehaviour
             FallSpeed = fallSpeed;
             LastPosition = lastPosition;
             CustomVelocity = customVelocity;
+            ApexBonus = apexBonus;
+            ApexPoint = apexPoint;
+            UseShortJumpFallMultiplier = useShortJumpFallMultiplier;
         }
     }
 
@@ -186,7 +192,7 @@ public class PlayerMotor : NetworkBehaviour
     {
         if (IsServer)
         {
-            ReconcileData rd = new ReconcileData(transform.position, transform.rotation, _rigidbody.velocity, _velocity, _rigidbody.angularVelocity, _speed, _fixedFrame, _fallSpeed, _lastPosition);
+            ReconcileData rd = new ReconcileData(transform.position, transform.rotation, _rigidbody.velocity, _velocity, _rigidbody.angularVelocity, _speed, _fixedFrame, _fallSpeed, _lastPosition, _apexBonus, _apexPoint, _useShortJumpFallMultiplier);
             Reconciliation(rd, true);
         }
     }
@@ -202,10 +208,10 @@ public class PlayerMotor : NetworkBehaviour
         _velocity = (_rigidbody.position - _lastPosition) / (float)TimeManager.TickDelta;
         _lastPosition = _velocity;
         RunCollisionChecks();
-        _speed.x = _pawn.CalculateHorizontalMovement(_speed, _acceleration, _deceleration, _moveClampUpdatedEveryFrame, md.Horizontal, (float)TimeManager.TickDelta, _grounded, _colRight, _colLeft);
+        _speed.x = _pawn.CalculateHorizontalMovement(_speed, _acceleration, _deceleration, _moveClampUpdatedEveryFrame, md.Horizontal, (float)TimeManager.TickDelta, _grounded, _colRight, _colLeft, _apexBonus, _apexPoint);
         CalculateJumpApex();
         _speed.y = CalculateGravity(_fallSpeed, md);
-        _speed.y = CalculateJump(md.Jump, _speed);
+        _speed.y = CalculateJump(md.Jump, md.JumpHeld, _speed);
         _pawn.MoveCharacter(_rigidbody, _speed, (float)TimeManager.TickDelta);
     }
 
@@ -221,6 +227,8 @@ public class PlayerMotor : NetworkBehaviour
         _fallSpeed = rd.FallSpeed;
         _velocity = rd.CustomVelocity;
         _lastPosition = rd.LastPosition;
+        _apexBonus = rd.ApexBonus;
+        _apexPoint = rd.ApexPoint;
     }
     
     private void CheckInput(out MoveData md)
@@ -304,7 +312,7 @@ public class PlayerMotor : NetworkBehaviour
     //if double jump ability is unlocked and player is on the ground and isn't in coyote time threshold (didn't left ground before jump)
     private bool CanDoubleJump => AllowDoubleJump && _doubleJumpUsable && !_canUseCoyote;
     
-    public float CalculateJump(bool jumpHeld, Vector2 speed)
+    public float CalculateJump(bool jumpPressed, bool jumpHeld, Vector2 speed)
     {
         //if player pressed space, is not grounded, and is allowed to use double jump
         // if (_jumpToConsume && CanDoubleJump)
@@ -318,7 +326,7 @@ public class PlayerMotor : NetworkBehaviour
         
         //jump if grounded or within coyote threshold or player did buffered jump
         //print($"Jump: {jumpHeld} Coyote: {CanUseCoyote} HasBufferedJump: {HasBufferedJump}");
-        if (jumpHeld)
+        if (jumpPressed && _grounded)
         {
             speed.y = _jumpHeight;
             _useShortJumpFallMultiplier = false;
@@ -367,9 +375,9 @@ public class PlayerMotor : NetworkBehaviour
         else
         {
             //if player stopped jump faster multiply forces
+            //useShort to reconcile
             float fallSpeedCalculated = _useShortJumpFallMultiplier && _speed.y > 0 ? fallSpeed * _jumpEndEarlyGravityModifier : fallSpeed;
             _speed.y -= fallSpeedCalculated * (float)TimeManager.TickDelta;
-            print(_speed.y);
             //hola hola amigo, don't fall too fast
             if (_speed.y < _fallClamp)
             {
