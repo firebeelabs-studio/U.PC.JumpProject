@@ -12,6 +12,7 @@ using UnityEngine.UIElements;
 public class PlayerMotor : NetworkBehaviour
 {
     public FrameInput Input { get; private set; }
+    public AnimatorNetworking _anim;
     private PlayerInput _input;
     public struct MoveData
     {
@@ -208,7 +209,7 @@ public class PlayerMotor : NetworkBehaviour
         _velocity = (_rigidbody.position - _lastPosition) / (float)TimeManager.TickDelta;
         _lastPosition = _velocity;
         RunCollisionChecks();
-        _speed.x = _pawn.CalculateHorizontalMovement(_speed, _acceleration, _deceleration, _moveClampUpdatedEveryFrame, md.Horizontal, (float)TimeManager.TickDelta, _grounded, _colRight, _colLeft, _apexBonus, _apexPoint);
+        _speed.x = _pawn.CalculateHorizontalMovement(_speed, _acceleration, _deceleration, _moveClampUpdatedEveryFrame, md.Horizontal, (float)TimeManager.TickDelta, _grounded, _colRight, _colLeft, _apexBonus, _apexPoint, _anim);
         CalculateJumpApex();
         _speed.y = CalculateGravity(_fallSpeed, md);
         _speed.y = CalculateJump(md.Jump, md.JumpHeld, _speed);
@@ -229,6 +230,7 @@ public class PlayerMotor : NetworkBehaviour
         _lastPosition = rd.LastPosition;
         _apexBonus = rd.ApexBonus;
         _apexPoint = rd.ApexPoint;
+        _useShortJumpFallMultiplier = rd.UseShortJumpFallMultiplier;
     }
     
     private void CheckInput(out MoveData md)

@@ -12,10 +12,11 @@ public class PawnMovement : MonoBehaviour
     
     public float CalculateHorizontalMovement(Vector2 speed, float acceleration, float deceleration,
         float moveClampUpdatedEveryFrame, float inputX, float delta, bool grounded, bool colRight, bool colLeft,
-        float apexBonus, float apexPoint)
+        float apexBonus, float apexPoint, AnimatorNetworking  anim)
     {
         if (inputX != 0)
         {
+            anim.SetMoving(true);
             //set horizontal move speed
             speed.x += inputX * acceleration * delta;
              
@@ -32,6 +33,7 @@ public class PawnMovement : MonoBehaviour
             //Mathf.MoveTowards(_speed.x, 0, _deceleration * Time.fixedDeltaTime);
             //no input slow down player using deceleration (mario like stop)
             speed.x = 0;
+            anim.SetMoving(false);
         }
 
         if (!grounded && (speed.x > 0 && colRight || speed.x < 0 && colLeft))
