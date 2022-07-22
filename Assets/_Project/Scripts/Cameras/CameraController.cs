@@ -6,22 +6,23 @@ using System.Collections;
 
 public class CameraController : NetworkBehaviour
 {
+    [SerializeField] private Transform _visualObjToFollowAndLookAt;
     private float _maxZoom;
     private float _zoomSpeed;
     private float _camZOffset;
     private bool _shouldZoom;
     private float _defaultZoom;
-    private CinemachineVirtualCamera _cam;
+    private CinemachineVirtualCamera _vcam;
     private CinemachineTrackedDolly _camBody;
-    private PlayerController _playerController;
+    private MapOverview _mapOverview;
 
     private void Awake()
     {
         _defaultZoom = CameraSettings.Instance.CameraSize;
         _shouldZoom = CameraSettings.Instance.ShouldZoom;
-        _cam = GetComponent<CinemachineVirtualCamera>();
+        _vcam = GetComponent<CinemachineVirtualCamera>();
         //_playerController = GetComponentInParent<PlayerController>();
-        _camBody = _cam.GetCinemachineComponent<CinemachineTrackedDolly>();
+        _camBody = _vcam.GetCinemachineComponent<CinemachineTrackedDolly>();
     }
     private void Start()
     {
@@ -37,7 +38,7 @@ public class CameraController : NetworkBehaviour
         base.OnStartClient();
         if (base.IsOwner)
         {
-            _cam.m_Lens.OrthographicSize = CameraSettings.Instance.CameraSize;
+            _vcam.m_Lens.OrthographicSize = CameraSettings.Instance.CameraSize;
         }
     }
     //private void LateUpdate() => ZoomOutWhileFalling(_playerController.VelocityY);
@@ -50,19 +51,30 @@ public class CameraController : NetworkBehaviour
         {
             if (currentVelocity < -50f) //checks if player has enough speed (probably need to change it; max vel is currently about -61.0...)
             {
-                _cam.m_Lens.OrthographicSize = Mathf.MoveTowards(_cam.m_Lens.OrthographicSize, (_defaultZoom + _maxZoom), _zoomSpeed * Time.deltaTime); //smoothly changes the size of lens (need to check it on build if its smooth enough)
+                _vcam.m_Lens.OrthographicSize = Mathf.MoveTowards(_vcam.m_Lens.OrthographicSize, (_defaultZoom + _maxZoom), _zoomSpeed * Time.deltaTime); //smoothly changes the size of lens (need to check it on build if its smooth enough)
                 _camBody.m_PathOffset.z = Mathf.MoveTowards(_camBody.m_PathOffset.z, _camZOffset, _zoomSpeed * Time.deltaTime); //moves the camera by the offset to let the player see incoming obstacles
             }
 
         }
         else
         {
-            _cam.m_Lens.OrthographicSize = Mathf.MoveTowards(_cam.m_Lens.OrthographicSize, _defaultZoom, (_zoomSpeed+(_zoomSpeed*1.5f)) * Time.deltaTime); //smoothly zooms back to the normal view
+            _vcam.m_Lens.OrthographicSize = Mathf.MoveTowards(_vcam.m_Lens.OrthographicSize, _defaultZoom, (_zoomSpeed+(_zoomSpeed*1.5f)) * Time.deltaTime); //smoothly zooms back to the normal view
             _camBody.m_PathOffset.z = Mathf.MoveTowards(_camBody.m_PathOffset.z, 0, _zoomSpeed * Time.deltaTime); //moves camera back to original position
         }
         
     }
 
+    [ContextMenu("StartMapOverview")]
+    private void StartMapOverview()
+    {
+        CinemachineSmoothPath dollyTrack = ZoomAreaDollyTrack.Instance.DollyTrack;
+        CinemachineVirtualCamera vcam = _vcam;
+        _mapOverview = MapOverview.Instance;
+        if (_mapOverview != null && dollyTrack != null && vcam != null)
+        {
+            _mapOverview.StartMapOverview(dollyTrack, vcam, _visualObjToFollowAndLookAt);
+        }
+    }
 
 
 
