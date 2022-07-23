@@ -53,7 +53,7 @@ public class ZoomAreaDollyTrack : MonoBehaviour
             {
                 _zoomWaypoints.Remove(_zoomWaypoints[^1]);
             }
-            WaypointsToZoom lastEmptyWaypoint = new(_zoomWaypoints.Count+1, 0,WaypointsToZoom.ZoomType.ResetToDefault);
+            WaypointsToZoom lastEmptyWaypoint = new(_zoomWaypoints[^1].waypointNumber + 1, 0,WaypointsToZoom.ZoomType.ResetToDefault);
             _zoomWaypoints.Add(lastEmptyWaypoint); //adds empty waypoint at the end of list
             _previousWaypoint = _zoomWaypoints[0].waypointNumber;
             _nextWaypoint = _zoomWaypoints[1].waypointNumber;
