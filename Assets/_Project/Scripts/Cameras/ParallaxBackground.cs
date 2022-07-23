@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class ParallaxBackground : MonoBehaviour
 {
-    [SerializeField] private GameObject _parallaxReferenceObject;
+    public Transform ParallaxReferenceTransform;
     [SerializeField] private List<ParallaxBackgroundParts> backgroundParts;
     [SerializeField] private float _offsetForDistance = 3f;
     private bool _isXAxis;
 
     void Awake()
     {
+        if (ParallaxReferenceTransform == null)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
         _isXAxis = CameraSettings.Instance.Axis == CameraSettings.ParallaxAxis.Horizontal ? true : false;   //if true => horizontal
         LoadBackgroundParts(_isXAxis);
     }
@@ -20,7 +25,7 @@ public class ParallaxBackground : MonoBehaviour
     }
     private void Parallax(bool isXAxis)
     {
-        float parallaxAxis = isXAxis == true ? _parallaxReferenceObject.transform.position.x : _parallaxReferenceObject.transform.position.y;
+        float parallaxAxis = isXAxis == true ? ParallaxReferenceTransform.position.x : ParallaxReferenceTransform.position.y;
         if (!CameraSettings.Instance.ShouldParallax) return;
 
         //loops through all elements in list 'backgroundParts' and executes code below for each of them

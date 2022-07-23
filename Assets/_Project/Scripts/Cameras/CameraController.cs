@@ -14,6 +14,7 @@ public class CameraController : NetworkBehaviour
     private CinemachineVirtualCamera _cam;
     private CinemachineTrackedDolly _camBody;
     private PlayerController _playerController;
+    private GameObject _bg;
 
     private void Awake()
     {
@@ -22,6 +23,14 @@ public class CameraController : NetworkBehaviour
         _cam = GetComponent<CinemachineVirtualCamera>();
         //_playerController = GetComponentInParent<PlayerController>();
         _camBody = _cam.GetCinemachineComponent<CinemachineTrackedDolly>();
+        if (CameraSettings.Instance.BackgroundPrefab != null)
+        {
+            _bg = Instantiate(CameraSettings.Instance.BackgroundPrefab);
+            _bg.transform.SetParent(transform);
+            _bg.transform.position = CameraSettings.Instance.BackgroundPrefab.transform.position;
+            _bg.GetComponent<ParallaxBackground>().ParallaxReferenceTransform = transform;
+            _bg.SetActive(true);
+        }
     }
     private void Start()
     {
