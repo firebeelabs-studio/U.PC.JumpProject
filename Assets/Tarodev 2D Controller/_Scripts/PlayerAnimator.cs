@@ -120,7 +120,7 @@ namespace TarodevController {
             var inputPoint = Mathf.Abs(_player.Input.X);
 
             // Flip the sprite
-            if (_player.Input.X != 0) transform.localScale = new Vector3(_player.Input.X > 0 ? 1 : -1, 1, 1);
+            if (_player.Input.X != 0) transform.localScale = new Vector3(_player.Input.X > 0 ? 1.3f : -1.3f, 1.3f, 1);
 
             // Lean while running
             var targetRotVector = new Vector3(0, 0, Mathf.Lerp(-_maxTilt, _maxTilt, Mathf.InverseLerp(-1, 1, _player.Input.X)));

@@ -114,8 +114,8 @@ MonoBehaviour:
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects:
-  - {fileID: 1165085243}
-  - {fileID: 1419814596373140149}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &18804888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14834,7 +14834,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4876711218200382680
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15378,12 +15378,12 @@ MonoBehaviour:
   _isNetworked: 1
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: 3
+  _prefabId: 4
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects:
-  - {fileID: 1165085243}
-  - {fileID: 1419814596373140149}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &5440743960645224177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30146,8 +30146,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7514181438401602124}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.685, z: 0}
-  m_LocalScale: {x: 1.0253906, y: 1.34375, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7514181438731622076}
@@ -30194,7 +30194,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9ec0ca269ec0b4f4fa12877c83d9dd88, type: 3}
+  m_Sprite: {fileID: 21300000, guid: add356701612e504991c322dd9731387, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -30252,7 +30252,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7514181438731622079}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.056, z: 0}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -35600,6 +35600,10 @@ PrefabInstance:
     - target: {fileID: 388788776838278598, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
       propertyPath: m_Name
       value: Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 388788776838278598, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
       propertyPath: _cam
