@@ -35421,7 +35421,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8784027791475477411}
+  - {fileID: 1819516410625523917}
   m_Father: {fileID: 7823926982098381082}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -35546,105 +35546,69 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
---- !u!1001 &8971843263142340198
+--- !u!1001 &6875622640541152852
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 7823926983352567000}
     m_Modifications:
-    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+    - target: {fileID: 2291717771820512875, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
+      propertyPath: _parallaxReferenceObject
+      value: 
+      objectReference: {fileID: 7514181438401602124}
+    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 388788776838278598, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
+    - target: {fileID: 5056177706903975578, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
       propertyPath: m_Name
-      value: Background
-      objectReference: {fileID: 0}
-    - target: {fileID: 388788776838278598, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: _cam
-      value: 
-      objectReference: {fileID: 1165085242}
-    - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: _player
-      value: 
-      objectReference: {fileID: 1165085242}
-    - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: _parallaxReferenceObject
-      value: 
-      objectReference: {fileID: 1165085242}
-    - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: backgroundParts.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: backgroundParts.Array.data[3].BackgroundPart
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: backgroundParts.Array.data[0].ParallaxEffectPower
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: backgroundParts.Array.data[1].ParallaxEffectPower
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: backgroundParts.Array.data[2].ParallaxEffectPower
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-      propertyPath: backgroundParts.Array.data[3].ParallaxEffectPower
-      value: 0.2
+      value: NewBackground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
---- !u!4 &8784027791475477411 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
+--- !u!4 &1819516410625523917 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 388788776838278597, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
-  m_PrefabInstance: {fileID: 8971843263142340198}
+  m_CorrespondingSourceObject: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
+  m_PrefabInstance: {fileID: 6875622640541152852}
   m_PrefabAsset: {fileID: 0}
