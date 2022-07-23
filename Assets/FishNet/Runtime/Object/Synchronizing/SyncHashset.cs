@@ -309,19 +309,23 @@ namespace FishNet.Object.Synchronizing
         /// </summary>
         private void InvokeOnChange(SyncHashSetOperation operation, T item, bool asServer)
         {
-            if (asServer)
+            if (OnChange != null)
             {
-                if (base.NetworkBehaviour.OnStartServerCalled)
-                    OnChange?.Invoke(operation, item, asServer);
+                if (asServer)
+                {
+                    if (base.NetworkBehaviour.OnStartServerCalled)
+                        OnChange.Invoke(operation, item, asServer);
+                    else
+                        _serverOnChanges.Add(new CachedOnChange(operation, item));
+                }
                 else
-                    _serverOnChanges.Add(new CachedOnChange(operation, item));
-            }
-            else
-            {
-                if (base.NetworkBehaviour.OnStartClientCalled)
-                    OnChange?.Invoke(operation, item, asServer);
-                else
-                    _clientOnChanges.Add(new CachedOnChange(operation, item));
+                {
+                    if (base.NetworkBehaviour.OnStartClientCalled)
+                        OnChange.Invoke(operation, item, asServer);
+                    else
+                        _clientOnChanges.Add(new CachedOnChange(operation, item));
+                }
+
             }
         }
 

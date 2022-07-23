@@ -8,7 +8,7 @@ public class BouncePlatform : MonoBehaviour
     [SerializeField] private float _horizontalBoost = 1;
     [SerializeField] private float _cameraZoomOutDuration;
     [SerializeField] private GameObject _playerSimulation;
-    //[SerializeField] private JumpSimulation _jumpSimulation;
+    [SerializeField] private JumpSimulation _jumpSimulation;
    
     private Vector2 _bounceDirectionVector;
     private bool _cancelMovement = true;
@@ -27,7 +27,7 @@ public class BouncePlatform : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player")) return;
-        if (collision.TryGetComponent(out PlayerMotor controller))
+        if (collision.TryGetComponent(out IPlayerController controller))
         {
             FindObjectOfType<AudioManager>().Play("Bouncer");
             controller.AddForce(_bounceDirectionVector * _bounceForce, PlayerForce.Burst, _cancelMovement);
@@ -46,6 +46,6 @@ public class BouncePlatform : MonoBehaviour
     void SetPath()
     {
         CalculateForces();
-        //_jumpSimulation.CreatePath();
+        _jumpSimulation.CreatePath();
     }
 }

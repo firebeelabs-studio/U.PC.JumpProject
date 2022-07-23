@@ -12,8 +12,8 @@ using UnityEngine;
 //TODO: make this script server only
 public class Timer : NetworkBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _timerText;
-    [SerializeField] private TextMeshProUGUI _countdownText;
+    [SerializeField]
+    private TextMeshProUGUI _timerText;
     private float _starTime;
     private bool _isRunStarted;
     private bool _initialized;
@@ -21,7 +21,6 @@ public class Timer : NetworkBehaviour
     private float _timeInSeconds;
     //Timer display
     private float _minutes, _seconds;
-    private int _countdownValue;
 
     private Dictionary<NetworkConnection, float> _finishes = new();
     
@@ -29,6 +28,8 @@ public class Timer : NetworkBehaviour
     {
         base.OnStartNetwork();
         _initialized = true;
+        //temp
+        _timerText = GameObject.Find("TimerText").GetComponent<TextMeshProUGUI>();
     }
 
     [Server]
@@ -75,24 +76,6 @@ public class Timer : NetworkBehaviour
                 print($"Place {temp} time: {finisher}");
                 temp++;
             }
-        }
-    }
-    public void DisplayCountdown(float value)
-    {
-        if (_countdownText == null) return;
-
-        _countdownValue = (int)value;
-        if (value >= 1)
-        {
-            _countdownText.SetText(_countdownValue.ToString());
-        }
-        else if (value < 1 && value > 0)
-        {
-            _countdownText.SetText("GO!");
-        }
-        else
-        {
-            _countdownText.gameObject.SetActive(false);
         }
     }
 }

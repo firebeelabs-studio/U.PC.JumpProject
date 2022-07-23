@@ -128,7 +128,6 @@ namespace TarodevController {
 
             // Speed up idle while running
             _anim.SetFloat(IdleSpeedKey, Mathf.Lerp(1, _maxIdleSpeed, inputPoint));
-            if (inputPoint != 0) _anim.SetTrigger(RunKey);
 
             DetectGroundColor();
 
@@ -167,7 +166,6 @@ namespace TarodevController {
         private static readonly int GroundedKey = Animator.StringToHash("Grounded");
         private static readonly int IdleSpeedKey = Animator.StringToHash("IdleSpeed");
         private static readonly int JumpKey = Animator.StringToHash("Jump");
-        private static readonly int RunKey = Animator.StringToHash("Run");
 
         #endregion
     }

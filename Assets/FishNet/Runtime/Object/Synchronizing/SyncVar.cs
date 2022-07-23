@@ -200,19 +200,23 @@ namespace FishNet.Object.Synchronizing
         /// </summary>
         private void InvokeOnChange(T prev, T next, bool asServer)
         {
-            if (asServer)
+            if (OnChange != null)
             {
-                if (base.NetworkBehaviour.OnStartServerCalled)
-                    OnChange?.Invoke(prev, next, asServer);
+                if (asServer)
+                {
+                    if (base.NetworkBehaviour.OnStartServerCalled)
+                        OnChange.Invoke(prev, next, asServer);
+                    else
+                        _serverOnChange = new CachedOnChange(prev, next);
+                }
                 else
-                    _serverOnChange = new CachedOnChange(prev, next);
-            }
-            else
-            {
-                if (base.NetworkBehaviour.OnStartClientCalled)
-                    OnChange?.Invoke(prev, next, asServer);
-                else
-                    _clientOnChange = new CachedOnChange(prev, next);
+                {
+                    if (base.NetworkBehaviour.OnStartClientCalled)
+                        OnChange.Invoke(prev, next, asServer);
+                    else
+                        _clientOnChange = new CachedOnChange(prev, next);
+                }
+
             }
         }
 
@@ -278,7 +282,7 @@ namespace FishNet.Object.Synchronizing
         {
             base.Reset();
             _value = _initialValue;
-            _previousClientValue = _initialValue;
+            _previousClientValue = _initialValue;            
         }
     }
 }

@@ -88,7 +88,7 @@ namespace FishNet.Object
                 return;
             if (gameObject == null)
                 return;
-            
+
             ulong startId = SceneId;
             uint startPath = _scenePathHash;
 
@@ -196,11 +196,11 @@ namespace FishNet.Object
             return false;
         }
 
-        private void ReferenceIds_OnValidate()
+        partial void PartialOnValidate()
         {
             TryCreateSceneID();
         }
-        private void ReferenceIds_Reset()
+        partial void PartialReset()
         {
             TryCreateSceneID();
         }

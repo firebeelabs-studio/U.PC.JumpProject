@@ -140,6 +140,7 @@ namespace FishNet.CodeGenerating.Processing
              * been processed. */
             PrepareNetworkInitializeMethods(firstTypeDef);
 
+
             /* Make awake methods for all inherited classes
             * public and virtual. This is so I can add logic
             * to the firstTypeDef awake and still execute

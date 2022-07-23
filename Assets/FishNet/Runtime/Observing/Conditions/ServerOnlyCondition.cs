@@ -1,6 +1,5 @@
 ﻿using FishNet.Connection;
 using FishNet.Observing;
-using System;
 using UnityEngine;
 
 namespace FishNet.Component.Observing
@@ -8,8 +7,7 @@ namespace FishNet.Component.Observing
     /// <summary>
     /// This condition makes an object only visible to the server.
     /// </summary>
-    //[CreateAssetMenu(menuName = "FishNet/Observers/Server Only Condition", fileName = "New Server Only Condition")]
-    [Obsolete("Use OwnerOnlyCondition instead.")] //Remove on 2023/06/01
+    [CreateAssetMenu(menuName = "FishNet/Observers/Server Only Condition", fileName = "New Server Only Condition")]
     public class ServerOnlyCondition : ObserverCondition
     {
 

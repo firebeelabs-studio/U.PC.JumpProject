@@ -20,27 +20,16 @@ namespace FishNet
             foreach (string item in currentArr)
                 definesHs.Add(item);
 
-            string proDefine = "FISHNET_PRO";
             string[] fishNetDefines = new string[]
             {
-                "FISHNET",
-                proDefine,
+                "FISHNET"
             };
-            bool modified = false;
+            bool added = false;
             //Now add FN defines.
             foreach (string item in fishNetDefines)
-                modified |= definesHs.Add(item);
+                added |= definesHs.Add(item);
 
-            /* Remove pro define if not on pro. This might look a little
-             * funny because the code below varies depending on if pro or not. */
-            //PROSTART
-            if (1 == 2)
-                //PROEND
-#pragma warning disable CS0162 // Unreachable code detected
-                modified |= definesHs.Remove(proDefine);
-#pragma warning restore CS0162 // Unreachable code detected
-
-            if (modified)
+            if (added)
             {
                 Debug.Log("Added Fish-Networking defines to player settings.");
                 string changedDefines = string.Join(";", definesHs);

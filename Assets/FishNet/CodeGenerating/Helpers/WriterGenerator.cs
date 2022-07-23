@@ -237,14 +237,18 @@ namespace FishNet.CodeGenerating.Helping
             //Fields
             foreach (FieldDefinition fieldDef in objectTr.FindAllPublicFields(true, true))//, WriterHelper.EXCLUDED_AUTO_SERIALIZER_TYPES))
             {
+                if (CodegenSession.GeneralHelper.CodegenExclude(fieldDef))
+                    continue;
                 if (GetWriteMethod(fieldDef.FieldType, out MethodReference writeMr))
                     CodegenSession.WriterHelper.CreateWrite(writerMd, valuePd, fieldDef, writeMr);
             }
 
             //Properties.
             foreach (PropertyDefinition propertyDef in objectTr.FindAllPublicProperties(
-                true, WriterHelper.EXCLUDED_AUTO_SERIALIZER_TYPES, WriterHelper.EXCLUDED_ASSEMBLY_PREFIXES))
+                WriterHelper.EXCLUDED_AUTO_SERIALIZER_TYPES, WriterHelper.EXCLUDED_ASSEMBLY_PREFIXES))
             {
+                if (CodegenSession.GeneralHelper.CodegenExclude(propertyDef))
+                    continue;
                 if (GetWriteMethod(propertyDef.PropertyType, out MethodReference writerMr))
                 {
                     MethodReference getMr = CodegenSession.Module.ImportReference(propertyDef.GetMethod);
@@ -255,8 +259,8 @@ namespace FishNet.CodeGenerating.Helping
             //Gets or creates writer method and outputs it. Returns true if method is found or created.
             bool GetWriteMethod(TypeReference tr, out MethodReference writeMr)
             {
-                tr = CodegenSession.ImportReference(tr);
-                writeMr = CodegenSession.WriterHelper.GetOrCreateFavoredWriteMethodReference(tr, true);
+                TypeReference typeRef = CodegenSession.Module.ImportIfDifferent(tr);
+                writeMr = CodegenSession.WriterHelper.GetOrCreateFavoredWriteMethodReference(typeRef, true);
                 return (writeMr != null);
             }
 

@@ -347,13 +347,12 @@ namespace FishNet.Managing.Transporting
         {
             OnIterateOutgoingStart?.Invoke();
             int channelCount = CHANNEL_COUNT;
-            ulong sentBytes = 0;
-
             /* If sending from the server. */
             if (server)
             {
                 TimeManager tm = _networkManager.TimeManager;
                 uint localTick = tm.LocalTick;
+                //uint sentBytes = 0;
                 //Write any dirty syncTypes.
                 _networkManager.ServerManager.Objects.WriteDirtySyncTypes();
 
@@ -376,7 +375,7 @@ namespace FishNet.Managing.Transporting
                                 {
                                     ArraySegment<byte> segment = new ArraySegment<byte>(bb.Data, 0, bb.Length);
                                     Transport.SendToClient(channel, segment, conn.ClientId);
-                                    sentBytes += (ulong)segment.Count;
+                                    //sentBytes += (uint)segment.Count;
                                 }
                             }
 
@@ -415,8 +414,8 @@ namespace FishNet.Managing.Transporting
                         i--;
                     }
                 }
-
-                _networkManager.StatisticsManager.NetworkTraffic.LocalServerSentData(sentBytes);
+                //if (sentBytes > 0 && _networkManager.ServerManager.Objects.Spawned.Count > 1)
+                //    Debug.Log($"Sent {sentBytes} bytes. Avg {sentBytes / (_networkManager.ServerManager.Objects.Spawned.Count - 1)} per object.");
                 _dirtyToClients.Clear();
             }
             /* If sending from the client. */
@@ -432,14 +431,12 @@ namespace FishNet.Managing.Transporting
                             {
                                 ArraySegment<byte> segment = new ArraySegment<byte>(bb.Data, 0, bb.Length);
                                 Transport.SendToServer(channel, segment);
-                                sentBytes += (ulong)segment.Count;
                             }
                         }
+
                         pb.Reset();
                     }
                 }
-
-                _networkManager.StatisticsManager.NetworkTraffic.LocalClientSentData(sentBytes);
             }
 
             Transport.IterateOutgoing(server);

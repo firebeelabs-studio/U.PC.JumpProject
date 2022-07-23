@@ -256,7 +256,6 @@ namespace FishNet.Managing.Client
 #endif
 
             ArraySegment<byte> segment = args.Data;
-            NetworkManager.StatisticsManager.NetworkTraffic.LocalClientReceivedData((ulong)segment.Count);
             if (segment.Count <= TransportManager.TICK_BYTES)
                 return;
 

@@ -64,21 +64,15 @@ namespace TarodevController
             _velocity = (_rb.position - _lastPosition) / Time.fixedDeltaTime;
             _lastPosition = _rb.position;
 
-            // RunCollisionChecks();
+            RunCollisionChecks();
 
-            // CalculateCrouch();
-            // CalculateHorizontal();
-
-            // CalculateDash();
-            // MoveCharacter();
-        }
-
-        public void JumpAndGravity()
-        {
-            print("x");
+            CalculateCrouch();
+            CalculateHorizontal();
             CalculateJumpApex();
             CalculateGravity();
             CalculateJump();
+            CalculateDash();
+            MoveCharacter();
         }
 
         #region Gather Input
@@ -112,9 +106,8 @@ namespace TarodevController
 
 
         // We use these raycast checks for pre-collision information
-        public void RunCollisionChecks()
+        private void RunCollisionChecks()
         {
-            print("y");
             // Generate ray ranges. 
             var b = _collider.bounds;
 
@@ -242,7 +235,7 @@ namespace TarodevController
 
         private float _frameClamp;
 
-        public void CalculateHorizontal()
+        private void CalculateHorizontal()
         {
             if (Input.X != 0)
             {
@@ -440,9 +433,8 @@ namespace TarodevController
         #region Move
 
         // We cast our bounds before moving to avoid future collisions
-        public void MoveCharacter()
+        private void MoveCharacter()
         {
-            print("z");
             RawMovement = _speed; // Used externally
             var move = RawMovement * Time.fixedDeltaTime;
 

@@ -20,7 +20,6 @@ using FishNet.Managing.Debugging;
 using FishNet.Managing.Object;
 using FishNet.Transporting;
 using FishNet.Utility.Extension;
-using FishNet.Managing.Statistic;
 #if UNITY_EDITOR
 using FishNet.Editing.PrefabCollectionGenerator;
 #endif
@@ -153,10 +152,6 @@ namespace FishNet.Managing
         /// </summary>
         public DebugManager DebugManager { get; private set; }
         /// <summary>
-        /// StatisticsManager for this NetworkManager.
-        /// </summary>
-        public StatisticsManager StatisticsManager { get; private set; }
-        /// <summary>
         /// An empty connection reference. Used when a connection cannot be found to prevent object creation.
         /// </summary>
         [APIExclude]
@@ -208,7 +203,7 @@ namespace FishNet.Managing
         /// <summary>
         /// Maximum framerate allowed.
         /// </summary>
-        internal const ushort MAXIMUM_FRAMERATE = 500;
+        internal const ushort MAXIMUM_FRAMERATE = 9999;
         #endregion
 
 
@@ -260,7 +255,6 @@ namespace FishNet.Managing
             AddSceneManager();
             AddObserverManager();
             AddRollbackManager();
-            AddStatisticsManager();
             InitializeComponents();
 
             _instances.Add(this);
@@ -289,7 +283,6 @@ namespace FishNet.Managing
             ServerManager.InitializeOnceInternal(this);
             ClientManager.InitializeOnceInternal(this);
             RollbackManager.InitializeOnceInternal(this);
-            StatisticsManager.InitializeOnceInternal(this);
         }
 
         /// <summary>
@@ -309,15 +302,14 @@ namespace FishNet.Managing
             else if (serverStarted)
                 frameRate = ServerManager.FrameRate;
 
-            /* Make sure framerate isn't set to max on server.
+            /* Make sure framerate isn't set to 9999 on server.
              * If it is then default to tick rate. If framerate is
              * less than tickrate then also set to tickrate. */
 #if UNITY_SERVER
-            ushort minimumServerFramerate = (ushort)(TimeManager.TickRate + 1);
             if (frameRate == MAXIMUM_FRAMERATE)
-                frameRate = minimumServerFramerate;
+                frameRate = TimeManager.TickRate;
             else if (frameRate < TimeManager.TickRate)
-                frameRate = minimumServerFramerate;
+                frameRate = TimeManager.TickRate;
 #endif
             //If there is a framerate to set.
             if (frameRate > 0)
@@ -477,16 +469,6 @@ namespace FishNet.Managing
                 ObserverManager = gameObject.AddComponent<ObserverManager>();
         }
 
-        /// <summary>
-        /// Adds StatisticsManager
-        /// </summary>
-        private void AddStatisticsManager()
-        {
-            if (gameObject.TryGetComponent<StatisticsManager>(out StatisticsManager result))
-                StatisticsManager = result;
-            else
-                StatisticsManager = gameObject.AddComponent<StatisticsManager>();
-        }
 
         /// <summary>
         /// Adds and assigns NetworkServer and NetworkClient if they are not already setup.
