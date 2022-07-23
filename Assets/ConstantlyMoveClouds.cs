@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ConstantlyMoveClouds : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _objects;
+    [SerializeField] private Transform[] _clouds;
     [SerializeField] private float _speed;
     [SerializeField] private Transform _startPos;
     [SerializeField] private Transform _endPos;
@@ -12,12 +12,12 @@ public class ConstantlyMoveClouds : MonoBehaviour
 
     private void Update()
     {
-        foreach (GameObject obj in _objects)
+        foreach (Transform cloud in _clouds)
         {
-            obj.transform.position += new Vector3(_speed * Time.deltaTime, 0);
-            if (obj.transform.position.x > _endPos.position.x)
+            cloud.position += new Vector3(_speed * Time.deltaTime, 0);
+            if (cloud.position.x > _endPos.position.x)
             {
-                obj.transform.position = _startPos.position;
+                cloud.position = _startPos.position;
             }
         }
     }
