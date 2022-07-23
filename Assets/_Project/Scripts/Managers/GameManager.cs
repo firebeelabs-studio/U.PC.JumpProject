@@ -7,7 +7,7 @@ using FishNet.Object.Synchronizing;
 using TarodevController;
 using UnityEngine;
 
-public sealed class GameManager : NetworkBehaviour
+public sealed class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public static List<GameObject> Collectibles = new List<GameObject>();
@@ -17,12 +17,6 @@ public sealed class GameManager : NetworkBehaviour
     private void Awake()
     {
         Instance = this;
-    }
-
-    private void Update()
-    {
-        if (!IsServer) return;
-        
     }
 
     private void OnEnable()
@@ -56,10 +50,4 @@ public sealed class GameManager : NetworkBehaviour
         Player.AllowDoubleJump = false;
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void StartGame()
-    {
-        FindObjectOfType<SceneLoader>().LoadScene();
-    }
-    
 }

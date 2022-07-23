@@ -8,7 +8,7 @@ namespace TarodevController
 {
 
     [RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
-    public partial class PlayerController : NetworkBehaviour, IPlayerController
+    public partial class PlayerController : IPlayerController
     {
         //temp
         public bool CanMove;
@@ -39,21 +39,27 @@ namespace TarodevController
             _rb = GetComponent<Rigidbody2D>();
             _collider = GetComponent<BoxCollider2D>();
             _input = GetComponent<PlayerInput>();
-
             _defaultColliderSize = _collider.size;
             _defaultColliderOffset = _collider.offset;
+            GameManager.Player = this;
         }
 
-        public override void OnStartClient()
+        // public override void OnStartClient()
+        // {
+        //     base.OnStartClient();
+        //     if (base.IsOwner)
+        //     {
+        //         GameManager.Player = this;
+        //     }
+        // }
+
+        private void Update()
         {
-            base.OnStartClient();
-            if (base.IsOwner)
-            {
-                GameManager.Player = this;
-            }
+            GatherInput();
+            print(Input.X);
         }
-
-        private void Update() => GatherInput();
+        
+            
 
         void FixedUpdate()
         {
@@ -303,6 +309,7 @@ namespace TarodevController
 
                 // Fall
                 _speed.y -= fallSpeed * Time.fixedDeltaTime;
+                print("im falling " + _speed.y);
 
                 // Clamp
                 if (_speed.y < _fallClamp) _speed.y = _fallClamp;
@@ -436,6 +443,7 @@ namespace TarodevController
         private void MoveCharacter()
         {
             RawMovement = _speed; // Used externally
+            print(_speed);
             var move = RawMovement * Time.fixedDeltaTime;
 
             // Apply effectors
@@ -443,6 +451,7 @@ namespace TarodevController
 
             move += EvaluateForces();
 
+            print(move);
             _rb.MovePosition(_rb.position + move);
 
             RunCornerPrevention();

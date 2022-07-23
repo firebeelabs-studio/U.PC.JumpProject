@@ -5,22 +5,10 @@ using UnityEngine.InputSystem;
 #endif
 
 namespace TarodevController {
-    public class PlayerInput : NetworkBehaviour {
+    public class PlayerInput : MonoBehaviour{
 #if (ENABLE_LEGACY_INPUT_MANAGER)
         public FrameInput GatherInput() 
         {
-            if (!base.IsOwner)
-            {
-                return new FrameInput
-                {
-                    JumpDown = false,
-                    JumpHeld = false,
-                    DashDown = false,
-
-                    X = 0,
-                    Y = 0
-                };
-            }
             return new FrameInput {
                 JumpDown = Input.GetButtonDown("Jump"),
                 JumpHeld = Input.GetButton("Jump"),
