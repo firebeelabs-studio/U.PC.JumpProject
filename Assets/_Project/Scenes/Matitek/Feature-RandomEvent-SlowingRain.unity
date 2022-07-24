@@ -193,8 +193,8 @@ MonoBehaviour:
   _hasParentNetworkObjectAtEdit: 1
   NetworkObserver: {fileID: 0}
   _prefabId: -1
-  _scenePathHash: 2207769959
-  _sceneId: 9482299774606810319
+  _scenePathHash: 3820992123
+  _sceneId: 16411036207566423965
   _sceneNetworkObjects:
   - {fileID: 39860119}
   - {fileID: 8891236557087837974}
@@ -413,7 +413,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1200,7 +1200,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8294,7 +8294,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9096,7 +9096,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9806,6 +9806,7 @@ GameObject:
   - component: {fileID: 2053229454}
   - component: {fileID: 2053229453}
   - component: {fileID: 2053229452}
+  - component: {fileID: 2053229456}
   m_Layer: 0
   m_Name: Finish
   m_TagString: Untagged
@@ -9825,6 +9826,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572d9b56a0fee2a4e982255103395ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 2053229456}
+  _networkObjectCache: {fileID: 2053229456}
+  _gm: {fileID: 0}
 --- !u!114 &2053229453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9881,6 +9886,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2053229456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2053229451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkBehaviours:
+  - {fileID: 2053229452}
+  SceneTransformProperties:
+    Position: {x: 338, y: -18.3, z: 0}
+    Rotation: {x: -0, y: -0, z: -0, w: 1}
+    LocalScale: {x: 1, y: 1, z: 1}
+  _isNetworked: 1
+  _hasParentNetworkObjectAtEdit: 0
+  NetworkObserver: {fileID: 0}
+  _prefabId: -1
+  _scenePathHash: 3820992123
+  _sceneId: 16411036206840875646
+  _sceneNetworkObjects:
+  - {fileID: 2053229456}
+  - {fileID: 39860119}
+  - {fileID: 8891236557087837974}
 --- !u!4 &2070558836 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8401250923252392005, guid: 238930b82e6697e41b46a7dfe6bfa101, type: 3}
@@ -10078,9 +10111,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77436f05806eed647acd0345256d1a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 8891236557087837974}
+  _networkObjectCache: {fileID: 8891236557087837974}
   _timerText: {fileID: 1959010018}
-  minutes: 
-  seconds: 
 --- !u!1 &4862127297238562049
 GameObject:
   m_ObjectHideFlags: 0
@@ -10125,10 +10159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c3729d2955baab4b8f71e47fbd84559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 8891236557087837974}
-  _networkObjectCache: {fileID: 8891236557087837974}
-  TestObj: {fileID: 0}
 --- !u!4 &4862127297919512522
 Transform:
   m_ObjectHideFlags: 0
@@ -10266,6 +10296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d331f979d46e8e4a9fc90070c596d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _setHostVisibility: 1
   _defaultConditions:
   - {fileID: 11400000, guid: 2033f54fd2794464bae08fa5a55c8996, type: 2}
 --- !u!114 &5817103520676235623
@@ -10416,7 +10447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _networkBehaviours:
-  - {fileID: 4862127297919512521}
+  - {fileID: 4862127297238562048}
   - {fileID: 39860117}
   SceneTransformProperties:
     Position: {x: 831.4747, y: 959.4528, z: -15.617911}
@@ -10426,9 +10457,10 @@ MonoBehaviour:
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
   _prefabId: 1
-  _scenePathHash: 2207769959
-  _sceneId: 9482299772597141096
+  _scenePathHash: 3820992123
+  _sceneId: 16411036208569975975
   _sceneNetworkObjects:
+  - {fileID: 2053229456}
   - {fileID: 39860119}
   - {fileID: 8891236557087837974}
 --- !u!114 &9191363840975156089

@@ -101,8 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _networkBehaviours:
-  - {fileID: 18804888}
-  - {fileID: 740521572428383995}
+  - {fileID: 0}
+  - {fileID: 0}
   SceneTransformProperties:
     Position: {x: 2.6067252, y: -16.929277, z: -10}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
@@ -128,9 +128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef0dea4a91b007b4c8f476b2015391a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 8
-  _addedNetworkObject: {fileID: 1165085243}
-  _networkObjectCache: {fileID: 1419814596373140149}
 --- !u!114 &740521572428383995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,9 +140,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc25db53452b147418a159fcccc1297c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 9
-  _addedNetworkObject: {fileID: 1165085243}
-  _networkObjectCache: {fileID: 1419814596373140149}
 --- !u!114 &4999861858797138158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15163,7 +15157,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15344,9 +15338,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de059b5d0632cab4b9821c96eb9735a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 1
-  _addedNetworkObject: {fileID: 1419814596373140149}
-  _networkObjectCache: {fileID: 1419814596373140149}
 --- !u!114 &1419814596373140149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15361,15 +15352,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkBehaviours:
   - {fileID: 7514181437703828014}
-  - {fileID: 1419814596576636796}
+  - {fileID: 0}
   - {fileID: 5440743960645224177}
-  - {fileID: 741556562764243978}
-  - {fileID: 5659190502985943681}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: -1002222236976936792}
   - {fileID: -7711716785194905291}
   - {fileID: -4032707631719175513}
-  - {fileID: 18804888}
-  - {fileID: 740521572428383995}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 8184736410379401579}
   SceneTransformProperties:
     Position: {x: 2, y: -19.5, z: 0}
@@ -15438,9 +15429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84990c27003994244b4fad6fc06fb684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 3
-  _addedNetworkObject: {fileID: 1419814596373140149}
-  _networkObjectCache: {fileID: 1419814596373140149}
   _cam: {fileID: 1165085245}
 --- !u!114 &5659190502985943681
 MonoBehaviour:
@@ -15454,9 +15442,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d34524ed90f5b1445ba3199f657fe7a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 4
-  _addedNetworkObject: {fileID: 1419814596373140149}
-  _networkObjectCache: {fileID: 1419814596373140149}
   _cameras: {fileID: 7823926982098381077}
 --- !u!114 &-1002222236976936792
 MonoBehaviour:
@@ -30173,7 +30158,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
