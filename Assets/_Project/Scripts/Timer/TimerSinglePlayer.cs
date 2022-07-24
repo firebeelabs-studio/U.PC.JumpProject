@@ -44,7 +44,10 @@ public class TimerSinglePlayer : MonoBehaviour
         _isRunStarted = false;
         if (_timeInSeconds < 50)
         {
-            SceneManager.LoadScene("MatitekLevel2");
+            if (SceneManager.GetActiveScene().name != "MatitekLevel2")
+            {
+                SceneManager.LoadScene("MatitekLevel2");
+            }
         }
         times.Add(_timeInSeconds);
     }
