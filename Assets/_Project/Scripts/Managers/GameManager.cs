@@ -39,10 +39,14 @@ public sealed class GameManager : MonoBehaviour
     
     public static void SpawnAllCollectibles()
     {
+        if (Collectibles is null) return;
+        
         Collectibles.ForEach(x => x.SetActive(true));
     }
     public static void SpawnAllPlatforms()
     {
+        if (Platforms is null) return;
+        
         Platforms.ForEach(x => x.SetActive(true));
     }
     public static void ResetPlayerPowers()

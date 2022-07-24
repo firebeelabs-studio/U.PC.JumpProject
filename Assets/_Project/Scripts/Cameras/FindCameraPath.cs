@@ -4,14 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FindCameraPath : NetworkBehaviour
+public class FindCameraPath : MonoBehaviour
 {
-    public override void OnStartClient()
+    public void Awake()
     {
-        base.OnStartClient();
-        if (base.IsOwner)
-        {
-            GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_Path = FindObjectOfType<CinemachineSmoothPath>();
-        }
+        GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTrackedDolly>().m_Path = FindObjectOfType<CinemachineSmoothPath>();
+        
     }
 }

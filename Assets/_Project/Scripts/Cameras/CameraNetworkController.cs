@@ -3,15 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraNetworkController : NetworkBehaviour
+public class CameraNetworkController : MonoBehaviour
 {
     [SerializeField] private GameObject _cameras;
-    public override void OnStartClient()
+    public void Awake()
     {
-        base.OnStartClient();
-        if (base.IsOwner)
-        {
-            _cameras.SetActive(true);
-        }
+        _cameras.SetActive(true);
     }
 }

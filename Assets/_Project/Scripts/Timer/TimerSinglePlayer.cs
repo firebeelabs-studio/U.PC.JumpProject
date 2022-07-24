@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TimerSinglePlayer : MonoBehaviour
 {
@@ -41,6 +42,10 @@ public class TimerSinglePlayer : MonoBehaviour
     private void On_RunFinish()
     {
         _isRunStarted = false;
+        if (_timeInSeconds < 50)
+        {
+            SceneManager.LoadScene("MatitekLevel2");
+        }
         times.Add(_timeInSeconds);
     }
 }

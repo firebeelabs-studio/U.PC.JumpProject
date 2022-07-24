@@ -11,7 +11,7 @@ namespace TarodevController
     public partial class PlayerController : IPlayerController
     {
         //temp
-        public bool CanMove;
+        public bool CanMove = true;
         
         public bool AllowDoubleJump, AllowDash, AllowCrouch;
 
@@ -56,7 +56,6 @@ namespace TarodevController
         private void Update()
         {
             GatherInput();
-            print(Input.X);
         }
         
             
@@ -85,7 +84,7 @@ namespace TarodevController
 
         private void GatherInput()
         {
-            if (!CanMove) return;
+            //if (!CanMove) return;
             Input = _input.GatherInput();
             if (Input.DashDown) _dashToConsume = true;
             if (Input.JumpDown)
@@ -309,7 +308,6 @@ namespace TarodevController
 
                 // Fall
                 _speed.y -= fallSpeed * Time.fixedDeltaTime;
-                print("im falling " + _speed.y);
 
                 // Clamp
                 if (_speed.y < _fallClamp) _speed.y = _fallClamp;
@@ -443,15 +441,13 @@ namespace TarodevController
         private void MoveCharacter()
         {
             RawMovement = _speed; // Used externally
-            print(_speed);
             var move = RawMovement * Time.fixedDeltaTime;
 
             // Apply effectors
             move += EvaluateEffectors();
 
             move += EvaluateForces();
-
-            print(move);
+            
             _rb.MovePosition(_rb.position + move);
 
             RunCornerPrevention();

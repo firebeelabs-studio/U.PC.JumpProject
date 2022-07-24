@@ -4,7 +4,7 @@ using UnityEngine;
 using TarodevController;
 using System.Collections;
 
-public class CameraController : NetworkBehaviour
+public class CameraController : MonoBehaviour
 {
     private float _maxZoom;
     private float _zoomSpeed;
@@ -22,6 +22,7 @@ public class CameraController : NetworkBehaviour
         _cam = GetComponent<CinemachineVirtualCamera>();
         _playerController = GetComponentInParent<PlayerController>();
         _camBody = _cam.GetCinemachineComponent<CinemachineTrackedDolly>();
+        _cam.m_Lens.OrthographicSize = CameraSettings.Instance.CameraSize;
     }
     private void Start()
     {
@@ -30,14 +31,6 @@ public class CameraController : NetworkBehaviour
             _maxZoom = CameraSettings.Instance.MaxZoom;
             _zoomSpeed = CameraSettings.Instance.ZoomSpeed;
             _camZOffset = CameraSettings.Instance.CamZOffset;
-        }
-    }
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        if (base.IsOwner)
-        {
-            _cam.m_Lens.OrthographicSize = CameraSettings.Instance.CameraSize;
         }
     }
     private void LateUpdate() => ZoomOutWhileFalling(_playerController.VelocityY);
