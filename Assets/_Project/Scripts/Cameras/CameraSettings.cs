@@ -20,6 +20,8 @@ public class CameraSettings : MonoBehaviour
     public float CameraSize => _cameraSize;
     [Space(15)]
     [Header("Parallax")]
+    [SerializeField] private GameObject _backgroundPrefab;
+    public GameObject BackgroundPrefab => _backgroundPrefab;
     public bool ShouldParallax;
     public enum ParallaxAxis
     {

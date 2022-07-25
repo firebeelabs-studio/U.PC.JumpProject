@@ -4,23 +4,28 @@ using UnityEngine;
 
 public class ParallaxBackground : MonoBehaviour
 {
-    public GameObject _parallaxReferenceObject;
+    public Transform ParallaxReferenceTransform;
     [SerializeField] private List<ParallaxBackgroundParts> backgroundParts;
     [SerializeField] private float _offsetForDistance = 3f;
-    private bool _parallaxAxis;
+    private bool _isXAxis;
 
     void Awake()
     {
-        _parallaxAxis = CameraSettings.Instance.Axis == CameraSettings.ParallaxAxis.Horizontal ? true : false;   //if true => horizontal
-        LoadBackgroundParts(_parallaxAxis);
+        if (ParallaxReferenceTransform == null)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        _isXAxis = CameraSettings.Instance.Axis == CameraSettings.ParallaxAxis.Horizontal ? true : false;   //if true => horizontal
+        LoadBackgroundParts(_isXAxis);
     }
-    private void FixedUpdate()
+    private void Update()
     {
-        Parallax(_parallaxAxis);
+        Parallax(_isXAxis);
     }
-    private void Parallax(bool axis)
+    private void Parallax(bool isXAxis)
     {
-        float parallaxAxis = axis == true ? _parallaxReferenceObject.transform.position.x : _parallaxReferenceObject.transform.position.y;
+        float parallaxAxis = isXAxis == true ? ParallaxReferenceTransform.position.x : ParallaxReferenceTransform.position.y;
         if (!CameraSettings.Instance.ShouldParallax) return;
 
         //loops through all elements in list 'backgroundParts' and executes code below for each of them
@@ -31,40 +36,41 @@ public class ParallaxBackground : MonoBehaviour
             float tempPosOfBgPart = parallaxAxis * (1 - part.ParallaxEffectPower);
             //calculates distance which background part will move
             float distance = parallaxAxis * part.ParallaxEffectPower;
-            if(axis)
+            if (isXAxis)
             {
                 //moves each part in x axis depending on it's starting position and distance
-                part.BackgroundPart.transform.position = new Vector3(part.StartPos + distance , part.BackgroundPart.transform.position.y, part.BackgroundPart.transform.position.z);
+                part.BackgroundPart.transform.position = new Vector3(part.StartPosX + distance, part.StartPosY, part.BackgroundPart.transform.position.z);
             }
             else
             {
-                part.BackgroundPart.transform.position = new Vector3(part.BackgroundPart.transform.position.x, part.StartPos + distance, part.BackgroundPart.transform.position.z);
+                part.BackgroundPart.transform.position = new Vector3(part.BackgroundPart.transform.position.x, part.StartPosX + distance, part.BackgroundPart.transform.position.z);
             }
             //if temp pos value is bigger than the starting pos + half of length of sprite teleports the part to make it looping
-            if (tempPosOfBgPart > part.StartPos + part.Length / 2)
+            if (tempPosOfBgPart > part.StartPosX + part.Length / 2)
             {
-                part.StartPos += part.Length;
+                part.StartPosX += part.Length;
             }
             //same as above but in opposite direction
-            else if (tempPosOfBgPart < part.StartPos - part.Length)
+            else if (tempPosOfBgPart < part.StartPosX - part.Length)
             {
-                part.StartPos -= part.Length;
+                part.StartPosX -= part.Length;
             }
         }
     }
-    private void LoadBackgroundParts(bool axis)
+    private void LoadBackgroundParts(bool isXAxis)
     {
         foreach (ParallaxBackgroundParts part in backgroundParts)
         {
-            if (axis)
+            if (isXAxis)
             {
                 part.Length = part.BackgroundPart.GetComponent<SpriteRenderer>().bounds.size.x;
-                part.StartPos = part.BackgroundPart.transform.position.x;
+                part.StartPosX = part.BackgroundPart.transform.position.x;
+                part.StartPosY = part.BackgroundPart.transform.position.y;
             }
             else
             {
                 part.Length = part.BackgroundPart.GetComponent<SpriteRenderer>().bounds.size.y;
-                part.StartPos = part.BackgroundPart.transform.position.y;
+                part.StartPosX = part.BackgroundPart.transform.position.y;
             }
         }
     }

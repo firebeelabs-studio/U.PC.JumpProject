@@ -100,15 +100,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _networkBehaviours:
-  - {fileID: 0}
-  - {fileID: 0}
+  _networkBehaviours: []
   SceneTransformProperties:
-    Position: {x: 2.6067252, y: -16.929277, z: -10}
+    Position: {x: -8.513275, y: -16.629278, z: -10}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
-  _hasParentNetworkObjectAtEdit: 1
+  _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 0
@@ -14924,7 +14922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed64777653726cc49995b9deb2ce058f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 10
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
   _text: {fileID: 4757097231591842930}
@@ -15352,18 +15350,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkBehaviours:
   - {fileID: 7514181437703828014}
-  - {fileID: 0}
   - {fileID: 5440743960645224177}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: -1002222236976936792}
   - {fileID: -7711716785194905291}
   - {fileID: -4032707631719175513}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 8184736410379401579}
   SceneTransformProperties:
-    Position: {x: 2, y: -19.5, z: 0}
+    Position: {x: -9.3, y: -19.2, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 0.95, y: 1, z: 1}
   _isNetworked: 1
@@ -15387,7 +15380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 2
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
   _synchronizeParent: 0
@@ -15455,7 +15448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 669a6dc6de01acf4e915f9717d1794a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 5
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
   <Nick>k__BackingField: 
@@ -15472,7 +15465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71fd7f855ec523429999fc4e14a1928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 6
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
   _overrideType: 2
@@ -15490,7 +15483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77436f05806eed647acd0345256d1a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 7
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
   _timerText: {fileID: 0}
@@ -35355,7 +35348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7823926982098381082
 Transform:
   m_ObjectHideFlags: 0
@@ -35402,7 +35395,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7823926983352566996}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.172573, z: -10}
+  m_LocalPosition: {x: -0.00000011324882, y: 6.172573, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -35542,6 +35535,10 @@ PrefabInstance:
       propertyPath: _parallaxReferenceObject
       value: 
       objectReference: {fileID: 7514181438401602124}
+    - target: {fileID: 2291717771820512875, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
+      propertyPath: ParallaxReferenceTransform
+      value: 
+      objectReference: {fileID: 7823926983352567000}
     - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -35552,7 +35549,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3.63
       objectReference: {fileID: 0}
     - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
       propertyPath: m_LocalPosition.z
@@ -35592,7 +35589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5056177706903975578, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
