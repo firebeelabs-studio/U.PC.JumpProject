@@ -7,6 +7,7 @@ public class DisablePlatform : MonoBehaviour
     [SerializeField] private GameObject _platform;
     [SerializeField] private float _hidePlatformTime = 1.5f;
     [SerializeField] private float _showPlatformTime = 1f;
+    [SerializeField] private ParticleSystem _destroyParticle;
 
     public void Disable() => StartCoroutine(SetUnActive());
 
@@ -21,6 +22,7 @@ public class DisablePlatform : MonoBehaviour
     {
         yield return new WaitForSeconds(_showPlatformTime);
         _platform.SetActive(false);
+        _destroyParticle.Play();
         StartCoroutine(SetActive());
     }
 }
