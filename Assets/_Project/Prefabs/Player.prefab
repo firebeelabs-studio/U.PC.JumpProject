@@ -67,7 +67,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 2.2617881, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkBehaviours: []
   SceneTransformProperties:
-    Position: {x: -8.513275, y: -16.629278, z: -10}
+    Position: {x: 4.346725, y: -16.629278, z: -10}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
@@ -15356,7 +15356,7 @@ MonoBehaviour:
   - {fileID: -4032707631719175513}
   - {fileID: 8184736410379401579}
   SceneTransformProperties:
-    Position: {x: -9.3, y: -19.2, z: 0}
+    Position: {x: 3.56, y: -19.2, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 0.95, y: 1, z: 1}
   _isNetworked: 1
@@ -35398,8 +35398,7 @@ Transform:
   m_LocalPosition: {x: -0.00000011324882, y: 6.172573, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1819516410625523917}
+  m_Children: []
   m_Father: {fileID: 7823926982098381082}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -35524,77 +35523,3 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
---- !u!1001 &6875622640541152852
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 7823926983352567000}
-    m_Modifications:
-    - target: {fileID: 2291717771820512875, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
-      propertyPath: _parallaxReferenceObject
-      value: 
-      objectReference: {fileID: 7514181438401602124}
-    - target: {fileID: 2291717771820512875, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
-      propertyPath: ParallaxReferenceTransform
-      value: 
-      objectReference: {fileID: 7823926983352567000}
-    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.63
-      objectReference: {fileID: 0}
-    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5056177706903975578, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
-      propertyPath: m_Name
-      value: NewBackground
-      objectReference: {fileID: 0}
-    - target: {fileID: 5056177706903975578, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
---- !u!4 &1819516410625523917 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5056177706903975577, guid: 6bd0ce82e91c6ba4bae900276b172232, type: 3}
-  m_PrefabInstance: {fileID: 6875622640541152852}
-  m_PrefabAsset: {fileID: 0}
