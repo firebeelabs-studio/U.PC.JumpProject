@@ -17,15 +17,15 @@ public class CameraController : MonoBehaviour
 
     private void Awake()
     {
-        _defaultZoom = CameraSettings.Instance.CameraSize;
-        _shouldZoom = CameraSettings.Instance.ShouldZoom;
         _cam = GetComponent<CinemachineVirtualCamera>();
         _playerController = GetComponentInParent<PlayerController>();
         _camBody = _cam.GetCinemachineComponent<CinemachineTrackedDolly>();
-        _cam.m_Lens.OrthographicSize = CameraSettings.Instance.CameraSize;
     }
     private void Start()
     {
+        _cam.m_Lens.OrthographicSize = CameraSettings.Instance.CameraSize;
+        _defaultZoom = CameraSettings.Instance.CameraSize;
+        _shouldZoom = CameraSettings.Instance.ShouldZoom;
         if (_shouldZoom)
         {
             _maxZoom = CameraSettings.Instance.MaxZoom;

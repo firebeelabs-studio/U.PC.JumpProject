@@ -21,12 +21,12 @@ public class ZoomAreaDollyTrack : MonoBehaviour
         _vcam = GetComponent<CinemachineVirtualCamera>();
         _cameraBody = _vcam.GetCinemachineComponent<CinemachineTrackedDolly>();
         _dollyTrack = FindObjectOfType<CinemachineSmoothPath>();
-        _zoomWaypoints = CameraSettings.Instance.zoomWaypoints;
-        _defaultZoom = CameraSettings.Instance.CameraSize;
-        _zoomSpeed = CameraSettings.Instance.ZoomSpeed;
     }
     private void Start()
     {
+        _zoomWaypoints = CameraSettings.Instance.zoomWaypoints;
+        _defaultZoom = CameraSettings.Instance.CameraSize;
+        _zoomSpeed = CameraSettings.Instance.ZoomSpeed;
         if (_zoomWaypoints.Count < 2) //disables script if there's no at least 2 waypoints to zoom
         {
             enabled = false;

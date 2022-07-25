@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,11 +15,15 @@ public class ParallaxBackground : MonoBehaviour
         if (ParallaxReferenceTransform == null)
         {
             gameObject.SetActive(false);
-            return;
         }
+    }
+
+    private void Start()
+    {
         _isXAxis = CameraSettings.Instance.Axis == CameraSettings.ParallaxAxis.Horizontal ? true : false;   //if true => horizontal
         LoadBackgroundParts(_isXAxis);
     }
+
     private void Update()
     {
         Parallax(_isXAxis);
