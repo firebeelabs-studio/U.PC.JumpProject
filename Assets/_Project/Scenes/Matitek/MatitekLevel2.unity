@@ -15471,7 +15471,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 3
-      m_TileSpriteIndex: 15
+      m_TileSpriteIndex: 4294967295
       m_TileMatrixIndex: 3
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -38691,7 +38691,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 3
-      m_TileSpriteIndex: 1
+      m_TileSpriteIndex: 4294967295
       m_TileMatrixIndex: 3
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -45531,7 +45531,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 3
-      m_TileSpriteIndex: 4
+      m_TileSpriteIndex: 15
       m_TileMatrixIndex: 3
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -45661,7 +45661,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 3
-      m_TileSpriteIndex: 3
+      m_TileSpriteIndex: 4
       m_TileMatrixIndex: 3
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -51751,7 +51751,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 3
-      m_TileSpriteIndex: 2
+      m_TileSpriteIndex: 4294967295
       m_TileMatrixIndex: 3
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -66220,14 +66220,14 @@ Tilemap:
   m_TileSpriteArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: fe9b5cd427265c949822b4fe77c05429, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: 217a0ca4b61fb044cbab27cf0b972da3, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 3886908579378827810, guid: bcfe56613e23d9644a3709368cdcbfdf, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 4746018474888938409, guid: bcfe56613e23d9644a3709368cdcbfdf, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -2368479849711020361, guid: bcfe56613e23d9644a3709368cdcbfdf, type: 3}
   - m_RefCount: 5
@@ -66249,7 +66249,7 @@ Tilemap:
   - m_RefCount: 2
     m_Data: {fileID: 3470453305915666988, guid: bcfe56613e23d9644a3709368cdcbfdf, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: 14570dd94b46b364fabe5a065eeb5a58, type: 3}
+    m_Data: {fileID: 4746018474888938409, guid: bcfe56613e23d9644a3709368cdcbfdf, type: 3}
   - m_RefCount: 111
     m_Data: {fileID: 1549955567050341098, guid: 548586ecddae6a84ba967756543e5917, type: 3}
   - m_RefCount: 663
@@ -69314,6 +69314,7 @@ GameObject:
   - component: {fileID: 2053229454}
   - component: {fileID: 2053229453}
   - component: {fileID: 2053229452}
+  - component: {fileID: 2053229456}
   m_Layer: 0
   m_Name: Finish
   m_TagString: Untagged
@@ -69333,6 +69334,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572d9b56a0fee2a4e982255103395ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 2053229456}
+  _networkObjectCache: {fileID: 2053229456}
+  _gm: {fileID: 0}
 --- !u!114 &2053229453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69388,6 +69393,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2053229456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2053229451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkBehaviours:
+  - {fileID: 2053229452}
+  SceneTransformProperties:
+    Position: {x: 10.6, y: 286.35, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    LocalScale: {x: 1, y: 1, z: 1}
+  _isNetworked: 1
+  _isGlobal: 0
+  _hasParentNetworkObjectAtEdit: 0
+  NetworkObserver: {fileID: 0}
+  _prefabId: -1
+  _scenePathHash: 457960220
+  _sceneId: 1966924171301212342
+  _sceneNetworkObjects:
+  - {fileID: 2053229456}
+  - {fileID: 1589441962}
 --- !u!1001 &2070600453
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69638,6 +69671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f59fb0183c52e9b48bf59ac5cb5dee2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerController: {fileID: 0}
   _hasAccelerationNFT: 0
   _hasMaxSpeedNFT: 0
   _hasBetterControlNFT: 0
