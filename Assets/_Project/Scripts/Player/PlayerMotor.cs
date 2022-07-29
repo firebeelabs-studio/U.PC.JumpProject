@@ -236,16 +236,16 @@ public class PlayerMotor : NetworkBehaviour
     private void CheckInput(out MoveData md)
     {
         md = default;
-        Input = _input.GatherInput();
+        //Input = _input.GatherInput();
 
         bool pressedJump = Input.JumpDown;
         bool jumpHeld = Input.JumpHeld;
-        float horizontal = Input.X;
-        float vertical = Input.Y;
+        //float horizontal = Input.X;
+        //float vertical = Input.Y;
         
         //if player is not moving, and not jumping we don't wanna update anything
         // if (horizontal == 0f && !Input.JumpHeld && !pressedJump) return;
-        md = new MoveData(horizontal, vertical, jumpHeld, pressedJump);
+        //md = new MoveData(horizontal, vertical, jumpHeld, pressedJump);
     }
     
     public void RunCollisionChecks()

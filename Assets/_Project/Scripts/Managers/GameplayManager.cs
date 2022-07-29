@@ -132,7 +132,7 @@ public class GameplayManager : NetworkBehaviour
     [TargetRpc]
     private void TargetLetPlayerMove(NetworkConnection conn, NetworkObject obj)
     {
-        obj.GetComponent<PlayerController>().CanMove = true;
+        //obj.GetComponent<PlayerController>().CanMove = true;
     }
 
     #region FinishRun
@@ -151,7 +151,7 @@ public class GameplayManager : NetworkBehaviour
     [TargetRpc]
     private void TargetBlockPlayerMovement(NetworkConnection conn, NetworkObject obj)
     {
-        obj.GetComponent<PlayerController>().CanMove = false;
+        //obj.GetComponent<PlayerController>().CanMove = false;
     }
 
     #endregion

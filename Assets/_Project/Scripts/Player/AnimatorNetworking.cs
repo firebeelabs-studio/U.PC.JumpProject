@@ -28,10 +28,10 @@ public class AnimatorNetworking : MonoBehaviour
     private void Update()
     {
         //sprite flip
-        if (_player.Input.X != 0)
-        {
-            //works only local :((
-            transform.localScale = new Vector3(_player.Input.X > 0 ? 1.3f : -1.3f, transform.localScale.y, transform.localScale.z);
-        }
+        // if (_player.Input.X != 0)
+        // {
+        //     //works only local :((
+        //     transform.localScale = new Vector3(_player.Input.X > 0 ? 1.3f : -1.3f, transform.localScale.y, transform.localScale.z);
+        // }
     }
 }

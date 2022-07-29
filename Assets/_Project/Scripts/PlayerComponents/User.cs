@@ -28,7 +28,7 @@ public sealed class User : NetworkBehaviour
         set;
     }
     
-    [SyncVar] public PlayerController ControlledPlayer;
+    // [SyncVar] public PlayerController ControlledPlayer;
 
     public override void OnStartServer()
     {
