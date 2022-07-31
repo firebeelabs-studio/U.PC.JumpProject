@@ -1,16 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PetAnimator : MonoBehaviour
 {
-    [SerializeField] private float _maxTilt;
-    [SerializeField] private float _tiltSpeed;
+    [SerializeField] private PointFollower _pF;
 
-    private float _lastPosX;
-    private float _checkDirection;
+    private float _maxTilt, _tiltSpeed;
+    private float _lastPosX, _checkDirection;
     private int _inputX;
 
+    private void Awake()
+    {
+        _maxTilt = _pF.MaxTilt;
+        _tiltSpeed = _pF.TiltSpeed;
+    }
     void Start()
     {
         _lastPosX = transform.position.x;
@@ -30,8 +32,6 @@ public class PetAnimator : MonoBehaviour
             var targetRotVector = new Vector3(0, 0, -Mathf.Lerp(-_maxTilt, _maxTilt, Mathf.InverseLerp(-1, 1, _inputX)));
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(targetRotVector), _tiltSpeed * Time.deltaTime);
         }
-
-
     }
 
 

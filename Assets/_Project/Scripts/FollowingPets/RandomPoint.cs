@@ -6,12 +6,16 @@ public class RandomPoint : MonoBehaviour
 {
     [SerializeField] private Transform _player;
     [SerializeField] private PointFollower _pF;
-    [SerializeField] private AnimationCurve _curve;
-    [SerializeField] private float _speed;
-
+    
+    private AnimationCurve _curve;
     private Vector3 _endPos, _distance;
-    private float _current;
+    private float _current, _speed;
 
+    void Awake()
+    {
+        _speed = _pF.CircleSpeed;
+        _curve = _pF.CircleCurve;
+    }
     void Start()
     {
         transform.position = _player.position + new Vector3(-1, 1);
@@ -29,7 +33,7 @@ public class RandomPoint : MonoBehaviour
         if (Vector2.Distance(transform.position, _player.position) > 3)
         {
             _current = Mathf.MoveTowards(0, 1, Time.deltaTime);
-            transform.position = Vector3.Lerp(transform.position, _player.position + new Vector3 (-1,1,0), _speed * _curve.Evaluate(_current));
+            transform.position = Vector3.Lerp(transform.position, _player.position + new Vector3(-1, 1, 0), _speed * _curve.Evaluate(_current));
         }
     }
 
