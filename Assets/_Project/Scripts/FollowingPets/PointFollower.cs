@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PointFollower : MonoBehaviour
@@ -19,8 +17,10 @@ public class PointFollower : MonoBehaviour
 
     private Vector3 _endPos, _distance;
     private Vector2 _newPos;
-    private float _current, _timer;
+    private float _current, _timer, _checkPlayerPos;
+    private bool _isGoingRight;
 
+    public bool IsGoingRight => _isGoingRight;
     public float Range => _radius;
     public float CircleSpeed => _circleSpeed;
     public float MaxTilt => _maxTilt;
@@ -69,6 +69,10 @@ public class PointFollower : MonoBehaviour
         if (Vector2.Distance(_visual.transform.position, _rP.transform.position) > _radius)
         {
             _newPos = _rP.transform.position;
+
+            //checks player position to flip sprite in PetAnimator script
+            _checkPlayerPos = _player.transform.position.x - _visual.transform.position.x;
+            _isGoingRight = (_checkPlayerPos > 0) ? true : false;
         }
     }
 }

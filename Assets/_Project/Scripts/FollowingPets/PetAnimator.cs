@@ -21,11 +21,12 @@ public class PetAnimator : MonoBehaviour
         _lastPosX = transform.position.x;
 
         // flip the sprite
-        transform.localScale = new Vector3(_checkDirection > 0 ? 1 : -1, 1, 1);
+        transform.localScale = new Vector3(_pF.IsGoingRight == true ? 1 : -1, 1, 1);
+
         _inputX = _checkDirection > 0 ? 1 : -1;
 
-        var targetRotVector = new Vector3(0, 0, -Mathf.Lerp(-_maxTilt, _maxTilt, Mathf.InverseLerp(-1, 1, _inputX)));
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(targetRotVector), _tiltSpeed * Time.deltaTime);
+        var targetRotationVector = new Vector3(0, 0, -Mathf.Lerp(-_maxTilt, _maxTilt, Mathf.InverseLerp(-1, 1, _inputX)));
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(targetRotationVector), _tiltSpeed * Time.deltaTime);
     }
 
 
