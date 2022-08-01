@@ -23,10 +23,11 @@ public class PetEyesFollowCoursor : MonoBehaviour
     void Update()
     {
         // Get the mouse position in world space rather than screen space
-        var mouseWorldCoord = _camera.ScreenPointToRay(Input.mousePosition).origin;
+        Vector3 mouseWorldCoord = _camera.ScreenPointToRay(Input.mousePosition).origin;
+        mouseWorldCoord.z = 0;
 
         // Get a vector pointing from initialPosition to the target. Vector shouldn't be longer than maxDistance
-        var originToMouse = mouseWorldCoord - _origin;
+        Vector3 originToMouse = mouseWorldCoord - _origin;
         originToMouse = Vector3.ClampMagnitude(originToMouse, _maxDistance);
 
         // Linearly interpolate from current position to mouse's position
