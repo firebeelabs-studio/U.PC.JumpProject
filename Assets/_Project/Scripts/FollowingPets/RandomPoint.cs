@@ -11,13 +11,10 @@ public class RandomPoint : MonoBehaviour
     private Vector3 _endPos, _distance;
     private float _current, _speed;
 
-    void Awake()
+    void Start()
     {
         _speed = _pF.CircleSpeed;
         _curve = _pF.CircleCurve;
-    }
-    void Start()
-    {
         transform.position = _player.position + new Vector3(-1, 1);
         _endPos = _player.position;
     }
