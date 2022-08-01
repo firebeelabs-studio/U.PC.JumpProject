@@ -4,32 +4,37 @@ using UnityEngine;
 
 public class PetEyesFollowCoursor : MonoBehaviour
 {
-    [SerializeField] private float _factor = 0.25f;
-    [SerializeField] private float limit = 0.08f;
-    private Vector3 _followPosition;
-    private Vector3 _center;
+    [SerializeField] private Camera _camera;
+    [SerializeField] private float _speed = 5f;
+    [SerializeField] private float _maxDistance = 1f;
+    private Vector3 _origin;
 
+    private void Awake()
+    {
+        if (!_camera)
+        {
+            _camera = Camera.main;
+        }
+    }
     void Start()
     {
-        //Capture the starting position as a vector3
-        _center = transform.position;
+        _origin = transform.position;
     }
-
     void Update()
     {
-        //Convert mouse pointer cords into a worldspace vector3
-        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        pos.z = 0.0f;
+        // Get the mouse position in world space rather than screen space
+        var mouseWorldCoord = _camera.ScreenPointToRay(Input.mousePosition).origin;
 
-        _followPosition = Vector3.Lerp(_followPosition, pos, Time.deltaTime * _factor);
+        // Get a vector pointing from initialPosition to the target. Vector shouldn't be longer than maxDistance
+        var originToMouse = mouseWorldCoord - _origin;
+        originToMouse = Vector3.ClampMagnitude(originToMouse, _maxDistance);
 
-        //Create a dir target based on mouse vector * factor
-        Vector3 dir = _followPosition * _factor;
+        // Linearly interpolate from current position to mouse's position
+        transform.position = Vector3.Lerp(transform.position, _origin + originToMouse, _speed * Time.deltaTime);
+    }
 
-        //Clamp the dir target
-        dir = Vector3.ClampMagnitude(dir, limit);
-
-        //Update the pupil position
-        transform.position = _center + dir;
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(_origin, _maxDistance);
     }
 }
