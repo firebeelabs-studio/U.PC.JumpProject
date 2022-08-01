@@ -5,7 +5,8 @@ using UnityEngine;
 
 namespace TarodevController {
     [RequireComponent(typeof(Rigidbody2D))]
-    public partial class PlayerController : MonoBehaviour, IPlayerController {
+    public partial class PlayerController : MonoBehaviour, IPlayerController 
+    {
         [SerializeField] private ScriptableStats _stats;
 
         private FrameInput _frameInput;
@@ -184,21 +185,31 @@ namespace TarodevController {
 
         #region Horizontal
 
-        protected virtual void HandleHorizontal() {
-            if (_frameInput.Move.x != 0) {
-                if (_crouching && _grounded) {
-                    var crouchPoint = Mathf.InverseLerp(0, _stats.CrouchSlowdownFrames, _fixedFrame - _frameStartedCrouching);
+        protected virtual void HandleHorizontal()
+        {
+            if (_frameInput.Move.x != 0)
+            {
+                if (_crouching && _grounded)
+                {
+                    var crouchPoint = Mathf.InverseLerp(0, _stats.CrouchSlowdownFrames,
+                        _fixedFrame - _frameStartedCrouching);
                     var penaltySpeed = _stats.MaxSpeed * Mathf.Lerp(1, _stats.CrouchSpeedPenalty, crouchPoint);
 
-                    _speed.x = Mathf.MoveTowards(_speed.x, penaltySpeed * _frameInput.Move.x, _stats.Deceleration * Time.fixedDeltaTime);
+                    _speed.x = Mathf.MoveTowards(_speed.x, penaltySpeed * _frameInput.Move.x,
+                        _stats.Deceleration * Time.fixedDeltaTime);
                 }
-                else {
-                    if (_stats.AllowCreeping) _speed.x = Mathf.MoveTowards(_speed.x, _stats.MaxSpeed * _frameInput.Move.x, _stats.Acceleration * Time.fixedDeltaTime);
+                else
+                {
+                    if (_stats.AllowCreeping)
+                        _speed.x = Mathf.MoveTowards(_speed.x, _stats.MaxSpeed * _frameInput.Move.x,
+                            _stats.Acceleration * Time.fixedDeltaTime);
                     else _speed.x += _frameInput.Move.x * _stats.Acceleration * Time.fixedDeltaTime;
                 }
             }
-            else {
-                _speed.x = Mathf.MoveTowards(_speed.x, 0, _stats.Deceleration * (_grounded ? 1 : _stats.AirDecelerationPenalty) * Time.fixedDeltaTime);
+            else
+            {
+                _speed.x = Mathf.MoveTowards(_speed.x, 0,
+                    _stats.Deceleration * (_grounded ? 1 : _stats.AirDecelerationPenalty) * Time.fixedDeltaTime);
             }
 
             _speed.x = Mathf.Clamp(_speed.x, -_stats.MaxSpeed, _stats.MaxSpeed);

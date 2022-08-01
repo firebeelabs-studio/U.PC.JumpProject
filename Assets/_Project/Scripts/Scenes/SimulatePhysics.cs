@@ -15,7 +15,6 @@ public class SimulatePhysics : MonoBehaviour
         _tm = InstanceFinder.TimeManager;
         _tm.OnPhysicsSimulation += TimeManager_OnPhysicsSimulation;
         _physicsScene = gameObject.scene.GetPhysicsScene2D();
-        //Physics2D.autoSimulation = false;
         Physics2D.simulationMode = SimulationMode2D.Script;
     }
 

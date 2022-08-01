@@ -29,7 +29,7 @@ public class BouncePlatform : MonoBehaviour
         if (!collision.CompareTag("Player")) return;
         if (collision.TryGetComponent(out PlayerMotor controller))
         {
-            controller.AddForce(_bounceDirectionVector * _bounceForce, PlayerForce.Burst, _cancelMovement);
+            //controller.AddForce(_bounceDirectionVector * _bounceForce, PlayerForce.Burst, _cancelMovement);
 
         }
     }
