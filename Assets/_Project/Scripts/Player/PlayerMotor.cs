@@ -47,8 +47,15 @@ public class PlayerMotor : NetworkBehaviour
     private FrameInput _frameInput;
     private Rigidbody2D _rb;
     private CapsuleCollider2D[] _cols; // Standing and crouching colliders
-    private CapsuleCollider2D _col; // Current collider
+    [SerializeField]private CapsuleCollider2D _col; // Current collider
     private PlayerInput _input;
+    
+    private bool _grounded;
+    private Vector2 _groundNormal;
+    private readonly RaycastHit2D[] _groundHits = new RaycastHit2D[2];
+    private readonly RaycastHit2D[] _ceilingHits = new RaycastHit2D[1];
+    private readonly Collider2D[] _crouchHits = new Collider2D[5];
+    private int _groundHitCount;
 
     private bool _subscribed;
     public override void OnStartClient()
@@ -56,7 +63,7 @@ public class PlayerMotor : NetworkBehaviour
         base.OnStartClient();
         _rb = GetComponent<Rigidbody2D>();
         _input = GetComponent<PlayerInput>();
-        _rb = GetComponent<Rigidbody2D>();
+        _col = GetComponent<CapsuleCollider2D>();
         Subscribe(true);
     }
     public override void OnStartServer()
@@ -64,7 +71,7 @@ public class PlayerMotor : NetworkBehaviour
         base.OnStartServer();
         _rb = GetComponent<Rigidbody2D>();
         _input = GetComponent<PlayerInput>();
-        _rb = GetComponent<Rigidbody2D>();
+        _col = GetComponent<CapsuleCollider2D>();
         Subscribe(true);
     }
 
@@ -129,15 +136,14 @@ public class PlayerMotor : NetworkBehaviour
         }
     }
 
-    private bool _jumped = false;
     [Replicate]
     private void Move(FrameInput fm, bool asServer, bool replaying = false)
     {
         //frame count
         //externalvelocity
         
-        //collisions checks here
-        
+        CheckCollisions();
+
         HandleHorizontal(fm);
         
         HandleJump(fm);
@@ -145,13 +151,66 @@ public class PlayerMotor : NetworkBehaviour
         HandleGravity();
         
         //apply velocity in better way and we are gucci
-        _rb.AddForce(_speed);
+        _rb.velocity = _speed;
+    }
+
+    private void CheckCollisions()
+    {
+        var offset = (Vector2)transform.position + _col.offset;
+        _groundHitCount = Physics2D.CapsuleCastNonAlloc(offset, _col.size, _col.direction, 0, Vector2.down, _groundHits,
+            _stats.GrounderDistance);
+        var ceilingHits = Physics2D.CapsuleCastNonAlloc(offset, _col.size, _col.direction, 0, Vector2.up, _ceilingHits,
+            _stats.GrounderDistance);
+
+        //if player hit roof
+        if (ceilingHits > 0 && _speed.y > 0)
+        {
+            _speed.y = 0;
+        }
+
+        if (!_grounded && _groundHitCount > 0)
+        {
+            _grounded = true;
+        }
+        else if (_grounded && _groundHitCount == 0)
+        {
+            _grounded = false;
+        }
     }
 
     private void HandleGravity()
     {
         //have to handle slopes here
-        if (_speed.y > 0)
+        if (_grounded && _speed.y <= 0)
+        {
+            _speed.y = _stats.GroundingForce;
+            _groundNormal = Vector2.zero;
+            for (var i = 0; i < _groundHitCount; i++)
+            {
+                var hit = _groundHits[i];
+                if (hit.collider.isTrigger) continue;
+                _groundNormal = hit.normal;
+            
+                var slopePerp = Vector2.Perpendicular(_groundNormal).normalized;
+                var slopeAngle = Vector2.Angle(_groundNormal, Vector2.up);
+            
+                if (slopeAngle != 0)
+                {
+                    if (_speed.x == 0)
+                    {
+                        _speed.y = 0;
+                    }
+                    else
+                    {
+                        _speed.y = _speed.x * -slopePerp.y;
+                        _speed.y += _stats.GroundingForce;
+                    }
+            
+                    break;
+                }
+            }
+        }
+        else
         {
             var fallSpeed = -_stats.FallSpeed;
             _speed.y += fallSpeed * (float)TimeManager.TickDelta;
@@ -167,10 +226,10 @@ public class PlayerMotor : NetworkBehaviour
     private void HandleJump(FrameInput fm)
     {
         //TODO: add here Coyote and buffer
-        if (fm.JumpDown && !_jumped)
+        if (fm.JumpDown && _grounded)
         {
-            _jumped = true;
-            _speed.y = _stats.JumpPower * 3;
+            print("jump");
+            _speed.y = _stats.JumpPower;
         }
     }
 

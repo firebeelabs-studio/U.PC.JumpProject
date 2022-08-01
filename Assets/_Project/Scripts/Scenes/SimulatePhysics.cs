@@ -16,6 +16,7 @@ public class SimulatePhysics : MonoBehaviour
         _tm.OnPhysicsSimulation += TimeManager_OnPhysicsSimulation;
         _physicsScene = gameObject.scene.GetPhysicsScene2D();
         Physics2D.simulationMode = SimulationMode2D.Script;
+        Physics2D.queriesStartInColliders = false; 
     }
 
     private void TimeManager_OnPhysicsSimulation(float delta)

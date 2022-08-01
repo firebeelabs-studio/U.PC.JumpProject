@@ -94,11 +94,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1789916991191962811}
   - component: {fileID: 1789916991191962809}
-  - component: {fileID: 1789916991191962814}
   - component: {fileID: 1789916991191962815}
   - component: {fileID: 1789916991191962812}
   - component: {fileID: 1789916991191962813}
   - component: {fileID: 1789916991033272785}
+  - component: {fileID: 1789916991033272791}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -141,24 +141,8 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
---- !u!70 &1789916991191962814
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789916991191962786}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 1}
-  m_Direction: 0
 --- !u!114 &1789916991191962815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,8 +169,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkBehaviours:
   - {fileID: 1789916991191962813}
+  - {fileID: 1789916991033272785}
   SceneTransformProperties:
-    Position: {x: 6.367432, y: -15.430784, z: 0}
+    Position: {x: 6.367432, y: -19.03, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
@@ -220,6 +205,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 1789916991191962812}
   _networkObjectCache: {fileID: 1789916991191962812}
   _stats: {fileID: 11400000, guid: 8f3e4ac96e9fac84e96172956137e1c4, type: 2}
+  _col: {fileID: 0}
 --- !u!114 &1789916991033272785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,7 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 201277550, guid: d904f93bc171bb144ba33c5155282f6f, type: 3}
-  _networkObjectCache: {fileID: 201277550, guid: d904f93bc171bb144ba33c5155282f6f, type: 3}
+  _networkObjectCache: {fileID: 1789916991191962812}
   _graphicalObject: {fileID: 866502527}
   _smoothTicks: 1
   _durationType: 0
@@ -246,3 +232,19 @@ MonoBehaviour:
   _rigidbody2d: {fileID: 1789916991191962809}
   _networkTransform: {fileID: 0}
   _predictionRatio: 0
+--- !u!70 &1789916991033272791
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789916991191962786}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.5, y: 1}
+  m_Direction: 0

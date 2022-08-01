@@ -114,15 +114,19 @@ namespace TarodevController {
 
         #region Collisions
 
-        protected virtual void CheckCollisions() {
+        protected virtual void CheckCollisions()
+        {
             var offset = (Vector2)transform.position + _col.offset;
 
-            _groundHitCount = Physics2D.CapsuleCastNonAlloc(offset, _col.size, _col.direction, 0, Vector2.down, _groundHits, _stats.GrounderDistance);
-            var ceilingHits = Physics2D.CapsuleCastNonAlloc(offset, _col.size, _col.direction, 0, Vector2.up, _ceilingHits, _stats.GrounderDistance);
+            _groundHitCount = Physics2D.CapsuleCastNonAlloc(offset, _col.size, _col.direction, 0, Vector2.down,
+                _groundHits, _stats.GrounderDistance);
+            var ceilingHits = Physics2D.CapsuleCastNonAlloc(offset, _col.size, _col.direction, 0, Vector2.up,
+                _ceilingHits, _stats.GrounderDistance);
 
             if (ceilingHits > 0 && _speed.y > 0) _speed.y = 0;
 
-            if (!_grounded && _groundHitCount > 0) {
+            if (!_grounded && _groundHitCount > 0)
+            {
                 _grounded = true;
                 _coyoteUsable = true;
                 _doubleJumpUsable = true;
@@ -131,7 +135,8 @@ namespace TarodevController {
                 _canDash = true;
                 GroundedChanged?.Invoke(true, Mathf.Abs(_speed.y));
             }
-            else if (_grounded && _groundHitCount == 0) {
+            else if (_grounded && _groundHitCount == 0)
+            {
                 _grounded = false;
                 _frameLeftGrounded = _fixedFrame;
                 GroundedChanged?.Invoke(false, 0);
@@ -233,6 +238,7 @@ namespace TarodevController {
             }
 
             if ((_jumpToConsume && CanUseCoyote) || HasBufferedJump) {
+                print("jumped");
                 _coyoteUsable = false;
                 _bufferedJumpUsable = false;
                 _speed.y = _stats.JumpPower;
