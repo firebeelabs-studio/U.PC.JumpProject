@@ -136,9 +136,11 @@ public class PlayerMotor : NetworkBehaviour
         }
     }
 
+    private decimal _i;
     [Replicate]
     private void Move(FrameInput fm, bool asServer, bool replaying = false)
     {
+        _i++;
         //frame count
         //externalvelocity
         
@@ -149,7 +151,7 @@ public class PlayerMotor : NetworkBehaviour
         HandleJump(fm);
 
         HandleGravity();
-        
+        print(_speed.y + "IsServer: " +asServer + " " + _i);
         //apply velocity in better way and we are gucci
         _rb.velocity = _speed;
     }
@@ -157,10 +159,8 @@ public class PlayerMotor : NetworkBehaviour
     private void CheckCollisions()
     {
         var offset = (Vector2)transform.position + _col.offset;
-        _groundHitCount = Physics2D.CapsuleCastNonAlloc(offset, _col.size, _col.direction, 0, Vector2.down, _groundHits,
-            _stats.GrounderDistance);
-        var ceilingHits = Physics2D.CapsuleCastNonAlloc(offset, _col.size, _col.direction, 0, Vector2.up, _ceilingHits,
-            _stats.GrounderDistance);
+        _groundHitCount = Physics2D.CapsuleCastNonAlloc(offset, _col.size, _col.direction, 0, Vector2.down, _groundHits, _stats.GrounderDistance);
+        var ceilingHits = Physics2D.CapsuleCastNonAlloc(offset, _col.size, _col.direction, 0, Vector2.up, _ceilingHits, _stats.GrounderDistance);
 
         //if player hit roof
         if (ceilingHits > 0 && _speed.y > 0)
