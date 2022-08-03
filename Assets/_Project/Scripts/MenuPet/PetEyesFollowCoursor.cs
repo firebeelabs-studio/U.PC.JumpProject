@@ -33,9 +33,4 @@ public class PetEyesFollowCoursor : MonoBehaviour
         // Linearly interpolate from current position to mouse's position
         transform.position = Vector3.Lerp(transform.position, _origin + originToMouse, _speed * Time.deltaTime);
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(_origin, _maxDistance);
-    }
 }

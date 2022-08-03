@@ -99,7 +99,7 @@ public class PetMenuInteraction : MonoBehaviour
             targetJoint.enabled = true;
         }
         _selectedObj.GetComponent<DistanceJoint2D>().enabled = true;
-        _selectedRb.isKinematic = true;
+        _selectedRb.isKinematic = false;
         _selectedRb.velocity = Vector2.zero;
         _selectedObj.transform.position = _targetStartPos;
         _targetStartPos = Vector2.zero;
