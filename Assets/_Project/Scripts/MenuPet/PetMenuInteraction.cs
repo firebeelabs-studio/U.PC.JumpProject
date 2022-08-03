@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class PetMenuInteraction : MonoBehaviour
     [SerializeField] private float _maxMouseSpeed = 10;
     [SerializeField] private float _maxPullDistance;
 
-    private Vector3 _mousePos, offset, _mouseForce, _lastMousePosition, _targetStartPos;
+    private Vector3 _mousePos, _mouseForce, _lastMousePosition, _targetStartPos;
     private GameObject _selectedObj;
     private Rigidbody2D _selectedRb;
 
@@ -46,12 +47,17 @@ public class PetMenuInteraction : MonoBehaviour
         {
             StopDragging();
         }
+
     }
+
     void FixedUpdate()
     {
         if (_selectedRb)
         {
-            _selectedRb.MovePosition(Vector3.Lerp(_selectedRb.transform.position, _mousePos + offset, Time.fixedDeltaTime * 10f));
+            Vector3 direction = _mousePos - _targetStartPos;
+            direction = Vector3.ClampMagnitude(direction, _maxPullDistance);
+            Vector2 nextPos = Vector3.Lerp(_selectedRb.transform.position, _targetStartPos + direction, Time.fixedDeltaTime * 10f);
+            _selectedRb.MovePosition(nextPos);
         }
     }
     private void Explode(Vector3 pos)
@@ -83,7 +89,6 @@ public class PetMenuInteraction : MonoBehaviour
             _selectedObj = targetObject.gameObject;
             _selectedRb = targetObject.transform.gameObject.GetComponent<Rigidbody2D>();
             _selectedRb.isKinematic = true;
-            offset = _selectedRb.transform.position - _mousePos;
         }
         if (_selectedRb)
         {

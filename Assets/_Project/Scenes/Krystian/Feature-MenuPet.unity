@@ -189,7 +189,7 @@ DistanceJoint2D:
   m_GameObject: {fileID: 6463908}
   m_Enabled: 1
   serializedVersion: 4
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 1226485570}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -234,7 +234,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.0056142937, y: 0.34244177}
+  m_ConnectedAnchor: {x: 0.0056143566, y: 0.34244177}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -685,8 +685,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 339333418}
   m_HandleRect: {fileID: 339333417}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.99999756
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -758,7 +758,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 114622393}
   m_LocalRotation: {x: 0, y: 0, z: -0.015619279, w: 0.99987805}
-  m_LocalPosition: {x: -0.33741063, y: -0.0062733293, z: 0}
+  m_LocalPosition: {x: -0.3374106, y: -0.0062733293, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -795,7 +795,7 @@ DistanceJoint2D:
   m_GameObject: {fileID: 114622393}
   m_Enabled: 1
   serializedVersion: 4
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 1226485570}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -1155,7 +1155,7 @@ DistanceJoint2D:
   m_GameObject: {fileID: 167113181}
   m_Enabled: 1
   serializedVersion: 4
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 1226485570}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -1657,7 +1657,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 190484151}
   m_LocalRotation: {x: 0, y: 0, z: 0.689315, w: 0.72446173}
-  m_LocalPosition: {x: -0.010757327, y: -0.42149448, z: 0}
+  m_LocalPosition: {x: -0.010757327, y: -0.4214945, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1694,13 +1694,13 @@ DistanceJoint2D:
   m_GameObject: {fileID: 190484151}
   m_Enabled: 1
   serializedVersion: 4
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 1226485570}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -0.37848747, y: 0.00990795}
+  m_ConnectedAnchor: {x: -0.37848753, y: 0.009907947}
   m_AutoConfigureDistance: 0
   m_Distance: 0.05
   m_MaxDistanceOnly: 0
@@ -1719,7 +1719,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.18256055, y: -0.24246757}
+  m_ConnectedAnchor: {x: 0.1825605, y: -0.24246761}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -1739,7 +1739,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.15547909, y: 0.2478977}
+  m_ConnectedAnchor: {x: 0.15547904, y: 0.24789773}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -2920,7 +2920,7 @@ DistanceJoint2D:
   m_GameObject: {fileID: 470748870}
   m_Enabled: 1
   serializedVersion: 4
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 1226485570}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -3052,7 +3052,7 @@ DistanceJoint2D:
   m_GameObject: {fileID: 521294390}
   m_Enabled: 1
   serializedVersion: 4
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 1226485570}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -3447,7 +3447,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.0010070801}
+  m_AnchoredPosition: {x: 0, y: -0.000030517578}
   m_SizeDelta: {x: 580, y: 470}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &605791553
@@ -4367,7 +4367,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755498264}
   m_LocalRotation: {x: 0, y: 0, z: -0.7193977, w: 0.6945984}
-  m_LocalPosition: {x: 0.030193388, y: 0.42989933, z: 0}
+  m_LocalPosition: {x: 0.03019339, y: 0.42989933, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4404,7 +4404,7 @@ DistanceJoint2D:
   m_GameObject: {fileID: 755498264}
   m_Enabled: 1
   serializedVersion: 4
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 1226485570}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -6382,7 +6382,7 @@ DistanceJoint2D:
   m_GameObject: {fileID: 1151064909}
   m_Enabled: 1
   serializedVersion: 4
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 1226485570}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -6407,7 +6407,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.030902352, y: -0.32489708}
+  m_ConnectedAnchor: {x: 0.030902414, y: -0.32489708}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -6731,7 +6731,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 1226485568}
   m_BodyType: 2
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -6740,7 +6740,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!1 &1237434369
 GameObject:
@@ -8913,7 +8913,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -18.1, y: 0}
+  m_AnchoredPosition: {x: -18.100006, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1737800595
@@ -10919,7 +10919,7 @@ MonoBehaviour:
   _fieldOfImpact: 0.75
   _mouseClickRingParticle: {fileID: 1722209919}
   _maxMouseSpeed: 10
-  _maxPullDistance: 0.5
+  _maxPullDistance: 0.3
 --- !u!222 &2132787339
 CanvasRenderer:
   m_ObjectHideFlags: 0
