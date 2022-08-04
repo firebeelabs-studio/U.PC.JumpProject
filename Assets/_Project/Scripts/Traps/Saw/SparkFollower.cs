@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaypointFollower : MonoBehaviour
+public class SparkFollower : MonoBehaviour
 {
     [SerializeField] private GameObject[] _waypoints;
     private int _currentWaypointIndex = 0;
@@ -29,8 +29,6 @@ public class WaypointFollower : MonoBehaviour
             }
         }
         transform.position = Vector2.MoveTowards(transform.position, _waypoints[_currentWaypointIndex].transform.position, Time.deltaTime * _speed);
-        transform.Rotate(0, 0, 360 * _rotateDirection * Time.deltaTime);
-        //_sparkParticles.transform.localScale = new Vector3 (_sparkDirection, 1, 1);
-        _sparkParticles.transform.Rotate(0, 0, 0);
+        transform.localScale = new Vector3 (_sparkDirection, 0, 0);
     }
 }
