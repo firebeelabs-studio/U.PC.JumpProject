@@ -33,7 +33,7 @@ public class PetMenuInteraction : MonoBehaviour
         {
             _counter = 0;
         }
-
+        //if player doesn't want to hold any bone and there's no currently selected bone to move
         if (_counter < 0.5f && Input.GetMouseButtonUp(0) && _selectedObj == null)
         {
             Explode(_mousePos);
@@ -41,10 +41,12 @@ public class PetMenuInteraction : MonoBehaviour
         }
 
         Collider2D targetObject = Physics2D.OverlapPoint(_mousePos);
+        //if player wants to hold a bone and there's no bone selected
         if (_counter >= 0.5f && _selectedRb == null)
         {
             StartDragging(targetObject);
         }
+        //if player realeases the button and was holding the bone
         else if (Input.GetMouseButtonUp(0) && _selectedRb)
         {
             StopDragging();
@@ -78,6 +80,7 @@ public class PetMenuInteraction : MonoBehaviour
         Collider2D[] objects = Physics2D.OverlapCircleAll(explosion.transform.position, _fieldOfImpact);
         foreach (Collider2D obj in objects)
         {
+            //hardcoded to work only with the top one bones
             if (obj.gameObject.name == "bone_1" || obj.gameObject.name == "bone_2" || obj.gameObject.name == "bone_8")
             {
                 _animator.enabled = false;
