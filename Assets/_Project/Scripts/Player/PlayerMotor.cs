@@ -12,21 +12,6 @@ using UnityEngine.UIElements;
 
 public class PlayerMotor : NetworkBehaviour
 {
-    public struct ReconcileData
-    {
-        public Vector3 Position;
-        public Quaternion Rotation;
-        public Vector3 Velocity;
-        public float AngularVelocity;
-
-        public ReconcileData(Vector3 position, Quaternion rotation, Vector3 velocity, float angularVelocity)
-        {
-            Position = position;
-            Rotation = rotation;
-            Velocity = velocity;
-            AngularVelocity = angularVelocity;
-        }
-    }
     public struct MoveData
     {
         public bool Jump;
@@ -122,7 +107,7 @@ public class PlayerMotor : NetworkBehaviour
     {
         if (IsServer)
         {
-            ReconcileData rd = new ReconcileData(transform.position, transform.rotation, _rb.velocity, _rb.angularVelocity);
+            ReconcileData rd = new ReconcileData(transform.position, transform.rotation, _rb.velocity, _rb.angularVelocity, _speed);
             Reconcilation(rd,true);
         }
     }
@@ -136,22 +121,21 @@ public class PlayerMotor : NetworkBehaviour
         }
     }
 
-    private decimal _i;
+    private decimal _i = 0;
     [Replicate]
     private void Move(FrameInput fm, bool asServer, bool replaying = false)
     {
-        _i++;
+        //_i++;
         //frame count
         //externalvelocity
-        
         CheckCollisions();
 
         HandleHorizontal(fm);
         
         HandleJump(fm);
 
-        HandleGravity();
-        print(_speed.y + "IsServer: " +asServer + " " + _i);
+        HandleGravity(replaying);
+        //print(_speed.y + "IsServer: " +asServer + " " + _i);
         //apply velocity in better way and we are gucci
         _rb.velocity = _speed;
     }
@@ -178,8 +162,9 @@ public class PlayerMotor : NetworkBehaviour
         }
     }
 
-    private void HandleGravity()
+    private void HandleGravity(bool isReplaying)
     {
+        //if (isReplaying) return;
         //have to handle slopes here
         if (_grounded && _speed.y <= 0)
         {
@@ -212,6 +197,7 @@ public class PlayerMotor : NetworkBehaviour
         }
         else
         {
+            _i++;
             var fallSpeed = -_stats.FallSpeed;
             _speed.y += fallSpeed * (float)TimeManager.TickDelta;
 
@@ -220,6 +206,7 @@ public class PlayerMotor : NetworkBehaviour
             {
                 _speed.y = -_stats.MaxFallSpeed;
             }
+            print($"Falling speed: {_speed.y}, Server: {IsServer} Iteration {_i}");
         }
     }
 
@@ -228,7 +215,6 @@ public class PlayerMotor : NetworkBehaviour
         //TODO: add here Coyote and buffer
         if (fm.JumpDown && _grounded)
         {
-            print("jump");
             _speed.y = _stats.JumpPower;
         }
     }
@@ -240,6 +226,7 @@ public class PlayerMotor : NetworkBehaviour
         transform.rotation = rd.Rotation;
         _rb.velocity = rd.Velocity;
         _rb.angularVelocity = rd.AngularVelocity;
+        _speed = rd.Speed;
     }
     private void HandleHorizontal(FrameInput fm)
     {
