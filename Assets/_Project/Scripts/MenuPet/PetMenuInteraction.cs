@@ -10,12 +10,14 @@ public class PetMenuInteraction : MonoBehaviour
     [SerializeField] private ParticleSystem _mouseClickRingParticle;
     [SerializeField] private float _maxMouseSpeed = 10;
     [SerializeField] private float _maxPullDistance;
+    [SerializeField] private Animator _animator;
 
     private Vector3 _mousePos, _mouseForce, _lastMousePosition, _targetStartPos;
     private GameObject _selectedObj;
     private Rigidbody2D _selectedRb;
-
+    private bool _canEnableAnimatorBack = true;
     private float _counter = 0;
+    private float _animatorDelay;
 
     void Update()
     {
@@ -47,7 +49,14 @@ public class PetMenuInteraction : MonoBehaviour
         {
             StopDragging();
         }
+        if (_canEnableAnimatorBack)
+        {
+            _animator.enabled = true;
+            _canEnableAnimatorBack = false;
+        }
 
+        _animatorDelay -= Time.deltaTime;
+        EnableAnimatorBack();
     }
 
     void FixedUpdate()
@@ -60,17 +69,25 @@ public class PetMenuInteraction : MonoBehaviour
             _selectedRb.MovePosition(nextPos);
         }
     }
+
     private void Explode(Vector3 pos)
     {
         GameObject explosion = new GameObject("explosion", typeof(Rigidbody2D));
         explosion.transform.position = pos;
         explosion.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         Collider2D[] objects = Physics2D.OverlapCircleAll(explosion.transform.position, _fieldOfImpact);
-
         foreach (Collider2D obj in objects)
         {
+            if (obj.gameObject.name == "bone_1" || obj.gameObject.name == "bone_2" || obj.gameObject.name == "bone_8")
+            {
+                _animator.enabled = false;
+            }
             Vector2 direction = obj.transform.position - explosion.transform.position;
             obj.GetComponent<Rigidbody2D>().AddForce(direction * _explosionForce);
+        }
+        if (_animatorDelay < 2)
+        {
+            _animatorDelay += 2f - _animatorDelay;
         }
         _mouseClickRingParticle.gameObject.transform.position = pos;
         Destroy(explosion);
@@ -84,6 +101,7 @@ public class PetMenuInteraction : MonoBehaviour
             {
                 targetJoint.enabled = false;
             }
+            _animator.enabled = false;
             targetObject.GetComponent<DistanceJoint2D>().enabled = false;
             _targetStartPos = targetObject.gameObject.transform.position;
             _selectedObj = targetObject.gameObject;
@@ -97,12 +115,14 @@ public class PetMenuInteraction : MonoBehaviour
             _lastMousePosition = _mousePos;
         }
     }
+
     private void StopDragging()
     {
         foreach (SpringJoint2D targetJoint in _selectedObj.GetComponents<SpringJoint2D>())
         {
             targetJoint.enabled = true;
         }
+        _animator.enabled = true;
         _selectedObj.GetComponent<DistanceJoint2D>().enabled = true;
         _selectedRb.isKinematic = false;
         _selectedRb.velocity = Vector2.zero;
@@ -112,9 +132,11 @@ public class PetMenuInteraction : MonoBehaviour
         _selectedRb = null;
     }
 
-    private void OnDrawGizmos()
+    private void EnableAnimatorBack()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(_mousePos, 0.5f);
+        if (_animatorDelay <= 0 && !_animator.isActiveAndEnabled && !_selectedObj)
+        {
+            _canEnableAnimatorBack = true;
+        }
     }
 }
