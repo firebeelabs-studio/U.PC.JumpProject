@@ -225,7 +225,7 @@ namespace TarodevController {
         #region Jump
 
         private bool CanUseCoyote => _coyoteUsable && !_grounded && _frameLeftGrounded + _stats.CoyoteFrames > _fixedFrame;
-        private bool HasBufferedJump => _grounded && _bufferedJumpUsable && _lastJumpPressed + _stats.JumpBufferFrames > _fixedFrame;
+        private bool HasBufferedJump => _grounded && _bufferedJumpUsable && _lastJumpPressed + _stats.JumpBufferSeconds > _fixedFrame;
         private bool CanDoubleJump => _stats.AllowDoubleJump && _doubleJumpUsable && !_coyoteUsable;
 
         protected virtual void HandleJump() {

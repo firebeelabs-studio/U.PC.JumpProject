@@ -51,7 +51,7 @@ namespace TarodevController {
         public int CoyoteFrames = 7;
 
         [Tooltip("The amount of fixed frames we buffer a jump. This allows jump input before actually hitting the ground")]
-        public int JumpBufferFrames = 7;
+        public float JumpBufferSeconds = 7;
 
         [Header("DASH")] [Tooltip("Allows the player to dash")]
         public bool AllowDash;

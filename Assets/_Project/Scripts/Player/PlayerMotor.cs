@@ -92,7 +92,8 @@ public class PlayerMotor : NetworkBehaviour
         if (IsOwner)
         {
             Reconcilation(default, false);
-            Move(_frameInput, false);
+            GatherInput(out MoveData md);
+            Move(md, false);
         }
 
         if (IsServer)
@@ -115,7 +116,7 @@ public class PlayerMotor : NetworkBehaviour
         if (IsOwner)
         {
             //OnTick is working as FixedUpdate so checking inputs OnTick sucks
-            GatherInput(out _frameInput);
+            
         }
     }
 
@@ -125,7 +126,7 @@ public class PlayerMotor : NetworkBehaviour
     private float _lastJumpPressed;
 
     [Replicate]
-    private void Move(FrameInput fm, bool asServer, bool replaying = false)
+    private void Move(MoveData md, bool asServer, bool replaying = false)
     {
         //_i++;
         //frame count
@@ -133,9 +134,10 @@ public class PlayerMotor : NetworkBehaviour
         CheckCollisions();
         //TODO: cache time here
 
-        HandleHorizontal(fm);
-        
-        HandleJump(fm);
+        HandleHorizontal(md.Input);
+        print(_lastJumpPressed);
+
+        HandleJump(md);
 
         HandleGravity(replaying);
         //print(_speed.y + "IsServer: " +asServer + " " + _i);
@@ -143,7 +145,7 @@ public class PlayerMotor : NetworkBehaviour
         _rb.velocity = _speed;
     }
 
-    private bool HasBufferedJump => _grounded && _bufferedJumpUsable & _lastJumpPressed + _stats.JumpBufferFrames > Time.time;
+    private bool HasBufferedJump => _grounded && _bufferedJumpUsable & _lastJumpPressed + _stats.JumpBufferSeconds > Time.time;
     
     private void CheckCollisions()
     {
@@ -219,10 +221,14 @@ public class PlayerMotor : NetworkBehaviour
         }
     }
 
-    private void HandleJump(FrameInput fm)
+    private void HandleJump(MoveData md)
     {
+        if (md.Input.JumpDown)
+        {
+            _lastJumpPressed = Time.time;
+        }
         //TODO: add here Coyote and buffer
-        if ((fm.JumpDown && _grounded) || HasBufferedJump)
+        if ((md.Input.JumpDown && _grounded) || HasBufferedJump)
         {
             _bufferedJumpUsable = false;
             _speed.y = _stats.JumpPower;
@@ -242,7 +248,7 @@ public class PlayerMotor : NetworkBehaviour
         _rb.velocity = rd.Velocity;
         _rb.angularVelocity = rd.AngularVelocity;
         _speed = rd.Speed;
-        _lastJumpPressed = rd.TimeLastJumpPressed;
+        //_lastJumpPressed = rd.TimeLastJumpPressed;
     }
     private void HandleHorizontal(FrameInput fm)
     {
@@ -260,13 +266,9 @@ public class PlayerMotor : NetworkBehaviour
         _speed.x = Mathf.Clamp(_speed.x, -_stats.MaxSpeed, _stats.MaxSpeed);
     }
     
-    protected virtual void GatherInput(out FrameInput fm)
+    protected virtual void GatherInput(out MoveData md)
     {
-        fm = default;
-        fm = _input.FrameInput;
-        if (_frameInput.JumpDown)
-        {
-            _lastJumpPressed = Time.time;
-        }
+        md = default;
+        md.Input = _input.FrameInput;
     }
 }
