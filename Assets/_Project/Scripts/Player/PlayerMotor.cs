@@ -14,15 +14,13 @@ public class PlayerMotor : NetworkBehaviour
 {
     public struct MoveData
     {
-        public bool Jump;
-        public float Horizontal;
-        public float Vertical;
-
-        public MoveData(bool jump, float horizontal, float vertical)
+        public FrameInput Input;
+        public float TimeLastJumpPressed;
+       
+        public MoveData(FrameInput input, float timeLastJumpPressed)
         {
-            Jump = jump;
-            Horizontal = horizontal;
-            Vertical = vertical;
+            Input = input;
+            TimeLastJumpPressed = timeLastJumpPressed;
         }
     }
     
@@ -107,7 +105,7 @@ public class PlayerMotor : NetworkBehaviour
     {
         if (IsServer)
         {
-            ReconcileData rd = new ReconcileData(transform.position, transform.rotation, _rb.velocity, _rb.angularVelocity, _speed);
+            ReconcileData rd = new ReconcileData(transform.position, transform.rotation, _rb.velocity, _rb.angularVelocity, _speed, _lastJumpPressed);
             Reconcilation(rd,true);
         }
     }
@@ -122,6 +120,10 @@ public class PlayerMotor : NetworkBehaviour
     }
 
     private decimal _i = 0;
+    private bool _bufferedJumpUsable;
+    private float _timeLeftGrounded;
+    private float _lastJumpPressed;
+
     [Replicate]
     private void Move(FrameInput fm, bool asServer, bool replaying = false)
     {
@@ -129,6 +131,7 @@ public class PlayerMotor : NetworkBehaviour
         //frame count
         //externalvelocity
         CheckCollisions();
+        //TODO: cache time here
 
         HandleHorizontal(fm);
         
@@ -140,6 +143,8 @@ public class PlayerMotor : NetworkBehaviour
         _rb.velocity = _speed;
     }
 
+    private bool HasBufferedJump => _grounded && _bufferedJumpUsable & _lastJumpPressed + _stats.JumpBufferFrames > Time.time;
+    
     private void CheckCollisions()
     {
         var offset = (Vector2)transform.position + _col.offset;
@@ -152,9 +157,13 @@ public class PlayerMotor : NetworkBehaviour
             _speed.y = 0;
         }
 
+        //if landed
         if (!_grounded && _groundHitCount > 0)
         {
             _grounded = true;
+            _bufferedJumpUsable = true;
+            //it's for coyotee actualy
+            _timeLeftGrounded = Time.time;
         }
         else if (_grounded && _groundHitCount == 0)
         {
@@ -197,7 +206,7 @@ public class PlayerMotor : NetworkBehaviour
         }
         else
         {
-            _i++;
+            //_i++;
             var fallSpeed = -_stats.FallSpeed;
             _speed.y += fallSpeed * (float)TimeManager.TickDelta;
 
@@ -206,16 +215,22 @@ public class PlayerMotor : NetworkBehaviour
             {
                 _speed.y = -_stats.MaxFallSpeed;
             }
-            print($"Falling speed: {_speed.y}, Server: {IsServer} Iteration {_i}");
+            //print($"Falling speed: {_speed.y}, Server: {IsServer} Iteration {_i}");
         }
     }
 
     private void HandleJump(FrameInput fm)
     {
         //TODO: add here Coyote and buffer
-        if (fm.JumpDown && _grounded)
+        if ((fm.JumpDown && _grounded) || HasBufferedJump)
         {
+            _bufferedJumpUsable = false;
             _speed.y = _stats.JumpPower;
+        }
+
+        if (false)
+        {
+           //est frame on which player left ground here 
         }
     }
 
@@ -227,6 +242,7 @@ public class PlayerMotor : NetworkBehaviour
         _rb.velocity = rd.Velocity;
         _rb.angularVelocity = rd.AngularVelocity;
         _speed = rd.Speed;
+        _lastJumpPressed = rd.TimeLastJumpPressed;
     }
     private void HandleHorizontal(FrameInput fm)
     {
@@ -250,7 +266,7 @@ public class PlayerMotor : NetworkBehaviour
         fm = _input.FrameInput;
         if (_frameInput.JumpDown)
         {
-            //jump   
+            _lastJumpPressed = Time.time;
         }
     }
 }
