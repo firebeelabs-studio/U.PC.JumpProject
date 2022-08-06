@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef0dea4a91b007b4c8f476b2015391a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 8
+  _componentIndexCache: 7
   _addedNetworkObject: {fileID: 1165085243}
   _networkObjectCache: {fileID: 1419814596373140149}
 --- !u!114 &740521572428383995
@@ -144,9 +144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc25db53452b147418a159fcccc1297c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 9
+  _componentIndexCache: 8
   _addedNetworkObject: {fileID: 1165085243}
   _networkObjectCache: {fileID: 1419814596373140149}
+  _visualObjToFollowAndLookAt: {fileID: 0}
 --- !u!114 &4999861858797138158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,14 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caff56ab194e37a47a9ee9d6947aabf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dollyTrack: {fileID: 0}
-  _waypointsToZoom:
-  - waypointNumber: 1
-    zoomValue: 5
-    zoomType: 1
-  - waypointNumber: 2
-    zoomValue: 5
-    zoomType: 0
 --- !u!1 &1897455045
 GameObject:
   m_ObjectHideFlags: 0
@@ -14939,7 +14932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed64777653726cc49995b9deb2ce058f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 10
+  _componentIndexCache: 9
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
   _text: {fileID: 4757097231591842930}
@@ -15306,7 +15299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de059b5d0632cab4b9821c96eb9735a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 1
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
 --- !u!114 &1419814596373140149
@@ -15322,7 +15315,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _networkBehaviours:
-  - {fileID: 0}
   - {fileID: 1419814596576636796}
   - {fileID: 5659190502985943681}
   - {fileID: -1002222236976936792}
@@ -15359,7 +15351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d34524ed90f5b1445ba3199f657fe7a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 2
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
   _cameras: {fileID: 7823926982098381077}
@@ -15375,7 +15367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 669a6dc6de01acf4e915f9717d1794a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 3
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
   <Nick>k__BackingField: 
@@ -15392,7 +15384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71fd7f855ec523429999fc4e14a1928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 4
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
   _overrideType: 2
@@ -15410,9 +15402,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec9abfbb84a278447a05dec28104aecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 5
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
+  _anim: {fileID: 0}
+  _acceleration: 120
+  _moveClamp: 13
+  _deceleration: 60
+  _apexBonus: 100
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _detectionRayLength: 0.1
+  _jumpHeight: 35
+  _jumpApexThreshold: 40
+  _coyoteTimeThreshold: 7
+  _jumpBuffer: 7
+  _jumpEndEarlyGravityModifier: 3
+  AllowDoubleJump: 0
+  _fallClamp: -60
+  _minFallSpeed: 80
+  _maxFallSpeed: 160
+  _groundingForce: -1.5
 --- !u!114 &-2802063859455619531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15425,7 +15436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 402926ef33e0a894d9fec352693988ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 6
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
   _graphicalObject: {fileID: 7514181438731622076}
@@ -30124,12 +30135,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2bf38cb71d6f08045ae9c06456920356, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0ab4fc5becd9b8145a6adc96458f2943, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 1, y: 1.4}
+  m_Size: {x: 1.0253906, y: 1.34375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -30449,7 +30460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84990c27003994244b4fad6fc06fb684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 7
+  _componentIndexCache: 6
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
   _cam: {fileID: 1165085245}
