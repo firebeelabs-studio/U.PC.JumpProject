@@ -115,11 +115,14 @@ public class PlayerMotor : NetworkBehaviour
     {
         if (IsOwner)
         {
-            //OnTick is working as FixedUpdate so checking inputs OnTick sucks
-            
+            if (_input.FrameInput.JumpDown)
+            {
+                _jumpQueued = true;
+            }
         }
     }
 
+    private bool _jumpQueued;
     private decimal _i = 0;
     private bool _bufferedJumpUsable;
     private float _timeLeftGrounded;
@@ -135,7 +138,6 @@ public class PlayerMotor : NetworkBehaviour
         //TODO: cache time here
 
         HandleHorizontal(md.Input);
-        print(_lastJumpPressed);
 
         HandleJump(md);
 
@@ -208,6 +210,7 @@ public class PlayerMotor : NetworkBehaviour
         }
         else
         {
+            if(isReplaying) return;
             //_i++;
             var fallSpeed = -_stats.FallSpeed;
             _speed.y += fallSpeed * (float)TimeManager.TickDelta;
@@ -270,5 +273,7 @@ public class PlayerMotor : NetworkBehaviour
     {
         md = default;
         md.Input = _input.FrameInput;
+        md.Input.JumpDown = _jumpQueued;
+        _jumpQueued = false;
     }
 }
