@@ -10,11 +10,6 @@ public class ParallaxBackground : MonoBehaviour
     [SerializeField] private float _offsetForDistance = 3f;
     private bool _isXAxis;
 
-    void Awake()
-    {
-        
-    }
-
     private void Start()
     {
         _isXAxis = CameraSettings.Instance.Axis == CameraSettings.ParallaxAxis.Horizontal ? true : false;   //if true => horizontal

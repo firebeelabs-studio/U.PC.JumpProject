@@ -78,18 +78,6 @@ public class CameraController : NetworkBehaviour
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     //out of date
     #region BouncerCameraZoomOut
     //public static bool shouldZoom = false;
