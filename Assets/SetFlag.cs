@@ -19,8 +19,9 @@ public class SetFlag : MonoBehaviour
         _endTopPos = (Vector2)_top.position + new Vector2(0, _height);
         _endMidPos = (Vector2)_mid.position + new Vector2(0, _height/2);
 
-        // this includes the scale of main object, 
-        _includeScale = 1/_flag.transform.localScale.y;
+        // this includes the scale of main object and prevent open space
+        _includeScale = 1 / _flag.transform.localScale.y;
+
         _startScale = _mid.transform.localScale;
 
         //height of scale is increased a bit, to prevent open space between two sprites
@@ -29,7 +30,8 @@ public class SetFlag : MonoBehaviour
 
     private void Update()
     {
-        if (!_activateCheckpoint) return;
+        if (!_activateCheckpoint) return; 
+        if ((Vector2)_top.position == _endTopPos && ((Vector2)_mid.position == _endMidPos)) return; // it stops SetFlagPos after flag reaches top - better efficency
         SetFlagPos();
     }
 
