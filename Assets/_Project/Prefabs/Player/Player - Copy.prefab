@@ -108,6 +108,7 @@ MonoBehaviour:
     Rotation: {x: -0, y: -0, z: -0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
+  _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 1
   NetworkObserver: {fileID: 0}
   _prefabId: -1
@@ -146,6 +147,7 @@ MonoBehaviour:
   _componentIndexCache: 9
   _addedNetworkObject: {fileID: 1165085243}
   _networkObjectCache: {fileID: 1419814596373140149}
+  _visualObjToFollowAndLookAt: {fileID: 7514181438401602125}
 --- !u!114 &4999861858797138158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15216,7 +15218,7 @@ GameObject:
   - component: {fileID: -7711716785194905291}
   - component: {fileID: -4032707631719175513}
   m_Layer: 6
-  m_Name: Player
+  m_Name: Player - Copy
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15376,6 +15378,7 @@ MonoBehaviour:
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 0.95, y: 1, z: 1}
   _isNetworked: 1
+  _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
   _prefabId: 3
@@ -15509,6 +15512,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 1419814596373140149}
   _networkObjectCache: {fileID: 1419814596373140149}
   _timerText: {fileID: 0}
+  _countdownText: {fileID: 0}
 --- !u!1 &7514181437753337213
 GameObject:
   m_ObjectHideFlags: 0
@@ -35637,7 +35641,8 @@ PrefabInstance:
       propertyPath: backgroundParts.Array.data[3].ParallaxEffectPower
       value: 0.2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6666372719658380599, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bdd521315701c34428ae38c2cade9a02, type: 3}
 --- !u!4 &8784027791475477411 stripped
 Transform:
