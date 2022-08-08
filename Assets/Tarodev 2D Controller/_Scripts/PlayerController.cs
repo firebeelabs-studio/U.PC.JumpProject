@@ -64,25 +64,21 @@ namespace TarodevController {
 
         #endregion
 
-        protected virtual void Awake() {
-            // This is atrocious and I should not be mandating this on your game
-            // I'll fix it up in a later release
-            Physics2D.queriesStartInColliders = false; 
-        
-        
-            _rb = GetComponent<Rigidbody2D>();
-            _cols = GetComponents<CapsuleCollider2D>();
-            _input = GetComponent<PlayerInput>();
+            RunCollisionChecks();
+            JumpAndGravity();
 
-            // Colliders cannot be check whilst disabled. Let's cache it instead
-            _standingColliderBounds = _cols[0].bounds;
-            _standingColliderBounds.center = _cols[0].offset;
+            CalculateCrouch();
+            CalculateHorizontal();
 
-            SetCrouching(false);
+            CalculateDash();
+            MoveCharacter();
         }
 
-        protected virtual void Update() {
-            GatherInput();
+        public void JumpAndGravity()
+        {
+            CalculateJumpApex();
+            CalculateGravity();
+            CalculateJump();
         }
 
         protected virtual void GatherInput() {
@@ -116,7 +112,8 @@ namespace TarodevController {
 
         protected virtual void CheckCollisions()
         {
-            var offset = (Vector2)transform.position + _col.offset;
+            // Generate ray ranges. 
+            var b = _collider.bounds;
 
             _groundHitCount = Physics2D.CapsuleCastNonAlloc(offset, _col.size, _col.direction, 0, Vector2.down,
                 _groundHits, _stats.GrounderDistance);
@@ -288,7 +285,13 @@ namespace TarodevController {
 
         #endregion
 
-        #region Falling
+        #region Move
+
+        // We cast our bounds before moving to avoid future collisions
+        public void MoveCharacter()
+        {
+            RawMovement = _speed; // Used externally
+            var move = RawMovement * Time.fixedDeltaTime;
 
         protected virtual void HandleFall() {
             if (_dashing) return;
