@@ -35,7 +35,7 @@ public class IcePlatform : MonoBehaviour
 
     private void SetDebuffs(PlayerController playerController)
     {
-        playerController.IceDebuff(_accReduction, _decReduction);
+        //playerController.IceDebuff(_accReduction, _decReduction);
         _isDebuffActivated = true;
     }
 
@@ -43,7 +43,7 @@ public class IcePlatform : MonoBehaviour
     {
         if (_isDebuffActivated)
         {
-            playerController.IceDebuff(-_accReduction, -_decReduction);
+            //playerController.IceDebuff(-_accReduction, -_decReduction);
             _isDebuffActivated = false;
         }
     }

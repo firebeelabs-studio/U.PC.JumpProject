@@ -103,17 +103,17 @@ public class GameplayManager : NetworkBehaviour
     [Server]
     private void Update()
     {
-        if (_roomDetails.MemberIds.Count == _roomDetails.StartedMembers.Count && !_isStarted)
-        {
-            //dirty, but works, have to clean this temp
-            _isStarted = true;
-            StartCoroutine(WaitBeforeStart());
-        }
-        if (_shouldStartCountdown && _countdownValueForDisplaying > 0)
-        {
-            _countdownValueForDisplaying -= Time.deltaTime;
-            _timer.DisplayCountdown(_countdownValueForDisplaying);
-        }
+        // if (_roomDetails.MemberIds.Count == _roomDetails.StartedMembers.Count && !_isStarted)
+        // {
+        //     //dirty, but works, have to clean this temp
+        //     _isStarted = true;
+        //     StartCoroutine(WaitBeforeStart());
+        // }
+        // if (_shouldStartCountdown && _countdownValueForDisplaying > 0)
+        // {
+        //     _countdownValueForDisplaying -= Time.deltaTime;
+        //     _timer.DisplayCountdown(_countdownValueForDisplaying);
+        // }
     }
 
     IEnumerator WaitBeforeStart()
@@ -132,7 +132,7 @@ public class GameplayManager : NetworkBehaviour
     [TargetRpc]
     private void TargetLetPlayerMove(NetworkConnection conn, NetworkObject obj)
     {
-        obj.GetComponent<PlayerController>().CanMove = true;
+        //obj.GetComponent<PlayerController>().CanMove = true;
     }
 
     #region FinishRun
@@ -151,7 +151,7 @@ public class GameplayManager : NetworkBehaviour
     [TargetRpc]
     private void TargetBlockPlayerMovement(NetworkConnection conn, NetworkObject obj)
     {
-        obj.GetComponent<PlayerController>().CanMove = false;
+        //obj.GetComponent<PlayerController>().CanMove = false;
     }
 
     #endregion
