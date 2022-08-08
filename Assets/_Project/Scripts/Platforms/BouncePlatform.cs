@@ -25,9 +25,9 @@ public class BouncePlatform : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player")) return;
-        if (collision.TryGetComponent(out PlayerController controller))
+        if (collision.TryGetComponent(out IPlayerController controller))
         {
-            controller.AddForce(_bounceDirectionVector * _bounceForce, PlayerForce.Burst, _cancelMovement);
+            controller.ApplyVelocity(_bounceDirectionVector * _bounceForce, PlayerForce.Burst);
         }
     }
 
