@@ -36,7 +36,7 @@ public class MudPlatform : MonoBehaviour
 
     private void SetDebuffs(PlayerController playerController)
     {
-        playerController.MudDebuff(_accReduction, _jumpReduction, _clampReduction);
+        //playerController.MudDebuff(_accReduction, _jumpReduction, _clampReduction);
         _isDebuffActivated = true;
     }
 
@@ -44,7 +44,7 @@ public class MudPlatform : MonoBehaviour
     {
         if (_isDebuffActivated)
         {
-            playerController.MudDebuff(-_accReduction, -_jumpReduction, -_clampReduction);
+            //playerController.MudDebuff(-_accReduction, -_jumpReduction, -_clampReduction);
         }
         _isDebuffActivated = false;
     }

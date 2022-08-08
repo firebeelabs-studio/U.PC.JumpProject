@@ -39,6 +39,7 @@ public class CameraController : NetworkBehaviour
         if (base.IsOwner)
         {
             _vcam.m_Lens.OrthographicSize = CameraSettings.Instance.CameraSize;
+            CameraSettings.Instance.InstantiateNewBackground(_visualObjToFollowAndLookAt);
         }
     }
     //private void LateUpdate() => ZoomOutWhileFalling(_playerController.VelocityY);
@@ -75,18 +76,6 @@ public class CameraController : NetworkBehaviour
             _mapOverview.StartMapOverview(dollyTrack, vcam, _visualObjToFollowAndLookAt);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     //out of date

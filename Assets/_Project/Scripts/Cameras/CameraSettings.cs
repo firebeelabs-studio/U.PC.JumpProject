@@ -20,6 +20,8 @@ public class CameraSettings : MonoBehaviour
     public float CameraSize => _cameraSize;
     [Space(15)]
     [Header("Parallax")]
+    [SerializeField] private GameObject _backgroundPrefab;
+    public GameObject BackgroundPrefab => _backgroundPrefab;
     public bool ShouldParallax;
     public enum ParallaxAxis
     {
@@ -33,5 +35,11 @@ public class CameraSettings : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+    public void InstantiateNewBackground(Transform referenceObj)
+    {
+        GameObject newBg = Instantiate(_backgroundPrefab);
+        newBg.GetComponent<ParallaxBackground>().ParallaxReferenceTransform = referenceObj;
+        newBg.SetActive(true);
     }
 }

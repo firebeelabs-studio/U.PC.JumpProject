@@ -1,7 +1,7 @@
 using TarodevController;
 using UnityEngine;
 
-public class PlatformCircularEffector : MonoBehaviour, IPlayerEffector
+public class PlatformCircularEffector : MonoBehaviour
 {
     public float Angle;
     public float Radius;
