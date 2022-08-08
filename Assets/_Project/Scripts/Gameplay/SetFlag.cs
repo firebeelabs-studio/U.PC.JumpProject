@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class SetFlag : MonoBehaviour
 {
-    [SerializeField] Transform _flag;
-    [SerializeField] Transform _top;
-    [SerializeField] Transform _mid;
+    [SerializeField] private Transform _flag;
+    [SerializeField] private Transform _top;
+    [SerializeField] private Transform _mid;
     [SerializeField] float _speed;
     [SerializeField] float _height;
 
     Vector2 _endTopPos, _endMidPos;
     Vector3 _startScale, _endScale;
     bool _didItOnce;
-    bool _activateCheckpoint;
+    bool _isCheckpointActivated;
     float _includeScale;
 
     private void Start()
@@ -30,16 +30,17 @@ public class SetFlag : MonoBehaviour
 
     private void Update()
     {
-        if (!_activateCheckpoint) return; 
+        if (!_isCheckpointActivated) return; 
+
         if ((Vector2)_top.position == _endTopPos && ((Vector2)_mid.position == _endMidPos)) return; // it stops SetFlagPos after flag reaches top - better efficency
         SetFlagPos();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (_didItOnce) return;
-        _activateCheckpoint = true;
-        _didItOnce = true;
+        if (_isCheckpointActivated) return;
+
+        _isCheckpointActivated = true;
     }
 
     void SetFlagPos()
