@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 8174978287889944487}
   - component: {fileID: 8174978287889944484}
   - component: {fileID: 8174978287889944485}
+  - component: {fileID: 1710462448}
   m_Layer: 0
   m_Name: Saw
   m_TagString: Respawn
@@ -185,6 +186,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.48
+--- !u!114 &1710462448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8174978287889944486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d427b6f4ce6b484a86dfaa32618a589, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8174978288495420956
 GameObject:
   m_ObjectHideFlags: 0
