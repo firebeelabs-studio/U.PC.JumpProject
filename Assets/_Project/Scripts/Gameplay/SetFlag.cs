@@ -8,11 +8,10 @@ public class SetFlag : MonoBehaviour
     [SerializeField] float _speed;
     [SerializeField] float _height;
 
-    Vector2 _endTopPos, _endMidPos;
-    Vector3 _startScale, _endScale;
-    bool _didItOnce;
-    bool _isCheckpointActivated;
-    float _includeScale;
+    private Vector2 _endTopPos, _endMidPos;
+    private Vector3 _startScale, _endScale;
+    private bool _isCheckpointActivated;
+    private float _includeScale;
 
     private void Start()
     {
