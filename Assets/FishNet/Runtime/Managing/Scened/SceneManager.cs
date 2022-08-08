@@ -1252,7 +1252,7 @@ namespace FishNet.Managing.Scened
             if (scenes.Length == 0 && !asClientHost)
             {
                 if (_networkManager.CanLog(LoggingType.Warning))
-                    Debug.LogWarning($"No scenes were found to unload. This warning can generally be ignored when unloading scenes as clientHost.");
+                    Debug.LogWarning($"No scenes were found to unload.");
                 yield break;
             }
 

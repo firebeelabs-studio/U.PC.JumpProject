@@ -53,7 +53,7 @@ public sealed class GameManager : NetworkBehaviour
     }
     public static void ResetPlayerPowers()
     {
-        //Player.AllowDoubleJump = false;
+        Player.AllowDoubleJump = false;
     }
 
     [ServerRpc(RequireOwnership = false)]

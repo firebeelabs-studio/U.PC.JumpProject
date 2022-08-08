@@ -27,7 +27,7 @@ namespace FishNet.Serializing.Helping
         private const int IntScale_L = (1 << (BitsPerAxis_L - 1)) - 1;
         private const int IntMask_L = (1 << BitsPerAxis_L) - 1;
 
-        public static ulong Compress(Quaternion quaternion)
+        internal static ulong Compress(Quaternion quaternion)
         {
             float absX = Mathf.Abs(quaternion.x);
             float absY = Mathf.Abs(quaternion.y);
@@ -128,7 +128,7 @@ namespace FishNet.Serializing.Helping
             return unscaled;
         }
 
-        public static Quaternion Decompress(ulong compressed)
+        internal static Quaternion Decompress(ulong compressed)
         {
             var largestComponentType = (ComponentType)(compressed >> LargestComponentShift);
             ulong integerA = (compressed >> AShift) & IntMask_H;

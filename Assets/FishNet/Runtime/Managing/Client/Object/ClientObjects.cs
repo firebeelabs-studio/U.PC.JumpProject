@@ -243,14 +243,13 @@ namespace FishNet.Managing.Client
         {
             int objectId = reader.ReadNetworkObjectId();
             int ownerId = reader.ReadNetworkConnectionId();
-            ObjectSpawnType ost = (ObjectSpawnType)reader.ReadByte();
-            bool sceneObject = (ost == ObjectSpawnType.Scene);
+            bool sceneObject = reader.ReadBoolean();
 
             NetworkObject nob;
             if (sceneObject)
                 nob = ReadSceneObject(reader, true);
             else
-                nob = ReadSpawnedObject(reader, objectId, ost);
+                nob = ReadSpawnedObject(reader, objectId);
 
             ArraySegment<byte> rpcLinks = reader.ReadArraySegmentAndSize();
             ArraySegment<byte> syncValues = reader.ReadArraySegmentAndSize();
@@ -316,7 +315,7 @@ namespace FishNet.Managing.Client
             int objectId = reader.ReadNetworkObjectId();
             //Try checking already spawned objects first.
             if (base.Spawned.TryGetValueIL2CPP(objectId, out NetworkObject nob))
-            {
+            { 
                 _objectCache.AddDespawn(nob);
             }
             /* If not found in already spawned objects see if
@@ -386,7 +385,10 @@ namespace FishNet.Managing.Client
         /// <summary>
         /// Finishes reading a spawned object, and instantiates the object.
         /// </summary>
-        private NetworkObject ReadSpawnedObject(PooledReader reader, int objectId, ObjectSpawnType ost)
+        /// <param name="reader"></param>
+        /// <param name="objectId"></param>
+        /// <param name="owner"></param>
+        private NetworkObject ReadSpawnedObject(PooledReader reader, int objectId)
         {
             //Parent.
             SpawnParentType spt = (SpawnParentType)reader.ReadByte();
@@ -425,14 +427,12 @@ namespace FishNet.Managing.Client
                     result = MonoBehaviour.Instantiate<NetworkObject>(prefab, position, rotation);
                     result.transform.SetParent(parentTransform, true);
                     result.transform.localScale = localScale;
-                    //Only need to set IsGlobal also if not host.
-                    result.SetIsGlobal((ost == ObjectSpawnType.InstantiatedGlobal));
                 }
                 //If host then find server instantiated object.
                 else
                 {
                     NetworkManager.ServerManager.Objects.Spawned.TryGetValueIL2CPP(objectId, out result);
-                }               
+                }
             }
 
             return result;

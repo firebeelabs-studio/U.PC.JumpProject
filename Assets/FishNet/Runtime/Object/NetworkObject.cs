@@ -150,7 +150,7 @@ namespace FishNet.Object
                 return;
             }
             //Global.
-            if (IsGlobal && !IsSceneObject)
+            if (IsGlobal)
                 DontDestroyOnLoad(gameObject);
 
             if (NetworkManager == null || (!NetworkManager.IsClient && !NetworkManager.IsServer))
@@ -249,8 +249,7 @@ namespace FishNet.Object
              * so that all conditions are handled by the observer
              * manager prior to the preinitialize call on networkobserver. 
              * The method called is dependent on NetworkManager being set. */
-            if (asServer)
-                AddDefaultNetworkObserverConditions();
+            AddDefaultNetworkObserverConditions();
 
             for (int i = 0; i < NetworkBehaviours.Length; i++)
                 NetworkBehaviours[i].InitializeOnceInternal();
@@ -264,17 +263,6 @@ namespace FishNet.Object
             //Add to connection objects if owner exist.
             if (owner != null)
                 owner.AddObject(this);
-        }
-
-        /// <summary>
-        /// Adds a NetworkBehaviour and serializes it's components.
-        /// </summary>
-        internal T AddAndSerialize<T>() where T : NetworkBehaviour
-        {
-            int startingLength = NetworkBehaviours.Length;
-            T result = gameObject.AddComponent<T>();
-            result.SerializeComponents(this, (byte)startingLength);
-            return result;
         }
 
         /// <summary>
@@ -497,7 +485,10 @@ namespace FishNet.Object
             ReferenceIds_OnValidate();
 
             if (IsGlobal && IsSceneObject)
-                Debug.LogWarning($"Object {gameObject.name} will have it's IsGlobal state ignored because it is a scene object. Instantiated copies will still be global. This warning is informative only.");
+            {
+                Debug.LogWarning($"Object {gameObject.name} cannot have be global because it is a scene object. Only instantiated objects may be global.");
+                IsGlobal = false;
+            }
         }
         private void Reset()
         {
