@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TarodevController;
 using UnityEngine;
 
-public class PendulumPlatform : MonoBehaviour
+public class PendulumPlatform : MonoBehaviour, IPlayerEffector
 {
     [SerializeField] private LineRenderer _lineRenderer;
     private Vector2 _nextPos;

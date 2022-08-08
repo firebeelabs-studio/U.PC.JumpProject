@@ -168,9 +168,7 @@ namespace FishNet.Configuring
 
         public void OnPostprocessBuild(BuildReport report)
         {
-            //PROSTART
             if (Configuration.ConfigurationData.IsBuilding)
-                //PROEND
                 BuildingEnded();
         }
 #endif

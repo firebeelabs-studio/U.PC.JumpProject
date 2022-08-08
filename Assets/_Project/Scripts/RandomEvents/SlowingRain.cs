@@ -37,13 +37,13 @@ public class SlowingRain : MonoBehaviour
         _timer -= Time.deltaTime;
         if (_shouldResetMoveClamp && _timer < 0)
         {
-            //_playerController.ChangeMoveClamp(-_slowingPower);
+            _playerController.ChangeMoveClamp(-_slowingPower);
             _shouldResetMoveClamp = false;
         }
     }
     private void SlowDownPlayer(PlayerController playerController)
     {
-        //playerController.ChangeMoveClamp(_slowingPower);
+        playerController.ChangeMoveClamp(_slowingPower);
         _timer = _timeBtwSlows;
     }
 }
