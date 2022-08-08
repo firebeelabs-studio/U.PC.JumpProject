@@ -27,7 +27,7 @@ public class BouncePlatform : MonoBehaviour
         if (!collision.CompareTag("Player")) return;
         if (collision.TryGetComponent(out IPlayerController controller))
         {
-            controller.ApplyVelocity(_bounceDirectionVector * _bounceForce, PlayerForce.Burst);
+            controller.ApplyVelocity(_bounceDirectionVector * _bounceForce, PlayerForce.Decay);
         }
     }
 
