@@ -7,7 +7,6 @@ public class BouncePlatform : MonoBehaviour
     [SerializeField] private float _bounceForce = 20;
     [SerializeField] private float _horizontalBoost = 1;
     [SerializeField] private float _cameraZoomOutDuration;
-    [SerializeField] private GameObject _playerSimulation;
     //[SerializeField] private JumpSimulation _jumpSimulation;
    
     private Vector2 _bounceDirectionVector;
@@ -20,17 +19,15 @@ public class BouncePlatform : MonoBehaviour
 
     void Awake()
     {
-        _playerSimulation.SetActive(false);
         CalculateForces();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player")) return;
-        if (collision.TryGetComponent(out PlayerMotor controller))
+        if (collision.TryGetComponent(out IPlayerController controller))
         {
-            controller.AddForce(_bounceDirectionVector * _bounceForce, PlayerForce.Burst, _cancelMovement);
-
+            controller.ApplyVelocity(_bounceDirectionVector * _bounceForce, PlayerForce.Decay);
         }
     }
 

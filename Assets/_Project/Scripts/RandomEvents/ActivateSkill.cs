@@ -13,7 +13,7 @@ public class ActivateSkill : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerController>().AllowDoubleJump = true;
+            //collision.GetComponent<PlayerController>().AllowDoubleJump = true;
             gameObject.SetActive(false);
         }
     }
