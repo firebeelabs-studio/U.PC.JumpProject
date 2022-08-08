@@ -25,7 +25,7 @@ public class RandomPoint : MonoBehaviour
         transform.position -= _distance;
 
         // follow player
-        if (Vector2.Distance(transform.position, _player.position) > 3)
+        if (Vector2.Distance(transform.position, _player.position) > 2)
         {
             _current = Mathf.MoveTowards(0, 1, Time.deltaTime);
             transform.position = Vector3.Lerp(transform.position, _player.position + new Vector3(-1, 1, 0), _speed * _curve.Evaluate(_current));

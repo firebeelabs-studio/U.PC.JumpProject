@@ -7,9 +7,12 @@ public class PetAnimator : MonoBehaviour
     private float _maxTilt, _tiltSpeed;
     private float _lastPosX, _checkDirection;
     private int _inputX;
+    private Vector2 _scale;
+
 
     void Start()
     {
+        _scale = transform.localScale;
         _maxTilt = _pF.MaxTilt;
         _tiltSpeed = _pF.TiltSpeed;
         _lastPosX = transform.position.x;
@@ -21,7 +24,7 @@ public class PetAnimator : MonoBehaviour
         _lastPosX = transform.position.x;
 
         // flip the sprite
-        transform.localScale = new Vector3(_pF.IsGoingRight == true ? 1 : -1, 1, 1);
+        transform.localScale = new Vector3(_pF.IsGoingRight == true ? _scale.x : -_scale.x, _scale.y, 1);
 
         _inputX = _checkDirection > 0 ? 1 : -1;
 

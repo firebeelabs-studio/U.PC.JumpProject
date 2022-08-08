@@ -15,8 +15,7 @@ public class PointFollower : MonoBehaviour
     [SerializeField] private AnimationCurve _CircleCurve;
     [SerializeField] private float _circleSpeed;
 
-    private Vector3 _endPos, _distance;
-    private Vector2 _newPos;
+    private Vector2 _newPos, _endPos, _distance;
     private float _current, _timer, _checkPlayerPos;
     private bool _isGoingRight;
 
@@ -38,9 +37,9 @@ public class PointFollower : MonoBehaviour
     private void Update() //creates new point when pet reaches the old one
     {
         // this prevent change children's position (pet) according to parent's position (player)
-        _distance = _player.position - _endPos;
+        _distance = (Vector2)_player.position - _endPos;
         _endPos = _player.position;
-        _visual.transform.position -= _distance;
+        _visual.transform.position -= (Vector3)_distance;
 
         // follow _newPos constantly
         _current = Mathf.MoveTowards(0, 1, Time.deltaTime);
@@ -51,7 +50,9 @@ public class PointFollower : MonoBehaviour
         {
             //adds a litle delay before setting newPos
             _timer += Time.deltaTime;
+
             if (_timer < _timerLimit) return;
+
             _timer = 0;
 
             // this loop makes the distance between 2 positions greater than set value;
