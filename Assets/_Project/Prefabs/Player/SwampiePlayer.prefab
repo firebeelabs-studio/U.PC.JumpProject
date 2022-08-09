@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3836054526632529484}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.98, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4964,7 +4964,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3836054526886193614}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.75, z: 0}
+  m_LocalPosition: {x: 0, y: -0.214, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9976,9 +9976,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3836054527376998751}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0324, y: -0.1589, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.71213436, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3836054526632529483}
@@ -10003,7 +10003,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2113f34717365ed4d9616fe3402bd43c, type: 3}
   - {fileID: 8300000, guid: 3db7790641583ba4ca4fc1fe33ed2fb3, type: 3}
   _minImpactForce: 20
-  _landAnimDuration: 0.1
+  _landAnimDuration: 0.3
   _landClip: {fileID: 8300000, guid: f2433d011280e17498820544628ee930, type: 3}
   _jumpClip: {fileID: 8300000, guid: 101dc2feac7449645b4a53d89f9541f9, type: 3}
   _doubleJumpClip: {fileID: 8300000, guid: 0d11fd7368b306b4c900241e3dadf28f, type: 3}
@@ -10058,12 +10058,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1766862958, guid: 5707f5ebcf7e8b440bad2a949b2b5aab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6039c1cb1b19fc2409d6ef992be9da73, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4, y: 4}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -10079,7 +10079,7 @@ Animator:
   m_GameObject: {fileID: 3836054527376998751}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4c8cae7307e2d8544a688447cf38853d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8fec5c8b5bc616d4991311581af7e625, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -24754,7 +24754,7 @@ GameObject:
   - component: {fileID: 3836054527727189971}
   m_Layer: 0
   m_Name: SwampiePlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24835,8 +24835,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.75}
-  m_Size: {x: 0.6, y: 1.5}
+  m_Offset: {x: 0.018770814, y: -0.19896984}
+  m_Size: {x: 1.0204654, y: 1.1020603}
   m_Direction: 0
 --- !u!70 &3836054527727189971
 CapsuleCollider2D:
@@ -24851,7 +24851,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.25}
+  m_Offset: {x: 0, y: -0.5}
   m_Size: {x: 1.08, y: 0.5}
   m_Direction: 1
 --- !u!1 &3836054527797046537
