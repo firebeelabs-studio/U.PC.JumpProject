@@ -89,8 +89,8 @@ namespace TarodevController {
         private void OnPlayerOnJumped() {
             _jumpTriggered = true;
             PlaySound(_jumpClip, 0.05f, Random.Range(0.98f, 1.02f));
-            SetColor(_jumpParticles);
-            SetColor(_launchParticles);
+            // SetColor(_jumpParticles);
+            // SetColor(_launchParticles);
             _jumpParticles.Play();
         }
 
@@ -107,7 +107,7 @@ namespace TarodevController {
                 _landed = true;
                 _landParticles.transform.localScale = p * Vector3.one;
                 _landParticles.Play();
-                SetColor(_landParticles);
+                //SetColor(_landParticles);
                 PlaySound(_landClip, p * 0.1f);
             }
 
