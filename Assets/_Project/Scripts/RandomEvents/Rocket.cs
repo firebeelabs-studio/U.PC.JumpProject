@@ -27,6 +27,8 @@ public class Rocket : MonoBehaviour
     private Vector3 _directionVector = Vector3.left;
     private float _localScaleX;
     private float _localScaleY;
+
+    private float _timer;
     private void Start()
     {
         _localScaleX = _rocketObj.transform.localScale.x;
@@ -39,8 +41,15 @@ public class Rocket : MonoBehaviour
     }
     private void Update()
     {
-        if (!_shouldMove) return;
         MoveRocket();
+        _timer += Time.deltaTime;
+        if (_timer < 3) return;
+
+        _timer = 0;
+        SpawnRocket();
+
+        //if (!_shouldMove) return;
+
     }
     [ContextMenu("SpawnRocket")]
     private void SpawnRocket()
@@ -121,6 +130,7 @@ public class Rocket : MonoBehaviour
             }
         }
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(new Vector2(_spawnPosition.transform.position.x, _spawnPosition.transform.position.y - _spawnRange), new Vector2(_spawnPosition.transform.position.x, _spawnPosition.transform.position.y + _spawnRange));
