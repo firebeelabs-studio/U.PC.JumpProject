@@ -6,7 +6,11 @@ using UnityEngine;
 
 public class ZoomAreaDollyTrack : MonoBehaviour
 {
+    public static ZoomAreaDollyTrack Instance { get; private set; }
+
     private CinemachineSmoothPath _dollyTrack;
+    public CinemachineSmoothPath DollyTrack => _dollyTrack;
+
     private List<WaypointsToZoom> _zoomWaypoints = new();
     
     private CinemachineTrackedDolly _cameraBody;
@@ -16,8 +20,11 @@ public class ZoomAreaDollyTrack : MonoBehaviour
     private int _previousWaypoint, _nextWaypoint;
     private float _targetSize;
 
+    private bool _shouldUseZoom;
+
     private void Awake()
     {
+        Instance = this;
         _vcam = GetComponent<CinemachineVirtualCamera>();
         _cameraBody = _vcam.GetCinemachineComponent<CinemachineTrackedDolly>();
         _dollyTrack = FindObjectOfType<CinemachineSmoothPath>();
@@ -29,7 +36,7 @@ public class ZoomAreaDollyTrack : MonoBehaviour
     {
         if (_zoomWaypoints.Count < 2) //disables script if there's no at least 2 waypoints to zoom
         {
-            enabled = false;
+            _shouldUseZoom = false;
         }
         else
         {
@@ -53,7 +60,7 @@ public class ZoomAreaDollyTrack : MonoBehaviour
             {
                 _zoomWaypoints.Remove(_zoomWaypoints[^1]);
             }
-            WaypointsToZoom lastEmptyWaypoint = new(_zoomWaypoints.Count+1, 0,WaypointsToZoom.ZoomType.ResetToDefault);
+            WaypointsToZoom lastEmptyWaypoint = new(_zoomWaypoints[^1].waypointNumber + 1, 0,WaypointsToZoom.ZoomType.ResetToDefault);
             _zoomWaypoints.Add(lastEmptyWaypoint); //adds empty waypoint at the end of list
             _previousWaypoint = _zoomWaypoints[0].waypointNumber;
             _nextWaypoint = _zoomWaypoints[1].waypointNumber;
@@ -61,6 +68,8 @@ public class ZoomAreaDollyTrack : MonoBehaviour
     }
     private void Update()
     {
+        if (!_shouldUseZoom) return;
+
         float currentPosition = _cameraBody.m_PathPosition;
         CheckPosition(currentPosition);
     }

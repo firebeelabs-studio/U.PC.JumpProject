@@ -27,6 +27,8 @@ public class Rocket : MonoBehaviour
     private Vector3 _directionVector = Vector3.left;
     private float _localScaleX;
     private float _localScaleY;
+
+    private float _timer;
     private void Start()
     {
         _localScaleX = _rocketObj.transform.localScale.x;
@@ -39,8 +41,15 @@ public class Rocket : MonoBehaviour
     }
     private void Update()
     {
-        if (!_shouldMove) return;
         MoveRocket();
+        _timer += Time.deltaTime;
+        if (_timer < 3) return;
+
+        _timer = 0;
+        SpawnRocket();
+
+        //if (!_shouldMove) return;
+
     }
     [ContextMenu("SpawnRocket")]
     private void SpawnRocket()
@@ -111,16 +120,17 @@ public class Rocket : MonoBehaviour
                 Vector2 direction = collision.transform.position - _rocketObj.transform.position; //gets the direction to which player should be pushed
                 if (playerController.Speed.magnitude > 0)
                 {
-                    playerController.AddForce(direction.normalized * _explosionForce, PlayerForce.Decay, true); //if players moves the explosion is stronger to eliminate the balancing of opposing forces
+                    //playerController.AddForce(direction.normalized * _explosionForce, PlayerForce.Decay, true); //if players moves the explosion is stronger to eliminate the balancing of opposing forces
                 }
                 else
                 {
-                    playerController.AddForce(direction * (_explosionForce / 4), PlayerForce.Decay, true); //if player doesnt move the explosion is weaker
+                    //playerController.AddForce(direction * (_explosionForce / 4), PlayerForce.Decay, true); //if player doesnt move the explosion is weaker
                 }
                 DestroyRocket();
             }
         }
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(new Vector2(_spawnPosition.transform.position.x, _spawnPosition.transform.position.y - _spawnRange), new Vector2(_spawnPosition.transform.position.x, _spawnPosition.transform.position.y + _spawnRange));

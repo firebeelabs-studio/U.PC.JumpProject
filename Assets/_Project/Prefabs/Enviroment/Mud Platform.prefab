@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8778679442428358261}
   - component: {fileID: 8778679442428358217}
   - component: {fileID: 8778679442428358216}
-  - component: {fileID: 1190758992367836656}
   - component: {fileID: 243652455}
+  - component: {fileID: 1190758992367836656}
   m_Layer: 3
   m_Name: Mud Platform
   m_TagString: Untagged
@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8778679442428358260}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.23, y: -19.08, z: 0}
-  m_LocalScale: {x: 2.84, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -55,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 47df184d22987d04c8b6086471e573f1, type: 3}
-  m_Color: {r: 0.4528302, g: 0.23255008, b: 0.2242791, a: 1}
+  m_Sprite: {fileID: 21300000, guid: e85568a94ced198479e78744e9d4f92b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
@@ -113,21 +113,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1190758992367836656
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8778679442428358260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 572881f280908e544aa42b7b527fe3c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _accReduction: 50
-  _clampReduction: 5
-  _jumpReduction: 15
 --- !u!61 &243652455
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -154,3 +139,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &1190758992367836656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8778679442428358260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 572881f280908e544aa42b7b527fe3c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _accReduction: 50
+  _clampReduction: 5
+  _jumpReduction: 15

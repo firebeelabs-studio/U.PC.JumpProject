@@ -7,8 +7,7 @@ public class BouncePlatform : MonoBehaviour
     [SerializeField] private float _bounceForce = 20;
     [SerializeField] private float _horizontalBoost = 1;
     [SerializeField] private float _cameraZoomOutDuration;
-    [SerializeField] private GameObject _playerSimulation;
-    [SerializeField] private JumpSimulation _jumpSimulation;
+    //[SerializeField] private JumpSimulation _jumpSimulation;
    
     private Vector2 _bounceDirectionVector;
     private bool _cancelMovement = true;
@@ -20,7 +19,6 @@ public class BouncePlatform : MonoBehaviour
 
     void Awake()
     {
-        _playerSimulation.SetActive(false);
         CalculateForces();
     }
 
@@ -29,8 +27,7 @@ public class BouncePlatform : MonoBehaviour
         if (!collision.CompareTag("Player")) return;
         if (collision.TryGetComponent(out IPlayerController controller))
         {
-            controller.AddForce(_bounceDirectionVector * _bounceForce, PlayerForce.Burst, _cancelMovement);
-
+            controller.ApplyVelocity(_bounceDirectionVector * _bounceForce, PlayerForce.Decay);
         }
     }
 
@@ -46,6 +43,6 @@ public class BouncePlatform : MonoBehaviour
     void SetPath()
     {
         CalculateForces();
-        _jumpSimulation.CreatePath();
+        //_jumpSimulation.CreatePath();
     }
 }
