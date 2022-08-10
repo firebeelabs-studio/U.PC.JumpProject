@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2273651415788528752}
   - component: {fileID: 2273651415788528757}
   - component: {fileID: 2273651415788528759}
-  - component: {fileID: 2273651415788528758}
   m_Layer: 6
   m_Name: Vertical Platform
   m_TagString: Untagged
@@ -125,7 +124,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 3, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 2
@@ -134,21 +133,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2273651415788528758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2273651415788528651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b74ab9aaca6a3d949afb39583aea25dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rb: {fileID: 2273651415788528757}
-  _points:
-  - {x: 0, y: 0}
-  - {x: 0, y: 5}
-  _speed: 5
-  _looped: 0

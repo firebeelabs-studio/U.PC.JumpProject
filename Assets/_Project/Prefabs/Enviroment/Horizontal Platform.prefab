@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 187224115239897219}
   - component: {fileID: 187224115239897276}
   - component: {fileID: 187224115239897218}
-  - component: {fileID: 187224115239897277}
+  - component: {fileID: 752460516285373378}
   m_Layer: 3
   m_Name: Horizontal Platform
   m_TagString: Untagged
@@ -134,7 +134,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 1}
   m_EdgeRadius: 0
---- !u!114 &187224115239897277
+--- !u!114 &752460516285373378
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,12 +143,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 187224115239897278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b74ab9aaca6a3d949afb39583aea25dd, type: 3}
+  m_Script: {fileID: 11500000, guid: 281e1cd0bbf680741a9dc6cd7e84371c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rb: {fileID: 187224115239897276}
+  _unlockThreshold: 2.5
   _points:
   - {x: 0, y: 0}
   - {x: 5, y: 0}
-  _speed: 5
+  _speed: 2
   _looped: 0
