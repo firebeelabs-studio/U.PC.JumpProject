@@ -21,6 +21,7 @@ public class CharacterChanger : MonoBehaviour
     }
     void Update()
     {
+        //xxxxx
         if (Input.GetKeyDown(KeyCode.E))
         {
             ChangeIndex(1);
