@@ -78,7 +78,7 @@ namespace TarodevController {
         #region Jumping
 
         [Header("JUMPING")] [SerializeField] private float _minImpactForce = 20;
-        [SerializeField] private float _landAnimDuration = 0.1f;
+        [SerializeField] private float _landAnimDuration = 0.5f;
         [SerializeField] private AudioClip _landClip, _jumpClip, _doubleJumpClip;
         [SerializeField] private ParticleSystem _jumpParticles, _launchParticles, _doubleJumpParticles, _landParticles;
 
@@ -89,8 +89,8 @@ namespace TarodevController {
         private void OnPlayerOnJumped() {
             _jumpTriggered = true;
             PlaySound(_jumpClip, 0.05f, Random.Range(0.98f, 1.02f));
-            SetColor(_jumpParticles);
-            SetColor(_launchParticles);
+            // SetColor(_jumpParticles);
+            // SetColor(_launchParticles);
             _jumpParticles.Play();
         }
 
@@ -107,7 +107,7 @@ namespace TarodevController {
                 _landed = true;
                 _landParticles.transform.localScale = p * Vector3.one;
                 _landParticles.Play();
-                SetColor(_landParticles);
+                //SetColor(_landParticles);
                 PlaySound(_landClip, p * 0.1f);
             }
 
@@ -166,15 +166,35 @@ namespace TarodevController {
             _currentState = state;
 
             int GetState() {
+                if (_jumpTriggered)
+                {
+                    return Jump;
+                }
                 if (Time.time < _lockedTill) return _currentState;
 
                 // Priorities
                 if (_attacked) return LockState(Attack, _attackAnimTime);
                 if (_player.Crouching) return Crouch;
                 if (_landed) return LockState(Land, _landAnimDuration);
-                if (_jumpTriggered) return Jump;
+                
 
-                if (_grounded) return _player.Input.x == 0 ? Idle : Walk;
+                if (_grounded)
+                {
+                    if (_player.Input.x == 0)
+                    {
+                        return Idle;
+                    }
+                    
+                    if (_player.Input.x > 0)
+                    {
+                        return Walk;
+                    }
+                    
+                    if(_player.Input.x < 0)
+                    {
+                        return WalkLeft;
+                    }
+                }
                 return _player.Speed.y > 0 ? Jump : Fall;
 
                 int LockState(int s, float t) {
@@ -190,7 +210,10 @@ namespace TarodevController {
 
         private static readonly int Idle = Animator.StringToHash("Idle");
         private static readonly int Walk = Animator.StringToHash("Walk");
+        private static readonly int WalkLeft = Animator.StringToHash("WalkLeft");
         private static readonly int Jump = Animator.StringToHash("Jump");
+        private static readonly int JumpLeft = Animator.StringToHash("JumpLeft");
+        private static readonly int JumpRight = Animator.StringToHash("JumpRight");
         private static readonly int Fall = Animator.StringToHash("Fall");
         private static readonly int Land = Animator.StringToHash("Land");
         private static readonly int Attack = Animator.StringToHash("Attack");
