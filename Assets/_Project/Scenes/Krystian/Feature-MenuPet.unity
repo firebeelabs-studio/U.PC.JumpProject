@@ -2166,7 +2166,6 @@ GameObject:
   - component: {fileID: 183194556}
   - component: {fileID: 183194555}
   - component: {fileID: 183194554}
-  - component: {fileID: 183194557}
   m_Layer: 5
   m_Name: Level4
   m_TagString: Untagged
@@ -2220,7 +2219,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2234,7 +2233,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 183194555}
   m_OnClick:
     m_PersistentCalls:
@@ -2277,51 +2276,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 183194552}
   m_CullTransparentMesh: 1
---- !u!114 &183194557
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 183194552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2132787342}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnEnter
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 183194553}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2132787342}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnExit
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 183194553}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &184594004
 GameObject:
   m_ObjectHideFlags: 0
@@ -3535,7 +3489,6 @@ GameObject:
   - component: {fileID: 388563885}
   - component: {fileID: 388563884}
   - component: {fileID: 388563883}
-  - component: {fileID: 388563886}
   m_Layer: 5
   m_Name: Level3
   m_TagString: Untagged
@@ -3589,7 +3542,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -3603,7 +3556,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 388563884}
   m_OnClick:
     m_PersistentCalls:
@@ -3646,51 +3599,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 388563881}
   m_CullTransparentMesh: 1
---- !u!114 &388563886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 388563881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2132787342}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnEnter
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 388563882}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2132787342}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnExit
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 388563882}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &398944912
 GameObject:
   m_ObjectHideFlags: 0
@@ -4040,7 +3948,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000017833048}
+  m_AnchoredPosition: {x: 0, y: -247.77678}
   m_SizeDelta: {x: 0, y: 865}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &416291955
@@ -4516,7 +4424,6 @@ GameObject:
   - component: {fileID: 464086812}
   - component: {fileID: 464086811}
   - component: {fileID: 464086810}
-  - component: {fileID: 464086813}
   m_Layer: 5
   m_Name: Level6
   m_TagString: Untagged
@@ -4570,7 +4477,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -4584,7 +4491,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 464086811}
   m_OnClick:
     m_PersistentCalls:
@@ -4627,51 +4534,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 464086808}
   m_CullTransparentMesh: 1
---- !u!114 &464086813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 464086808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2132787342}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnEnter
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 464086809}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2132787342}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnExit
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 464086809}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &468663352
 GameObject:
   m_ObjectHideFlags: 0
@@ -5682,7 +5544,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 85}
+  m_SizeDelta: {x: 413.41, y: 85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &564722432
 MonoBehaviour:
@@ -6365,7 +6227,6 @@ GameObject:
   - component: {fileID: 610126425}
   - component: {fileID: 610126424}
   - component: {fileID: 610126423}
-  - component: {fileID: 610126426}
   m_Layer: 5
   m_Name: Level5
   m_TagString: Untagged
@@ -6419,7 +6280,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -6433,7 +6294,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 610126424}
   m_OnClick:
     m_PersistentCalls:
@@ -6476,51 +6337,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 610126421}
   m_CullTransparentMesh: 1
---- !u!114 &610126426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 610126421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2132787342}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnEnter
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 610126422}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2132787342}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnExit
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 610126422}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &613742354
 GameObject:
   m_ObjectHideFlags: 0
@@ -7515,7 +7331,6 @@ GameObject:
   - component: {fileID: 684515033}
   - component: {fileID: 684515032}
   - component: {fileID: 684515031}
-  - component: {fileID: 684515034}
   m_Layer: 5
   m_Name: Level2
   m_TagString: Untagged
@@ -7569,7 +7384,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -7583,7 +7398,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 684515032}
   m_OnClick:
     m_PersistentCalls:
@@ -7626,51 +7441,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684515029}
   m_CullTransparentMesh: 1
---- !u!114 &684515034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 684515029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2132787342}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnEnter
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 684515030}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2132787342}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnExit
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 684515030}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &710770391
 GameObject:
   m_ObjectHideFlags: 0
@@ -8069,8 +7839,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 10, y: -228.71997}
-  m_SizeDelta: {x: 480, y: 471.28}
+  m_AnchoredPosition: {x: 10, y: -432.83002}
+  m_SizeDelta: {x: 480, y: 398.35}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &729998184
 MonoBehaviour:
@@ -9256,7 +9026,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 213.81}
+  m_SizeDelta: {x: 480, y: 213.81}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &791221529
 MonoBehaviour:
@@ -13269,7 +13039,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1307369827}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2132787341}
+        m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: AllMechanicsMap
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1307369827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13430,7 +13212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 86.24902, y: 19.999878}
+  m_AnchoredPosition: {x: 86.24902, y: -6}
   m_SizeDelta: {x: 500, y: 700}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &1326301783
@@ -13462,7 +13244,7 @@ MonoBehaviour:
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 1
+  m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
@@ -15560,7 +15342,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 32}
+  m_SizeDelta: {x: 394.06, y: 10.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1518448518
 MonoBehaviour:
@@ -15609,15 +15391,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
+  m_fontSize: 34
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 32
+  m_fontSizeMin: 34
   m_fontSizeMax: 72
   m_fontStyle: 16
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -15625,7 +15407,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -16921,7 +16703,6 @@ GameObject:
   - component: {fileID: 1627083259}
   - component: {fileID: 1627083258}
   - component: {fileID: 1627083257}
-  - component: {fileID: 1627083260}
   m_Layer: 5
   m_Name: Level7
   m_TagString: Untagged
@@ -16975,7 +16756,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -16989,7 +16770,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1627083258}
   m_OnClick:
     m_PersistentCalls:
@@ -17032,51 +16813,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1627083255}
   m_CullTransparentMesh: 1
---- !u!114 &1627083260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1627083255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2132787342}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnEnter
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 1627083256}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2132787342}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnExit
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 1627083256}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &1627743235
 GameObject:
   m_ObjectHideFlags: 0
@@ -17116,7 +16852,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 111.72}
+  m_SizeDelta: {x: 480, y: 111.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1627743237
 MonoBehaviour:
@@ -17257,7 +16993,6 @@ GameObject:
   - component: {fileID: 1632095089}
   - component: {fileID: 1632095088}
   - component: {fileID: 1632095087}
-  - component: {fileID: 1632095090}
   m_Layer: 5
   m_Name: ButtonSingle
   m_TagString: Untagged
@@ -17367,51 +17102,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1632095085}
   m_CullTransparentMesh: 1
---- !u!114 &1632095090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1632095085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2132787342}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnEnter
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 1632095086}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2132787342}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnExit
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 1632095086}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &1639548306
 GameObject:
   m_ObjectHideFlags: 0
@@ -21754,7 +21444,6 @@ GameObject:
   - component: {fileID: 2076689900}
   - component: {fileID: 2076689899}
   - component: {fileID: 2076689898}
-  - component: {fileID: 2076689901}
   m_Layer: 5
   m_Name: Level8
   m_TagString: Untagged
@@ -21808,7 +21497,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -21822,7 +21511,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2076689899}
   m_OnClick:
     m_PersistentCalls:
@@ -21865,51 +21554,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2076689896}
   m_CullTransparentMesh: 1
---- !u!114 &2076689901
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2076689896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2132787342}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnEnter
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 2076689897}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2132787342}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnExit
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 2076689897}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &2079416247
 GameObject:
   m_ObjectHideFlags: 0
@@ -22765,6 +22409,10 @@ PrefabInstance:
     - target: {fileID: 1984160584079589916, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
       propertyPath: m_Name
       value: PawnBlue
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984160584079589916, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1984160584079589917, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
       propertyPath: m_RootOrder

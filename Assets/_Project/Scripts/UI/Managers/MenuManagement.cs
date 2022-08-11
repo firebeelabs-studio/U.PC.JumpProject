@@ -1,7 +1,9 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuManagement : MonoBehaviour
@@ -73,5 +75,12 @@ public class MenuManagement : MonoBehaviour
             _switchQuestsText.SetText("daily quests");
             _DOTweenAnimations.SwitchPanels(_dailyQuestsPanel, _suggestedQuestPanel);
         }
+    }
+
+    //temp
+    public void LoadScene(string sceneName)
+    {
+        DOTween.KillAll();
+        SceneManager.LoadScene(sceneName);
     }
 }
