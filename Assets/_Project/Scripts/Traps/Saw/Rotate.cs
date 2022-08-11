@@ -10,7 +10,6 @@ public class Rotate : MonoBehaviour
     
     void Update()
     {
-    
         if (Vector2.Distance(_waypoints[_currentWaypointIndex].transform.position, transform.position) < .1f)
         {
             _currentWaypointIndex++;
