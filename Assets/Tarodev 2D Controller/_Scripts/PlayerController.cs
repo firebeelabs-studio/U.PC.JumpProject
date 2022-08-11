@@ -102,7 +102,7 @@ namespace TarodevController {
 
             CheckCollisions();
             HandleAttacking();
-            HandleCrouching();
+            //HandleCrouching();
             HandleHorizontal();
             HandleJump();
             HandleDash();
