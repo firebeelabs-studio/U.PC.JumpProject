@@ -43,7 +43,7 @@ public class Rocket : MonoBehaviour
     {
         MoveRocket();
         _timer += Time.deltaTime;
-        if (_timer < 3) return;
+        if (_timer < 3.3f) return;
 
         _timer = 0;
         SpawnRocket();
