@@ -6,7 +6,8 @@ public class SawHorizontalMovement : MonoBehaviour
 {
     [SerializeField] private GameObject[] _waypoints;
     [SerializeField] private float _speed = 2f;
-    [SerializeField] private int _currentWaypointIndex = 0;
+    [Tooltip("Left = 0, right = 1")]
+    [SerializeField] private int _currentWaypointIndex;
     [SerializeField] Transform parentTransform;
     [SerializeField] private Transform _particleTransform;
     private int _sparkDirection;
