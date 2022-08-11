@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace TarodevController {
     public class PlayerAnimator : MonoBehaviour {
@@ -109,9 +111,16 @@ namespace TarodevController {
             //     //PlaySound(_landClip, p * 0.1f);
             // }
 
-            if (_grounded) _moveParticles.Play();
-            else _moveParticles.Stop();
+            if (_grounded)
+            {
+                _moveParticles.Play();
+            }
+            else
+            {
+                _moveParticles.Stop();
+            }
         }
+
 
         #endregion
 
@@ -151,6 +160,7 @@ namespace TarodevController {
         #region Animation
 
         private float _lockedTill;
+        private bool _isSliding;
 
         private void HandleAnimations() {
             var state = GetState();
@@ -163,10 +173,16 @@ namespace TarodevController {
             _anim.CrossFade(state, 0, 0);
             _currentState = state;
 
-            int GetState() {
+            int GetState() 
+            {
                 if (_jumpTriggered)
                 {
                     return Jump;
+                }
+                if (_isSliding)
+                {
+                    _isSliding = false;
+                    return LockState(OneWayPlatform, 0.25f);
                 }
                 if (Time.time < _lockedTill) return _currentState;
 
@@ -216,6 +232,7 @@ namespace TarodevController {
         private static readonly int Land = Animator.StringToHash("Land");
         private static readonly int Attack = Animator.StringToHash("Attack");
         private static readonly int Crouch = Animator.StringToHash("Crouch");
+        private static readonly int OneWayPlatform = Animator.StringToHash("OneWayPlatform");
 
         #endregion
 
@@ -224,6 +241,14 @@ namespace TarodevController {
         private void PlaySound(AudioClip clip, float volume = 1, float pitch = 1) {
             _source.pitch = pitch;
             _source.PlayOneShot(clip, volume);
+        }
+
+        private void OnTriggerEnter2D(Collider2D col)
+        {
+            if (col.CompareTag("OneWayPlatform"))
+            {
+                _isSliding = true;
+            }
         }
     }
 }

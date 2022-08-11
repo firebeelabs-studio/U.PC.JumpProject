@@ -4,6 +4,8 @@ using System;
 
 public class BouncePlatform : MonoBehaviour
 {
+    [Tooltip("If true player wouldn't be able to move until grounded")]
+    [SerializeField] private bool _blockMovement = false;
     [SerializeField] private float _bounceForce = 20;
     [SerializeField] private float _horizontalBoost = 1;
     [SerializeField] private float _cameraZoomOutDuration;
@@ -27,7 +29,7 @@ public class BouncePlatform : MonoBehaviour
         if (!collision.CompareTag("Player")) return;
         if (collision.TryGetComponent(out IPawnController controller))
         {
-            controller.AddForce(_bounceDirectionVector * _bounceForce, PlayerForce.Decay);
+            controller.AddForce(_bounceDirectionVector * _bounceForce, PlayerForce.Burst,true, _blockMovement);
         }
     }
 

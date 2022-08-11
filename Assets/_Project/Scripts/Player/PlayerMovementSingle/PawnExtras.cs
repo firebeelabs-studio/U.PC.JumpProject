@@ -8,6 +8,7 @@ public interface IPawnController
     public FrameInput Input { get; }
     public Vector2 RawMovement { get; }
     public Vector2 Speed { get; }
+    public Vector2 ForceBuildup { get; }
     public bool Grounded { get; }
 
     public event Action<bool> OnGroundedChanged;
@@ -21,7 +22,7 @@ public interface IPawnController
     /// <param name="force">Force to be applied to the controller</param>
     /// <param name="mode">The force application mode</param>
     /// <param name="cancelMovement">Cancel the current velocity of the player to provide a reliable reaction</param>
-    public void AddForce(Vector2 force, PlayerForce mode = PlayerForce.Burst, bool cancelMovement = true);
+    public void AddForce(Vector2 force, PlayerForce mode = PlayerForce.Burst, bool cancelMovement = true, bool blockMovement = false);
 }
 
 public interface IPlayerEffector 

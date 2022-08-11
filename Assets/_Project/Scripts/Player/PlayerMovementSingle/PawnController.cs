@@ -8,6 +8,9 @@ public class PawnController : MonoBehaviour, IPawnController
 {
     [SerializeField] private bool _allowDoubleJump, _allowDash, _allowCrouch;
     public Vector2 Speed => _speed;
+
+    private Vector2 _forceBuildup;
+    public Vector2 ForceBuildup => _forceBuildup;
     // Public for external hooks
     public FrameInput Input { get; private set; }
     public Vector2 RawMovement { get; private set; }
@@ -118,6 +121,10 @@ public class PawnController : MonoBehaviour, IPawnController
         }
 
         _grounded = groundedCheck;
+        if (_grounded)
+        {
+            _forceAdded = false;
+        }
 
         bool RunDetection(Vector2 dir, out RaycastHit2D[] hits)
         {
@@ -224,17 +231,21 @@ public class PawnController : MonoBehaviour, IPawnController
     {
         if (Input.Move.x != 0)
         {
-            // Set horizontal move speed
-            if (_allowCreeping)
-                _speed.x = Mathf.MoveTowards(_speed.x, _frameClamp * Input.Move.x, _acceleration * Time.fixedDeltaTime);
-            else _speed.x += Input.Move.x * _acceleration * Time.fixedDeltaTime;
+            if (!_forceAdded)
+            {
+                // Set horizontal move speed
+                if (_allowCreeping)
+                    _speed.x = Mathf.MoveTowards(_speed.x, _frameClamp * Input.Move.x,
+                        _acceleration * Time.fixedDeltaTime);
+                else _speed.x += Input.Move.x * _acceleration * Time.fixedDeltaTime;
 
-            // Clamped by max frame movement
-            _speed.x = Mathf.Clamp(_speed.x, -_frameClamp, _frameClamp);
+                // Clamped by max frame movement
+                _speed.x = Mathf.Clamp(_speed.x, -_frameClamp, _frameClamp);
 
-            // Apply bonus at the apex of a jump
-            var apexBonus = Mathf.Sign(Input.Move.x) * _apexBonus * _apexPoint;
-            _speed.x += apexBonus * Time.fixedDeltaTime;
+                // Apply bonus at the apex of a jump
+                var apexBonus = Mathf.Sign(Input.Move.x) * _apexBonus * _apexPoint;
+                _speed.x += apexBonus * Time.fixedDeltaTime;
+            }
         }
         else
         {
@@ -490,11 +501,12 @@ public class PawnController : MonoBehaviour, IPawnController
     }
 
     [Header("EFFECTORS")] [SerializeField] private float _forceDecay = 1;
-    private Vector2 _forceBuildup;
 
-    public void AddForce(Vector2 force, PlayerForce mode = PlayerForce.Burst, bool cancelMovement = true)
+    private bool _forceAdded = false;
+    public void AddForce(Vector2 force, PlayerForce mode = PlayerForce.Burst, bool cancelMovement = true, bool blockMovement = false)
     {
         if (cancelMovement) _speed = Vector2.zero;
+        _forceAdded = blockMovement;
 
         switch (mode)
         {
@@ -515,7 +527,7 @@ public class PawnController : MonoBehaviour, IPawnController
         if (_colLeft || _colRight) _forceBuildup.x = 0;
         if (_grounded || _hittingCeiling) _forceBuildup.y = 0;
 
-        var force = _forceBuildup;
+        var force = ForceBuildup;
 
         _forceBuildup = Vector2.MoveTowards(_forceBuildup, Vector2.zero, _forceDecay * Time.fixedDeltaTime);
 
