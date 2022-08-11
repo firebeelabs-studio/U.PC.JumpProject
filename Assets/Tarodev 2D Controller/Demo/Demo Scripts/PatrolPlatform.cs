@@ -1,7 +1,8 @@
 using UnityEngine;
 
 namespace TarodevController {
-    public class PatrolPlatform : PlatformBase {
+    public class PatrolPlatform : MonoBehaviour, IPlayerEffector
+    {
         [SerializeField] private Vector2[] _points;
         [SerializeField] private float _speed = 1;
         [SerializeField] private bool _looped;
@@ -11,7 +12,7 @@ namespace TarodevController {
         private Vector2 _startPos;
         private int _index;
         private Vector2 Pos => _rb.position;
-        private Vector2 _lastPos;
+        private Vector2 _change, _lastPos;
         private bool _ascending;
 
         private void Awake() {
@@ -41,10 +42,8 @@ namespace TarodevController {
                 }
             }
 
-            var change = _lastPos - newPos;
+            _change = _lastPos - newPos;
             _lastPos = newPos;
-
-            MovePlayer(change);
         }
 
         private void OnDrawGizmosSelected() {
@@ -60,6 +59,11 @@ namespace TarodevController {
 
                 if (_looped && i == _points.Length - 1) Gizmos.DrawLine(p, curPos + _points[0]);
             }
+        }
+
+        public Vector2 EvaluateEffector()
+        {
+            return -_change; // * _speed;
         }
     }
 }
