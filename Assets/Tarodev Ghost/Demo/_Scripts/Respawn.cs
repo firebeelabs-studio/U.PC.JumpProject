@@ -16,6 +16,12 @@ public class Respawn : MonoBehaviour {
         _startPos = _respawnPos;
     }
 
+    private void OnDisable()
+    {
+        FinishSinglePlayer.RunFinish -= EndRun;
+        StartRun.RunStart -= RunStart;
+    }
+
     public void ChangeSpawnPos(Transform newPos) => _respawnPos = newPos;
 
     private void EndRun() => _respawnPos = _startPos;

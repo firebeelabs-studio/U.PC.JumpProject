@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -23,6 +24,11 @@ public class TimerSinglePlayer : MonoBehaviour
         _timerText = GameObject.Find("TimerText").GetComponent<TextMeshProUGUI>();
         StartRun.RunStart += On_RunStart;
         FinishSinglePlayer.RunFinish += On_RunFinish;
+    }
+
+    private void OnDisable()
+    {
+        FinishSinglePlayer.RunFinish -= On_RunFinish;
     }
 
     private void Update()
