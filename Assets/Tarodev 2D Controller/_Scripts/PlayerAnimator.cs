@@ -182,7 +182,7 @@ namespace TarodevController {
                 if (_isSliding)
                 {
                     _isSliding = false;
-                    return LockState(OneWayPlatform, 0.25f);
+                    return LockState(OneWayPlatform, 0.15f);
                 }
                 if (Time.time < _lockedTill) return _currentState;
 
