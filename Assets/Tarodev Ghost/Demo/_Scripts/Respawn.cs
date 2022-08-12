@@ -11,7 +11,7 @@ public class Respawn : MonoBehaviour {
 
     private void Start()
     {
-        // FinishLevel.EndRun += EndRun;
+        FinishSinglePlayer.RunFinish += EndRun;
         StartRun.RunStart += RunStart;
         _startPos = _respawnPos;
     }

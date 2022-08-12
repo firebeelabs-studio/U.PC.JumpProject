@@ -10,10 +10,13 @@ public class TimerSinglePlayer : MonoBehaviour
     private bool _isRunStarted;
     private float _timeInSeconds;
 
-    private List<float> times = new();
+    private List<float> _times = new();
 
     //Timer display
     private float _minutes, _seconds;
+
+    public float TimeInSeconds => _timeInSeconds;
+    public List<float> Times => _times;
 
     private void Awake()
     {
@@ -40,6 +43,6 @@ public class TimerSinglePlayer : MonoBehaviour
     private void On_RunFinish()
     {
         _isRunStarted = false;
-        times.Add(_timeInSeconds);
+        _times.Add(_timeInSeconds);
     }
 }
