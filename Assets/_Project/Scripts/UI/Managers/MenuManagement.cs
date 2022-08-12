@@ -11,7 +11,6 @@ public class MenuManagement : MonoBehaviour
     [Header("MAIN MENU")]
     [SerializeField] private GameObject _mainMenuPanel;
     [SerializeField] private GameObject _switchQuests;
-    [SerializeField] private TMP_Text _switchQuestsText;
     [SerializeField] private GameObject _suggestedQuestPanel;
     [SerializeField] private GameObject _dailyQuestsPanel;
     [SerializeField] private GameObject _questsPanel;
@@ -40,18 +39,11 @@ public class MenuManagement : MonoBehaviour
         _singleButton.GetComponent<Button>().onClick.AddListener(() => { SwitchBetweenPanels(_levelsMenuPanel); });
         //multi button
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            _mainMenuPanel.SetActive(true);
-            _pawn.SetActive(true);
-            _modeMenuPanel.SetActive(false);
-            _levelsMenuPanel.SetActive(false);
-        }
-    }
+
     public void SwitchBetweenPanels(GameObject openPanel)
     {
+        DOTween.KillAll();
+
         openPanel.SetActive(true);
 
         if (openPanel == _mainMenuPanel)
@@ -63,16 +55,15 @@ public class MenuManagement : MonoBehaviour
             _pawn.SetActive(false);
         }
     }
+
     private void SwitchBetweenQuests()
     {
         if (_suggestedQuestPanel.activeInHierarchy)
         {
-            _switchQuestsText.SetText("suggested challenge");
             _DOTweenAnimations.SwitchPanels(_suggestedQuestPanel, _dailyQuestsPanel);
         }
         else
         {
-            _switchQuestsText.SetText("daily quests");
             _DOTweenAnimations.SwitchPanels(_dailyQuestsPanel, _suggestedQuestPanel);
         }
     }
@@ -82,5 +73,15 @@ public class MenuManagement : MonoBehaviour
     {
         DOTween.KillAll();
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void BackToMenu(RectTransform button)
+    {
+        DOTween.KillAll();
+        button.localScale = Vector3.one;
+        _mainMenuPanel.SetActive(true);
+        _pawn.SetActive(true);
+        _modeMenuPanel.SetActive(false);
+        _levelsMenuPanel.SetActive(false);
     }
 }
