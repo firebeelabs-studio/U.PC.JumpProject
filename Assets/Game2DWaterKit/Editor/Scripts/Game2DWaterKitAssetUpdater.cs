@@ -41,7 +41,7 @@ public class Game2DWaterKitAssetUpdater
         bool isBuiltinRenderPipeline;
 
 #if UNITY_2019_1_OR_NEWER
-        string scriptingDefineSymbols = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+        string scriptingDefineSymbols = UnityEditor.PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
         isBuiltinRenderPipeline = !scriptingDefineSymbols.Contains(LWRP_SCRIPTING_DEFINE_SYMBOL) && !scriptingDefineSymbols.Contains(URP_SCRIPTING_DEFINE_SYMBOL);
 #else
         isBuiltinRenderPipeline = true;
