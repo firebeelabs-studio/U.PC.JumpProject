@@ -126,8 +126,8 @@ public class Rocket : MonoBehaviour
                 {
                     //playerController.AddForce(direction * (_explosionForce / 4), PlayerForce.Decay, true); //if player doesnt move the explosion is weaker
                 }
-                DestroyRocket();
             }
+            DestroyRocket();
         }
     }
 
