@@ -25,7 +25,10 @@ public class Respawn : MonoBehaviour {
 
     public void ChangeSpawnPos(Transform newPos, CheckPoint checkPoint)
     {
-        
+        if (_lastCheckPoint is not null)
+        {
+            _lastCheckPoint.ResetCheckPoint();
+        }
         _respawnPos = newPos;
         _lastCheckPoint = checkPoint;
     } 
