@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
+    [SerializeField] private ICheckpointAnim _checkpointAnimation;
+    private bool _isActive;
     private Respawn _spawnManager;
     private Transform _respawnPos;
     private void Awake()
@@ -14,9 +16,13 @@ public class CheckPoint : MonoBehaviour
     {
         _respawnPos = transform.GetChild(0).transform;
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        _spawnManager.ChangeSpawnPos(_respawnPos);
+        _spawnManager.ChangeSpawnPos(_respawnPos, this);
+    }
+
+    public void RestetCheckPoint()
+    {
+        _checkpointAnimation.ResetToDefaultState();
     }
 }

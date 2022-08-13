@@ -7,6 +7,7 @@ public class Respawn : MonoBehaviour {
     [SerializeField] private Transform _respawnPos;
     private Transform _startPos;
     private float _timeStartedPenalty;
+    private CheckPoint _lastCheckPoint;
 
 
     private void Start()
@@ -22,7 +23,13 @@ public class Respawn : MonoBehaviour {
         StartRun.RunStart -= RunStart;
     }
 
-    public void ChangeSpawnPos(Transform newPos) => _respawnPos = newPos;
+    public void ChangeSpawnPos(Transform newPos, CheckPoint checkPoint)
+    {
+        
+        _respawnPos = newPos;
+        _lastCheckPoint = checkPoint;
+    } 
+        
 
     private void EndRun() => _respawnPos = _startPos;
     private void RunStart() => _respawnPos = _startPos;

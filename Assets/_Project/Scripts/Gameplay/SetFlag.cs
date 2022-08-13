@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SetFlag : MonoBehaviour
+public class SetFlag : MonoBehaviour, ICheckpointAnim
 {
     [SerializeField] private Transform _flag;
     [SerializeField] private Transform _top;
@@ -50,5 +50,10 @@ public class SetFlag : MonoBehaviour
         _mid.position = Vector2.MoveTowards(_mid.position, _endMidPos, (_speed/2) * Time.deltaTime);
 
         _mid.transform.localScale = Vector3.MoveTowards(_mid.transform.localScale, _endScale, _includeScale * _speed * Time.deltaTime);
+    }
+
+    public void ResetToDefaultState()
+    {
+        _isCheckpointActivated = false;
     }
 }

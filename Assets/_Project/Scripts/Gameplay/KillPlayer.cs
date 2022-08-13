@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class KillPlayer : MonoBehaviour
 {
+    private float _angle = Mathf.PI;
     private Respawn _spawnManager;
     private void Awake()
     {
