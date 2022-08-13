@@ -7,7 +7,7 @@ public class GuillotineMove : MonoBehaviour
     [SerializeField] BoxCollider2D _collider;
     [SerializeField] private float _fallSpeed, _returnSpeed, _delay;
 
-    private float _speed, _timer, _angle, _distance;
+    private float _speed, _distance, _timer = 0.5f, _angle = Mathf.PI;
     private Vector2 _endPos, _startPos, _startSize;
 
     private void Start()
@@ -23,12 +23,8 @@ public class GuillotineMove : MonoBehaviour
         //calculate the distance between 2 positions
         _distance = _startPos.y - _endPos.y;
 
-        //set basic stats
-        _angle = Mathf.PI;
+        //set start speed
         _speed = _fallSpeed;
-
-        // a little delay on start prevent 1st fall without 'else if' in update below \/
-        _timer = 0.5f;
     }
 
     private void Update()
