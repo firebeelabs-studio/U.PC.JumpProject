@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GuillotineMove : MonoBehaviour
@@ -7,9 +5,9 @@ public class GuillotineMove : MonoBehaviour
     [SerializeField] Transform _blade;
     [SerializeField] SpriteRenderer _lines;
     [SerializeField] BoxCollider2D _collider;
-    [SerializeField] private float _speed, _startDelay, _delay;
+    [SerializeField] private float _fallSpeed, _returnSpeed, _delay;
 
-    private float _timer, _angle, _distance;
+    private float _speed, _timer, _angle, _distance;
     private Vector2 _endPos, _startPos, _startSize;
 
     private void Start()
@@ -25,12 +23,17 @@ public class GuillotineMove : MonoBehaviour
         //calculate the distance between 2 positions
         _distance = _startPos.y - _endPos.y;
 
+        //set basic stats
         _angle = Mathf.PI;
-        _timer = _startDelay;
+        _speed = _fallSpeed;
+
+        // a little delay on start prevent 1st fall without 'else if' in update below \/
+        _timer = 0.5f;
     }
 
     private void Update()
     {
+        print(_speed);
         if (_timer > 0)
         {
             _timer -= Time.deltaTime;
@@ -44,10 +47,12 @@ public class GuillotineMove : MonoBehaviour
         if (_angle < 1.5f * Mathf.PI && _timer < 0)
         {
             _collider.enabled = true;
+            _speed = _fallSpeed;
         }
-        else
+        else if (_angle > 1.5f)
         {
             _collider.enabled = false;
+            _speed = _returnSpeed;
         }
     }
 

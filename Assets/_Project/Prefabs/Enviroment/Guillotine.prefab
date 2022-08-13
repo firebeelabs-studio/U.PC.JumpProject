@@ -319,7 +319,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7833350111192342827}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50.1, y: -14.82, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -343,9 +343,9 @@ MonoBehaviour:
   _blade: {fileID: 7833350109795621371}
   _lines: {fileID: 7833350111408770289}
   _collider: {fileID: 7833350109795621369}
-  _speed: 3
-  _startDelay: 0
-  _delay: 3
+  _fallSpeed: 5
+  _returnSpeed: 0.5
+  _delay: 1.5
 --- !u!1 &7833350111408770291
 GameObject:
   m_ObjectHideFlags: 0
