@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class RotateSaw : MonoBehaviour
+public class Rotate : MonoBehaviour
 {
-    [Range(0.2f,2)]
     [SerializeField] private float _speed;
     [SerializeField] private bool _isRotatingClockwise;
 
@@ -15,6 +14,6 @@ public class RotateSaw : MonoBehaviour
 
     private void Update()
     {
-        transform.Rotate(0, 0, 1000 * _direction * _speed * Time.deltaTime);
+        transform.Rotate(0, 0, _direction * _speed * Time.deltaTime);
     }
 }
