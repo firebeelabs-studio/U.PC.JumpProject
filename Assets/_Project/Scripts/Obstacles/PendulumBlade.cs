@@ -5,8 +5,6 @@ using UnityEngine;
 public class PendulumBlade : MonoBehaviour
 {
     [SerializeField] private float _swingSpeedAndDistance;
-    [SerializeField] private GameObject _sawBlade;
-    [SerializeField] private float _sawBladeSpinSpeed;
     private float _timer;
     private int _phase;
 
@@ -35,9 +33,5 @@ public class PendulumBlade : MonoBehaviour
         {
             transform.Rotate(0, 0, _swingSpeedAndDistance * _timer);
         }
-    }
-    private void Update()
-    {
-        _sawBlade.transform.Rotate(0, 0, Time.deltaTime * _sawBladeSpinSpeed);
     }
 }
