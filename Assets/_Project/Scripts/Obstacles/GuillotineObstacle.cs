@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GuilottineObstacle : MonoBehaviour
+public class GuillotineObstacle : MonoBehaviour
 {
     [SerializeField] private Obstacle _obstacleType;
     [SerializeField] private float _speed;
