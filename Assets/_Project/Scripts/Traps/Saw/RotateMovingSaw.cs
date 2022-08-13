@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rotate : MonoBehaviour
+public class RotateMovingSaw : MonoBehaviour
 {
     [SerializeField] private float _rotateSpeed = 0.5f;
     [SerializeField] private GameObject[] _waypoints;
