@@ -51597,6 +51597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b164c091129b284f917447c5c918a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsFinished: 0
 --- !u!61 &1122855985
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -65986,6 +65987,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnManager: {fileID: 4862127298029510444}
   _player: {fileID: 596491814}
+  _finish: {fileID: 1122855984}
 --- !u!114 &334246690306182346
 MonoBehaviour:
   m_ObjectHideFlags: 0

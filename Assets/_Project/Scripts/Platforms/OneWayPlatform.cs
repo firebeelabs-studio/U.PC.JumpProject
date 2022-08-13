@@ -15,7 +15,6 @@ public class OneWayPlatform : MonoBehaviour
     private void Update() {
         if (_controller == null) return;
         if (_controller.Input.Move.y < 0) _timeToUnlock = Time.time + _fallThroughUnlockTime;
-        print(_controller.ForceBuildup.y);
         //_controller.ForceBuildup.y <= 0.7f adding this allows using it even with using decoy on bouncers
         _col.enabled = _controller.RawMovement.y <= 0 && Time.time >= _timeToUnlock;
     }
