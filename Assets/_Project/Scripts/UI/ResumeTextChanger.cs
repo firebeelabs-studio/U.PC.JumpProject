@@ -16,19 +16,21 @@ public class ResumeTextChanger : MonoBehaviour
     private void OnEnable()
     {
         _thresholds.Sort();
-        _timeText.text = $"Your time: {_endLevelTimers.TimeInSeconds}";
-        _previousTimeText.text = _endLevelTimers.Times.Count > 1 ? $"Previous time: {_endLevelTimers.Times[^2]}" : "Your first try was Swamptastic!";
-        if (_endLevelTimers.TimeInSeconds <= _thresholds[0])
-        {
-            _stars[2].SetActive(true);
-        }
-        else if (_endLevelTimers.TimeInSeconds <= _thresholds[1])
-        {
-            _stars[1].SetActive(true);
-        }
-        else
-        {
-            _stars[0].SetActive(true);
-        }
+        _timeText.text = $"Your time: {(int)_endLevelTimers.TimeInSeconds}";
+        _previousTimeText.text = _endLevelTimers.Times.Count > 1 ? $"Previous time: {(int)_endLevelTimers.Times[^2]}s" : "Your first try was Swamptastic!";
+        SetupStars();
+    }
+
+    private void SetupStars()
+    {
+        //not sure atm which solution is easier to read, to make it work we have to change stars order in array
+        // for (int i = 0; i < _thresholds.Count; i++)
+        // {
+        //     _stars[i].SetActive(_endLevelTimers.TimeInSeconds <= _thresholds[i]);
+        // }
+        
+        _stars[2].SetActive(_endLevelTimers.TimeInSeconds <= _thresholds[0]);
+        _stars[1].SetActive(_endLevelTimers.TimeInSeconds <= _thresholds[1]);
+        _stars[0].SetActive(_endLevelTimers.TimeInSeconds <= _thresholds[2]);
     }
 }
