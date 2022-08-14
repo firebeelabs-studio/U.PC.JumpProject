@@ -51414,6 +51414,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 465888919}
     m_Modifications:
+    - target: {fileID: 1135336622, guid: d33f14a7746a3434aa134181b7a69cc9, type: 3}
+      propertyPath: _maxHearableDistance
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4868523274051135795, guid: d33f14a7746a3434aa134181b7a69cc9, type: 3}
       propertyPath: m_Name
       value: Press (1)
@@ -51463,16 +51467,32 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4868523274051135799, guid: d33f14a7746a3434aa134181b7a69cc9, type: 3}
-      propertyPath: _distance
-      value: 4.5
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+      propertyPath: _smashSound
+      value: 
+      objectReference: {fileID: 8300000, guid: be5e552bcb2a1bb438deb149962989a2, type: 3}
+    - target: {fileID: 4868523274051135799, guid: d33f14a7746a3434aa134181b7a69cc9, type: 3}
+      propertyPath: _audioPlayer
+      value: 
+      objectReference: {fileID: 1135336622}
+    m_RemovedComponents:
+    - {fileID: 1135336622, guid: d33f14a7746a3434aa134181b7a69cc9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d33f14a7746a3434aa134181b7a69cc9, type: 3}
 --- !u!4 &1135336618 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4868523274051135796, guid: d33f14a7746a3434aa134181b7a69cc9, type: 3}
   m_PrefabInstance: {fileID: 1135336617}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1135336622 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 811232923045707849, guid: d33f14a7746a3434aa134181b7a69cc9, type: 3}
+  m_PrefabInstance: {fileID: 1135336617}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a674a0f9528054a9bcc8a2d40e7388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1151244616 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8174978288495420957, guid: 3846652ca4c8ec24a8a3dc430a0f4000, type: 3}

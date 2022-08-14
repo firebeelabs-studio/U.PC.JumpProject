@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,8 +14,17 @@ public class GuillotineObstacle : MonoBehaviour
     [Header("PRESS")]
     [SerializeField] private GameObject _press;
     [SerializeField] private ParticleSystem _pressParticles;
+    private AudioPlayer _audioPlayer;
     private Vector2 _startPos;
     private float _angle, _timer;
+    
+    //sounds
+    [SerializeField] private AudioClip _smashSound;
+
+    private void Awake()
+    {
+        _audioPlayer = GetComponent<AudioPlayer>();
+    }
 
     private void Start()
     {
@@ -52,6 +62,7 @@ public class GuillotineObstacle : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") && _angle >= Mathf.PI)
         {
             _pressParticles.Play();
+            _audioPlayer.PlayOneShotSound(_smashSound);
         }
     }
     private void OnDrawGizmos()
