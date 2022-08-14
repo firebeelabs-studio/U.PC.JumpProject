@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class GuillotineObstacle : MonoBehaviour
+public class PressObstacle : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _delay;
