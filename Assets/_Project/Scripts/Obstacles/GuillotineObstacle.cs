@@ -2,25 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-<<<<<<<< HEAD:Assets/_Project/Scripts/Obstacles/GuillotineObstacle.cs
 public class GuillotineObstacle : MonoBehaviour
-========
-public class PressObstacle : MonoBehaviour
->>>>>>>> 0d41a6b (press particles + prefab cleanup):Assets/_Project/Scripts/Obstacles/PressObstacle.cs
 {
+    [SerializeField] private Obstacle _obstacleType;
     [SerializeField] private float _speed;
     [SerializeField] private float _delay;
     [SerializeField] private float _startDelay;
     [SerializeField] private float _distance;
-    [Space(10)]
-    [Header("PRESS")]
+    [SerializeField] private GameObject _blade;
     [SerializeField] private GameObject _press;
-    [SerializeField] private ParticleSystem _pressParticles;
+    private enum Obstacle
+    {
+        Blade,
+        Press
+    }
     private Vector2 _startPos;
     private float _angle, _timer;
 
     private void Start()
     {
+        if (_obstacleType == Obstacle.Blade)
+        {
+            _blade.SetActive(true);
+        }
+        else
+        {
+            _press.SetActive(true);
+        }
         _startPos = transform.position;
         _timer = _startDelay;
     }
@@ -33,28 +41,23 @@ public class PressObstacle : MonoBehaviour
         else
         {
             _angle += Time.deltaTime * _speed;
-            MoveObstacle(_press);
+            if (_obstacleType == Obstacle.Blade)
+            {
+                MoveObstacle(_blade);
+            }
+            else
+            {
+                MoveObstacle(_press);
+            }
         }
     }
     private void MoveObstacle(GameObject obstacle)
     {
         obstacle.transform.position = new Vector2(_startPos.x, _startPos.y + Mathf.Sin(_angle) * _distance);
-
         if (_angle >= 2 * Mathf.PI)
         {
             _angle = 0;
             _timer = _delay;
-        }
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            //scale
-        }
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") && _angle >= Mathf.PI)
-        {
-            _pressParticles.Play();
         }
     }
     private void OnDrawGizmos()
