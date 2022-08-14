@@ -567,8 +567,16 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    Standalone: FISHNET;FISHNET_PRO
-    WebGL: FISHNET;FISHNET_PRO
+    Android: GAME_2D_WATER_KIT_URP
+    Nintendo Switch: GAME_2D_WATER_KIT_URP
+    PS4: GAME_2D_WATER_KIT_URP
+    Stadia: GAME_2D_WATER_KIT_URP
+    Standalone: FISHNET;FISHNET_PRO;GAME_2D_WATER_KIT_URP
+    WebGL: FISHNET;FISHNET_PRO;GAME_2D_WATER_KIT_URP
+    Windows Store Apps: GAME_2D_WATER_KIT_URP
+    XboxOne: GAME_2D_WATER_KIT_URP
+    iPhone: GAME_2D_WATER_KIT_URP
+    tvOS: GAME_2D_WATER_KIT_URP
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
