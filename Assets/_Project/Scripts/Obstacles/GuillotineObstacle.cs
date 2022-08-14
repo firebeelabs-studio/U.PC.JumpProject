@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-<<<<<<<< HEAD:Assets/_Project/Scripts/Obstacles/GuillotineObstacle.cs
+
 public class GuillotineObstacle : MonoBehaviour
-========
-public class PressObstacle : MonoBehaviour
->>>>>>>> 0d41a6b (press particles + prefab cleanup):Assets/_Project/Scripts/Obstacles/PressObstacle.cs
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _delay;
