@@ -29,7 +29,6 @@ public class GuillotineMove : MonoBehaviour
 
     private void Update()
     {
-        print(_speed);
         if (_timer > 0)
         {
             _timer -= Time.deltaTime;
