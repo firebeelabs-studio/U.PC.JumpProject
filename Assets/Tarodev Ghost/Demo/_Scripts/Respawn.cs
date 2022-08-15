@@ -39,11 +39,13 @@ public class Respawn : MonoBehaviour {
 
     public IEnumerator RespawnPlayer(Transform player) {
         _timeStartedPenalty = Time.time;
-        do {
-            player.position = _respawnPos.position;
-            GameManager.SpawnAllCollectibles();
+        Vector3 diedPos = player.position;
+        do
+        {
+            player.position = diedPos;
             yield return null;
         } while (_timeStartedPenalty + _penaltyTime > Time.time);
+        player.position = _respawnPos.position;
     }
 
     private void OnDrawGizmosSelected() {
