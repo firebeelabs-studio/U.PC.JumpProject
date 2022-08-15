@@ -669,6 +669,7 @@ GameObject:
   - component: {fileID: 231577694}
   - component: {fileID: 231577693}
   - component: {fileID: 231577696}
+  - component: {fileID: 231577698}
   - component: {fileID: 231577697}
   m_Layer: 5
   m_Name: StarMiddleYellow
@@ -791,6 +792,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
+--- !u!114 &231577698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231577691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e6eb35273bc5648a30b8ca2177e3b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &289532466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50199,6 +50212,7 @@ GameObject:
   - component: {fileID: 623000916}
   - component: {fileID: 623000915}
   - component: {fileID: 623000918}
+  - component: {fileID: 623000920}
   - component: {fileID: 623000919}
   m_Layer: 5
   m_Name: StarLeftYellow
@@ -50321,6 +50335,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!114 &623000920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623000913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e6eb35273bc5648a30b8ca2177e3b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &646330588
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50939,6 +50965,7 @@ GameObject:
   - component: {fileID: 892420874}
   - component: {fileID: 892420873}
   - component: {fileID: 892420876}
+  - component: {fileID: 892420878}
   - component: {fileID: 892420877}
   m_Layer: 5
   m_Name: StarRightYellow
@@ -51061,6 +51088,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!114 &892420878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892420871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e6eb35273bc5648a30b8ca2177e3b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &948000694 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2392489797506377404, guid: b50f38b0d11a2854d8b2e25f232deff6, type: 3}
