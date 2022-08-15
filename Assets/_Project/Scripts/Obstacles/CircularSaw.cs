@@ -8,7 +8,7 @@ public class CircularSaw : MonoBehaviour
     [SerializeField] private AnimationCurve _curve;
     [SerializeField] private float _maxRotateSpeed;
     [SerializeField] private float _angleRange;
-    private Quaternion _targetQuaternion;
+    private Quaternion _maxSwingQuaternion, _targetQuaternion, _startQuaternion = Quaternion.Euler(0, 0, 0);
     private float _startPos, _targetAngle, _progress, _currentAngle;
 
     [Header("CIRCULAR")]
@@ -56,15 +56,21 @@ public class CircularSaw : MonoBehaviour
     private void PendulumMotion()
     {
         // changes the direction when hits target and transforms it into quaternions
-        if (transform.rotation == _targetQuaternion)
+        // set _targetQuaterion prevents wrong rotation, when the set angle is > 180
+        if (transform.rotation == _maxSwingQuaternion)
         {
             _startPos = _targetAngle;
             _targetAngle = -1 * _targetAngle;
+            _targetQuaternion = _startQuaternion;
+        }
+        else if (transform.rotation == _startQuaternion)
+        {
+            _targetQuaternion = _maxSwingQuaternion;
         }
 
-        _targetQuaternion = Quaternion.Euler(0, 0, _targetAngle);
+        _maxSwingQuaternion = Quaternion.Euler(0, 0, _targetAngle);
 
-        // it calculates the eulerAngles into degree (eulerAngles are clamped into 0-360)
+        // it calculates the eulerAngles into degree (eulerAngles are clamped in 0-360)
         if (transform.rotation.eulerAngles.z < 180)
         {
             _currentAngle = transform.rotation.eulerAngles.z;
