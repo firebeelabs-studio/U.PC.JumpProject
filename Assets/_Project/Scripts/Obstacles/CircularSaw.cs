@@ -3,10 +3,19 @@ using UnityEngine;
 public class CircularSaw : MonoBehaviour
 {
     [SerializeField] TypeOfMotion _motion;
+    
+    [Header("PENDULUM")]
+    [SerializeField] private AnimationCurve _curve;
+    [SerializeField] private float _maxRotateSpeed;
+    [SerializeField] private float _angleRange;
+    private Quaternion _targetQuaternion;
+    private float _startPos, _targetAngle, _progress, _currentAngle;
+
+    [Header("CIRCULAR")]
     [SerializeField] private float _rotateSpeed;
     [SerializeField] private bool _isRotatingClockwise;
-    private float _timer;
-    private int _phase, _direction;
+    private int _direction;
+
     private enum TypeOfMotion
     {
         Pendulum,
@@ -15,13 +24,20 @@ public class CircularSaw : MonoBehaviour
 
     private void Start()
     {
-        if (_isRotatingClockwise)
+        if (_motion == TypeOfMotion.Pendulum)
         {
-            _direction = -1;
+            _targetAngle = _angleRange / 2;
         }
         else
         {
-            _direction = 1;
+            if (_isRotatingClockwise)
+            {
+                _direction = -1;
+            }
+            else
+            {
+                _direction = 1;
+            }
         }
     }
 
@@ -35,34 +51,35 @@ public class CircularSaw : MonoBehaviour
         {
             CircularMotion();
         }
-
     }
 
     private void PendulumMotion()
     {
-        _timer += Time.fixedDeltaTime;
-        if (_timer > 1f)
+        // changes the direction when hits target and transforms it into quaternions
+        if (transform.rotation == _targetQuaternion)
         {
-            _phase++;
-            _phase %= 4;
-            _timer = 0;
+            _startPos = _targetAngle;
+            _targetAngle = -1 * _targetAngle;
         }
-        if (_phase == 0)
+
+        _targetQuaternion = Quaternion.Euler(0, 0, _targetAngle);
+
+        // it calculates the eulerAngles into degree (eulerAngles are clamped into 0-360)
+        if (transform.rotation.eulerAngles.z < 180)
         {
-            transform.Rotate(0, 0, _rotateSpeed * (1 - _timer));
+            _currentAngle = transform.rotation.eulerAngles.z;
         }
-        else if (_phase == 1)
+        else
         {
-            transform.Rotate(0, 0, -_rotateSpeed * _timer);
+            _currentAngle = transform.rotation.eulerAngles.z - 360;
         }
-        else if (_phase == 2)
-        {
-            transform.Rotate(0, 0, -_rotateSpeed * (1 - _timer));
-        }
-        else if (_phase == 3)
-        {
-            transform.Rotate(0, 0, _rotateSpeed * _timer);
-        }
+
+        // progress returns a current % of path, that saw has passed
+        // then it is transfered into curve.Evaluate and returns a acceleration
+        _progress = Mathf.InverseLerp(_startPos, _targetAngle, _currentAngle);
+
+        // rotates object to the target position
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, _targetQuaternion, _maxRotateSpeed * _curve.Evaluate(_progress));
     }
 
     private void CircularMotion()
