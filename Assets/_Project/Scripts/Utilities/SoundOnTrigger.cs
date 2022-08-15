@@ -13,7 +13,6 @@ public class SoundOnTrigger : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print("hit");
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             print("hit");
