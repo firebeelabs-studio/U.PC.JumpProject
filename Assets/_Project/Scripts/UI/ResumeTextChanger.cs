@@ -15,20 +15,26 @@ public class ResumeTextChanger : MonoBehaviour
     [SerializeField] private List<float> _thresholds = new();
     private void OnEnable()
     {
+        SetupThresholdsDescending();
+        _timeText.text = $"Your time: {(int)_endLevelTimers.TimeInSeconds}";
+        _previousTimeText.text = _endLevelTimers.Times.Count > 1 ? $"Previous time: {(int)_endLevelTimers.Times[^2]}s" : "Your first try was Swamptastic!";
+        StartCoroutine(SetupStars());
+    }
+
+    private IEnumerator SetupStars()
+    {
+        yield return new WaitForSeconds(.25f);
+        for (int i = 0; i < _thresholds.Count; i++)
+        {
+            _stars[i].SetActive(_endLevelTimers.TimeInSeconds <= _thresholds[i]);
+            _stars[i].GetComponent<StarAnim>().RunPunchAnimation();
+            yield return new WaitForSeconds(.75f);
+        }
+    }
+
+    private void SetupThresholdsDescending()
+    {
         _thresholds.Sort();
-        _timeText.text = $"Your time: {_endLevelTimers.TimeInSeconds}";
-        _previousTimeText.text = _endLevelTimers.Times.Count > 1 ? $"Previous time: {_endLevelTimers.Times[^2]}" : "Your first try was Swamptastic!";
-        if (_endLevelTimers.TimeInSeconds <= _thresholds[0])
-        {
-            _stars[2].SetActive(true);
-        }
-        else if (_endLevelTimers.TimeInSeconds <= _thresholds[1])
-        {
-            _stars[1].SetActive(true);
-        }
-        else
-        {
-            _stars[0].SetActive(true);
-        }
+        _thresholds.Reverse();
     }
 }

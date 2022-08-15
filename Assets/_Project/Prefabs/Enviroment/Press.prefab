@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4868523274051135799}
   - component: {fileID: 4868523274051135798}
   - component: {fileID: 4868523274051135797}
+  - component: {fileID: 811232923045707849}
   m_Layer: 0
   m_Name: Press
   m_TagString: Untagged
@@ -50,9 +51,11 @@ MonoBehaviour:
   _speed: 5
   _delay: 1
   _startDelay: 1
-  _distance: 2.2
+  _distance: 4.5
   _press: {fileID: 4868523274136839809}
   _pressParticles: {fileID: 4868523274971866575}
+  _audioPlayer: {fileID: 811232923045707849}
+  _smashSound: {fileID: 8300000, guid: be5e552bcb2a1bb438deb149962989a2, type: 3}
 --- !u!82 &4868523274051135798
 AudioSource:
   m_ObjectHideFlags: 0
@@ -170,6 +173,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &811232923045707849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4868523274051135795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a674a0f9528054a9bcc8a2d40e7388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHearableDistance: 30
+  _shouldRespectDistance: 1
 --- !u!1 &4868523274136839809
 GameObject:
   m_ObjectHideFlags: 0
