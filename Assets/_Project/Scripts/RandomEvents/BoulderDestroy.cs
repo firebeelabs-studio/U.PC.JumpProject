@@ -9,7 +9,7 @@ public class BoulderDestroy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        if (other.gameObject.name.Equals("Boulder Collider"))
+        if (other.gameObject.CompareTag("DestroyLine"))
         {
             _boulder.SetActive(false);
             _boulder.transform.position = _position.transform.position;
