@@ -219,8 +219,11 @@ public class PawnController : MonoBehaviour, IPawnController
     #region Horizontal
 
     [Header("WALKING")] [SerializeField] private float _acceleration = 120;
+    public float Acceleration => _acceleration;
     [SerializeField] private float _moveClamp = 13;
+    public float MoveClamp => _moveClamp;
     [SerializeField] private float _deceleration = 60f;
+    public float Deleceration => _deceleration;
     [SerializeField] private float _apexBonus = 100;
 
     [SerializeField] private bool _allowCreeping;
@@ -264,9 +267,11 @@ public class PawnController : MonoBehaviour, IPawnController
     #region Gravity
 
     [Header("GRAVITY")] [SerializeField] private float _fallClamp = -60f;
+    public float FallClamp => _fallClamp;
     [SerializeField] private float _minFallSpeed = 80f;
     [SerializeField] private float _maxFallSpeed = 160f;
     [SerializeField] [Range(0, -10)] private float _groundingForce = -1.5f;
+    public float GroundingForce => _groundingForce;
     private float _fallSpeed;
 
     private void CalculateGravity()
@@ -310,7 +315,9 @@ public class PawnController : MonoBehaviour, IPawnController
     #region Jump
 
     [Header("JUMPING")] [SerializeField] private float _jumpHeight = 35;
+    public float JumpHeight => _jumpHeight;
     [SerializeField] private float _jumpApexThreshold = 40f;
+    public float JumpApexThreshold => _jumpApexThreshold;
     [SerializeField] private int _coyoteTimeThreshold = 7;
     [SerializeField] private int _jumpBuffer = 7;
     [SerializeField] private float _jumpEndEarlyGravityModifier = 3;
@@ -521,6 +528,17 @@ public class PawnController : MonoBehaviour, IPawnController
         }
     }
 
+    public void ToggleUnderwaterBehaviour(float newAcceleration = 60, float newDeceleration = 30, float newMoveClamp = 8, float newFallClamp = -30, float newGroundingForce = -0.5F, float newJumpHeight = 30, float newJumpApexThreshold = 10)
+    {
+        _acceleration = newAcceleration;
+        _deceleration = newDeceleration;
+        _moveClamp = newMoveClamp;
+        _fallClamp = newFallClamp;
+        _groundingForce = newGroundingForce;
+        _jumpHeight = newJumpHeight;
+        _jumpApexThreshold = newJumpApexThreshold;
+    }
+
     private Vector2 EvaluateForces()
     {
         // Prevent bouncing. This *could* cause problems, but I'm yet to find any
@@ -533,6 +551,8 @@ public class PawnController : MonoBehaviour, IPawnController
 
         return force;
     }
+
+    
 
     #endregion
 }
