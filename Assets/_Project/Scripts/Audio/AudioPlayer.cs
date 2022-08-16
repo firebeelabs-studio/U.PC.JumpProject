@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -28,7 +26,9 @@ public class AudioPlayer : MonoBehaviour
     {
         if (_shouldRespectDistance)
         {
+            _source.rolloffMode = AudioRolloffMode.Linear;
             _source.maxDistance = _maxHearableDistance;
+            _source.spatialBlend = 1;
         }
         else
         {
