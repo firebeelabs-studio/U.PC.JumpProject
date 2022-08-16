@@ -245,7 +245,10 @@
                 else
                     spawnPosition.x = _constrainedRegionXMin + waterWidth * 0.5f + waterWidth * Mathf.Round(((spawnPosition.x - _constrainedRegionXMin) / waterWidth));
             }
-            else spawnPosition.x -= waterWidth;
+            else
+            {
+                spawnPosition.x -= waterWidth;
+            }
 
             _waterObject.MainModule.Position = spawnPosition;
             _waterObject.MainModule.LargeWaterAreaManager = this;
