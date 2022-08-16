@@ -37,13 +37,15 @@ public class Respawn : MonoBehaviour {
     private void EndRun() => _respawnPos = _startPos;
     private void RunStart() => _respawnPos = _startPos;
 
-    public IEnumerator RespawnPlayer(Transform player) {
+    public IEnumerator RespawnPlayer(Transform player, float penaltyTime = 0) {
         _timeStartedPenalty = Time.time;
-        do {
-            player.position = _respawnPos.position;
-            GameManager.SpawnAllCollectibles();
-            yield return null;
-        } while (_timeStartedPenalty + _penaltyTime > Time.time);
+        Vector3 diedPos = player.position;
+        do
+        {
+            player.position = diedPos;
+        } while (_timeStartedPenalty + penaltyTime > Time.time);
+        player.position = _respawnPos.position;
+        yield return null;
     }
 
     private void OnDrawGizmosSelected() {

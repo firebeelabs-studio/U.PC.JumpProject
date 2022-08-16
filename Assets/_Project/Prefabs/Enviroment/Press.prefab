@@ -54,7 +54,6 @@ MonoBehaviour:
   _distance: 4.5
   _press: {fileID: 4868523274136839809}
   _pressParticles: {fileID: 4868523274971866575}
-  _audioPlayer: {fileID: 811232923045707849}
   _smashSound: {fileID: 8300000, guid: be5e552bcb2a1bb438deb149962989a2, type: 3}
 --- !u!82 &4868523274051135798
 AudioSource:
@@ -185,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a674a0f9528054a9bcc8a2d40e7388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHearableDistance: 30
+  _maxHearableDistance: 1
   _shouldRespectDistance: 1
 --- !u!1 &4868523274136839809
 GameObject:
