@@ -241,6 +241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkBehaviours:
   - {fileID: -4731801877649734445}
+  - {fileID: 5292609729772083748}
   SceneTransformProperties:
     Position: {x: 39.4, y: -19.23, z: 0.15562925}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -306,6 +307,9 @@ MonoBehaviour:
   Acceleration: 120
   MaxSpeed: 14
   Deceleration: 60
+  CoyoteSeconds: 0.1
+  JumpPower: 8
+  AirDecelerationPenalty: 0.5
 --- !u!114 &5292609729772083748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,9 +322,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc09517da131c264b90c5c55932c9a2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: -1901591270190956131}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: -1901591270190956131}
+  _jumpCheckHeight: 0
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  _detectionRayLength: 0.1
 --- !u!1001 &454901129
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,11 +13,14 @@ public class PawnMotor : NetworkBehaviour
     private PawnStats _pawnStats;
     private Rigidbody2D _playerRb;
     private PawnInput _input;
+    private BoxCollider2D _collider;
     private bool _subscribed;
     
     //movement
     private bool _isJumping;
     private double _timeLastGrounded;
+    
+    private float _jumpApexPoint;
     
     private readonly RaycastHit2D[] _groundHits = new RaycastHit2D[2];
     [SerializeField] private float _jumpCheckHeight;
@@ -29,6 +32,7 @@ public class PawnMotor : NetworkBehaviour
         _playerRb = GetComponent<Rigidbody2D>();
         _pawnStats = GetComponent<PawnStats>();
         _input = GetComponent<PawnInput>();
+        _collider = GetComponent<BoxCollider2D>();
     }
 
     public override void OnStartNetwork()
@@ -96,6 +100,7 @@ public class PawnMotor : NetworkBehaviour
     [Replicate]
     private void Move(PawnMoveData md, bool asServer, bool replaying = false)
     {
+        RunCollisionChecks();
         HandleJump(md);
         HandleHorizontal(md);
     }
@@ -103,6 +108,7 @@ public class PawnMotor : NetworkBehaviour
     private void HandleJump(PawnMoveData md)
     {
         if (!md.Jump && !_isJumping) return;
+        print("I'm in");
 
         if (_isJumping)
         {
@@ -115,20 +121,21 @@ public class PawnMotor : NetworkBehaviour
         }
 
         //Check if we are grounded only when we are not within coyote window
-        if (Time.time - _timeLastGrounded > _pawnStats.CoyoteSeconds)
-        {
-            Vector3 startPosition = transform.position;
-            Vector2 endPosition = new Vector2(startPosition.x, startPosition.y - _jumpCheckHeight);
-            Debug.DrawLine(startPosition, endPosition, Color.red, 0.1f);
+        // if (Time.time - _timeLastGrounded > _pawnStats.CoyoteSeconds)
+        // {
+        //     Vector3 startPosition = transform.position;
+        //     Vector2 endPosition = new Vector2(startPosition.x, startPosition.y - _jumpCheckHeight);
+        //     Debug.DrawLine(startPosition, endPosition, Color.red, 0.1f);
+        //
+        //     int groundHitCount = GetGroundHits();
+        //     if (groundHitCount == 0)
+        //     {
+        //         //there is no coyote and is not grounded blocking jump request
+        //         return;
+        //     }
+        // }
 
-            int groundHitCount = GetGroundHits();
-            if (groundHitCount == 0)
-            {
-                //there is no coyote and is not grounded blocking jump request
-                return;
-            }
-        }
-
+        print("I'm out");
         _isJumping = true;
 
         Vector2 nextVelocity = _playerRb.velocity;
@@ -136,6 +143,11 @@ public class PawnMotor : NetworkBehaviour
 
         _playerRb.velocity = nextVelocity;
 
+    }
+
+    private void CalculateJumpApexPoint()
+    {
+        
     }
 
     private void SlowJump()
@@ -187,13 +199,13 @@ public class PawnMotor : NetworkBehaviour
 
         return Physics2D.LinecastNonAlloc(startPosition, endPosition, _groundHits);
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer != 3) return;
-                
-        // Debug.Log($"Is Touching Ground!");
-        _isJumping = false; // Note: IF there is desync, this could be made a sync var? But ideally it should be fine.
-    }
+    // private void OnCollisionEnter2D(Collision2D collision)
+    // {
+    //     if (collision.gameObject.layer != 3) return;
+    //             
+    //     // Debug.Log($"Is Touching Ground!");
+    //     _isJumping = false; // Note: IF there is desync, this could be made a sync var? But ideally it should be fine.
+    // }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -203,6 +215,62 @@ public class PawnMotor : NetworkBehaviour
             
         Debug.Log($"Noting down timeLastGrounded.");
         _timeLastGrounded = Time.time;
+    }
+
+    [Header("COLLISION")] [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private float _detectionRayLength = 0.6f;
+    private RaycastHit2D[] _hitsDown = new RaycastHit2D[3];
+    private RaycastHit2D[] _hitsUp = new RaycastHit2D[1];
+    private RaycastHit2D[] _hitsLeft = new RaycastHit2D[1];
+    private RaycastHit2D[] _hitsRight = new RaycastHit2D[1];
+    private bool _hittingCeiling, _grounded, _colRight, _colLeft;
+    private void RunCollisionChecks()
+    {
+        Bounds bounds = _collider.bounds;
+
+        bool groundedCheck = RunDetection(Vector2.down, out _hitsDown, bounds);
+        _colLeft = RunDetection(Vector2.left, out _hitsLeft, bounds);
+        _colRight = RunDetection(Vector2.right, out _hitsRight, bounds);
+        _hittingCeiling = RunDetection(Vector2.up, out _hitsUp, bounds);
+
+        if (groundedCheck)
+        {
+            _isJumping = false;
+        }
+        if (_grounded && !groundedCheck)
+        {
+            //if jumped
+        }
+        else if (!_grounded && groundedCheck)
+        {
+            //if landed
+            _isJumping = false;
+
+        }
+    }
+    private void OnDrawGizmos()
+    {
+        if (!_collider) _collider = GetComponent<BoxCollider2D>();
+
+        Gizmos.color = Color.blue;
+        var b = _collider.bounds;
+        b.Expand(_detectionRayLength);
+
+        Gizmos.DrawWireCube(b.center, b.size);
+    }
+
+    private bool RunDetection(Vector2 direction, out RaycastHit2D[] hits, Bounds bounds)
+    {
+        hits = Physics2D.BoxCastAll(bounds.center, bounds.size, 0, direction, _detectionRayLength, _groundLayer);
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider && ! hit.collider.isTrigger)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     #endregion
