@@ -78,15 +78,15 @@ public class CircularSaw : MonoBehaviour
         else if (transform.rotation == _middleQuaternion)
         {
             _targetQuaternion = _maxSwingQuaternion;
-            if(_targetAngle < 0)
-            {
-                _audioPlayer.PlayOneShotSound(_swingLeft);
-            }
-            else
-            {
-                _audioPlayer.PlayOneShotSound(_swingRight);
-            }
-            
+
+            //if(_targetAngle < 0)
+            //{
+            //    _audioPlayer.PlayOneShotSound(_swingLeft);
+            //}
+            //else
+            //{
+            //    _audioPlayer.PlayOneShotSound(_swingRight);
+            //}
         }
 
         _maxSwingQuaternion = Quaternion.Euler(0, 0, _targetAngle);
