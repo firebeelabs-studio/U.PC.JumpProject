@@ -327,10 +327,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _maxRotateSpeed: 2
+  _maxFallingSpeed: 2
   _maxSwingDegree: 0
   _rotateSpeed: 2
-  _isRotatingClockwise: 0
+  _isRotatingClockwise: 1
   _swingLeft: {fileID: 8300000, guid: 8f943889a492dc24abf0302aed997dda, type: 3}
   _swingRight: {fileID: 8300000, guid: 61ed15507e6a8ca438f3bb4d492ee564, type: 3}
 --- !u!82 &4099744223547763129
@@ -345,7 +345,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.4
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -627,7 +627,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8233703370ae07248968a25b24f36c64, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.15
+  m_Volume: 0.05
   m_Pitch: 0.6
   Loop: 1
   Mute: 0
