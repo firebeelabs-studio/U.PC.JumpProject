@@ -49,7 +49,7 @@ public sealed class GameManager : NetworkBehaviour
     }
     public static void SpawnAllPlatforms()
     {
-        Platforms.ForEach(x => x.SetActive(true));
+        //Platforms?.ForEach(x => x.SetActive(true));
     }
     public static void ResetPlayerPowers()
     {

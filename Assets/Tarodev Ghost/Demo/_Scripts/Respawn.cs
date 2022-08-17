@@ -7,27 +7,45 @@ public class Respawn : MonoBehaviour {
     [SerializeField] private Transform _respawnPos;
     private Transform _startPos;
     private float _timeStartedPenalty;
+    private CheckPoint _lastCheckPoint;
 
 
     private void Start()
     {
-        // FinishLevel.EndRun += EndRun;
+        FinishSinglePlayer.RunFinish += EndRun;
         StartRun.RunStart += RunStart;
         _startPos = _respawnPos;
     }
 
-    public void ChangeSpawnPos(Transform newPos) => _respawnPos = newPos;
+    private void OnDisable()
+    {
+        FinishSinglePlayer.RunFinish -= EndRun;
+        StartRun.RunStart -= RunStart;
+    }
+
+    public void ChangeSpawnPos(Transform newPos, CheckPoint checkPoint)
+    {
+        if (_lastCheckPoint is not null)
+        {
+            _lastCheckPoint.ResetCheckPoint();
+        }
+        _respawnPos = newPos;
+        _lastCheckPoint = checkPoint;
+    } 
+        
 
     private void EndRun() => _respawnPos = _startPos;
     private void RunStart() => _respawnPos = _startPos;
 
-    public IEnumerator RespawnPlayer(Transform player) {
+    public IEnumerator RespawnPlayer(Transform player, float penaltyTime = 0) {
         _timeStartedPenalty = Time.time;
-        do {
-            player.position = _respawnPos.position;
-            GameManager.SpawnAllCollectibles();
-            yield return null;
-        } while (_timeStartedPenalty + _penaltyTime > Time.time);
+        Vector3 diedPos = player.position;
+        do
+        {
+            player.position = diedPos;
+        } while (_timeStartedPenalty + penaltyTime > Time.time);
+        player.position = _respawnPos.position;
+        yield return null;
     }
 
     private void OnDrawGizmosSelected() {

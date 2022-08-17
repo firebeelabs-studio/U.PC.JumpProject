@@ -1,7 +1,6 @@
-using TarodevController;
 using UnityEngine;
 
-public class PlatformCircularEffector : MonoBehaviour
+public class PlatformCircularEffector : MonoBehaviour, IPlayerEffector
 {
     public float Angle;
     public float Radius;
@@ -11,10 +10,16 @@ public class PlatformCircularEffector : MonoBehaviour
     private Vector2 _change, _lastPos, _nextPos;
     private float _nextPosX, _nextPosY;
 
+    // sounds
+    [SerializeField] AudioClip _stepSound;
+    private AudioPlayer _audioPlayer;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _audioPlayer = GetComponent<AudioPlayer>();
     }
+
     private void FixedUpdate()
     {
         Angle += Time.fixedDeltaTime * Speed; //increasing angle value
@@ -30,6 +35,15 @@ public class PlatformCircularEffector : MonoBehaviour
         _change = _lastPos - _nextPos; //calculating the difference between last position and next position
         _lastPos = _nextPos;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            _audioPlayer.PlayOneShotSound(_stepSound);
+        }
+    }
+
     public Vector2 EvaluateEffector()
     {
         return -_change;

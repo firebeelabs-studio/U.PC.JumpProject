@@ -1,30 +1,36 @@
 using UnityEngine;
 
 namespace TarodevController {
-    public class PatrolPlatform : PlatformBase {
+    public class PatrolPlatform : MonoBehaviour, IPlayerEffector
+    {
         [SerializeField] private Vector2[] _points;
         [SerializeField] private float _speed = 1;
         [SerializeField] private bool _looped;
+        [SerializeField] AudioClip _stepSound;
 
-
+        private AudioPlayer _audioPlayer;
         private Rigidbody2D _rb;
         private Vector2 _startPos;
         private int _index;
         private Vector2 Pos => _rb.position;
-        private Vector2 _lastPos;
+        private Vector2 _change, _lastPos;
         private bool _ascending;
 
-        private void Awake() {
+        private void Awake() 
+        {
             _rb = GetComponent<Rigidbody2D>();
+            _audioPlayer = GetComponent<AudioPlayer>();
             _startPos = _rb.position;
         }
 
-        private void FixedUpdate() {
+        private void FixedUpdate() 
+        {
             var target = _points[_index] + _startPos;
             var newPos = Vector2.MoveTowards(Pos, target, _speed * Time.fixedDeltaTime);
             _rb.MovePosition(newPos);
 
-            if (Pos == target) {
+            if (Pos == target) 
+            {
                 _index = _ascending ? _index + 1 : _index - 1;
                 if (_index >= _points.Length) {
                     if (_looped) {
@@ -40,18 +46,25 @@ namespace TarodevController {
                     _index = 1;
                 }
             }
-
-            var change = _lastPos - newPos;
+            _change = _lastPos - newPos;
             _lastPos = newPos;
-
-            MovePlayer(change);
         }
 
-        private void OnDrawGizmosSelected() {
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                _audioPlayer.PlayOneShotSound(_stepSound);
+            }
+        }
+
+        private void OnDrawGizmosSelected() 
+        {
             if (Application.isPlaying) return;
             var curPos = (Vector2)transform.position;
             var previous = curPos + _points[0];
-            for (var i = 0; i < _points.Length; i++) {
+            for (var i = 0; i < _points.Length; i++) 
+            {
                 var p = _points[i] + curPos;
                 Gizmos.DrawWireSphere(p, 0.2f);
                 Gizmos.DrawLine(previous, p);
@@ -60,6 +73,11 @@ namespace TarodevController {
 
                 if (_looped && i == _points.Length - 1) Gizmos.DrawLine(p, curPos + _points[0]);
             }
+        }
+
+        public Vector2 EvaluateEffector()
+        {
+            return -_change; // * _speed;
         }
     }
 }

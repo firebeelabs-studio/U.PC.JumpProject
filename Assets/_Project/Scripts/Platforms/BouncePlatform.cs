@@ -1,14 +1,19 @@
 using UnityEngine;
-using TarodevController;
-using System;
 
 public class BouncePlatform : MonoBehaviour
 {
+    [Tooltip("If true player wouldn't be able to move until grounded")]
+    [SerializeField] private bool _blockMovement = false;
     [SerializeField] private float _bounceForce = 20;
     [SerializeField] private float _horizontalBoost = 1;
     [SerializeField] private float _cameraZoomOutDuration;
+
     //[SerializeField] private JumpSimulation _jumpSimulation;
-   
+
+    //sounds
+    [SerializeField] private AudioClip _bouncerSound;
+
+    private AudioPlayer _audioPlayer;
     private Vector2 _bounceDirectionVector;
     private bool _cancelMovement = true;
     private float sinDegree;
@@ -17,21 +22,27 @@ public class BouncePlatform : MonoBehaviour
     public float Vx => sinDegree * _bounceForce * _horizontalBoost;
     public float Vy => cosDegree * _bounceForce;
 
-    void Awake()
+    private void Awake()
+    {
+        _audioPlayer = GetComponent<AudioPlayer>();
+    }
+
+    private void Start()
     {
         CalculateForces();
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player")) return;
-        if (collision.TryGetComponent(out IPlayerController controller))
+        if (collision.TryGetComponent(out IPawnController controller))
         {
-            controller.ApplyVelocity(_bounceDirectionVector * _bounceForce, PlayerForce.Decay);
+            _audioPlayer.PlayOneShotSound(_bouncerSound);
+            controller.AddForce(_bounceDirectionVector * _bounceForce, PlayerForce.Burst,true, _blockMovement);
         }
     }
 
-    void CalculateForces()
+    private void CalculateForces()
     {
         float degreeInRadians = (transform.transform.eulerAngles.z * (Mathf.PI)) / 180;
         sinDegree = Mathf.Sin(degreeInRadians);
@@ -40,7 +51,7 @@ public class BouncePlatform : MonoBehaviour
     }
 
     [ContextMenu("Create Path")]
-    void SetPath()
+    private void SetPath()
     {
         CalculateForces();
         //_jumpSimulation.CreatePath();

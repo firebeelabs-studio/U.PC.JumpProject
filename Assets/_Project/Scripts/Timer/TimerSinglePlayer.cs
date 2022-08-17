@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,16 +11,24 @@ public class TimerSinglePlayer : MonoBehaviour
     private bool _isRunStarted;
     private float _timeInSeconds;
 
-    private List<float> times = new();
+    private List<float> _times = new();
 
     //Timer display
     private float _minutes, _seconds;
+
+    public float TimeInSeconds => _timeInSeconds;
+    public List<float> Times => _times;
 
     private void Awake()
     {
         _timerText = GameObject.Find("TimerText").GetComponent<TextMeshProUGUI>();
         StartRun.RunStart += On_RunStart;
         FinishSinglePlayer.RunFinish += On_RunFinish;
+    }
+
+    private void OnDisable()
+    {
+        FinishSinglePlayer.RunFinish -= On_RunFinish;
     }
 
     private void Update()
@@ -40,6 +49,6 @@ public class TimerSinglePlayer : MonoBehaviour
     private void On_RunFinish()
     {
         _isRunStarted = false;
-        times.Add(_timeInSeconds);
+        _times.Add(_timeInSeconds);
     }
 }

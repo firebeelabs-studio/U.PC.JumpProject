@@ -1,29 +1,31 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace TarodevController {
     public class PlayerAnimator : MonoBehaviour {
-        private IPlayerController _player;
+        private IPawnController _player;
         private Animator _anim;
         private SpriteRenderer _renderer;
         private AudioSource _source;
 
         private void Awake() {
-            _player = GetComponentInParent<IPlayerController>();
+            _player = GetComponentInParent<IPawnController>();
             _anim = GetComponent<Animator>();
             _renderer = GetComponent<SpriteRenderer>();
             _source = GetComponent<AudioSource>();
         }
 
         private void Start() {
-            _player.Jumped += OnPlayerOnJumped;
-            _player.DoubleJumped += PlayerOnDoubleJumped;
-            _player.Attacked += OnPlayerOnAttacked;
-            _player.GroundedChanged += OnPlayerOnGroundedChanged;
-            _player.DashingChanged += PlayerOnDashingChanged;
+            _player.OnJumping += OnPlayerOnJumped;
+            //_player.DoubleJumped += PlayerOnDoubleJumped;
+            //_player.Attacked += OnPlayerOnAttacked;
+            _player.OnGroundedChanged += OnPlayerOnGroundedChanged;
+            //_player.DashingChanged += PlayerOnDashingChanged;
         }
 
         private void Update() {
-            if (_player.Input.x != 0) _renderer.flipX = _player.Input.x < 0;
+            if (_player.Input.Move.x != 0) _renderer.flipX = _player.Input.Move.x < 0;
 
             HandleGroundEffects();
             DetectGroundColor();
@@ -59,12 +61,10 @@ namespace TarodevController {
         }
 
         private void HandleGroundEffects() {
-            // Move particles get bigger as you gain momentum
-            var speedPoint = Mathf.InverseLerp(0, _player.PlayerStats.MaxSpeed, Mathf.Abs(_player.Speed.x));
+            // Move particles get bigger as you gain momentum TODO: Change middle one
+            var speedPoint = Mathf.InverseLerp(0, 5, Mathf.Abs(_player.Speed.x));
             _moveParticles.transform.localScale = Vector3.MoveTowards(_moveParticles.transform.localScale, Vector3.one * speedPoint, 2 * Time.deltaTime);
 
-            // Tilt with slopes
-            transform.up = Vector2.SmoothDamp(transform.up, _grounded ? _player.GroundNormal : Vector2.up, ref _tiltVelocity, _tileChangeSpeed);
         }
 
         private int _stepIndex;
@@ -99,21 +99,28 @@ namespace TarodevController {
             _doubleJumpParticles.Play();
         }
 
-        private void OnPlayerOnGroundedChanged(bool grounded, float impactForce) {
+        private void OnPlayerOnGroundedChanged(bool grounded) {
             _grounded = grounded;
-            var p = Mathf.InverseLerp(0, _minImpactForce, impactForce);
+            //var p = Mathf.InverseLerp(0, _minImpactForce, impactForce);
 
-            if (impactForce >= _minImpactForce) {
-                _landed = true;
-                _landParticles.transform.localScale = p * Vector3.one;
-                _landParticles.Play();
-                //SetColor(_landParticles);
-                PlaySound(_landClip, p * 0.1f);
+            // if (impactForce >= _minImpactForce) {
+            //     _landed = true;
+            //     _landParticles.transform.localScale = p * Vector3.one;
+            //     _landParticles.Play();
+            //     //SetColor(_landParticles);
+            //     //PlaySound(_landClip, p * 0.1f);
+            // }
+
+            if (_grounded)
+            {
+                _moveParticles.Play();
             }
-
-            if (_grounded) _moveParticles.Play();
-            else _moveParticles.Stop();
+            else
+            {
+                _moveParticles.Stop();
+            }
         }
+
 
         #endregion
 
@@ -153,6 +160,7 @@ namespace TarodevController {
         #region Animation
 
         private float _lockedTill;
+        private bool _isSliding;
 
         private void HandleAnimations() {
             var state = GetState();
@@ -165,32 +173,38 @@ namespace TarodevController {
             _anim.CrossFade(state, 0, 0);
             _currentState = state;
 
-            int GetState() {
+            int GetState() 
+            {
                 if (_jumpTriggered)
                 {
                     return Jump;
+                }
+                if (_isSliding)
+                {
+                    _isSliding = false;
+                    return LockState(OneWayPlatform, 0.15f);
                 }
                 if (Time.time < _lockedTill) return _currentState;
 
                 // Priorities
                 if (_attacked) return LockState(Attack, _attackAnimTime);
-                if (_player.Crouching) return Crouch;
+                //if (_player.Crouching) return Crouch;
                 if (_landed) return LockState(Land, _landAnimDuration);
                 
 
                 if (_grounded)
                 {
-                    if (_player.Input.x == 0)
+                    if (_player.Input.Move.x == 0)
                     {
                         return Idle;
                     }
                     
-                    if (_player.Input.x > 0)
+                    if (_player.Input.Move.x > 0)
                     {
                         return Walk;
                     }
                     
-                    if(_player.Input.x < 0)
+                    if(_player.Input.Move.x < 0)
                     {
                         return WalkLeft;
                     }
@@ -218,6 +232,7 @@ namespace TarodevController {
         private static readonly int Land = Animator.StringToHash("Land");
         private static readonly int Attack = Animator.StringToHash("Attack");
         private static readonly int Crouch = Animator.StringToHash("Crouch");
+        private static readonly int OneWayPlatform = Animator.StringToHash("OneWayPlatform");
 
         #endregion
 
@@ -226,6 +241,14 @@ namespace TarodevController {
         private void PlaySound(AudioClip clip, float volume = 1, float pitch = 1) {
             _source.pitch = pitch;
             _source.PlayOneShot(clip, volume);
+        }
+
+        private void OnTriggerEnter2D(Collider2D col)
+        {
+            if (col.CompareTag("OneWayPlatform"))
+            {
+                _isSliding = true;
+            }
         }
     }
 }

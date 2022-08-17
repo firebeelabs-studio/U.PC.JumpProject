@@ -1,13 +1,18 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuManagement : MonoBehaviour
 {
     [Header("MAIN MENU")]
     [SerializeField] private GameObject _mainMenuPanel;
-    [SerializeField] private GameObject _questsButton;
+    [SerializeField] private GameObject _switchQuests;
+    [SerializeField] private GameObject _suggestedQuestPanel;
+    [SerializeField] private GameObject _dailyQuestsPanel;
     [SerializeField] private GameObject _questsPanel;
     [SerializeField] private GameObject _playButton;
     [SerializeField] private GameObject _pawn;
@@ -19,39 +24,26 @@ public class MenuManagement : MonoBehaviour
     [Space(10)]
     [Header("LEVELS MENU")]
     [SerializeField] private GameObject _levelsMenuPanel;
-    private enum Panels
+
+    private ButtonsAnimations _DOTweenAnimations;
+
+    private void Awake()
     {
-        MAIN_MENU,
-        MODE_MENU,
-        LEVELS_MENU
+        _DOTweenAnimations = GetComponent<ButtonsAnimations>();
     }
-    private Panels _currentPanel;
+
     private void Start()
     {
-        _currentPanel = Panels.MAIN_MENU;
-        _questsButton.GetComponent<Button>().onClick.AddListener(() => { OpenQuestsPanel(); });
+        _switchQuests.GetComponent<Button>().onClick.AddListener(() => { SwitchBetweenQuests(); });
         _playButton.GetComponent<Button>().onClick.AddListener(() => { SwitchBetweenPanels(_modeMenuPanel); });
         _singleButton.GetComponent<Button>().onClick.AddListener(() => { SwitchBetweenPanels(_levelsMenuPanel); });
         //multi button
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            _mainMenuPanel.SetActive(true);
-            _pawn.SetActive(true);
-            _modeMenuPanel.SetActive(false);
-            _levelsMenuPanel.SetActive(false);
-        }
-    }
 
-    private void OpenQuestsPanel()
-    {
-        _questsButton.SetActive(false);
-        _questsPanel.SetActive(true);
-    }
     public void SwitchBetweenPanels(GameObject openPanel)
     {
+        DOTween.KillAll();
+
         openPanel.SetActive(true);
 
         if (openPanel == _mainMenuPanel)
@@ -62,18 +54,34 @@ public class MenuManagement : MonoBehaviour
         {
             _pawn.SetActive(false);
         }
+    }
 
-        if (_currentPanel == Panels.MAIN_MENU)
+    private void SwitchBetweenQuests()
+    {
+        if (_suggestedQuestPanel.activeInHierarchy)
         {
-            _mainMenuPanel.SetActive(false);
+            _DOTweenAnimations.SwitchPanels(_suggestedQuestPanel, _dailyQuestsPanel);
         }
-        else if (_currentPanel == Panels.MODE_MENU)
+        else
         {
-            _modeMenuPanel.SetActive(false);
+            _DOTweenAnimations.SwitchPanels(_dailyQuestsPanel, _suggestedQuestPanel);
         }
-        else if (_currentPanel == Panels.LEVELS_MENU)
-        {
-            _levelsMenuPanel.SetActive(false);
-        }
+    }
+
+    //temp
+    public void LoadScene(string sceneName)
+    {
+        DOTween.KillAll();
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void BackToMenu(RectTransform button)
+    {
+        DOTween.KillAll();
+        button.localScale = Vector3.one;
+        _mainMenuPanel.SetActive(true);
+        _pawn.SetActive(true);
+        _modeMenuPanel.SetActive(false);
+        _levelsMenuPanel.SetActive(false);
     }
 }
