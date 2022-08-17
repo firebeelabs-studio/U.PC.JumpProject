@@ -44,7 +44,7 @@ public class GuillotineMove : MonoBehaviour
             _collider.enabled = true;
             _speed = _fallSpeed;
         }
-        else if (_angle > 1.5f)
+        else if (_angle > 1.5f * Mathf.PI)
         {
             _collider.enabled = false;
             _speed = _returnSpeed;

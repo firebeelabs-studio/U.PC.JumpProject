@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OneWayPlatform : MonoBehaviour
@@ -21,12 +19,14 @@ public class OneWayPlatform : MonoBehaviour
 
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if (other.TryGetComponent(out IPawnController controller)) {
+        if (other.TryGetComponent(out IPawnController controller)) 
+        {
             _controller = controller;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other) {
+    private void OnTriggerExit2D(Collider2D other) 
+    {
         if (other.TryGetComponent(out IPawnController controller)) _controller = null;
     }
 }
