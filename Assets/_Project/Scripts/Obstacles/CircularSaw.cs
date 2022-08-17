@@ -6,7 +6,7 @@ public class CircularSaw : MonoBehaviour
     
     [Header("PENDULUM")]
     [SerializeField] private AnimationCurve _curve;
-    [SerializeField] private float _maxRotateSpeed;
+    [SerializeField] private float _maxFallingSpeed;
     [Range(0, 180)]
     [SerializeField] private float _maxSwingDegree;
     private Quaternion _maxSwingQuaternion, _targetQuaternion, _middleQuaternion = Quaternion.Euler(0, 0, 0);
@@ -17,8 +17,9 @@ public class CircularSaw : MonoBehaviour
     [SerializeField] private bool _isRotatingClockwise;
     private int _direction;
 
-    // sounds
-    [SerializeField] AudioClip _swingLeft, _swingRight;
+    [Header("SOUNDS")]
+    [SerializeField] AudioClip _swingLeft;
+    [SerializeField] AudioClip _swingRight;
     private AudioPlayer _audioPlayer;
 
     private enum TypeOfMotion
@@ -77,15 +78,15 @@ public class CircularSaw : MonoBehaviour
         else if (transform.rotation == _middleQuaternion)
         {
             _targetQuaternion = _maxSwingQuaternion;
-            if(_targetAngle < 0)
-            {
-                _audioPlayer.PlayOneShotSound(_swingLeft);
-            }
-            else
-            {
-                _audioPlayer.PlayOneShotSound(_swingRight);
-            }
-            
+
+            //if(_targetAngle < 0)
+            //{
+            //    _audioPlayer.PlayOneShotSound(_swingLeft);
+            //}
+            //else
+            //{
+            //    _audioPlayer.PlayOneShotSound(_swingRight);
+            //}
         }
 
         _maxSwingQuaternion = Quaternion.Euler(0, 0, _targetAngle);
@@ -105,7 +106,7 @@ public class CircularSaw : MonoBehaviour
         _progress = Mathf.InverseLerp(_startPos, _targetAngle, _currentAngle);
 
         // rotates object to the target position
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, _targetQuaternion, _maxRotateSpeed * _curve.Evaluate(_progress));
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, _targetQuaternion, _maxFallingSpeed * _curve.Evaluate(_progress));
     }
 
     private void CircularMotion()

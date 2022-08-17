@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SawHorizontalMovement : MonoBehaviour
@@ -25,7 +23,6 @@ public class SawHorizontalMovement : MonoBehaviour
         transform.localScale = new Vector3 (_sparkDirection, 1, 1);
         _particleTransform.localScale = new Vector3(_sparkDirection, 1, 1);  
         parentTransform.position = Vector2.MoveTowards(parentTransform.position, _waypoints[_currentWaypointIndex].transform.position, Time.deltaTime * _speed);
-
     }
 
     private void Update()
@@ -34,7 +31,6 @@ public class SawHorizontalMovement : MonoBehaviour
         {
             _currentWaypointIndex++;
             _sparkDirection = -1;
-
             if (_currentWaypointIndex >= _waypoints.Length)
             {
                 _currentWaypointIndex = 0;
@@ -44,6 +40,5 @@ public class SawHorizontalMovement : MonoBehaviour
             _particleTransform.localScale = new Vector3(_sparkDirection, 1, 1);
         }
         parentTransform.position = Vector2.MoveTowards(parentTransform.position, _waypoints[_currentWaypointIndex].transform.position, Time.deltaTime * _speed);
-        
     }
 }
