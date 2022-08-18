@@ -22,6 +22,7 @@ namespace TarodevController {
             //_player.Attacked += OnPlayerOnAttacked;
             _player.OnGroundedChanged += OnPlayerOnGroundedChanged;
             //_player.DashingChanged += PlayerOnDashingChanged;
+            _player.PlayerSmashed += OnPlayerSmashed;
         }
 
         private void Update() {
@@ -32,6 +33,7 @@ namespace TarodevController {
             HandleAnimations();
         }
 
+        
         #region Ground movement
 
         [Header("GROUND MOVEMENT")] [SerializeField]
@@ -159,7 +161,7 @@ namespace TarodevController {
 
         #region Animation
 
-        private float _lockedTill;
+        private float _lockedTillPriorityLow, _lockedTillPriorityMedium;
         private bool _isSliding;
 
         private void HandleAnimations() {
@@ -175,6 +177,15 @@ namespace TarodevController {
 
             int GetState() 
             {
+                if (_isSmashed)
+                {
+                    _isSmashed = false;
+                    _lockedTillPriorityMedium = Time.time + 2f;
+                    return Press;
+                }
+
+                if (Time.time < _lockedTillPriorityMedium) return _currentState;
+
                 if (_jumpTriggered)
                 {
                     return Jump;
@@ -184,12 +195,16 @@ namespace TarodevController {
                     _isSliding = false;
                     return LockState(OneWayPlatform, 0.15f);
                 }
-                if (Time.time < _lockedTill) return _currentState;
+                if (Time.time < _lockedTillPriorityLow) return _currentState;
 
                 // Priorities
                 if (_attacked) return LockState(Attack, _attackAnimTime);
                 //if (_player.Crouching) return Crouch;
-                if (_landed) return LockState(Land, _landAnimDuration);
+                if (_landed)
+                {
+                    _lockedTillPriorityLow = _landAnimDuration;
+                    return Land;
+                }
                 
 
                 if (_grounded)
@@ -212,7 +227,7 @@ namespace TarodevController {
                 return _player.Speed.y > 0 ? Jump : Fall;
 
                 int LockState(int s, float t) {
-                    _lockedTill = Time.time + t;
+                    _lockedTillPriorityLow = Time.time + t;
                     return s;
                 }
             }
@@ -221,7 +236,6 @@ namespace TarodevController {
         #region Cached Properties
 
         private int _currentState;
-
         private static readonly int Idle = Animator.StringToHash("Idle");
         private static readonly int Walk = Animator.StringToHash("Walk");
         private static readonly int WalkLeft = Animator.StringToHash("WalkLeft");
@@ -233,6 +247,7 @@ namespace TarodevController {
         private static readonly int Attack = Animator.StringToHash("Attack");
         private static readonly int Crouch = Animator.StringToHash("Crouch");
         private static readonly int OneWayPlatform = Animator.StringToHash("OneWayPlatform");
+        private static readonly int Press = Animator.StringToHash("Press");
 
         #endregion
 
@@ -250,5 +265,12 @@ namespace TarodevController {
                 _isSliding = true;
             }
         }
+
+        private bool _isSmashed;
+        private void OnPlayerSmashed()
+        {
+            _isSmashed = true;
+        }
+
     }
 }
