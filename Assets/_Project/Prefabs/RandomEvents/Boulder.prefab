@@ -227,7 +227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3325054891902747055}
   - component: {fileID: 3325054891902747053}
-  - component: {fileID: 3325054891902747052}
+  - component: {fileID: 3277177418425301540}
   m_Layer: 0
   m_Name: Boulder Render
   m_TagString: Untagged
@@ -302,7 +302,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3325054891902747052
+--- !u!114 &3277177418425301540
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -311,10 +311,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3325054891902747048}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fb23d19d3385e74ab9f43113d7f52df, type: 3}
+  m_Script: {fileID: 11500000, guid: c78feb0123003844793872a09c8f1d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotateSpeed: 2
+  _rotateSpeed: 0.5
   _startingPosition: {fileID: 3325054893204693493}
   _currentPosition: {fileID: 3325054891875791082}
 --- !u!1 &3325054893204693494
