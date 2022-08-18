@@ -1,5 +1,6 @@
 using UnityEngine;
-
+using DG.Tweening;
+using System.Linq;
 
 public class GuillotineObstacle : MonoBehaviour
 {
@@ -14,9 +15,15 @@ public class GuillotineObstacle : MonoBehaviour
     private AudioPlayer _audioPlayer;
     private Vector2 _startPos;
     private float _angle, _timer;
-    
-    //sounds
+    [Space(10)]
+    [Header("Sounds")]
     [SerializeField] private AudioClip _smashSound;
+
+    [SerializeField] private float _slowDuration;
+    private Animator[] _animators;
+    private float _distanceBetweenPressOriginAndPawn;
+    private bool _canPress = false;
+
 
     private void Awake()
     {
@@ -39,6 +46,11 @@ public class GuillotineObstacle : MonoBehaviour
             _angle += Time.deltaTime * _speed;
             MoveObstacle(_press);
         }
+        if (_canPress)
+        {
+            _animators.Last().Play("Press");
+            _canPress = false;
+        }
     }
     private void MoveObstacle(GameObject obstacle)
     {
@@ -54,7 +66,14 @@ public class GuillotineObstacle : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            //scale
+            if(collision.TryGetComponent(out PawnController pawnController))
+            {
+                if (pawnController.Grounded && _angle >= Mathf.PI)
+                {
+                    _animators = pawnController.GetComponentsInChildren<Animator>();
+                    _distanceBetweenPressOriginAndPawn = Vector2.Distance(_press.transform.position, pawnController.transform.position);
+                }
+            }
         }
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") && _angle >= Mathf.PI)
         {
@@ -62,6 +81,31 @@ public class GuillotineObstacle : MonoBehaviour
             _audioPlayer.PlayOneShotSound(_smashSound);
         }
     }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            if (collision.TryGetComponent(out PawnController pawnController))
+            {
+                if (pawnController.Grounded && _angle >= Mathf.PI)
+                {
+                    float newDistance = Vector2.Distance(_press.transform.position, pawnController.transform.position);
+                    if (newDistance < _distanceBetweenPressOriginAndPawn && !_canPress)
+                    {
+                        _canPress = true;
+
+                    }
+                }
+            }
+        }
+    }
+
+    private IEnumerator SlowDownPlayer(PawnController pawnController)
+    {
+        //pawnController.
+        yield return new WaitForSeconds(_slowDuration);
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -_distance));
