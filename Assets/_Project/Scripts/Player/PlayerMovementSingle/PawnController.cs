@@ -19,6 +19,7 @@ public class PawnController : MonoBehaviour, IPawnController
     public event Action OnJumping, OnDoubleJumping;
     public event Action<bool> OnDashingChanged;
     public event Action<bool> OnCrouchingChanged;
+    public event Action PlayerSmashed;
 
     private Rigidbody2D _rb;
     private BoxCollider2D _collider;
@@ -54,12 +55,12 @@ public class PawnController : MonoBehaviour, IPawnController
 
         RunCollisionChecks();
 
-        CalculateCrouch();
+        //CalculateCrouch();
         CalculateHorizontal();
         CalculateJumpApex();
         CalculateGravity();
         CalculateJump();
-        CalculateDash();
+        //CalculateDash();
         MoveCharacter();
     }
 
@@ -141,6 +142,23 @@ public class PawnController : MonoBehaviour, IPawnController
         }
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Press"))
+        {
+            if (_grounded && _hittingCeiling)
+            {
+                if (collision.gameObject.TryGetComponent(out Press press))
+                {
+
+                    if (!_canSmash) return;
+
+                    StartCoroutine(SlowDownPlayer(press.SlowPower, press.SlowDuration));
+                }
+            }
+        }
+    }
+
     private void OnDrawGizmos()
     {
         if (!_collider) _collider = GetComponent<BoxCollider2D>();
@@ -162,7 +180,7 @@ public class PawnController : MonoBehaviour, IPawnController
     [SerializeField] private float _immediateCrouchSlowdownThreshold = 0.1f;
     private Vector2 _defaultColliderSize, _defaultColliderOffset;
     private float _velocityOnCrouch;
-    private bool _crouching;
+    private bool _isJumpAllowed = true;
     private int _frameStartedCrouching;
 
     private bool CanStand
@@ -175,44 +193,44 @@ public class PawnController : MonoBehaviour, IPawnController
         }
     }
 
-    private void CalculateCrouch()
-    {
-        if (!_allowCrouch) return;
+    //private void CalculateCrouch()
+    //{
+    //    if (!_allowCrouch) return;
 
 
-        if (_crouching)
-        {
-            var immediate = _velocityOnCrouch <= _immediateCrouchSlowdownThreshold ? _crouchSlowdownFrames : 0;
-            var crouchPoint =
-                Mathf.InverseLerp(0, _crouchSlowdownFrames, _fixedFrame - _frameStartedCrouching + immediate);
-            _frameClamp *= Mathf.Lerp(1, _crouchSpeedModifier, crouchPoint);
-        }
+    //    if (_isJumpAllowed)
+    //    {
+    //        var immediate = _velocityOnCrouch <= _immediateCrouchSlowdownThreshold ? _crouchSlowdownFrames : 0;
+    //        var crouchPoint =
+    //            Mathf.InverseLerp(0, _crouchSlowdownFrames, _fixedFrame - _frameStartedCrouching + immediate);
+    //        _frameClamp *= Mathf.Lerp(1, _crouchSpeedModifier, crouchPoint);
+    //    }
 
-        if (_grounded && Input.Move.y < 0 && !_crouching)
-        {
-            _crouching = true;
-            OnCrouchingChanged?.Invoke(true);
-            _velocityOnCrouch = Mathf.Abs(_velocity.x);
-            _frameStartedCrouching = _fixedFrame;
+    //    if (_grounded && Input.Move.y < 0 && !_isJumpAllowed)
+    //    {
+    //        _isJumpAllowed = true;
+    //        OnCrouchingChanged?.Invoke(true);
+    //        _velocityOnCrouch = Mathf.Abs(_velocity.x);
+    //        _frameStartedCrouching = _fixedFrame;
 
-            _collider.size = _defaultColliderSize * new Vector2(1, _crouchSizeModifier);
+    //        _collider.size = _defaultColliderSize * new Vector2(1, _crouchSizeModifier);
 
-            // Lower the collider by the difference extent
-            var difference = _defaultColliderSize.y - _defaultColliderSize.y * _crouchSizeModifier;
-            _collider.offset = -new Vector2(0, difference * 0.5f);
-        }
-        else if (!_grounded || (Input.Move.y >= 0 && _crouching))
-        {
-            // Detect obstruction in standing area. Add a .1 y buffer to avoid the ground.
-            if (!CanStand) return;
+    //        // Lower the collider by the difference extent
+    //        var difference = _defaultColliderSize.y - _defaultColliderSize.y * _crouchSizeModifier;
+    //        _collider.offset = -new Vector2(0, difference * 0.5f);
+    //    }
+    //    else if (!_grounded || (Input.Move.y >= 0 && _isJumpAllowed))
+    //    {
+    //        // Detect obstruction in standing area. Add a .1 y buffer to avoid the ground.
+    //        if (!CanStand) return;
 
-            _crouching = false;
-            OnCrouchingChanged?.Invoke(false);
+    //        //_crouching = false;
+    //        OnCrouchingChanged?.Invoke(false);
 
-            _collider.size = _defaultColliderSize;
-            _collider.offset = _defaultColliderOffset;
-        }
-    }
+    //        _collider.size = _defaultColliderSize;
+    //        _collider.offset = _defaultColliderOffset;
+    //    }
+    //}
 
     #endregion
 
@@ -352,7 +370,7 @@ public class PawnController : MonoBehaviour, IPawnController
 
     private void CalculateJump()
     {
-        if (_crouching && !CanStand) return;
+        if (!_isJumpAllowed) return;
 
         if (_jumpToConsume && CanDoubleJump)
         {
@@ -395,40 +413,40 @@ public class PawnController : MonoBehaviour, IPawnController
     private bool _dashing;
     private bool _dashToConsume;
 
-    private void CalculateDash()
-    {
-        if (!_allowDash) return;
-        if (_dashToConsume && _canDash && !_crouching)
-        {
-            var vel = new Vector2(Input.Move.x, _grounded && Input.Move.y < 0 ? 0 : Input.Move.y).normalized;
-            if (vel == Vector2.zero) return;
-            _dashVel = vel * _dashPower;
-            _dashing = true;
-            OnDashingChanged?.Invoke(true);
-            _canDash = false;
-            _startedDashing = _fixedFrame;
+    //private void CalculateDash()
+    //{
+    //    if (!_allowDash) return;
+    //    if (_dashToConsume && _canDash && !_isJumpAllowed)
+    //    {
+    //        var vel = new Vector2(Input.Move.x, _grounded && Input.Move.y < 0 ? 0 : Input.Move.y).normalized;
+    //        if (vel == Vector2.zero) return;
+    //        _dashVel = vel * _dashPower;
+    //        _dashing = true;
+    //        OnDashingChanged?.Invoke(true);
+    //        _canDash = false;
+    //        _startedDashing = _fixedFrame;
 
-            // Strip external buildup
-            _forceBuildup = Vector2.zero;
-        }
+    //        // Strip external buildup
+    //        _forceBuildup = Vector2.zero;
+    //    }
 
-        if (_dashing)
-        {
-            _speed.x = _dashVel.x;
-            _speed.y = _dashVel.y;
-            // Cancel when the time is out or we've reached our max safety distance
-            if (_startedDashing + _dashLength < _fixedFrame)
-            {
-                _dashing = false;
-                OnDashingChanged?.Invoke(false);
-                if (_speed.y > 0) _speed.y = 0;
-                _speed.x *= _dashEndHorizontalMultiplier;
-                if (_grounded) _canDash = true;
-            }
-        }
+    //    if (_dashing)
+    //    {
+    //        _speed.x = _dashVel.x;
+    //        _speed.y = _dashVel.y;
+    //        // Cancel when the time is out or we've reached our max safety distance
+    //        if (_startedDashing + _dashLength < _fixedFrame)
+    //        {
+    //            _dashing = false;
+    //            OnDashingChanged?.Invoke(false);
+    //            if (_speed.y > 0) _speed.y = 0;
+    //            _speed.x *= _dashEndHorizontalMultiplier;
+    //            if (_grounded) _canDash = true;
+    //        }
+    //    }
 
-        _dashToConsume = false;
-    }
+    //    _dashToConsume = false;
+    //}
 
     #endregion
 
@@ -537,6 +555,33 @@ public class PawnController : MonoBehaviour, IPawnController
         _groundingForce = newGroundingForce;
         _jumpHeight = newJumpHeight;
         _jumpApexThreshold = newJumpApexThreshold;
+    }
+
+    public void ChangeMoveClamp(float newValue)
+    {
+        _moveClamp = newValue;
+    }
+
+    public void SmashPlayer(float changeValue, bool canJump)
+    {
+        _executedBufferedJump = false;
+        _isJumpAllowed = canJump;
+        ChangeMoveClamp(changeValue);
+
+        if (canJump) return;
+
+        PlayerSmashed?.Invoke();
+    }
+    private bool _canSmash = true;
+    private IEnumerator SlowDownPlayer(float slowPower, float slowDuration)
+    {
+        _canSmash = false;
+        float previousMoveClamp = _moveClamp;
+        SmashPlayer(slowPower, false);
+        yield return new WaitForSeconds(slowDuration);
+        //_executedBufferedJump = false;
+        SmashPlayer(previousMoveClamp, true);
+        _canSmash = true;
     }
 
     private Vector2 EvaluateForces()
