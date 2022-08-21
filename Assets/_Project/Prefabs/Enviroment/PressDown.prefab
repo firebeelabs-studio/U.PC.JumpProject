@@ -111,9 +111,11 @@ MonoBehaviour:
   _speed: 4
   _delay: 1
   _startDelay: 1
+  _smashDelay: 0.5
   _distance: 4.5
   _pressParticles: {fileID: 5176818957107728493}
   _smashSound: {fileID: 8300000, guid: abf3e1e0a59706441b7f6582014fb775, type: 3}
+  _returnSound: {fileID: 8300000, guid: 44ec3fc769b266f479596fe5ea555795, type: 3}
   _slowDuration: 1
   _slowPower: 5
 --- !u!114 &5176818957031417779
@@ -409,8 +411,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5176818957107728480}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 0, y: -2.56, z: 0}
-  m_LocalScale: {x: 1.2499999, y: 1, z: 0.7184499}
+  m_LocalPosition: {x: 0, y: -2.5, z: 0}
+  m_LocalScale: {x: 1.2499999, y: 1, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5176818957031417770}
@@ -5276,7 +5278,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5176818957251564642}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

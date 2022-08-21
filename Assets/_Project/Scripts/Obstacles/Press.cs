@@ -9,8 +9,9 @@ public class Press : MonoBehaviour, IPlayerEffector
     [SerializeField] private bool _shouldMoveDown = true;
     [SerializeField] private float _speed;
     [SerializeField] private float _delay;
-    [SerializeField] private float _startDelay;
+    [SerializeField] private float _startDelay, _smashDelay;
     [SerializeField] private float _distance;
+    private bool _didSmashOnce, _playReturnSoundOnce;
     [Space(10)]
     [Header("Particles")]
     [SerializeField] private ParticleSystem _pressParticles;
@@ -20,6 +21,7 @@ public class Press : MonoBehaviour, IPlayerEffector
     [Space(10)]
     [Header("Sounds")]
     [SerializeField] private AudioClip _smashSound;
+    [SerializeField] private AudioClip _returnSound;
     [Space(10)]
     [Header("Slow effect")]
     [SerializeField] private float _slowDuration;
@@ -29,13 +31,11 @@ public class Press : MonoBehaviour, IPlayerEffector
     private Vector2 _change, _lastPos, newPos;
     private Rigidbody2D _rb;
 
-
     private void Awake()
     {
         _audioPlayer = GetComponent<AudioPlayer>();
         _rb = GetComponent<Rigidbody2D>();
     }
-
     private void Start()
     {
         _startPos = transform.position;
@@ -73,6 +73,21 @@ public class Press : MonoBehaviour, IPlayerEffector
         {
             _angle = 0;
             _timer = _delay;
+            _didSmashOnce = false;
+            _playReturnSoundOnce = false;
+        }
+        else if (_angle >= 1.5f * Mathf.PI && !_didSmashOnce)
+        {
+            _timer = _smashDelay;
+            _didSmashOnce = true;
+        }
+        else if (_angle >= 1.5f * Mathf.PI)
+        {
+            if (_playReturnSoundOnce) return;
+            
+            _audioPlayer.PlayOneShotSound(_returnSound);
+            _playReturnSoundOnce = true;
+
         }
 
         _change = _lastPos - newPos;
@@ -80,7 +95,7 @@ public class Press : MonoBehaviour, IPlayerEffector
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") && _angle >= Mathf.PI)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") && _angle >= Mathf.PI && !_didSmashOnce)
         {
             _pressParticles.Play();
             _audioPlayer.PlayOneShotSound(_smashSound);
@@ -88,9 +103,9 @@ public class Press : MonoBehaviour, IPlayerEffector
     }
     private void OnDrawGizmos()
     {
-        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -_distance));
+        // represents the max distance in scene
+        Gizmos.DrawLine((Vector2)transform.position + new Vector2 (-3,-2.56f - _distance), (Vector2)transform.position + new Vector2(3, -2.56f - _distance));
     }
-
     public Vector2 EvaluateEffector()
     {
         if (_angle > Mathf.PI)
