@@ -1,7 +1,4 @@
 using UnityEngine;
-using DG.Tweening;
-using System.Linq;
-using System.Collections;
 
 public class Press : MonoBehaviour, IPlayerEffector
 {
@@ -9,26 +6,30 @@ public class Press : MonoBehaviour, IPlayerEffector
     [SerializeField] private bool _shouldMoveDown = true;
     [SerializeField] private float _speed;
     [SerializeField] private float _delay;
-    [SerializeField] private float _startDelay;
+    [SerializeField] private float _startDelay, _smashDelay;
     [SerializeField] private float _distance;
+
+    private Rigidbody2D _rb;
+    private Vector2 _startPos, _change, _lastPos, newPos;
+    private bool _didSmashOnce, _playReturnSoundOnce;
+    private float _angle, _timer;
+    
     [Space(10)]
     [Header("Particles")]
     [SerializeField] private ParticleSystem _pressParticles;
-    private AudioPlayer _audioPlayer;
-    private Vector2 _startPos;
-    private float _angle, _timer;
+    
     [Space(10)]
     [Header("Sounds")]
     [SerializeField] private AudioClip _smashSound;
+    [SerializeField] private AudioClip _returnSound;
+    private AudioPlayer _audioPlayer;
+
     [Space(10)]
     [Header("Slow effect")]
     [SerializeField] private float _slowDuration;
-    public float SlowDuration => _slowDuration;
     [SerializeField] private float _slowPower;
+    public float SlowDuration => _slowDuration;
     public float SlowPower => _slowPower;
-    private Vector2 _change, _lastPos, newPos;
-    private Rigidbody2D _rb;
-
 
     private void Awake()
     {
@@ -41,6 +42,7 @@ public class Press : MonoBehaviour, IPlayerEffector
         _startPos = transform.position;
         _timer = _startDelay;
     }
+
     private void Update()
     {
         if (_timer > 0)
@@ -54,10 +56,12 @@ public class Press : MonoBehaviour, IPlayerEffector
         }
 
     }
+
     private void FixedUpdate()
     {
         _rb.MovePosition(newPos);
     }
+
     private void MoveObstacle()
     {
         if (!_shouldMoveDown)
@@ -73,22 +77,48 @@ public class Press : MonoBehaviour, IPlayerEffector
         {
             _angle = 0;
             _timer = _delay;
+            _didSmashOnce = false;
+            _playReturnSoundOnce = false;
+        }
+        else if (_angle >= 1.5f * Mathf.PI && !_didSmashOnce)
+        {
+            _timer = _smashDelay;
+            _didSmashOnce = true;
+        }
+        else if (_angle >= 1.5f * Mathf.PI)
+        {
+            if (_playReturnSoundOnce) return;
+            
+            _audioPlayer.PlayOneShotSound(_returnSound);
+            _playReturnSoundOnce = true;
+
         }
 
         _change = _lastPos - newPos;
         _lastPos = newPos;
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") && _angle >= Mathf.PI)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") && _angle >= Mathf.PI && !_didSmashOnce)
         {
             _pressParticles.Play();
             _audioPlayer.PlayOneShotSound(_smashSound);
         }
     }
+
     private void OnDrawGizmos()
     {
-        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -_distance));
+        // represents the max distance in scene
+        if(transform.localRotation.eulerAngles.z == 0)
+        {
+            Gizmos.DrawLine((Vector2)transform.position + new Vector2(-3, -2.56f - _distance), (Vector2)transform.position + new Vector2(3, -2.56f - _distance));
+        }
+        else if (transform.localRotation.eulerAngles.z == 180)
+        {
+            Gizmos.DrawLine((Vector2)transform.position + new Vector2(-3, +2.56f + _distance), (Vector2)transform.position + new Vector2(3, +2.56f + _distance));
+        }
+        
     }
 
     public Vector2 EvaluateEffector()
