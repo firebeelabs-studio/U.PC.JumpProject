@@ -41,8 +41,11 @@ public class PausePanel : MonoBehaviour
         }
         else
         {
-            _restartButton.GetComponent<Button>().onClick.AddListener(() => { StartCoroutine(_spawnManager.RespawnPlayer(_player));
-                                                                                TogglePanel(); });
+            _restartButton.GetComponent<Button>().onClick.AddListener(() => {
+                                                                                _spawnManager.ChangeSpawnPos(_spawnManager.StartPos, null);
+                                                                                StartCoroutine(_spawnManager.RespawnPlayer(_player));
+                                                                                TogglePanel(); 
+                                                                            });
         }
         _homeButton.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene(_homeSceneName); });
         //_settingsButton.GetComponent<Button>().onClick.AddListener(() => {  });
