@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class PausePanel : MonoBehaviour
 {
@@ -17,56 +16,76 @@ public class PausePanel : MonoBehaviour
 
     private PlayersInput _inputs;
 
+    private void Awake()
+    {
+        //TODO: change it before launch
+        _spawnManager = FindObjectOfType<Respawn>();
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
     void Start()
     {
+        _pausePanel.transform.localScale = Vector3.zero;
         if (_player)
         {
             _inputs = _player.GetComponent<PlayersInput>();
         }
-
-        if (_resumeButton)
+        _resumeButton.GetComponent<Button>().onClick.AddListener(() => { TogglePanel(); });
+        if (!_spawnManager)
         {
-            _resumeButton.GetComponent<Button>().onClick.AddListener(() => { _pausePanel.SetActive(false); });
+            Debug.Log("SpawnManager reference is missing");
         }
-
-        if (_restartButton)
+        else if (!_player)
         {
-            if (!_spawnManager)
-            {
-                Debug.Log("SpawnManager reference is missing");
-            }
-            else if (!_player)
-            {
-                Debug.Log("Player reference is missing");
-            }
-            else
-            {
-                _restartButton.GetComponent<Button>().onClick.AddListener(() => { StartCoroutine(_spawnManager.RespawnPlayer(_player));
-                                                                                  _pausePanel.SetActive(false); });
-            }
+            Debug.Log("Player reference is missing");
         }
-
-        if (_homeButton)
+        else
         {
-            _homeButton.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene(_homeSceneName); });
+            _restartButton.GetComponent<Button>().onClick.AddListener(() => { StartCoroutine(_spawnManager.RespawnPlayer(_player));
+                                                                                TogglePanel(); });
         }
+        _homeButton.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene(_homeSceneName); });
         //_settingsButton.GetComponent<Button>().onClick.AddListener(() => {  });
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            _pausePanel.SetActive(_pausePanel.activeInHierarchy ? false : true);
+            TogglePanel();
         }
-        if (_pausePanel.activeInHierarchy && _inputs.enabled)
+    }
+    private void TogglePanel()
+    {
+        if (_pausePanel.activeInHierarchy)
         {
-            _inputs.enabled = false;
-            Time.timeScale = 0;
+            
+            _pausePanel.gameObject.transform.
+                DOScale(0, 0.15f).
+                SetEase(Ease.InOutCubic).
+                OnComplete(() =>
+                {
+                    if (_inputs && !_inputs.enabled)
+                    {
+                        _inputs.enabled = true;
+                    }
+                    Time.timeScale = 1;
+                    _pausePanel.SetActive(false);
+                }).SetUpdate(true);
         }
-        else if (!_pausePanel.activeInHierarchy && !_inputs.enabled)
+        else
         {
-            _inputs.enabled = true;
-            Time.timeScale = 1;
+            _pausePanel.SetActive(true);
+            _pausePanel.gameObject.transform.
+               DOScale(1, 0.15f).
+               SetEase(Ease.InOutCubic).
+               OnComplete(() =>
+               {
+                   if (_inputs && _inputs.enabled)
+                   {
+                       _inputs.enabled = false;
+                   }
+                   Time.timeScale = 0;
+               }).SetUpdate(true);
         }
     }
 }
