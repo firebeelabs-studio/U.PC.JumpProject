@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Collections;
 
 public class PausePanel : MonoBehaviour
 {
@@ -47,7 +48,10 @@ public class PausePanel : MonoBehaviour
                                                                                 TogglePanel(); 
                                                                             });
         }
-        _homeButton.GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene(_homeSceneName); });
+        _homeButton.GetComponent<Button>().onClick.AddListener(() => {
+                                                                        Time.timeScale = 1;
+                                                                        SceneManager.LoadScene(_homeSceneName); 
+                                                                     });
         //_settingsButton.GetComponent<Button>().onClick.AddListener(() => {  });
     }
     private void Update()
