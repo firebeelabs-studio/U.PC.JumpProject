@@ -3,7 +3,8 @@ using UnityEngine;
 public class GuillotineMove : MonoBehaviour
 {
     [SerializeField] Transform _blade;
-    [SerializeField] SpriteRenderer _lines;
+    [SerializeField] Transform _lines;
+    [SerializeField] SpriteRenderer _linesSprite;
     [SerializeField] BoxCollider2D _collider;
     [SerializeField] private float _fallSpeed, _returnSpeed, _delay;
 
@@ -14,11 +15,11 @@ public class GuillotineMove : MonoBehaviour
     {
         // set the lowest position of blade and the size of lines
         _endPos = _blade.transform.localPosition;
-        _startSize = _lines.size;
+        _startSize = _linesSprite.size;
 
         // goes back to the start position
-        _startPos = new Vector2(_blade.transform.localPosition.x, 0.3f);
-        _lines.size = new Vector2(_startSize.x, 0);
+        _startPos = new Vector2(_blade.transform.localPosition.x, _lines.transform.localPosition.y - 0.38f);
+        _linesSprite.size = new Vector2(_startSize.x, 0);
 
         //calculate the distance between 2 positions
         _distance = _startPos.y - _endPos.y;
@@ -54,7 +55,7 @@ public class GuillotineMove : MonoBehaviour
     private void MoveGuillotine()
     {
         _blade.transform.localPosition = new Vector2(_startPos.x, _startPos.y + Mathf.Sin(_angle) * _distance);
-        _lines.size = new Vector2(_lines.size.x, -Mathf.Sin(_angle) * _startSize.y);
+        _linesSprite.size = new Vector2(_linesSprite.size.x, -Mathf.Sin(_angle) * _startSize.y);
         if (_angle >= 2 * Mathf.PI)
         {
             _angle = Mathf.PI;
