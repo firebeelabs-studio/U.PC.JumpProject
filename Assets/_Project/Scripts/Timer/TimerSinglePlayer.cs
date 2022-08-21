@@ -22,6 +22,8 @@ public class TimerSinglePlayer : MonoBehaviour
     private void Awake()
     {
         _timerText = GameObject.Find("TimerText").GetComponent<TextMeshProUGUI>();
+        FinishSinglePlayer.RunFinish -= On_RunFinish;
+        StartRun.RunStart -= On_RunStart;
         StartRun.RunStart += On_RunStart;
         FinishSinglePlayer.RunFinish += On_RunFinish;
     }
@@ -29,6 +31,7 @@ public class TimerSinglePlayer : MonoBehaviour
     private void OnDisable()
     {
         FinishSinglePlayer.RunFinish -= On_RunFinish;
+        StartRun.RunStart -= On_RunStart;
     }
 
     private void Update()

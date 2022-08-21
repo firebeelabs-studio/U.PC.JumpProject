@@ -28,13 +28,13 @@ public sealed class GameManager : NetworkBehaviour
     private void OnEnable()
     {
         // FinishLevel.EndRun += EndRun;
-        StartRun.RunStart += EndRun;
+        //StartRun.RunStart += EndRun;
     }
 
     private void OnDisable()
     {
         // FinishLevel.EndRun -= EndRun;
-        StartRun.RunStart -= EndRun;
+        //StartRun.RunStart -= EndRun;
     }
 
     public void EndRun()
