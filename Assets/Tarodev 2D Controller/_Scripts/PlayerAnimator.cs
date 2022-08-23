@@ -15,14 +15,26 @@ namespace TarodevController {
             _renderer = GetComponent<SpriteRenderer>();
             _source = GetComponent<AudioSource>();
         }
-
-        private void Start() {
+        private void OnEnable()
+        {
             _player.OnJumping += OnPlayerOnJumped;
             //_player.DoubleJumped += PlayerOnDoubleJumped;
             //_player.Attacked += OnPlayerOnAttacked;
             _player.OnGroundedChanged += OnPlayerOnGroundedChanged;
             //_player.DashingChanged += PlayerOnDashingChanged;
             _player.PlayerSmashed += OnPlayerSmashed;
+            _player.PlayerDeath += OnPlayerDeath;
+
+        }
+        private void OnDisable()
+        {
+            _player.OnJumping -= OnPlayerOnJumped;
+            //_player.DoubleJumped -= PlayerOnDoubleJumped;
+            //_player.Attacked -= OnPlayerOnAttacked;
+            _player.OnGroundedChanged -= OnPlayerOnGroundedChanged;
+            //_player.DashingChanged -= PlayerOnDashingChanged;
+            _player.PlayerSmashed -= OnPlayerSmashed;
+            _player.PlayerDeath -= OnPlayerDeath;
         }
 
         private void Update() {
@@ -271,6 +283,11 @@ namespace TarodevController {
         {
             _isSmashed = true;
         }
-
+        [Header("DEATH")]
+        [SerializeField] private ParticleSystem _deathParticles;
+        private void OnPlayerDeath()
+        {
+            _deathParticles.Play();
+        }
     }
 }

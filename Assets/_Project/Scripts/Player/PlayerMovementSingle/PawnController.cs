@@ -20,6 +20,7 @@ public class PawnController : MonoBehaviour, IPawnController
     public event Action<bool> OnDashingChanged;
     public event Action<bool> OnCrouchingChanged;
     public event Action PlayerSmashed;
+    public event Action PlayerDeath;
 
     private Rigidbody2D _rb;
     private BoxCollider2D _collider;
@@ -597,7 +598,12 @@ public class PawnController : MonoBehaviour, IPawnController
         return force;
     }
 
-    
+    public void PlayerDied()
+    {
+        PlayerDeath?.Invoke();
+    }
+
+
 
     #endregion
 }

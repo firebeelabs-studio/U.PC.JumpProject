@@ -15,6 +15,11 @@ public class KillPlayer : MonoBehaviour
     {
         if (col.CompareTag("Player"))
         {
+            if (col.TryGetComponent(out IPawnController player))
+            {
+                player.PlayerDied();
+            }
+            
             StartCoroutine(_spawnManager.RespawnPlayer(col.transform));
             GameManager.ResetPlayerPowers();
         }
