@@ -177,7 +177,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -286,7 +286,7 @@ MonoBehaviour:
   _durationType: 0
   _smoothingDuration: 0.125
   _enableTeleport: 0
-  _teleportThreshold: 1
+  _teleportThreshold: 0
   _predictionType: 2
   _rigidbody: {fileID: 0}
   _rigidbody2d: {fileID: 2535414284227618072}
@@ -325,7 +325,7 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: -1901591270190956131}
   _networkObjectCache: {fileID: -1901591270190956131}
-  _jumpCheckHeight: 0
+  _jumpCheckHeight: 5
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8

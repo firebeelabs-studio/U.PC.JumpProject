@@ -108,7 +108,6 @@ public class PawnMotor : NetworkBehaviour
     private void HandleJump(PawnMoveData md)
     {
         if (!md.Jump && !_isJumping) return;
-        print("I'm in");
 
         if (_isJumping)
         {
@@ -121,21 +120,21 @@ public class PawnMotor : NetworkBehaviour
         }
 
         //Check if we are grounded only when we are not within coyote window
-        // if (Time.time - _timeLastGrounded > _pawnStats.CoyoteSeconds)
-        // {
-        //     Vector3 startPosition = transform.position;
-        //     Vector2 endPosition = new Vector2(startPosition.x, startPosition.y - _jumpCheckHeight);
-        //     Debug.DrawLine(startPosition, endPosition, Color.red, 0.1f);
-        //
-        //     int groundHitCount = GetGroundHits();
-        //     if (groundHitCount == 0)
-        //     {
-        //         //there is no coyote and is not grounded blocking jump request
-        //         return;
-        //     }
-        // }
+        if (Time.time - _timeLastGrounded > -1f)
+        {
+            Vector3 startPosition = transform.position;
+            Vector2 endPosition = new Vector2(startPosition.x, startPosition.y - _jumpCheckHeight);
+            Debug.DrawLine(startPosition, endPosition, Color.red, 0.1f);
+            
+            int groundHitCount = GetGroundHits();
 
-        print("I'm out");
+            if (groundHitCount == 0)
+            {
+                //there is no coyote and is not grounded blocking jump request
+                return;
+            }
+        }
+        
         _isJumping = true;
 
         Vector2 nextVelocity = _playerRb.velocity;
@@ -197,15 +196,15 @@ public class PawnMotor : NetworkBehaviour
         Vector3 startPosition = transform.position;
         Vector2 endPosition = new Vector2(startPosition.x, startPosition.y - _jumpCheckHeight);
 
-        return Physics2D.LinecastNonAlloc(startPosition, endPosition, _groundHits);
+        return Physics2D.LinecastNonAlloc(startPosition, endPosition, _groundHits, _groundLayer);
     }
-    // private void OnCollisionEnter2D(Collision2D collision)
-    // {
-    //     if (collision.gameObject.layer != 3) return;
-    //             
-    //     // Debug.Log($"Is Touching Ground!");
-    //     _isJumping = false; // Note: IF there is desync, this could be made a sync var? But ideally it should be fine.
-    // }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer != 3) return;
+                
+        // Debug.Log($"Is Touching Ground!");
+        _isJumping = false; // Note: IF there is desync, this could be made a sync var? But ideally it should be fine.
+    }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
