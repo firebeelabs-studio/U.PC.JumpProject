@@ -27,6 +27,7 @@ public class PlatformShake : MonoBehaviour
     private void Update() 
     {
         Timer += Time.deltaTime;
+        OneShake();
         // if (_timer >= _timeBetweenShakes)
         // {
         //     if (_zeroAngle)
@@ -63,7 +64,7 @@ public class PlatformShake : MonoBehaviour
         // }
     }
 
-    public void OneShake()
+    private void OneShake()
     {
         if (Timer >= _timeBetweenShakes)
         {

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlatformRotate : MonoBehaviour
 {
-    public PlatformShake PlatformShake;
     [SerializeField] private float _timeToRotate = 3f;
     [SerializeField] private float _rotateSpeed = 2f;
     private float _rotateTimer;
@@ -16,7 +15,6 @@ public class PlatformRotate : MonoBehaviour
 
         if (_rotateTimer >= _timeToRotate && _rotated == false)
         {
-            PlatformShake.OneShake();
             RotateOnZAxis(180);
 
             if (transform.eulerAngles.z.Equals(180))
@@ -28,7 +26,6 @@ public class PlatformRotate : MonoBehaviour
 
         if (_rotateTimer >= _timeToRotate && _rotated == true)
         {
-            PlatformShake.OneShake();
             RotateOnZAxis(0);
 
             if (transform.eulerAngles.z <= 0)
