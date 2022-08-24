@@ -19,6 +19,8 @@ public class PawnMotor : NetworkBehaviour
     //movement
     private bool _isJumping;
     private double _timeLastGrounded;
+
+    private float _coyoteTimeBuffer = 0.75f;
     
     private float _jumpApexPoint;
     
@@ -92,7 +94,8 @@ public class PawnMotor : NetworkBehaviour
             {
                 Position = transform.position,
                 Velocity = _playerRb.velocity,
-                Grounded = _grounded
+                Grounded = _grounded,
+                CoyoteTimeBuffer = _coyoteTimeBuffer
             };
             Reconcilation(rd, true);
         }
@@ -109,6 +112,16 @@ public class PawnMotor : NetworkBehaviour
 
     private void HandleJump(PawnMoveData md)
     {
+        if (!_grounded && _coyoteTimeBuffer > 0)
+        {
+            _coyoteTimeBuffer -= (float)TimeManager.TickDelta;
+        }
+        else if (_grounded)
+        {
+            _coyoteTimeBuffer = 0.075f;
+            _isJumping = false;
+        }
+        
         if (!md.Jump && !_isJumping) return;
 
         if (_isJumping)
@@ -117,12 +130,14 @@ public class PawnMotor : NetworkBehaviour
             if (md.Jump) return;
             
             //If jump is not held make faster fall
-            SlowJump();
+            //SlowJump();
             return;
         }
 
+        print("Velocity before: " + _playerRb.velocity.y);
+
         //Check if we are grounded only when we are not within coyote window
-        if (true)
+        if (_coyoteTimeBuffer <= 0f)
         {
             Vector3 startPosition = transform.position;
             Vector2 endPosition = new Vector2(startPosition.x, startPosition.y - _jumpCheckHeight);
@@ -137,11 +152,14 @@ public class PawnMotor : NetworkBehaviour
                 return;
             }
         }
-        
+
         _isJumping = true;
 
         Vector2 nextVelocity = _playerRb.velocity;
-        nextVelocity.y = _pawnStats.JumpPower;
+        if (nextVelocity.y < _pawnStats.JumpPower)
+        {
+            nextVelocity.y = _pawnStats.JumpPower;
+        }
 
         _playerRb.velocity = nextVelocity;
 
@@ -191,8 +209,12 @@ public class PawnMotor : NetworkBehaviour
     private void Reconcilation(ReconcileDataPawn rd, bool asServer)
     {
         transform.position = rd.Position;
-        _playerRb.velocity = rd.Velocity;
+        if (_grounded || _coyoteTimeBuffer < 0)
+        {
+            _playerRb.velocity = rd.Velocity;
+        }
         _grounded = rd.Grounded;
+        _coyoteTimeBuffer = rd.CoyoteTimeBuffer;
     }
 
     private int GetGroundHits()
@@ -202,13 +224,13 @@ public class PawnMotor : NetworkBehaviour
 
         return Physics2D.LinecastNonAlloc(startPosition, endPosition, _groundHits, _groundLayer);
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer != 3) return;
-                
-        // Debug.Log($"Is Touching Ground!");
-        _isJumping = false; // Note: IF there is desync, this could be made a sync var? But ideally it should be fine.
-    }
+    // private void OnCollisionEnter2D(Collision2D collision)
+    // {
+    //     if (collision.gameObject.layer != 3) return;
+    //             
+    //     // Debug.Log($"Is Touching Ground!");
+    //     _isJumping = false; // Note: IF there is desync, this could be made a sync var? But ideally it should be fine.
+    // }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
