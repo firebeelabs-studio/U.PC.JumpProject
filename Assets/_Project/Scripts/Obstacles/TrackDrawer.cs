@@ -22,7 +22,7 @@ public class TrackDrawer : MonoBehaviour
     {
         for (int i = 0; i < _points.Length; i++)
         {
-            Instantiate(_joint, (Vector2)transform.position + _points[i], Quaternion.identity, this.transform);
+            Instantiate(_joint, (Vector2)transform.position + _points[i], Quaternion.identity, transform);
         }
 
         for (int i = 0; i < _points.Length - 1; i++)
@@ -45,7 +45,7 @@ public class TrackDrawer : MonoBehaviour
         Vector2 midPos = new Vector2((previousWaypoint.x + nextWaypoint.x) / 2, (previousWaypoint.y + nextWaypoint.y) / 2);
 
         // creates instantiate of the single track and put it in _midPos
-        SpriteRenderer sprite = Instantiate(_track, (Vector2)transform.position + midPos, trackRotation, this.transform).GetComponent<SpriteRenderer>();
+        SpriteRenderer sprite = Instantiate(_track, (Vector2)transform.position + midPos, trackRotation, transform).GetComponent<SpriteRenderer>();
 
         // calculates the length of the track and set it
         float length = Vector2.Distance(previousWaypoint, nextWaypoint);
