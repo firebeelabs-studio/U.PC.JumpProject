@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4172340902665953911}
   - component: {fileID: 4172340902665953904}
   - component: {fileID: -6686681632226472288}
+  - component: {fileID: 6184457192237946157}
   m_Layer: 0
   m_Name: BoulderCollider
   m_TagString: Untagged
@@ -84,6 +85,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea28309f85efe874a8ba6706f5840743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _xForce: 50
+  _randomDirection: 0
+--- !u!247 &6184457192237946157
+ConstantForce2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4172340902665953909}
+  m_Enabled: 1
+  m_Force: {x: 0, y: 0}
+  m_RelativeForce: {x: 0, y: 0}
+  m_Torque: 0
 --- !u!1 &4172340902843664335
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,5 +196,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotateSpeed: 2
-  _startingPosition: {fileID: 0}
-  _currentPosition: {fileID: 4172340902665953910}
