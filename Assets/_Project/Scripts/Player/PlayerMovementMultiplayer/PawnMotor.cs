@@ -108,6 +108,17 @@ public class PawnMotor : NetworkBehaviour
         RunCollisionChecks();
         HandleJump(md);
         HandleHorizontal(md);
+        ApplyGravity(md);
+    }
+
+    private void ApplyGravity(PawnMoveData md)
+    {
+        if (_grounded) return;
+        float fallSpeed = 10f;
+        Vector2 nextVelocity = _playerRb.velocity;
+        nextVelocity.y -= fallSpeed * (float)TimeManager.TickDelta;
+
+        _playerRb.velocity = nextVelocity;
     }
 
     private void HandleJump(PawnMoveData md)
@@ -134,8 +145,6 @@ public class PawnMotor : NetworkBehaviour
             return;
         }
 
-        print("Velocity before: " + _playerRb.velocity.y);
-
         //Check if we are grounded only when we are not within coyote window
         if (_coyoteTimeBuffer <= 0f)
         {
@@ -154,15 +163,11 @@ public class PawnMotor : NetworkBehaviour
         }
 
         _isJumping = true;
-
+        
         Vector2 nextVelocity = _playerRb.velocity;
-        if (nextVelocity.y < _pawnStats.JumpPower)
-        {
-            nextVelocity.y = _pawnStats.JumpPower;
-        }
+        nextVelocity.y = _pawnStats.JumpPower;
 
         _playerRb.velocity = nextVelocity;
-
     }
 
     private void CalculateJumpApexPoint()
@@ -205,6 +210,7 @@ public class PawnMotor : NetworkBehaviour
         _playerRb.velocity = new Vector2(xSpeed, _playerRb.velocity.y);
     }
 
+    private float _timer = 0.5f;
     [Reconcile]
     private void Reconcilation(ReconcileDataPawn rd, bool asServer)
     {
