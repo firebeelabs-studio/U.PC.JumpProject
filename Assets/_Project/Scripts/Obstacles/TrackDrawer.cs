@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TrackCreator : MonoBehaviour
+public class TrackDrawer : MonoBehaviour
 {
     [SerializeField] private GameObject _joint, _track;
     [SerializeField] private Transform _saw;
@@ -8,15 +8,18 @@ public class TrackCreator : MonoBehaviour
     [SerializeField] private bool _isTrackLooped;
     [SerializeField] private Vector2[] _points;
 
-    private Vector2 _startPos;
-    private int _index;
-    private bool _ascending;
+    public Vector2[] Points
+    {
+        get
+        {
+            return _points;
+        }
+    }
+    public float Speed => _speed;
+    public bool IsTrackLooped => _isTrackLooped;
 
     private void Start()
     {
-        _startPos = _saw.transform.position;
-        _saw.transform.localPosition = _points[0];
-
         for (int i = 0; i < _points.Length; i++)
         {
             Instantiate(_joint, (Vector2)transform.position + _points[i], Quaternion.identity, this.transform);
@@ -30,34 +33,6 @@ public class TrackCreator : MonoBehaviour
         if (_isTrackLooped)
         {
             SetTrack(_points[^1], _points[0]);
-        }
-    }
-
-    private void Update()
-    {
-        Vector2 target = _points[_index] + _startPos;
-        _saw.transform.position = Vector2.MoveTowards(_saw.transform.position, target, _speed * Time.deltaTime);
-
-        if ((Vector2)_saw.transform.position == target)
-        {
-            _index = _ascending ? _index + 1 : _index - 1;
-            if (_index >= _points.Length)
-            {
-                if (_isTrackLooped)
-                {
-                    _index = 0;
-                }
-                else
-                {
-                    _ascending = false;
-                    _index--;
-                }
-            }
-            else if (_index < 0)
-            {
-                _ascending = true;
-                _index = 1;
-            }
         }
     }
 
