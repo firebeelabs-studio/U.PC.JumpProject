@@ -91,7 +91,8 @@ public class PawnMotor : NetworkBehaviour
             ReconcileDataPawn rd = new ReconcileDataPawn
             {
                 Position = transform.position,
-                Velocity = _playerRb.velocity
+                Velocity = _playerRb.velocity,
+                Grounded = _grounded
             };
             Reconcilation(rd, true);
         }
@@ -100,6 +101,7 @@ public class PawnMotor : NetworkBehaviour
     [Replicate]
     private void Move(PawnMoveData md, bool asServer, bool replaying = false)
     {
+        _grounded = RunDetection(Vector2.down, out _hitsDown, _collider.bounds);
         RunCollisionChecks();
         HandleJump(md);
         HandleHorizontal(md);
@@ -120,15 +122,16 @@ public class PawnMotor : NetworkBehaviour
         }
 
         //Check if we are grounded only when we are not within coyote window
-        if (Time.time - _timeLastGrounded > -1f)
+        if (true)
         {
             Vector3 startPosition = transform.position;
             Vector2 endPosition = new Vector2(startPosition.x, startPosition.y - _jumpCheckHeight);
             Debug.DrawLine(startPosition, endPosition, Color.red, 0.1f);
             
             int groundHitCount = GetGroundHits();
+            //print(groundHitCount);
 
-            if (groundHitCount == 0)
+            if (!_grounded)
             {
                 //there is no coyote and is not grounded blocking jump request
                 return;
@@ -189,6 +192,7 @@ public class PawnMotor : NetworkBehaviour
     {
         transform.position = rd.Position;
         _playerRb.velocity = rd.Velocity;
+        _grounded = rd.Grounded;
     }
 
     private int GetGroundHits()

@@ -6,4 +6,5 @@ public struct ReconcileDataPawn
 {
     public Vector2 Position;
     public Vector2 Velocity;
+    public bool Grounded;
 }

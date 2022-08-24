@@ -6,4 +6,5 @@ public struct PawnMoveData
 {
     public bool Jump;
     public float Horizontal;
+    public bool Grounded;
 }
