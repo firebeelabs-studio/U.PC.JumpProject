@@ -16,7 +16,7 @@ public interface IPawnController
     public event Action<bool> OnDashingChanged;
     public event Action<bool> OnCrouchingChanged;
     public event Action PlayerSmashed;
-    public event Action PlayerDeath;
+    public event Action PlayerDeath, PlayerRespawn;
 
     /// <summary>
     /// Add force to the character
@@ -30,7 +30,8 @@ public interface IPawnController
 
     public void ChangeMoveClamp(float newValue);
 
-    public void PlayerDied();
+    public void KillPlayer();
+    public void RespawnPlayer();
 
 }
 

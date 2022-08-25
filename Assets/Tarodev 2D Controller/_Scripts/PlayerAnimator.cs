@@ -8,6 +8,7 @@ namespace TarodevController {
         private Animator _anim;
         private SpriteRenderer _renderer;
         private AudioSource _source;
+        [SerializeField] private TrailRenderer _trail;
 
         private void Awake() {
             _player = GetComponentInParent<IPawnController>();
@@ -24,6 +25,7 @@ namespace TarodevController {
             //_player.DashingChanged += PlayerOnDashingChanged;
             _player.PlayerSmashed += OnPlayerSmashed;
             _player.PlayerDeath += OnPlayerDeath;
+            _player.PlayerRespawn += OnPlayerRespawn;
 
         }
         private void OnDisable()
@@ -35,6 +37,7 @@ namespace TarodevController {
             //_player.DashingChanged -= PlayerOnDashingChanged;
             _player.PlayerSmashed -= OnPlayerSmashed;
             _player.PlayerDeath -= OnPlayerDeath;
+            _player.PlayerRespawn -= OnPlayerRespawn;
         }
 
         private void Update() {
@@ -287,7 +290,20 @@ namespace TarodevController {
         [SerializeField] private ParticleSystem _deathParticles;
         private void OnPlayerDeath()
         {
+            if (_trail)
+            {
+                _trail.enabled = false;
+            }
             _deathParticles.Play();
+            _renderer.enabled = false;
+        }
+        private void OnPlayerRespawn()
+        {
+            if (_trail)
+            {
+                _trail.enabled = true;
+            }
+            _renderer.enabled = true;
         }
     }
 }

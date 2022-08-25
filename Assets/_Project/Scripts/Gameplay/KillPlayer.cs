@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class KillPlayer : MonoBehaviour
 {
-    private float _angle = Mathf.PI;
+    [SerializeField] private float _penaltyTime = 2f;
     private Respawn _spawnManager;
+    private bool _canKill = true;
     private void Awake()
     {
         _spawnManager = FindObjectOfType<Respawn>();
@@ -17,11 +18,20 @@ public class KillPlayer : MonoBehaviour
         {
             if (col.TryGetComponent(out IPawnController player))
             {
-                player.PlayerDied();
+                player.KillPlayer();
             }
-            
-            StartCoroutine(_spawnManager.RespawnPlayer(col.transform));
+            if (_canKill)
+            {
+                StartCoroutine(_spawnManager.RespawnPlayer(col.transform, _penaltyTime));
+                _canKill = false;
+                StartCoroutine(TimeToNextKill());
+            }
             GameManager.ResetPlayerPowers();
         }
+    }
+    private IEnumerator TimeToNextKill()
+    {
+        yield return new WaitForSeconds(_penaltyTime);
+        _canKill = true;
     }
 }
