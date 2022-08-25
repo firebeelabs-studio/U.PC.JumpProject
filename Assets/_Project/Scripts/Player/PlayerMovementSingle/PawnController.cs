@@ -20,6 +20,8 @@ public class PawnController : MonoBehaviour, IPawnController
     public event Action<bool> OnDashingChanged;
     public event Action<bool> OnCrouchingChanged;
     public event Action PlayerSmashed;
+    public event Action PlayerDeath;
+    public event Action PlayerRespawn;
 
     private Rigidbody2D _rb;
     private BoxCollider2D _collider;
@@ -93,10 +95,10 @@ public class PawnController : MonoBehaviour, IPawnController
 
     private float _timeLeftGrounded;
 
-
     // We use these raycast checks for pre-collision information
     private void RunCollisionChecks()
     {
+
         // Generate ray ranges. 
         var b = _collider.bounds;
 
@@ -573,6 +575,7 @@ public class PawnController : MonoBehaviour, IPawnController
         PlayerSmashed?.Invoke();
     }
     private bool _canSmash = true;
+
     private IEnumerator SlowDownPlayer(float slowPower, float slowDuration)
     {
         _canSmash = false;
@@ -597,7 +600,22 @@ public class PawnController : MonoBehaviour, IPawnController
         return force;
     }
 
-    
-
     #endregion
+    public void KillPlayer()
+    {
+        PlayerDeath?.Invoke();
+        _collider.enabled = false;
+        _rb.velocity = Vector2.zero;
+        _rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        _input.enabled = false;
+    }
+    public void RespawnPlayer()
+    {
+        PlayerRespawn?.Invoke();
+        _collider.enabled = true;
+        _input.enabled = true;
+        _rb.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
+        _rb.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
+    }
 }
+    

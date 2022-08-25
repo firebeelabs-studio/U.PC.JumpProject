@@ -16,6 +16,7 @@ public interface IPawnController
     public event Action<bool> OnDashingChanged;
     public event Action<bool> OnCrouchingChanged;
     public event Action PlayerSmashed;
+    public event Action PlayerDeath, PlayerRespawn;
 
     /// <summary>
     /// Add force to the character
@@ -28,6 +29,9 @@ public interface IPawnController
     public void ToggleUnderwaterBehaviour(float newAcceleration = 60f, float newDeceleration = 30f, float newMoveClamp = 8f, float newFallClamp = -30f, float newGroundingForce = -0.5f, float newJumpHeight = 30f, float newJumpApexThreshold = 10f);
 
     public void ChangeMoveClamp(float newValue);
+
+    public void KillPlayer();
+    public void RespawnPlayer();
 
 }
 
