@@ -95,7 +95,9 @@ public class PawnMotor : NetworkBehaviour
                 Position = transform.position,
                 Velocity = _playerRb.velocity,
                 Grounded = _grounded,
-                CoyoteTimeBuffer = _coyoteTimeBuffer
+                CoyoteTimeBuffer = _coyoteTimeBuffer,
+                CanCoyotee = _canCoyotee,
+                IsJumping = _isJumping
             };
             Reconcilation(rd, true);
         }
@@ -104,8 +106,11 @@ public class PawnMotor : NetworkBehaviour
     [Replicate]
     private void Move(PawnMoveData md, bool asServer, bool replaying = false)
     {
-        _grounded = RunDetection(Vector2.down, out _hitsDown, _collider.bounds);
-        RunCollisionChecks();
+        if (asServer)
+        {
+            _grounded = RunDetection(Vector2.down, out _hitsDown, _collider.bounds);
+            RunCollisionChecks();
+        }
         HandleJump(md);
         HandleHorizontal(md);
         ApplyGravity(md);
@@ -121,17 +126,27 @@ public class PawnMotor : NetworkBehaviour
         _playerRb.velocity = nextVelocity;
     }
 
+    private bool _jumpedWhitoutCoyote = false;
     private void HandleJump(PawnMoveData md)
     {
-        if (!_grounded && _coyoteTimeBuffer > 0)
+        if (IsServer)
         {
-            _coyoteTimeBuffer -= (float)TimeManager.TickDelta;
+            if (!_grounded && _coyoteTimeBuffer > 0)
+            {
+                _coyoteTimeBuffer -= (float)TimeManager.TickDelta;
+            }
+            else if (_grounded)
+            {
+                _coyoteTimeBuffer = 0.075f;
+                _isJumping = false;
+                _canCoyotee = true;
+            }
+            else if (_coyoteTimeBuffer <= 0)
+            {
+                _canCoyotee = false;
+            }
         }
-        else if (_grounded)
-        {
-            _coyoteTimeBuffer = 0.075f;
-            _isJumping = false;
-        }
+        
         
         if (!md.Jump && !_isJumping) return;
 
@@ -146,7 +161,7 @@ public class PawnMotor : NetworkBehaviour
         }
 
         //Check if we are grounded only when we are not within coyote window
-        if (_coyoteTimeBuffer <= 0f)
+        if (!_canCoyotee)
         {
             Vector3 startPosition = transform.position;
             Vector2 endPosition = new Vector2(startPosition.x, startPosition.y - _jumpCheckHeight);
@@ -160,6 +175,11 @@ public class PawnMotor : NetworkBehaviour
                 //there is no coyote and is not grounded blocking jump request
                 return;
             }
+        }
+
+        if (_grounded)
+        {
+            _jumpedWhitoutCoyote = true;
         }
 
         _isJumping = true;
@@ -215,12 +235,14 @@ public class PawnMotor : NetworkBehaviour
     private void Reconcilation(ReconcileDataPawn rd, bool asServer)
     {
         transform.position = rd.Position;
-        if (_grounded || _coyoteTimeBuffer < 0)
+        // if (_grounded || _coyoteTimeBuffer < 0 || _jumpedWhitoutCoyote)
         {
             _playerRb.velocity = rd.Velocity;
         }
         _grounded = rd.Grounded;
         _coyoteTimeBuffer = rd.CoyoteTimeBuffer;
+        _canCoyotee = rd.CanCoyotee;
+        _isJumping = rd.IsJumping;
     }
 
     private int GetGroundHits()
@@ -230,6 +252,7 @@ public class PawnMotor : NetworkBehaviour
 
         return Physics2D.LinecastNonAlloc(startPosition, endPosition, _groundHits, _groundLayer);
     }
+    
     // private void OnCollisionEnter2D(Collision2D collision)
     // {
     //     if (collision.gameObject.layer != 3) return;
@@ -255,6 +278,8 @@ public class PawnMotor : NetworkBehaviour
     private RaycastHit2D[] _hitsLeft = new RaycastHit2D[1];
     private RaycastHit2D[] _hitsRight = new RaycastHit2D[1];
     private bool _hittingCeiling, _grounded, _colRight, _colLeft;
+    private bool _canCoyotee;
+
     private void RunCollisionChecks()
     {
         Bounds bounds = _collider.bounds;

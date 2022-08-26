@@ -253,9 +253,7 @@ public class PawnController : MonoBehaviour, IPawnController
             _speed.x = Mathf.MoveTowards(_speed.x, 0, _deceleration * Time.fixedDeltaTime);
         }
 
-        if (!_grounded &&
-            ((_speed.x > 0 && _colRight) ||
-             (_speed.x < 0 && _colLeft))) // Don't pile up useless horizontal (prevents sticking to walls mid-air)
+        if (!_grounded && ((_speed.x > 0 && _colRight) || (_speed.x < 0 && _colLeft))) // Don't pile up useless horizontal (prevents sticking to walls mid-air)
             _speed.x = 0;
     }
 
