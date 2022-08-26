@@ -18,7 +18,6 @@ public class PawnMotor : NetworkBehaviour
     
     //movement
     private bool _isJumping;
-    private double _timeLastGrounded;
 
     private float _coyoteTimeBuffer = 0.75f;
     
@@ -126,7 +125,6 @@ public class PawnMotor : NetworkBehaviour
         _playerRb.velocity = nextVelocity;
     }
 
-    private bool _jumpedWhitoutCoyote = false;
     private void HandleJump(PawnMoveData md)
     {
         if (IsServer)
@@ -146,8 +144,7 @@ public class PawnMotor : NetworkBehaviour
                 _canCoyotee = false;
             }
         }
-        
-        
+
         if (!md.Jump && !_isJumping) return;
 
         if (_isJumping)
@@ -163,23 +160,8 @@ public class PawnMotor : NetworkBehaviour
         //Check if we are grounded only when we are not within coyote window
         if (!_canCoyotee)
         {
-            Vector3 startPosition = transform.position;
-            Vector2 endPosition = new Vector2(startPosition.x, startPosition.y - _jumpCheckHeight);
-            Debug.DrawLine(startPosition, endPosition, Color.red, 0.1f);
-            
-            int groundHitCount = GetGroundHits();
-            //print(groundHitCount);
-
-            if (!_grounded)
-            {
-                //there is no coyote and is not grounded blocking jump request
-                return;
-            }
-        }
-
-        if (_grounded)
-        {
-            _jumpedWhitoutCoyote = true;
+            //there is no coyote and is not grounded blocking jump request
+            if (!_grounded) return;
         }
 
         _isJumping = true;
@@ -230,45 +212,15 @@ public class PawnMotor : NetworkBehaviour
         _playerRb.velocity = new Vector2(xSpeed, _playerRb.velocity.y);
     }
 
-    private float _timer = 0.5f;
     [Reconcile]
     private void Reconcilation(ReconcileDataPawn rd, bool asServer)
     {
         transform.position = rd.Position;
-        // if (_grounded || _coyoteTimeBuffer < 0 || _jumpedWhitoutCoyote)
-        {
-            _playerRb.velocity = rd.Velocity;
-        }
+        _playerRb.velocity = rd.Velocity;
         _grounded = rd.Grounded;
         _coyoteTimeBuffer = rd.CoyoteTimeBuffer;
         _canCoyotee = rd.CanCoyotee;
         _isJumping = rd.IsJumping;
-    }
-
-    private int GetGroundHits()
-    {
-        Vector3 startPosition = transform.position;
-        Vector2 endPosition = new Vector2(startPosition.x, startPosition.y - _jumpCheckHeight);
-
-        return Physics2D.LinecastNonAlloc(startPosition, endPosition, _groundHits, _groundLayer);
-    }
-    
-    // private void OnCollisionEnter2D(Collision2D collision)
-    // {
-    //     if (collision.gameObject.layer != 3) return;
-    //             
-    //     // Debug.Log($"Is Touching Ground!");
-    //     _isJumping = false; // Note: IF there is desync, this could be made a sync var? But ideally it should be fine.
-    // }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        // Note down the time at which we last touched the ground.
-        var groundHits = GetGroundHits();
-        if (groundHits > 0) return;
-            
-        Debug.Log($"Noting down timeLastGrounded.");
-        _timeLastGrounded = Time.time;
     }
 
     [Header("COLLISION")] [SerializeField] private LayerMask _groundLayer;
