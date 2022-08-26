@@ -65,7 +65,8 @@ namespace MasterServerToolkit.Bridges.FishNetworking
                 roomServerManager = GetComponent<RoomServerManager>();
 
             string onlineScene = Mst.Args.AsString(Mst.Args.Names.RoomOnlineScene, SceneManager.GetActiveScene().name);
-            defaultScene.SetOnlineScene(onlineScene);
+            //TODO: UNCOMMENT
+            //defaultScene.SetOnlineScene(onlineScene);
 
             TransportManager transportManager = _networkManager.TransportManager;
             Transport transport = transportManager.Transport;

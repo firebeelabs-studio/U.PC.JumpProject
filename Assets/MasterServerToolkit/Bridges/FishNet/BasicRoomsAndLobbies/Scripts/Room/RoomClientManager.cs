@@ -125,7 +125,8 @@ namespace MasterServerToolkit.Bridges.FishNetworking
 
             if (_clientManager && !_clientManager.Started)
             {
-                defaultScene.SetOnlineScene(access.SceneName);
+                //TODO: UNCOMMENT
+                //defaultScene.SetOnlineScene(access.SceneName);
 
                 logger.Info($"Start joining a room at {access.RoomIp}:{access.RoomPort}. Scene: {access.SceneName}");
                 logger.Info($"Custom info: {access.CustomOptions}");
@@ -145,9 +146,10 @@ namespace MasterServerToolkit.Bridges.FishNetworking
         protected override void StartDisconnection()
         {
             if (isChangingZone)
-                defaultScene.SetOfflineScene(UnitySceneManager.GetActiveScene().name);
-            else
-                defaultScene.SetOfflineScene(offlineRoomScene);
+                //TODO: UNCOMMENT
+                //defaultScene.SetOfflineScene(UnitySceneManager.GetActiveScene().name);
+            //else
+              //  defaultScene.SetOfflineScene(offlineRoomScene);
 
             if (_clientManager)
                 _clientManager.StopConnection();
