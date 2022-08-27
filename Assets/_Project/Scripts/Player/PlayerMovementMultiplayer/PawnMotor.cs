@@ -19,7 +19,7 @@ public class PawnMotor : NetworkBehaviour
     //movement
     private bool _isJumping;
 
-    private float _coyoteTimeBuffer = 0.75f;
+    private float _coyoteTimeBuffer = 0.025f;
     
     private float _jumpApexPoint;
     
@@ -105,12 +105,12 @@ public class PawnMotor : NetworkBehaviour
     [Replicate]
     private void Move(PawnMoveData md, bool asServer, bool replaying = false)
     {
-        if (asServer)
+        if (asServer || replaying)
         {
             _grounded = RunDetection(Vector2.down, out _hitsDown, _collider.bounds);
             RunCollisionChecks();
         }
-        HandleJump(md);
+        HandleJump(md, replaying);
         HandleHorizontal(md);
         ApplyGravity(md);
     }
@@ -125,9 +125,9 @@ public class PawnMotor : NetworkBehaviour
         _playerRb.velocity = nextVelocity;
     }
 
-    private void HandleJump(PawnMoveData md)
+    private void HandleJump(PawnMoveData md, bool replaying)
     {
-        if (IsServer)
+        if (IsServer || replaying)
         {
             if (!_grounded && _coyoteTimeBuffer > 0)
             {
@@ -135,7 +135,7 @@ public class PawnMotor : NetworkBehaviour
             }
             else if (_grounded)
             {
-                _coyoteTimeBuffer = 0.075f;
+                _coyoteTimeBuffer = 0.025f;
                 _isJumping = false;
                 _canCoyotee = true;
             }
