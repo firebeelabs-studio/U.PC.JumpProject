@@ -168,9 +168,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e29d6c732cce0142b4abe2d8b3f7ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 39860119}
-  _networkObjectCache: {fileID: 39860119}
+  _networkObjectCache: {fileID: 8891236557087837974}
 --- !u!114 &39860119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,7 +191,7 @@ MonoBehaviour:
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 0
+  _hasParentNetworkObjectAtEdit: 1
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 3381694806
@@ -50533,9 +50533,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tickRate: 60
   _pingInterval: 1
-  _timingInterval: 2
+  _timingInterval: 1
   _physicsMode: 1
-  _maximumBufferedInputs: 100
+  _maximumBufferedInputs: 25
 --- !u!1001 &1389687172
 PrefabInstance:
   m_ObjectHideFlags: 0

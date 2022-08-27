@@ -118,7 +118,7 @@ public class PawnMotor : NetworkBehaviour
     private void ApplyGravity(PawnMoveData md)
     {
         if (_grounded) return;
-        float fallSpeed = 10f;
+        float fallSpeed = 20f;
         Vector2 nextVelocity = _playerRb.velocity;
         nextVelocity.y -= fallSpeed * (float)TimeManager.TickDelta;
 
