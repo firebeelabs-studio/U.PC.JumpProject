@@ -96,7 +96,9 @@ public class PawnMotor : NetworkBehaviour
                 Grounded = _grounded,
                 CoyoteTimeBuffer = _coyoteTimeBuffer,
                 CanCoyotee = _canCoyotee,
-                IsJumping = _isJumping
+                IsJumping = _isJumping,
+                ColLeft = _colLeft,
+                ColRight = _colRight
             };
             Reconcilation(rd, true);
         }
@@ -108,6 +110,8 @@ public class PawnMotor : NetworkBehaviour
         if (asServer || replaying)
         {
             _grounded = RunDetection(Vector2.down, out _hitsDown, _collider.bounds);
+            _colLeft = RunDetection(Vector2.left, out _hitsLeft, _collider.bounds);
+            _colRight = RunDetection(Vector2.right, out _hitsRight, _collider.bounds);
             RunCollisionChecks();
         }
         HandleJump(md, replaying);
@@ -207,9 +211,15 @@ public class PawnMotor : NetworkBehaviour
 
         //Clamp move speed
         xSpeed = Mathf.Clamp(xSpeed, -_pawnStats.MaxSpeed, _pawnStats.MaxSpeed);
-
+        
+        // Don't pile up useless horizontal (prevents sticking to walls mid-air)
+        if (!_grounded && ((xSpeed > 0 && _colRight) || (xSpeed < 0 && _colLeft)))
+        {
+            xSpeed = 0;
+        }
         //Apply
         _playerRb.velocity = new Vector2(xSpeed, _playerRb.velocity.y);
+        
     }
 
     [Reconcile]
@@ -221,6 +231,8 @@ public class PawnMotor : NetworkBehaviour
         _coyoteTimeBuffer = rd.CoyoteTimeBuffer;
         _canCoyotee = rd.CanCoyotee;
         _isJumping = rd.IsJumping;
+        _colLeft = rd.ColLeft;
+        _colRight = rd.ColRight;
     }
 
     [Header("COLLISION")] [SerializeField] private LayerMask _groundLayer;
@@ -237,8 +249,6 @@ public class PawnMotor : NetworkBehaviour
         Bounds bounds = _collider.bounds;
 
         bool groundedCheck = RunDetection(Vector2.down, out _hitsDown, bounds);
-        _colLeft = RunDetection(Vector2.left, out _hitsLeft, bounds);
-        _colRight = RunDetection(Vector2.right, out _hitsRight, bounds);
         _hittingCeiling = RunDetection(Vector2.up, out _hitsUp, bounds);
 
         if (groundedCheck)
