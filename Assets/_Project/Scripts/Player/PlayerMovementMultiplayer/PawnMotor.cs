@@ -98,7 +98,8 @@ public class PawnMotor : NetworkBehaviour
                 CanCoyotee = _canCoyotee,
                 IsJumping = _isJumping,
                 ColLeft = _colLeft,
-                ColRight = _colRight
+                ColRight = _colRight,
+                ColUp = _hittingCeiling
             };
             Reconcilation(rd, true);
         }
@@ -112,6 +113,7 @@ public class PawnMotor : NetworkBehaviour
             _grounded = RunDetection(Vector2.down, out _hitsDown, _collider.bounds);
             _colLeft = RunDetection(Vector2.left, out _hitsLeft, _collider.bounds);
             _colRight = RunDetection(Vector2.right, out _hitsRight, _collider.bounds);
+            _hittingCeiling = RunDetection(Vector2.up, out _hitsUp, _collider.bounds);
             RunCollisionChecks();
         }
         HandleJump(md, replaying);
@@ -172,6 +174,10 @@ public class PawnMotor : NetworkBehaviour
         
         Vector2 nextVelocity = _playerRb.velocity;
         nextVelocity.y = _pawnStats.JumpPower;
+        if (_hittingCeiling && nextVelocity.y > 0)
+        {
+            nextVelocity.y = 0;
+        }
 
         _playerRb.velocity = nextVelocity;
     }
@@ -233,6 +239,7 @@ public class PawnMotor : NetworkBehaviour
         _isJumping = rd.IsJumping;
         _colLeft = rd.ColLeft;
         _colRight = rd.ColRight;
+        _hittingCeiling = rd.ColUp;
     }
 
     [Header("COLLISION")] [SerializeField] private LayerMask _groundLayer;
@@ -249,7 +256,7 @@ public class PawnMotor : NetworkBehaviour
         Bounds bounds = _collider.bounds;
 
         bool groundedCheck = RunDetection(Vector2.down, out _hitsDown, bounds);
-        _hittingCeiling = RunDetection(Vector2.up, out _hitsUp, bounds);
+        
 
         if (groundedCheck)
         {

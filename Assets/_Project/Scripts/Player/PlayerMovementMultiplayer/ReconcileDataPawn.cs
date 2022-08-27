@@ -10,6 +10,7 @@ public struct ReconcileDataPawn
     public bool IsJumping;
     public bool ColRight;
     public bool ColLeft;
+    public bool ColUp;
     public float CoyoteTimeBuffer;
     public bool CanCoyotee;
 }
