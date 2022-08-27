@@ -116,17 +116,17 @@ public class PawnMotor : NetworkBehaviour
             _hittingCeiling = RunDetection(Vector2.up, out _hitsUp, _collider.bounds);
             RunCollisionChecks();
         }
-        HandleJump(md, replaying);
         HandleHorizontal(md);
+        CalculateJumpApexPoint();
         ApplyGravity(md);
+        HandleJump(md, replaying);
     }
 
     private void ApplyGravity(PawnMoveData md)
     {
         if (_grounded) return;
-        float fallSpeed = 20f;
         Vector2 nextVelocity = _playerRb.velocity;
-        nextVelocity.y -= fallSpeed * (float)TimeManager.TickDelta;
+        nextVelocity.y -= _fallSpeed * (float)TimeManager.TickDelta;
 
         _playerRb.velocity = nextVelocity;
     }
@@ -184,7 +184,16 @@ public class PawnMotor : NetworkBehaviour
 
     private void CalculateJumpApexPoint()
     {
-        
+        if (!_grounded)
+        {
+            // Gets stronger the closer to the top of the jump
+            _apexPoint = Mathf.InverseLerp(_jumpApexThreshold, 0, Mathf.Abs(_playerRb.velocity.y));
+            _fallSpeed = Mathf.Lerp(_minFallSpeed, _maxFallSpeed, _apexPoint);
+        }
+        else
+        {
+            _apexPoint = 0;
+        }
     }
 
     private void SlowJump()
@@ -208,6 +217,11 @@ public class PawnMotor : NetworkBehaviour
         if (moveValue != 0)
         {
             xSpeed += moveValue * _pawnStats.Deceleration * (float)TimeManager.TickDelta;
+            //Clamp move speed
+            xSpeed = Mathf.Clamp(xSpeed, -_pawnStats.MaxSpeed, _pawnStats.MaxSpeed);
+            
+            var apexBonus = Mathf.Sign(moveValue) * _apexBonus * _apexPoint;
+            xSpeed += apexBonus * (float)TimeManager.TickDelta;
         }
         else
         {
@@ -215,8 +229,7 @@ public class PawnMotor : NetworkBehaviour
             xSpeed = Mathf.MoveTowards(xSpeed, 0, _pawnStats.Deceleration * (float)TimeManager.TickDelta);
         }
 
-        //Clamp move speed
-        xSpeed = Mathf.Clamp(xSpeed, -_pawnStats.MaxSpeed, _pawnStats.MaxSpeed);
+        
         
         // Don't pile up useless horizontal (prevents sticking to walls mid-air)
         if (!_grounded && ((xSpeed > 0 && _colRight) || (xSpeed < 0 && _colLeft)))
@@ -250,6 +263,12 @@ public class PawnMotor : NetworkBehaviour
     private RaycastHit2D[] _hitsRight = new RaycastHit2D[1];
     private bool _hittingCeiling, _grounded, _colRight, _colLeft;
     private bool _canCoyotee;
+    private float _fallSpeed;
+    private float _jumpApexThreshold = 40f;
+    private float _maxFallSpeed = 160f;
+    private float _apexPoint;
+    private float _minFallSpeed = 80f;
+    private float _apexBonus = 100;
 
     private void RunCollisionChecks()
     {
