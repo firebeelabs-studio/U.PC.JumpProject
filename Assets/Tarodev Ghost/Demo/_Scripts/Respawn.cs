@@ -38,8 +38,7 @@ public class Respawn : MonoBehaviour
 
     public IEnumerator RespawnPlayer(Transform player, float penaltyTime = 0) 
     {
-        yield return new WaitForSeconds(penaltyTime);
-
+        yield return new WaitForSecondsRealtime(penaltyTime);
         player.GetComponent<IPawnController>().RespawnPlayer();
         player.position = _respawnPos.position;
     }
