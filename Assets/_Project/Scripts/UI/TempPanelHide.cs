@@ -13,9 +13,15 @@ public class TempPanelHide : MonoBehaviour
         FinishSinglePlayer.RunFinish += OnRunFinish;
     }
 
+    private void OnDisable()
+    {
+        FinishSinglePlayer.RunFinish -= OnRunFinish;
+    }
+
     private void OnRunFinish()
     {
         _timer.SetActive(false);
         _resumePanel.SetActive(true);
     }
+    
 }
