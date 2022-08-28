@@ -19,7 +19,7 @@ public class DisappearingPlatform : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             _disableManager.Disable();
-            _audioPlayer.PlayOneShotSound(_stepSound);
+            //_audioPlayer.PlayOneShotSound(_stepSound);
         }
     }
 }

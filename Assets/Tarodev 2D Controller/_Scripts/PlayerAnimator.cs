@@ -86,8 +86,9 @@ namespace TarodevController {
 
         private int _stepIndex;
 
-        public void PlayFootstep() {
-            PlaySound(_footstepClips[_stepIndex++ % _footstepClips.Length], 0.01f);
+        public void PlayFootstep() 
+        {
+            PlaySound(_footstepClips[_stepIndex++ % _footstepClips.Length], 0.2f);
         }
 
         #endregion
@@ -131,6 +132,7 @@ namespace TarodevController {
             if (_grounded)
             {
                 _moveParticles.Play();
+                PlayFootstep();
             }
             else
             {
@@ -288,6 +290,7 @@ namespace TarodevController {
         }
         [Header("DEATH")]
         [SerializeField] private ParticleSystem _deathParticles;
+        [SerializeField] private AudioClip _deathClip;
         private void OnPlayerDeath()
         {
             if (_trail)
@@ -295,6 +298,7 @@ namespace TarodevController {
                 _trail.enabled = false;
             }
             _deathParticles.Play();
+            PlaySound(_deathClip, 1);
             _renderer.enabled = false;
         }
         private void OnPlayerRespawn()

@@ -40,7 +40,7 @@ public class PlatformCircularEffector : MonoBehaviour, IPlayerEffector
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            _audioPlayer.PlayOneShotSound(_stepSound);
+            //_audioPlayer.PlayOneShotSound(_stepSound);
         }
     }
 
