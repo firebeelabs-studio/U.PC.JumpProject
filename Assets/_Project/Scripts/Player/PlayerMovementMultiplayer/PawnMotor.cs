@@ -40,6 +40,8 @@ public class PawnMotor : NetworkBehaviour
     {
         base.OnStartNetwork();
         SubscribeToNetworkStuff(true);
+        if(IsServer) return;
+        _playerRb.isKinematic = !IsOwner;
     }
 
     public override void OnStopNetwork()
