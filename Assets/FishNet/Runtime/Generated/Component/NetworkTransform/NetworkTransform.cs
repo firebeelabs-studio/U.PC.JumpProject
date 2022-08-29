@@ -20,7 +20,9 @@ namespace FishNet.Component.Transforming
 {
     /// <summary> 
     /// A somewhat basic but reliable NetworkTransform that will be improved upon greatly after release.
-    /// </summary>   
+    /// </summary>
+    [DisallowMultipleComponent]
+    [AddComponentMenu("FishNet/Component/NetworkTransform")]
     public class NetworkTransform : NetworkBehaviour
     {
         #region Types.
@@ -230,6 +232,7 @@ namespace FishNet.Component.Transforming
         /// </summary>
         public event Action OnInterpolationComplete;
         #endregion
+
         #region Serialized.
         /// <summary>
         /// True to synchronize when this transform changes parent.
@@ -261,7 +264,9 @@ namespace FishNet.Component.Transforming
         [Tooltip("How many ticks to extrapolate.")]
         [Range(0, 1024)]
         [SerializeField]
+#pragma warning disable CS0414 //Not in use.
         private ushort _extrapolation = 2;
+#pragma warning restore CS0414 //Not in use.
         /// <summary>
         /// True to enable teleport threshhold.
         /// </summary>
@@ -301,11 +306,21 @@ namespace FishNet.Component.Transforming
         [SerializeField]
         private bool _synchronizePosition = true;
         /// <summary>
+        /// Sets if to synchronize position.
+        /// </summary>
+        /// <param name="value">New value.</param>
+        public void SetSynchronizePosition(bool value) => _synchronizePosition = value;
+        /// <summary>
         /// Axes to snap on position.
         /// </summary>
         [Tooltip("Axes to snap on position.")]
         [SerializeField]
         private SnappedAxes _positionSnapping = new SnappedAxes();
+        /// <summary>
+        /// Sets which Position axes to snap.
+        /// </summary>
+        /// <param name="axes">Axes to snap.</param>
+        public void SetPositionSnapping(SnappedAxes axes) => _positionSnapping = axes;
         /// <summary>
         /// True to synchronize rotation. Even while checked only changed values are sent.
         /// </summary>
@@ -313,11 +328,21 @@ namespace FishNet.Component.Transforming
         [SerializeField]
         private bool _synchronizeRotation = true;
         /// <summary>
+        /// Sets if to synchronize rotation.
+        /// </summary>
+        /// <param name="value">New value.</param>
+        public void SetSynchronizeRotation(bool value) => _synchronizeRotation = value;
+        /// <summary>
         /// Axes to snap on rotation.
         /// </summary>
         [Tooltip("Axes to snap on rotation.")]
         [SerializeField]
         private SnappedAxes _rotationSnapping = new SnappedAxes();
+        /// <summary>
+        /// Sets which Scale axes to snap.
+        /// </summary>
+        /// <param name="axes">Axes to snap.</param>
+        public void SetRotationSnapping(SnappedAxes axes) => _rotationSnapping = axes;
         /// <summary>
         /// True to synchronize scale. Even while checked only changed values are sent.
         /// </summary>
@@ -325,11 +350,21 @@ namespace FishNet.Component.Transforming
         [SerializeField]
         private bool _synchronizeScale = true;
         /// <summary>
+        /// Sets if to synchronize scale.
+        /// </summary>
+        /// <param name="value">New value.</param>
+        public void SetSynchronizeScale(bool value) => _synchronizeScale = value;
+        /// <summary>
         /// Axes to snap on scale.
         /// </summary>
         [Tooltip("Axes to snap on scale.")]
         [SerializeField]
         private SnappedAxes _scaleSnapping = new SnappedAxes();
+        /// <summary>
+        /// Sets which Scale axes to snap.
+        /// </summary>
+        /// <param name="axes">Axes to snap.</param>
+        public void SetScaleSnapping(SnappedAxes axes) => _scaleSnapping = axes;
         #endregion
 
         #region Private.
@@ -428,7 +463,7 @@ namespace FishNet.Component.Transforming
             _interval = Math.Max(_interval, (byte)1);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             if (_receivedClientData.Writer != null)
             {
@@ -465,24 +500,7 @@ namespace FishNet.Component.Transforming
                 }
             }
 
-            //PROSTART
-            if (_synchronizeParent)
-            {
-                /* Can send under the following conditions.
-                 *  Client auth and not owner. No need to send parent changes to owner when client auth.
-                 *  
-                 *  Not client auth and send to owner. Everyone will get changes in this scenario.
-                 * 
-                 *  Not client auth, not send to owner, and not owner.
-                 *      This should send to everyone but owner.
-                 */
-                bool canSend = (_clientAuthoritative && connection != base.Owner) ||
-                    (!_clientAuthoritative && _sendToOwner) ||
-                    (!_clientAuthoritative && !_sendToOwner && connection != Owner);
-                if (canSend)
-                    TargetSetParent(connection, _parentBehaviour);
-            }
-            //PROEND
+            
         }
 
         public override void OnStartClient()
@@ -565,9 +583,7 @@ namespace FishNet.Component.Transforming
                 _intervalsRemaining = _interval;
             }
 
-            //PROSTART
-            UpdateParentBehaviour();
-            //PROEND
+            
             if (base.IsServer)
                 SendToClients();
             if (base.IsClient)
@@ -923,65 +939,7 @@ namespace FishNet.Component.Transforming
             }
         }
 
-        //PROSTART
-        /// <summary>
-        /// Updates the ParentBehaviour field when able to.
-        /// </summary>
-        private void UpdateParentBehaviour()
-        {
-            if (!_synchronizeParent)
-                return;
-            /* The field ParentBehaviour is only used by
-             * the sending connection. When moving the ParentBehaviour
-             * is deserialized into the TransformData, meaning the field
-             * varient is never used on connections which do not control
-             * the object. It's probably very similar in performance,
-             * possibly even more efficient to just run the parent change
-             * checks versus checking if those checks can be checked in the
-             * first place. check. */
-
-            Transform parent = transform.parent;
-            //No parent.
-            if (parent == null)
-            {
-                _parentBehaviour = null;
-                _parentTransform = null;
-            }
-            //Has a parent, see if eligible.
-            else
-            {
-                //No change.
-                if (_parentTransform == parent)
-                    return;
-
-                _parentTransform = parent;
-                parent.TryGetComponent<NetworkBehaviour>(out _parentBehaviour);
-                if (_parentBehaviour == null)
-                    LogInvalidParent();
-            }
-        }
-
-        /// <summary>
-        /// Sets the transforms parent if it's changed.
-        /// </summary>
-        /// <param name="parent"></param>
-        private void SetParent(NetworkBehaviour parent, RateData rd)
-        {
-            Transform target = (parent == null) ? null : parent.transform;
-            //Unchanged.
-            if (target == transform.parent)
-                return;
-
-            Vector3 scale = transform.localScale;
-            transform.SetParent(target);
-            transform.localScale = scale;
-
-            /* Set ratedata to immediate so there's no blending between transform values when
-             * getting on or off platforms. */
-            if (rd != null)
-                rd.Update(-1f, -1f, -1f, rd.LastUnalteredPositionRate, rd.TickSpan, rd.AbnormalRateDetected, rd.TimeRemaining);
-        }
-        //PROEND
+        
 
         /// <summary>
         /// Moves to a GoalData. Automatically determins if to use data from server or client.
@@ -1014,11 +972,7 @@ namespace FishNet.Component.Transforming
             TransformData td = _currentGoalData.Transforms;
             RateData rd = _currentGoalData.Rates;
 
-            //PROSTART
-            //Set parent.
-            if (_synchronizeParent)
-                SetParent(td.ParentBehaviour, rd);
-            //PROEND
+            
 
             float multiplier = 1f;
             int queueCount = _goalDataQueue.Count;
@@ -1084,27 +1038,7 @@ namespace FishNet.Component.Transforming
                 //No more in buffer, see if can extrapolate.
                 else
                 {
-                    //PROSTART
-                    //Can extrapolate.
-                    if (td.ExtrapolationState == TransformData.ExtrapolateState.Available)
-                    {
-                        rd.TimeRemaining = (float)(_extrapolation * base.TimeManager.TickDelta);
-                        td.ExtrapolationState = TransformData.ExtrapolateState.Active;
-                        if (leftOver > 0f)
-                            MoveToTarget(leftOver);
-                    }
-                    //Ran out of extrapolate.
-                    else if (td.ExtrapolationState == TransformData.ExtrapolateState.Active)
-                    {
-                        rd.TimeRemaining = (float)(_extrapolation * base.TimeManager.TickDelta);
-                        td.ExtrapolationState = TransformData.ExtrapolateState.Disabled;
-                        if (leftOver > 0f)
-                            MoveToTarget(leftOver);
-                    }
-                    //Extrapolation has ended or was never enabled.
-                    else
-                    {
-                        //PROEND
+                    
                         /* If everything matches up then end queue.
                         * Otherwise let it play out until stuff
                         * aligns. Generally the time remaining is enough
@@ -1112,10 +1046,8 @@ namespace FishNet.Component.Transforming
                         * and it's thrown off. */
                         if (!HasChanged(td))
                             _queueReady = false;
-                        //PROSTART
                         OnInterpolationComplete?.Invoke();
-                    }
-                    //PROEND
+                        
                 }
             }
 
@@ -1527,14 +1459,7 @@ namespace FishNet.Component.Transforming
             //Default value.
             next.ExtrapolationState = TransformData.ExtrapolateState.Disabled;
 
-            //PROSTART
-            if (_extrapolation == 0 || !_synchronizePosition || channel == Channel.Reliable || next.Position == prev.Position)
-                return;
-
-            Vector3 offet = (next.Position - prev.Position) * _extrapolation;
-            next.ExtrapolatedPosition = (next.Position + offet);
-            next.ExtrapolationState = TransformData.ExtrapolateState.Available;
-            //PROEND
+            
         }
 
 
@@ -1674,6 +1599,22 @@ namespace FishNet.Component.Transforming
             {
                 _goalDataQueue.Enqueue(nextGd);
             }
+
+            /* If the queue is excessive beyond interpolation then
+             * dequeue extras to prevent from dropping behind too
+             * quickly. This shouldn't be an issue with normal movement
+             * as the NT speeds up if the buffer unexpectedly grows, but
+             * when connections are unstable results may come in chunks
+             * and for a better experience the older parts of the chunks
+             * will be dropped. */
+            if (_goalDataQueue.Count > (_interpolation + 3))
+            {
+                while (_goalDataQueue.Count > _interpolation)
+                {
+                    GoalData tmpGd = _goalDataQueue.Dequeue();
+                    _goalDataCache.Push(tmpGd);
+                }
+            }
         }
 
         /// <summary>
@@ -1692,31 +1633,7 @@ namespace FishNet.Component.Transforming
         [TargetRpc]
         private void TargetSetParent(NetworkConnection conn, NetworkBehaviour parent)
         {
-            //PROSTART
-            /* Same checks on sending end, just making sure
-             * something hasn't changed since packet was sent. */
-            if (!_synchronizeParent)
-                return;
-
-            /* Can be received if
-             *  Client auth and not owner. 
-             * 
-             *  Server auth and send to owner, since all clients should get this.
-             *  
-             *  Server auth, dont send to owner, and not owner.
-             */
-            bool canReceive = (_clientAuthoritative && !base.IsOwner) ||
-                (!_clientAuthoritative && _sendToOwner) ||
-                (!_clientAuthoritative && !_sendToOwner && !base.IsOwner);
-
-            if (!canReceive)
-                return;
-
-            _parentBehaviour = parent;
-            _lastReceivedTransformData.ParentBehaviour = parent;
-
-            SetParent(parent, null);
-            //PROEND
+            
         }
 
         /// <summary>

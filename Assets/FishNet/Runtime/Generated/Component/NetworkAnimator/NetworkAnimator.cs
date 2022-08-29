@@ -10,6 +10,7 @@ using UnityEngine;
 
 namespace FishNet.Component.Animating
 {
+    [AddComponentMenu("FishNet/Component/NetworkAnimator")]
     public class NetworkAnimator : NetworkBehaviour
     {
         #region Types.
@@ -339,36 +340,7 @@ namespace FishNet.Component.Animating
                 //Fall through.
                 return true;
             }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        private byte? _cachedComponentIndex;
-        /// <summary>
-        /// Cached ComponentIndex for the NetworkBehaviour this FNA is on. This is because Mirror codes bad.
-        /// </summary>
-        public byte CachedComponentIndex
-        {
-            get
-            {
-                if (_cachedComponentIndex == null)
-                {
-                    //Exceeds value.
-                    if (base.ComponentIndex > 255)
-                    {
-                        Debug.LogError("ComponentIndex is larger than supported type.");
-                        _cachedComponentIndex = 0;
-                    }
-                    //Doesn't exceed value.
-                    else
-                    {
-                        _cachedComponentIndex = (byte)Mathf.Abs(base.ComponentIndex);
-                    }
-                }
-
-                return _cachedComponentIndex.Value;
-            }
-        }
+        }        
         /// <summary>
         /// Layers which need to have their state synchronized. Key is the layer, Value is the state change information.
         /// </summary>
@@ -507,12 +479,7 @@ namespace FishNet.Component.Animating
             foreach (AnimatorControllerParameter item in _animator.parameters)
             {
                 bool process = !_animator.IsParameterControlledByCurve(item.name);
-                //PROSTART
-                /* This is done in a weird way for processing
-                 * to work with the pro tool stripper. */
-                if (IgnoredParameters.Contains(item.name))
-                    process = false;
-                //PROEND
+                
                 if (process)
                 {
                     //Over 250 parameters; who would do this!?

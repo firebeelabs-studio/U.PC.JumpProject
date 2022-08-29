@@ -168,9 +168,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e29d6c732cce0142b4abe2d8b3f7ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 2
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 39860119}
-  _networkObjectCache: {fileID: 8891236557087837974}
+  _networkObjectCache: {fileID: 39860119}
 --- !u!114 &39860119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,19 +183,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 1
+  <ComponentIndex>k__BackingField: 1
   _networkBehaviours:
   - {fileID: 39860117}
-  SceneTransformProperties:
-    Position: {x: 831.4747, y: 959.4528, z: -15.617911}
-    Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  <ParentNetworkObject>k__BackingField: {fileID: 8891236557087837974}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _disableOnDespawn: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 3381694806
-  _sceneId: 14524268598891883170
+  <SceneId>k__BackingField: 14524268600064164759
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 39860119}
   - {fileID: 8891236557087837974}
@@ -586,6 +587,7 @@ MonoBehaviour:
   _duration: 0.75
   _vibratio: 1
   _force: 0.75
+  _starSound: {fileID: 0}
 --- !u!223 &231577697
 Canvas:
   m_ObjectHideFlags: 0
@@ -47370,6 +47372,7 @@ MonoBehaviour:
   _duration: 0.75
   _vibratio: 1
   _force: 0.75
+  _starSound: {fileID: 0}
 --- !u!223 &623000919
 Canvas:
   m_ObjectHideFlags: 0
@@ -47966,6 +47969,7 @@ MonoBehaviour:
   _duration: 0.75
   _vibratio: 1
   _force: 0.75
+  _starSound: {fileID: 0}
 --- !u!223 &892420877
 Canvas:
   m_ObjectHideFlags: 0
@@ -48731,6 +48735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsFinished: 0
+  _finishSound: {fileID: 0}
 --- !u!61 &1122855985
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -50457,8 +50462,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12ed478c0bb755546b5675b019894b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timer: {fileID: 1959010016}
-  _resumePanel: {fileID: 334246691013648787}
 --- !u!4 &1353658260 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3971091884330994988, guid: 16f0d2cca75485b41bfd9e847378af9b, type: 3}
@@ -51147,6 +51150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d427b6f4ce6b484a86dfaa32618a589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _penaltyTime: 2
 --- !u!1001 &1549953707
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52342,6 +52346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff91cd975949404fa55e53eec7fceb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startSound: {fileID: 0}
 --- !u!1 &1959010016
 GameObject:
   m_ObjectHideFlags: 0
@@ -63390,6 +63395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d427b6f4ce6b484a86dfaa32618a589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _penaltyTime: 2
 --- !u!1001 &2092319977
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63786,18 +63792,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80baa633e62293e47921a6ad40b5266a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeText: {fileID: 334246691843718416}
-  _previousTimeText: {fileID: 334246691937875049}
-  _timeNeededForNextStarText: {fileID: 334246690593012877}
-  _endLevelTimers: {fileID: 1350633678}
-  _stars:
-  - {fileID: 623000913}
-  - {fileID: 892420871}
-  - {fileID: 231577691}
-  _thresholds:
-  - 180
-  - 120
-  - 60
 --- !u!114 &334246690306182345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63810,9 +63804,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6101ae1f0f46ba64282eff505778700c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnManager: {fileID: 4862127298029510444}
-  _player: {fileID: 0}
-  _finish: {fileID: 1122855984}
 --- !u!114 &334246690306182346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65221,7 +65212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb75f8c24b282f244a3a3f9b0cf9f08f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _penaltyTime: 2
   _respawnPos: {fileID: 1639525000}
 --- !u!4 &4862127298029510445
 Transform:
@@ -65376,21 +65366,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 4862127297238562048}
   - {fileID: 4862127297919512521}
-  - {fileID: 39860117}
-  SceneTransformProperties:
-    Position: {x: 831.4747, y: 959.4528, z: -15.617911}
-    Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField:
+  - {fileID: 39860119}
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 0
+  _disableOnDespawn: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: 1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 3381694806
-  _sceneId: 14524268597843957712
+  <SceneId>k__BackingField: 14524268600496499863
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 39860119}
   - {fileID: 8891236557087837974}
