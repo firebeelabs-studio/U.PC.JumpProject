@@ -6,9 +6,7 @@ namespace TarodevController {
         [SerializeField] private Vector2[] _points;
         [SerializeField] private float _speed = 1;
         [SerializeField] private bool _looped;
-        [SerializeField] AudioClip _stepSound;
 
-        private AudioPlayer _audioPlayer;
         private Rigidbody2D _rb;
         private Vector2 _startPos;
         private int _index;
@@ -19,7 +17,6 @@ namespace TarodevController {
         private void Awake() 
         {
             _rb = GetComponent<Rigidbody2D>();
-            _audioPlayer = GetComponent<AudioPlayer>();
             _startPos = _rb.position;
         }
 
@@ -48,14 +45,6 @@ namespace TarodevController {
             }
             _change = _lastPos - newPos;
             _lastPos = newPos;
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                //_audioPlayer.PlayOneShotSound(_stepSound);
-            }
         }
 
         private void OnDrawGizmosSelected() 
