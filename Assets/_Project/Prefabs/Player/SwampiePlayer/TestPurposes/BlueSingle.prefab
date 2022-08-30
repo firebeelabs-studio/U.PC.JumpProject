@@ -34070,8 +34070,9 @@ MonoBehaviour:
   _moveParticles: {fileID: 6626059192327383308}
   _tileChangeSpeed: 0.05
   _footstepClips:
-  - {fileID: 8300000, guid: 2113f34717365ed4d9616fe3402bd43c, type: 3}
-  - {fileID: 8300000, guid: 3db7790641583ba4ca4fc1fe33ed2fb3, type: 3}
+  - {fileID: 8300000, guid: b3556032be30803458c28f8819936167, type: 3}
+  - {fileID: 8300000, guid: 417b2144b9873a94485d91a1a4c2bfa0, type: 3}
+  - {fileID: 8300000, guid: 284234a4b6950754aa7e5b94a6735ed6, type: 3}
   _minImpactForce: 20
   _landAnimDuration: 0.3
   _landClip: {fileID: 8300000, guid: 284234a4b6950754aa7e5b94a6735ed6, type: 3}
@@ -34088,6 +34089,7 @@ MonoBehaviour:
   _attackAnimTime: 0.2
   _attackClip: {fileID: 8300000, guid: b8093fb3a7eb8f74a878bb9da5af0a7a, type: 3}
   _deathParticles: {fileID: 4627214108290954512}
+  _deathClip: {fileID: 8300000, guid: 5d9bd1d7e3fa8b045b5f86562830f076, type: 3}
 --- !u!212 &6626059193089394720
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -34169,7 +34171,7 @@ AudioSource:
   m_GameObject: {fileID: 6626059193089394723}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1234071623547302648, guid: 0ebb45d5bcf3dfd44a93ce89052ca6cc, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
