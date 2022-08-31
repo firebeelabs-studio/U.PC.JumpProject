@@ -77,18 +77,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
-  - {fileID: 1001616161352172127}
-  SceneTransformProperties:
-    Position: {x: -500, y: -500, z: -500}
-    Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  - {fileID: 0}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
-  _hasParentNetworkObjectAtEdit: 0
+  _isGlobal: 0
+  _disableOnDespawn: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 0
-  _sceneId: 0
+  <SceneId>k__BackingField: 0
+  <AssetPathHash>k__BackingField: 15018452012945460196
   _sceneNetworkObjects: []
 --- !u!114 &1001616161352172127
 MonoBehaviour:
@@ -102,9 +104,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71fd7f855ec523429999fc4e14a1928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 8302329928824072530}
-  _networkObjectCache: {fileID: 8302329928824072530}
   _overrideType: 3
-  _setHostVisibility: 1
+  _updateHostVisibility: 1
   _observerConditions: []

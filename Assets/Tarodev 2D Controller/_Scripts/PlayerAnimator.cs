@@ -8,6 +8,7 @@ namespace TarodevController {
         private Animator _anim;
         private SpriteRenderer _renderer;
         private AudioSource _source;
+        [SerializeField] private TrailRenderer _trail;
 
         private void Awake() {
             _player = GetComponentInParent<IPawnController>();
@@ -15,14 +16,28 @@ namespace TarodevController {
             _renderer = GetComponent<SpriteRenderer>();
             _source = GetComponent<AudioSource>();
         }
-
-        private void Start() {
+        private void OnEnable()
+        {
             _player.OnJumping += OnPlayerOnJumped;
             //_player.DoubleJumped += PlayerOnDoubleJumped;
             //_player.Attacked += OnPlayerOnAttacked;
             _player.OnGroundedChanged += OnPlayerOnGroundedChanged;
             //_player.DashingChanged += PlayerOnDashingChanged;
             _player.PlayerSmashed += OnPlayerSmashed;
+            _player.PlayerDeath += OnPlayerDeath;
+            _player.PlayerRespawn += OnPlayerRespawn;
+
+        }
+        private void OnDisable()
+        {
+            _player.OnJumping -= OnPlayerOnJumped;
+            //_player.DoubleJumped -= PlayerOnDoubleJumped;
+            //_player.Attacked -= OnPlayerOnAttacked;
+            _player.OnGroundedChanged -= OnPlayerOnGroundedChanged;
+            //_player.DashingChanged -= PlayerOnDashingChanged;
+            _player.PlayerSmashed -= OnPlayerSmashed;
+            _player.PlayerDeath -= OnPlayerDeath;
+            _player.PlayerRespawn -= OnPlayerRespawn;
         }
 
         private void Update() {
@@ -71,8 +86,9 @@ namespace TarodevController {
 
         private int _stepIndex;
 
-        public void PlayFootstep() {
-            PlaySound(_footstepClips[_stepIndex++ % _footstepClips.Length], 0.01f);
+        public void PlayFootstep() 
+        {
+            PlaySound(_footstepClips[_stepIndex++ % _footstepClips.Length], 0.2f);
         }
 
         #endregion
@@ -116,6 +132,7 @@ namespace TarodevController {
             if (_grounded)
             {
                 _moveParticles.Play();
+                PlayFootstep();
             }
             else
             {
@@ -271,6 +288,26 @@ namespace TarodevController {
         {
             _isSmashed = true;
         }
-
+        [Header("DEATH")]
+        [SerializeField] private ParticleSystem _deathParticles;
+        [SerializeField] private AudioClip _deathClip;
+        private void OnPlayerDeath()
+        {
+            if (_trail)
+            {
+                _trail.enabled = false;
+            }
+            _deathParticles.Play();
+            PlaySound(_deathClip, 1);
+            _renderer.enabled = false;
+        }
+        private void OnPlayerRespawn()
+        {
+            if (_trail)
+            {
+                _trail.enabled = true;
+            }
+            _renderer.enabled = true;
+        }
     }
 }

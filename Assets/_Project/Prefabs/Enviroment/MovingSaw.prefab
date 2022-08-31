@@ -4898,6 +4898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d427b6f4ce6b484a86dfaa32618a589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _penaltyTime: 2
 --- !u!114 &2119261852695842540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4921,17 +4922,17 @@ AudioSource:
   m_GameObject: {fileID: 2392489795887158346}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1234071623547302648, guid: 0ebb45d5bcf3dfd44a93ce89052ca6cc, type: 2}
   m_audioClip: {fileID: 8300000, guid: 8233703370ae07248968a25b24f36c64, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.05
-  m_Pitch: 0.6
+  m_Volume: 1
+  m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0

@@ -4901,7 +4901,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8136920093530524828}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.23, y: -10.05, z: 0}
+  m_LocalPosition: {x: -0.25, y: -10, z: 0}
   m_LocalScale: {x: 0.6, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4977,9 +4977,11 @@ MonoBehaviour:
   _speed: 4
   _delay: 1
   _startDelay: 1
+  _smashDelay: 0.5
   _distance: 2
   _pressParticles: {fileID: 8136920093858163922}
   _smashSound: {fileID: 8300000, guid: abf3e1e0a59706441b7f6582014fb775, type: 3}
+  _returnSound: {fileID: 8300000, guid: 44ec3fc769b266f479596fe5ea555795, type: 3}
   _slowDuration: 1
   _slowPower: 5
 --- !u!114 &8136920093530524826
@@ -5078,10 +5080,10 @@ AudioSource:
   m_GameObject: {fileID: 8136920093530524828}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1234071623547302648, guid: 0ebb45d5bcf3dfd44a93ce89052ca6cc, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.051
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5196,7 +5198,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8136920093813943110}
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
-  m_LocalPosition: {x: 0, y: -19.15, z: 0}
+  m_LocalPosition: {x: 0, y: -19.1, z: 0}
   m_LocalScale: {x: 0.6, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5272,9 +5274,11 @@ MonoBehaviour:
   _speed: 4
   _delay: 1
   _startDelay: 1
+  _smashDelay: 0.5
   _distance: 2
   _pressParticles: {fileID: 8136920093145144757}
   _smashSound: {fileID: 8300000, guid: abf3e1e0a59706441b7f6582014fb775, type: 3}
+  _returnSound: {fileID: 8300000, guid: 44ec3fc769b266f479596fe5ea555795, type: 3}
   _slowDuration: 1
   _slowPower: 5
 --- !u!114 &8136920093813943100
@@ -5373,10 +5377,10 @@ AudioSource:
   m_GameObject: {fileID: 8136920093813943110}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1234071623547302648, guid: 0ebb45d5bcf3dfd44a93ce89052ca6cc, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.051
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -7,7 +7,7 @@ using UnityEngine;
 public class TimerSinglePlayer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _timerText;
-    private float _starTime;
+    private float _startTime;
     private bool _isRunStarted;
     private float _timeInSeconds;
 
@@ -21,7 +21,10 @@ public class TimerSinglePlayer : MonoBehaviour
 
     private void Awake()
     {
-        _timerText = GameObject.Find("TimerText").GetComponent<TextMeshProUGUI>();
+        _timerText = GameObject.Find("TimerText").GetComponent<TextMeshProUGUI>();   
+    }
+    private void OnEnable()
+    {
         StartRun.RunStart += On_RunStart;
         FinishSinglePlayer.RunFinish += On_RunFinish;
     }
@@ -29,12 +32,13 @@ public class TimerSinglePlayer : MonoBehaviour
     private void OnDisable()
     {
         FinishSinglePlayer.RunFinish -= On_RunFinish;
+        StartRun.RunStart -= On_RunStart;
     }
 
     private void Update()
     {
         if (!_isRunStarted) return;
-        _timeInSeconds = Time.time - _starTime;
+        _timeInSeconds = Time.time - _startTime;
         _minutes = (int)(_timeInSeconds / 60f);
         _seconds = (int)(_timeInSeconds % 60f);
         _timerText.SetText(_minutes.ToString("00") + ":" + _seconds.ToString("00"));
@@ -42,7 +46,8 @@ public class TimerSinglePlayer : MonoBehaviour
 
     private void On_RunStart()
     {
-        _starTime = Time.time;
+        _startTime = Time.time;
+        _timerText.gameObject.SetActive(true);
         _isRunStarted = true;
     }
 

@@ -137,7 +137,7 @@ public class PlayerMotor : NetworkBehaviour
     public override void OnStartNetwork()
     {
         base.OnStartNetwork();
-        if (IsServer || IsOwner)
+        if (IsServer || Owner.IsLocalClient)
         {
             Subscribe(true);
         }
