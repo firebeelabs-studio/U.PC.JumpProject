@@ -1,44 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlatformRotate : MonoBehaviour
 {
-    [SerializeField] private float _timeToRotate = 3f;
-    [SerializeField] private float _rotateSpeed = 2f;
+    [SerializeField] 
+    private float _timeToRotate = 3f;
     private float _rotateTimer;
-    private bool _rotated = false;
+    private bool _rotated;
 
-    void Update()
+    private void Update()
     {
         _rotateTimer += Time.deltaTime;
 
-        if (_rotateTimer >= _timeToRotate && _rotated == false)
+        if (_rotateTimer >= _timeToRotate && !_rotated)
         {
-            RotateOnZAxis(180);
-
-            if (transform.eulerAngles.z.Equals(180))
-            {
-                _rotateTimer = 0;
-                _rotated = true;
-            }
+            transform.DOPunchRotation(new Vector3(0, 0, 10), 1f, 10, 1f).OnComplete(() => { transform.DORotate(new Vector3(0, 0, 180), 2f); ; });
+            _rotateTimer = 0;
+            _rotated = true;
         }
-
-        if (_rotateTimer >= _timeToRotate && _rotated == true)
+        if (_rotateTimer >= _timeToRotate && _rotated)
         {
-            RotateOnZAxis(0);
-
-            if (transform.eulerAngles.z <= 0)
-            {
-                _rotateTimer = 0;
-                _rotated = false;
-            }
-
+            transform.DOPunchRotation(new Vector3(0, 0, 10), 1f, 10, 1f).OnComplete(() => { transform.DORotate(new Vector3(0, 0, 0), 2f); ; });
+            _rotateTimer = 0;
+            _rotated = false;
         }
-    }
-
-    private void RotateOnZAxis(int degrees)
-    {
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, degrees), Time.deltaTime * _rotateSpeed);
     }
 }
