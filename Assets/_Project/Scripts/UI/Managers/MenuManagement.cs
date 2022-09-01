@@ -1,9 +1,5 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuManagement : MonoBehaviour
@@ -68,11 +64,10 @@ public class MenuManagement : MonoBehaviour
         }
     }
 
-    //temp
     public void LoadScene(string sceneName)
     {
         DOTween.KillAll();
-        SceneManager.LoadScene(sceneName);
+        LoadingScreenCanvas.Instance?.LoadScene(sceneName);
     }
 
     public void BackToMenu(RectTransform button)
