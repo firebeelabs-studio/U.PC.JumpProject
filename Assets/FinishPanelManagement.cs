@@ -61,16 +61,18 @@ public class FinishPanelManagement : MonoBehaviour
         newScoreTextRect.localScale = Vector2.zero;
         newScoreTextRect.DOScale(1.5f, 3).SetEase(Ease.OutBack).OnComplete(() =>
         {
-            _newScoreText.gameObject.SetActive(false);
-            _finishPanel.SetActive(true);
-            _finishPanel.transform.localScale = Vector2.zero;
-            _finishPanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
+            newScoreTextRect.DOScale(0, 3).SetEase(Ease.InBack).OnComplete(() =>
             {
-                StartCoroutine(SetupStars());
-                SetupThresholdsDescending();
-                _yourTimeText.text = $"Your time: {(int)_endLevelTimers.TimeInSeconds}";
-                _previousTimeText.text = _endLevelTimers.Times.Count > 1 ? $"Previous time: {(int)_endLevelTimers.Times[^2]}s" : "Your first try was Swamptastic!";
-
+                _newScoreText.gameObject.SetActive(false);
+                _finishPanel.SetActive(true);
+                _finishPanel.transform.localScale = Vector2.zero;
+                _finishPanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
+                {
+                    StartCoroutine(SetupStars());
+                    SetupThresholdsDescending();
+                    _yourTimeText.text = $"Your time: {(int)_endLevelTimers.TimeInSeconds}";
+                    _previousTimeText.text = _endLevelTimers.Times.Count > 1 ? $"Previous time: {(int)_endLevelTimers.Times[^2]}s" : "Your first try was Swamptastic!";
+                });
             });
         });
     }
