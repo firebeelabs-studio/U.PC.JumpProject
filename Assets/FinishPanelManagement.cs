@@ -61,7 +61,7 @@ public class FinishPanelManagement : MonoBehaviour
         newScoreTextRect.localScale = Vector2.zero;
         newScoreTextRect.DOScale(1.5f, 3).SetEase(Ease.OutBack).OnComplete(() =>
         {
-            newScoreTextRect.DOScale(0, 3).SetEase(Ease.InBack).OnComplete(() =>
+            newScoreTextRect.DOScale(0, 1).SetEase(Ease.InBack).OnComplete(() =>
             {
                 _newScoreText.gameObject.SetActive(false);
                 _finishPanel.SetActive(true);
