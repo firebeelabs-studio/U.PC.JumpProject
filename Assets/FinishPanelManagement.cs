@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using DG.Tweening;
 using UnityEngine;
@@ -56,23 +57,28 @@ public class FinishPanelManagement : MonoBehaviour
 
     private void OnRunFinish()
     {
-        _yourTimeText.text = $"Your time: {(int)_endLevelTimers.TimeInSeconds}";
+        _yourTimeText.text = $"Your time: {(int)_endLevelTimers.TimeInSeconds}s";
         _previousTimeText.text = _endLevelTimers.Times.Count > 1 ? $"Previous time: {(int)_endLevelTimers.Times[^2]}s" : "Your first try was Swamptastic!";
-        if ((int)_endLevelTimers.TimeInSeconds < _thresholds[2])
+        int timeInSeconds = (int)_endLevelTimers.TimeInSeconds;
+        if (timeInSeconds <= _thresholds[2])
         {
             _timeNeededForNextStarText.text = $"Congratulations! You've achieved all stars!";
         }
-        else if ((int)_endLevelTimers.TimeInSeconds > _thresholds[0])
+        else
         {
-            _timeNeededForNextStarText.text = $"Time needed for next star: {_thresholds[0]}s";
-        }
-        else if ((int)_endLevelTimers.TimeInSeconds < _thresholds[0] && (int)_endLevelTimers.TimeInSeconds > _thresholds[1])
-        {
-            _timeNeededForNextStarText.text = $"Time needed for next star: {_thresholds[1]}s";
-        }
-        else if ((int)_endLevelTimers.TimeInSeconds < _thresholds[1] && (int)_endLevelTimers.TimeInSeconds > _thresholds[2])
-        {
-            _timeNeededForNextStarText.text = $"Time needed for next star: {_thresholds[2]}s";
+            float timeForNextStar = 0;
+            foreach (var threshold in _thresholds.OrderBy(x => x))
+            {
+                if (timeInSeconds > threshold)
+                {
+                    timeForNextStar = threshold;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            _timeNeededForNextStarText.text = $"Time needed for next star: {timeForNextStar}s";
         }
         _newScoreText.gameObject.SetActive(true);
         _confettiParticles.StartParticleEmission();
@@ -99,7 +105,7 @@ public class FinishPanelManagement : MonoBehaviour
         yield return new WaitForSeconds(.25f);
         for (int i = 0; i < _thresholds.Count; i++)
         {
-            if (_endLevelTimers.TimeInSeconds <= _thresholds[i])
+            if ((int)_endLevelTimers.TimeInSeconds <= _thresholds[i])
             {
                 _stars[i].gameObject.SetActive(true);
                 _stars[i].RunPunchAnimation();
