@@ -55,7 +55,9 @@ namespace TarodevController {
         private ParticleSystem _moveParticles;
 
         [SerializeField] private float _tileChangeSpeed = .05f;
-        [SerializeField] private AudioClip[] _footstepClips;
+        [SerializeField] private AudioClip[] _grassFootstepClips;
+        [SerializeField] private AudioClip _basicFootstepClip;
+        private float[] _pitch = { 0.8f, 1f, 1.2f };
         private ParticleSystem.MinMaxGradient _currentGradient;
         private readonly RaycastHit2D[] _groundHits = new RaycastHit2D[2];
         private Vector2 _tiltVelocity;
@@ -88,7 +90,9 @@ namespace TarodevController {
 
         public void PlayFootstep() 
         {
-            PlaySound(_footstepClips[_stepIndex++ % _footstepClips.Length], 0.2f);
+            Debug.Log(_stepIndex);
+            PlaySound(_basicFootstepClip, 1, _pitch[_stepIndex++ % _pitch.Length]);
+            //PlaySound(_grassFootstepClips[_stepIndex++ % _grassFootstepClips.Length], 0.2f);
         }
 
         #endregion
