@@ -158,6 +158,17 @@ namespace MasterServerToolkit.MasterServer
             }
         }
 
+        protected override IClientSocket ConnectionFactory()
+        {
+            if (!RoomToMasterConnector.Instance)
+            {
+                var connectorObject = new GameObject("--ROOM_CONNECTION_TO_MASTER");
+                connectorObject.AddComponent<RoomToMasterConnector>();
+            }
+
+            return RoomToMasterConnector.Instance.Connection;
+        }
+
         private void OnConnectedToMasterEventHandler(IClientSocket client)
         {
             logger.Info("Room server connected to master server as client");
@@ -333,13 +344,13 @@ namespace MasterServerToolkit.MasterServer
                             logger.Error(e.Message);
                             callback?.Invoke(false, e.Message);
                         }
-                    });
+                    }, Connection);
                 }
                 catch (Exception e)
                 {
                     callback?.Invoke(false, e.Message);
                 }
-            });
+            }, Connection);
         }
 
         /// <summary>
@@ -366,7 +377,7 @@ namespace MasterServerToolkit.MasterServer
 
                 // Invoke notification
                 OnBeforeRoomRegisterEvent?.Invoke(RoomOptions);
-            });
+            }, Connection);
         }
 
         /// <summary>
@@ -450,7 +461,7 @@ namespace MasterServerToolkit.MasterServer
 
                 // Notify listeners
                 OnRoomRegisteredEvent?.Invoke(RoomController);
-            });
+            }, Connection);
         }
 
         /// <summary>
@@ -521,7 +532,7 @@ namespace MasterServerToolkit.MasterServer
             Mst.Server.Notifications.NotifyRoom(RoomController.RoomId,
                     new int[] { player.MasterPeerId },
                     $"Player {player.Username} has just joined the room",
-                    null);
+                    null, Connection);
         }
 
         /// <summary>
@@ -533,7 +544,7 @@ namespace MasterServerToolkit.MasterServer
             Mst.Server.Notifications.NotifyRoom(RoomController.RoomId,
                     new int[] { player.MasterPeerId },
                     $"Player {player.Username} has just left the room",
-                    null);
+                    null, Connection);
         }
 
         /// <summary>

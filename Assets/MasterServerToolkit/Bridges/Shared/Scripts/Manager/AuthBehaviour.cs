@@ -373,7 +373,7 @@ namespace MasterServerToolkit.Games
 
                         Mst.Events.Invoke(MstEventKeys.showOkDialogBox, new OkDialogBoxEventMessage(outputMessage, () =>
                         {
-                            Mst.Events.Invoke(MstEventKeys.showSignInView);
+                            Mst.Events.Invoke(MstEventKeys.showSignUpView);
                         }));
                     }
                 });

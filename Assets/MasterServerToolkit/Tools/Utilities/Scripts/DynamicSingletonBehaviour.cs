@@ -29,7 +29,7 @@ namespace MasterServerToolkit.Utils
         /// <summary>
         /// Current instance of this singleton
         /// </summary>
-        private static T _instance;
+        protected static T _instance;
         /// <summary>
         /// 
         /// </summary>
@@ -60,7 +60,7 @@ namespace MasterServerToolkit.Utils
         {
             get
             {
-                if (!_instance && !isQuitting && !isNowDestroying)
+                if (_instance == null && !isQuitting && !isNowDestroying)
                     Create();
 
                 return _instance;
