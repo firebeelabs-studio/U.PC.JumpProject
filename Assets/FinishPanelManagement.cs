@@ -48,6 +48,7 @@ public class FinishPanelManagement : MonoBehaviour
     {
         FinishSinglePlayer.RunFinish += OnRunFinish;
     }
+
     private void OnDisable()
     {
         FinishSinglePlayer.RunFinish -= OnRunFinish;
@@ -55,6 +56,24 @@ public class FinishPanelManagement : MonoBehaviour
 
     private void OnRunFinish()
     {
+        _yourTimeText.text = $"Your time: {(int)_endLevelTimers.TimeInSeconds}";
+        _previousTimeText.text = _endLevelTimers.Times.Count > 1 ? $"Previous time: {(int)_endLevelTimers.Times[^2]}s" : "Your first try was Swamptastic!";
+        if ((int)_endLevelTimers.TimeInSeconds < _thresholds[2])
+        {
+            _timeNeededForNextStarText.text = $"Congratulations! You've achieved all stars!";
+        }
+        else if ((int)_endLevelTimers.TimeInSeconds > _thresholds[0])
+        {
+            _timeNeededForNextStarText.text = $"Time needed for next star: {_thresholds[0]}s";
+        }
+        else if ((int)_endLevelTimers.TimeInSeconds < _thresholds[0] && (int)_endLevelTimers.TimeInSeconds > _thresholds[1])
+        {
+            _timeNeededForNextStarText.text = $"Time needed for next star: {_thresholds[1]}s";
+        }
+        else if ((int)_endLevelTimers.TimeInSeconds < _thresholds[1] && (int)_endLevelTimers.TimeInSeconds > _thresholds[2])
+        {
+            _timeNeededForNextStarText.text = $"Time needed for next star: {_thresholds[2]}s";
+        }
         _newScoreText.gameObject.SetActive(true);
         _confettiParticles.StartParticleEmission();
         RectTransform newScoreTextRect = _newScoreText.GetComponent<RectTransform>();
@@ -70,8 +89,6 @@ public class FinishPanelManagement : MonoBehaviour
                 {
                     StartCoroutine(SetupStars());
                     SetupThresholdsDescending();
-                    _yourTimeText.text = $"Your time: {(int)_endLevelTimers.TimeInSeconds}";
-                    _previousTimeText.text = _endLevelTimers.Times.Count > 1 ? $"Previous time: {(int)_endLevelTimers.Times[^2]}s" : "Your first try was Swamptastic!";
                 });
             });
         });
@@ -96,7 +113,6 @@ public class FinishPanelManagement : MonoBehaviour
         _thresholds.Sort();
         _thresholds.Reverse();
     }
-
 
     public void Reset()
     {
