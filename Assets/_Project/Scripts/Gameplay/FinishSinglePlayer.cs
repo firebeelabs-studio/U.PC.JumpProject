@@ -17,9 +17,12 @@ public class FinishSinglePlayer : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (IsFinished) return;
-        IsFinished = true;
-        RunFinish?.Invoke();
-        _audioPlayer.PlayOneShotSound(_finishSound);
+        if (col.CompareTag("Player"))
+        {
+            if (IsFinished) return;
+            IsFinished = true;
+            RunFinish?.Invoke();
+            _audioPlayer.PlayOneShotSound(_finishSound);
+        }
     }
 }
