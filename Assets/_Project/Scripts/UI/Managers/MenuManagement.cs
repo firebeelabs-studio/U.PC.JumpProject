@@ -26,7 +26,6 @@ public class MenuManagement : MonoBehaviour
     [SerializeField] private GameObject _levelsMenuPanel;
 
     private ButtonsAnimations _DOTweenAnimations;
-
     private void Awake()
     {
         _DOTweenAnimations = GetComponent<ButtonsAnimations>();

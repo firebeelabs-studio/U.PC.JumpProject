@@ -1,17 +1,12 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using DG.Tweening;
 
 public class ZoomAreaManagement : MonoBehaviour
 {
     public static ZoomAreaManagement Instance { get; private set; }
-
     private CinemachineSmoothPath _dollyTrack;
     public CinemachineSmoothPath DollyTrack => _dollyTrack;
-    
     private CinemachineTrackedDolly _cameraBody;
     private CinemachineVirtualCamera _vcam;
     private float _defaultZoom;
@@ -39,7 +34,6 @@ public class ZoomAreaManagement : MonoBehaviour
             if (collision.TryGetComponent(out ZoomArea zoomArea))
             {
                 ChangeZoom(zoomArea.TargetSize);
-                print("chuj");
             }
         }
     }
