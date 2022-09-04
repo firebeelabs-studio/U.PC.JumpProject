@@ -55,7 +55,7 @@ namespace TarodevController {
         private ParticleSystem _moveParticles;
 
         [SerializeField] private float _tileChangeSpeed = .05f;
-        [SerializeField] private AudioClip[] _grassFootstepClips;
+        [SerializeField] private AudioClip[] _groundFootstepClips;
         [SerializeField] private AudioClip _basicFootstepClip;
         private float[] _pitch = { 0.8f, 1f, 1.2f };
         private ParticleSystem.MinMaxGradient _currentGradient;
@@ -90,9 +90,8 @@ namespace TarodevController {
 
         public void PlayFootstep() 
         {
-            Debug.Log(_stepIndex);
-            PlaySound(_basicFootstepClip, 1, _pitch[_stepIndex++ % _pitch.Length]);
-            //PlaySound(_grassFootstepClips[_stepIndex++ % _grassFootstepClips.Length], 0.2f);
+            //PlaySound(_basicFootstepClip, 0.1f, _pitch[_stepIndex++ % _pitch.Length]);
+            PlaySound(_groundFootstepClips[_stepIndex++ % _groundFootstepClips.Length], 0.2f);
         }
 
         #endregion
@@ -101,7 +100,7 @@ namespace TarodevController {
 
         [Header("JUMPING")] [SerializeField] private float _minImpactForce = 20;
         [SerializeField] private float _landAnimDuration = 0.5f;
-        [SerializeField] private AudioClip _landClip, _jumpClip, _doubleJumpClip;
+        [SerializeField] private AudioClip _jumpClip, _doubleJumpClip;
         [SerializeField] private ParticleSystem _jumpParticles, _launchParticles, _doubleJumpParticles, _landParticles;
 
         private bool _jumpTriggered;
@@ -130,7 +129,6 @@ namespace TarodevController {
             //     _landParticles.transform.localScale = p * Vector3.one;
             //     _landParticles.Play();
             //     //SetColor(_landParticles);
-            //     //PlaySound(_landClip, p * 0.1f);
             // }
 
             if (_grounded)
