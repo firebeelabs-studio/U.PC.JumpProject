@@ -16,7 +16,10 @@ public class StartRun : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        RunStart?.Invoke();     //start timer
-        _audioPlayer.PlayOneShotSound(_startSound);
+        if (col.CompareTag("Player"))
+        {
+            RunStart?.Invoke();     //start timer
+            _audioPlayer.PlayOneShotSound(_startSound);
+        }
     }
 }
