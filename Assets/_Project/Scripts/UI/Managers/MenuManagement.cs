@@ -1,4 +1,5 @@
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,8 +25,15 @@ public class MenuManagement : MonoBehaviour
     [Space(10)]
     [Header("LEVELS MENU")]
     [SerializeField] private GameObject _levelsMenuPanel;
+    [SerializeField] private GameObject _levelPanel;
+    [SerializeField] private TMP_Text _levelNameText;
+    [SerializeField] private TMP_Text _yourScoreText;
+    [SerializeField] private GameObject _closeLevelPanelButton;
 
     private ButtonsAnimations _DOTweenAnimations;
+    private GameObject _currentPanel;
+    private string _levelNameToLoad;
+
     private void Awake()
     {
         _DOTweenAnimations = GetComponent<ButtonsAnimations>();
@@ -33,6 +41,7 @@ public class MenuManagement : MonoBehaviour
 
     private void OnEnable()
     {
+        _currentPanel = _mainMenuPanel;
         _startingCrossfadeImg.enabled = true;
         _startingCrossfadeImg.color = _startingCrossfadeColor;
         SpriteRenderer[] pawnSprites = _pawn.GetComponentsInChildren<SpriteRenderer>();
@@ -63,9 +72,9 @@ public class MenuManagement : MonoBehaviour
     public void SwitchBetweenPanels(GameObject openPanel)
     {
         DOTween.KillAll();
-
+        _currentPanel.SetActive(false);
         openPanel.SetActive(true);
-
+        _currentPanel = openPanel;
         if (openPanel == _mainMenuPanel)
         {
             _pawn.SetActive(true);
@@ -88,10 +97,12 @@ public class MenuManagement : MonoBehaviour
         }
     }
 
-    public void LoadScene(string sceneName)
+    public void LoadScene()
     {
+        if (string.IsNullOrEmpty(_levelNameToLoad)) return;
+
         DOTween.KillAll();
-        LoadingScreenCanvas.Instance?.LoadScene(sceneName);
+        LoadingScreenCanvas.Instance?.LoadScene(_levelNameToLoad);
     }
 
     public void BackToMenu(RectTransform button)
@@ -102,5 +113,25 @@ public class MenuManagement : MonoBehaviour
         _pawn.SetActive(true);
         _modeMenuPanel.SetActive(false);
         _levelsMenuPanel.SetActive(false);
+        _currentPanel = _mainMenuPanel;
+        _levelPanel.SetActive(false);
+    }
+
+    public void OpenLevelPanel(string levelName)
+    {
+        _levelPanel.transform.localScale = Vector3.zero;
+        _levelNameText.text = levelName;
+        //TO DO: read score of current player and display here
+        //_yourScoreText.text = ;
+        _levelPanel.SetActive(true);
+        _levelPanel.transform.DOScale(1, 0.5f).SetEase(Ease.InOutCubic);
+    }
+    public void CloseLevelPanel()
+    {
+        _levelPanel.transform.DOScale(0, 0.5f).SetEase(Ease.InOutCubic).OnComplete(() => { _levelPanel.SetActive(false); });
+    }
+    public void SetLevelToLoad(string levelName)
+    {
+        _levelNameToLoad = levelName;
     }
 }
