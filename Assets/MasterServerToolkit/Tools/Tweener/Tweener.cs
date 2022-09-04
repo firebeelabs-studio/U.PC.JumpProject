@@ -40,7 +40,6 @@ namespace MasterServerToolkit.Utils
         private static readonly ConcurrentDictionary<int, TweenerActionInfoCallback> onStart = new ConcurrentDictionary<int, TweenerActionInfoCallback>();
         private static readonly ConcurrentDictionary<int, TweenerActionInfoCallback> onComplete = new ConcurrentDictionary<int, TweenerActionInfoCallback>();
 
-        public static Tweener Instance => _tweener;
         public static int NextId => _nextId++;
         public static int Count => coroutines.Values.Count;
 

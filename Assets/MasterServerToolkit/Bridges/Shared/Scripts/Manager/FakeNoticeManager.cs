@@ -108,7 +108,7 @@ namespace MasterServerToolkit.Games
 
                             if (roomServerManager.HasPlayers)
                             {
-                                Mst.Server.Notifications.NotifyRoom(roomServerManager.RoomController.RoomId, message, null);
+                                Mst.Server.Notifications.NotifyRoom(roomServerManager.RoomController.RoomId, message, null, roomServerManager.Connection);
                                 StartTaskNotices();
                             }
                         }

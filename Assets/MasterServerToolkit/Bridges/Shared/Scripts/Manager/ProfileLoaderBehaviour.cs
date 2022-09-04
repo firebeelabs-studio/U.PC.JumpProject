@@ -26,6 +26,11 @@ namespace MasterServerToolkit.Games
         /// </summary>
         public ObservableProfile Profile { get; protected set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool HasProfile => Profile != null;
+
         protected override void Awake()
         {
             base.Awake();

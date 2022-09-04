@@ -48,10 +48,11 @@ public class PausePanel : MonoBehaviour
                                                                                 TogglePanel(); 
                                                                             });
         }
-        _homeButton.GetComponent<Button>().onClick.AddListener(() => {
-                                                                        Time.timeScale = 1;
-                                                                        SceneManager.LoadScene(_homeSceneName); 
-                                                                     });
+        _homeButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            Time.timeScale = 1;
+            LoadingScreenCanvas.Instance.LoadScene(_homeSceneName);
+        } );
         //_settingsButton.GetComponent<Button>().onClick.AddListener(() => {  });
     }
     private void Update()

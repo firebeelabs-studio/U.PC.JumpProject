@@ -41,12 +41,11 @@ namespace MasterServerToolkit.MasterServer
 
             logger = Mst.Create.Logger(GetType().Name);
             logger.LogLevel = logLevel;
-
-            ChangeConnection(ConnectionFactory());
         }
 
         protected virtual void Start()
         {
+            ChangeConnection(ConnectionFactory());
             OnInitialize();
 
             if (initModulesAtStart)

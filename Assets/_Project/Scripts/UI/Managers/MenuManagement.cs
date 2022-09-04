@@ -1,13 +1,13 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuManagement : MonoBehaviour
 {
+    [Header("STARTING CROSSFADE")]
+    [SerializeField] private Image _startingCrossfadeImg;
+    [SerializeField] private Color32 _startingCrossfadeColor;
+    [Space(10   )]
     [Header("MAIN MENU")]
     [SerializeField] private GameObject _mainMenuPanel;
     [SerializeField] private GameObject _switchQuests;
@@ -30,6 +30,27 @@ public class MenuManagement : MonoBehaviour
     private void Awake()
     {
         _DOTweenAnimations = GetComponent<ButtonsAnimations>();
+    }
+
+    private void OnEnable()
+    {
+        _startingCrossfadeImg.enabled = true;
+        _startingCrossfadeImg.color = _startingCrossfadeColor;
+        SpriteRenderer[] pawnSprites = _pawn.GetComponentsInChildren<SpriteRenderer>();
+        if (pawnSprites.Length > 0)
+        {
+            foreach (SpriteRenderer pawnSprite in pawnSprites)
+            {
+                var pawnColor = pawnSprite.color;
+                pawnSprite.color = new Color(pawnColor.r, pawnColor.g, pawnColor.b, 0);
+                pawnSprite.DOColor(new Color(pawnColor.r, pawnColor.g, pawnColor.b, 1f), 1.5f);
+            }
+        }
+        _startingCrossfadeImg.DOColor(new Color32(_startingCrossfadeColor.r, _startingCrossfadeColor.g, _startingCrossfadeColor.b, 0), 1.5f).OnComplete(() =>
+        {
+            _startingCrossfadeImg.enabled = false;
+            
+        });
     }
 
     private void Start()
@@ -68,11 +89,10 @@ public class MenuManagement : MonoBehaviour
         }
     }
 
-    //temp
     public void LoadScene(string sceneName)
     {
         DOTween.KillAll();
-        SceneManager.LoadScene(sceneName);
+        LoadingScreenCanvas.Instance?.LoadScene(sceneName);
     }
 
     public void BackToMenu(RectTransform button)

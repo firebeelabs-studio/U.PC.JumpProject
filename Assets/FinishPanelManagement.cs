@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.UI.Extensions;
 
 public class FinishPanelManagement : MonoBehaviour
 {
     [SerializeField] private GameObject _finishPanel;
+    [SerializeField] private TMP_Text _newScoreText;
     [SerializeField] private TMP_Text _timerText;
     [SerializeField] private TMP_Text _yourTimeText;
     [SerializeField] private TMP_Text _previousTimeText;
@@ -18,6 +22,7 @@ public class FinishPanelManagement : MonoBehaviour
     [SerializeField] private Respawn _spawnManager;
     [SerializeField] private Transform _player;
     [SerializeField] private FinishSinglePlayer _finish;
+    [SerializeField] private UIParticleSystem _confettiParticles;
     [SerializeField] private StarAnim[] _stars;
     [SerializeField] private List<float> _thresholds = new();
 
@@ -44,6 +49,7 @@ public class FinishPanelManagement : MonoBehaviour
     {
         FinishSinglePlayer.RunFinish += OnRunFinish;
     }
+
     private void OnDisable()
     {
         FinishSinglePlayer.RunFinish -= OnRunFinish;
@@ -51,19 +57,55 @@ public class FinishPanelManagement : MonoBehaviour
 
     private void OnRunFinish()
     {
-        _finishPanel.SetActive(true);
-        SetupThresholdsDescending();
-        _yourTimeText.text = $"Your time: {(int)_endLevelTimers.TimeInSeconds}";
+        _yourTimeText.text = $"Your time: {(int)_endLevelTimers.TimeInSeconds}s";
         _previousTimeText.text = _endLevelTimers.Times.Count > 1 ? $"Previous time: {(int)_endLevelTimers.Times[^2]}s" : "Your first try was Swamptastic!";
-        StartCoroutine(SetupStars());
+        int timeInSeconds = (int)_endLevelTimers.TimeInSeconds;
+        if (timeInSeconds <= _thresholds[2])
+        {
+            _timeNeededForNextStarText.text = $"Congratulations! You've achieved all stars!";
+        }
+        else
+        {
+            float timeForNextStar = 0;
+            foreach (var threshold in _thresholds.OrderBy(x => x))
+            {
+                if (timeInSeconds > threshold)
+                {
+                    timeForNextStar = threshold;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            _timeNeededForNextStarText.text = $"Time needed for next star: {timeForNextStar}s";
+        }
+        _newScoreText.gameObject.SetActive(true);
+        _confettiParticles.StartParticleEmission();
+        RectTransform newScoreTextRect = _newScoreText.GetComponent<RectTransform>();
+        newScoreTextRect.localScale = Vector2.zero;
+        newScoreTextRect.DOScale(1.5f, 3).SetEase(Ease.OutBack).OnComplete(() =>
+        {
+            newScoreTextRect.DOScale(0, 1).SetEase(Ease.InBack).OnComplete(() =>
+            {
+                _newScoreText.gameObject.SetActive(false);
+                _finishPanel.SetActive(true);
+                _finishPanel.transform.localScale = Vector2.zero;
+                _finishPanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
+                {
+                    StartCoroutine(SetupStars());
+                    SetupThresholdsDescending();
+                });
+            });
+        });
     }
-
+    
     private IEnumerator SetupStars()
     {
         yield return new WaitForSeconds(.25f);
         for (int i = 0; i < _thresholds.Count; i++)
         {
-            if (_endLevelTimers.TimeInSeconds <= _thresholds[i])
+            if ((int)_endLevelTimers.TimeInSeconds <= _thresholds[i])
             {
                 _stars[i].gameObject.SetActive(true);
                 _stars[i].RunPunchAnimation();
@@ -77,7 +119,6 @@ public class FinishPanelManagement : MonoBehaviour
         _thresholds.Sort();
         _thresholds.Reverse();
     }
-
 
     public void Reset()
     {
