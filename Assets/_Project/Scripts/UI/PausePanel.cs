@@ -6,6 +6,7 @@ using System.Collections;
 
 public class PausePanel : MonoBehaviour
 {
+    [Header("PAUSE")]
     [SerializeField] private GameObject _pausePanel;
     [SerializeField] private Button _resumeButton;
     [SerializeField] private Button _restartButton;
@@ -14,6 +15,10 @@ public class PausePanel : MonoBehaviour
     [SerializeField] private Button _settingsButton;
     [SerializeField] private Respawn _spawnManager;
     [SerializeField] private Transform _player;
+    [Space(20)]
+    [Header("SETTINGS")]
+    [SerializeField] private GameObject _settingsPanel;
+    [SerializeField] private Button _backToPauseMenuPanel;
 
     private PlayersInput _inputs;
 
@@ -42,18 +47,28 @@ public class PausePanel : MonoBehaviour
         }
         else
         {
-            _restartButton.GetComponent<Button>().onClick.AddListener(() => {
-                                                                                _spawnManager.ChangeSpawnPos(_spawnManager.StartPos, null);
-                                                                                StartCoroutine(_spawnManager.RespawnPlayer(_player));
-                                                                                TogglePanel(); 
-                                                                            });
+            _restartButton.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                _spawnManager.ChangeSpawnPos(_spawnManager.StartPos, null);
+                StartCoroutine(_spawnManager.RespawnPlayer(_player));
+                TogglePanel();
+            });
         }
         _homeButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             Time.timeScale = 1;
             LoadingScreenCanvas.Instance.LoadScene(_homeSceneName);
         } );
-        //_settingsButton.GetComponent<Button>().onClick.AddListener(() => {  });
+        _settingsButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            _settingsPanel.SetActive(true);
+            _pausePanel.SetActive(false);
+        });
+        _backToPauseMenuPanel.onClick.AddListener(() =>
+        {
+            _settingsPanel.SetActive(false);
+            _pausePanel.SetActive(true);
+        });
     }
     private void Update()
     {
@@ -64,9 +79,16 @@ public class PausePanel : MonoBehaviour
     }
     private void TogglePanel()
     {
-        if (_pausePanel.activeInHierarchy)
+        if (_pausePanel.activeInHierarchy || _settingsPanel.activeInHierarchy)
         {
-            
+            _settingsPanel.gameObject.transform.
+                DOScale(0, 0.15f).
+                SetEase(Ease.InOutCubic).
+                OnComplete(() =>
+                {
+                    _settingsPanel.gameObject.transform.localScale = Vector3.one;
+                    _settingsPanel.SetActive(false);
+                }).SetUpdate(true);
             _pausePanel.gameObject.transform.
                 DOScale(0, 0.15f).
                 SetEase(Ease.InOutCubic).
