@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
+using System;
+using TarodevController;
 
 public class FinishPanelManagement : MonoBehaviour
 {
@@ -25,9 +27,12 @@ public class FinishPanelManagement : MonoBehaviour
     [SerializeField] private UIParticleSystem _confettiParticles;
     [SerializeField] private StarAnim[] _stars;
     [SerializeField] private List<float> _thresholds = new();
+    private TimerSinglePlayer _timerSinglePlayer;
+    public static event Action PlayerRestart; 
 
     private void Awake()
     {
+        _timerSinglePlayer = GetComponentInParent<TimerSinglePlayer>();
         _spawnManager = FindObjectOfType<Respawn>();
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         _finish = GameObject.FindGameObjectWithTag("Finish").GetComponent<FinishSinglePlayer>();
@@ -39,20 +44,20 @@ public class FinishPanelManagement : MonoBehaviour
         _restartButton.onClick.AddListener(() => 
         {
             _finishPanel.SetActive(false);
-            StartCoroutine(_spawnManager.RespawnPlayer(_player));
-            _finish.IsFinished = false;
-            _timerText.SetText("00:00");
+            RestartPlayer();
         });
     }
 
     private void OnEnable()
     {
         FinishSinglePlayer.RunFinish += OnRunFinish;
+        PlayerRestart += OnPlayerRestart;
     }
 
     private void OnDisable()
     {
         FinishSinglePlayer.RunFinish -= OnRunFinish;
+        PlayerRestart -= OnPlayerRestart;
     }
 
     private void OnRunFinish()
@@ -120,8 +125,23 @@ public class FinishPanelManagement : MonoBehaviour
         _thresholds.Reverse();
     }
 
-    public void Reset()
+    private void OnPlayerRestart()
     {
-        
+        PlayerAnimator playerAnimator = _player.GetComponentInChildren<PlayerAnimator>();
+        BoxCollider2D boxCollider = _player.GetComponent<BoxCollider2D>();
+        boxCollider.enabled = false;
+        _finish.IsFinished = false;
+        _spawnManager.ChangeSpawnPos(_spawnManager.StartPos, null);
+        _player.DOMove(_spawnManager.StartPos.position, 0).OnComplete(() =>
+        {
+            boxCollider.enabled = true;
+            _timerSinglePlayer?.ChangeRunStartedBool(false);
+            _timerText.text = "00:00";
+            playerAnimator?.ClearTrail();
+        });
+    }
+    public static void RestartPlayer()
+    {
+        PlayerRestart?.Invoke();
     }
 }

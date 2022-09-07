@@ -56,4 +56,8 @@ public class TimerSinglePlayer : MonoBehaviour
         _isRunStarted = false;
         _times.Add(_timeInSeconds);
     }
+    public void ChangeRunStartedBool(bool value)
+    {
+        _isRunStarted = value;
+    }
 }

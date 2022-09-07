@@ -295,21 +295,19 @@ namespace TarodevController {
         [SerializeField] private AudioClip _deathClip;
         private void OnPlayerDeath()
         {
-            if (_trail)
-            {
-                _trail.enabled = false;
-            }
             _deathParticles.Play();
             PlaySound(_deathClip, 1);
             _renderer.enabled = false;
+            ClearTrail();
         }
         private void OnPlayerRespawn()
         {
-            if (_trail)
-            {
-                _trail.enabled = true;
-            }
             _renderer.enabled = true;
+            ClearTrail();
+        }
+        public void ClearTrail()
+        {
+            _trail.Clear();
         }
     }
 }
