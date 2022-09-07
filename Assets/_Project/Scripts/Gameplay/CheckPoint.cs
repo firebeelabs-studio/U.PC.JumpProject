@@ -27,7 +27,6 @@ public class CheckPoint : MonoBehaviour
             if(_isActive) return;
             _isActive = true;
             _spawnManager.ChangeSpawnPos(_respawnPos, this);
-            print(collision.gameObject.name);
         }
     }
 
