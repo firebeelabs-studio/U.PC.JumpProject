@@ -1,4 +1,4 @@
-using System;
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
@@ -39,8 +39,8 @@ public class Respawn : MonoBehaviour
     public IEnumerator RespawnPlayer(Transform player, float penaltyTime = 0) 
     {
         yield return new WaitForSecondsRealtime(penaltyTime);
-        player.GetComponent<IPawnController>().RespawnPlayer();
-        player.position = _respawnPos.position;
+        
+        player.DOMove(_respawnPos.position, 0).OnComplete(() => { player.GetComponent<IPawnController>().RespawnPlayer(); });
     }
 
 

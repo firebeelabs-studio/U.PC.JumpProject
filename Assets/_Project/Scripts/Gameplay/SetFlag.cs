@@ -15,11 +15,14 @@ public class SetFlag : MonoBehaviour, ICheckpointAnim
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (_isCheckpointActivated) return;
+        if (collision.CompareTag("Player"))
+        {
+            if (_isCheckpointActivated) return;
 
-        _isCheckpointActivated = true;
-        _anim.Play("SetupCheckpoint");
-        _audioPlayer.PlayOneShotSound(_setFlagSound);
+            _isCheckpointActivated = true;
+            _anim.Play("SetupCheckpoint");
+            _audioPlayer.PlayOneShotSound(_setFlagSound);
+        }
     }
     public void ResetToDefaultState()
     {

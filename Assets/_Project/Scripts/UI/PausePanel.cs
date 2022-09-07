@@ -1,8 +1,6 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
-using System.Collections;
 
 public class PausePanel : MonoBehaviour
 {
@@ -19,7 +17,6 @@ public class PausePanel : MonoBehaviour
     [Header("SETTINGS")]
     [SerializeField] private GameObject _settingsPanel;
     [SerializeField] private Button _backToPauseMenuPanel;
-
     private PlayersInput _inputs;
 
     private void Awake()
@@ -28,7 +25,6 @@ public class PausePanel : MonoBehaviour
         _spawnManager = FindObjectOfType<Respawn>();
         _player = GameObject.FindGameObjectWithTag("Player").transform;
     }
-
     void Start()
     {
         _pausePanel.transform.localScale = Vector3.zero;
@@ -49,8 +45,7 @@ public class PausePanel : MonoBehaviour
         {
             _restartButton.GetComponent<Button>().onClick.AddListener(() =>
             {
-                _spawnManager.ChangeSpawnPos(_spawnManager.StartPos, null);
-                StartCoroutine(_spawnManager.RespawnPlayer(_player));
+                FinishPanelManagement.RestartPlayer();
                 TogglePanel();
             });
         }

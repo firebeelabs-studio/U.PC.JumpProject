@@ -22,9 +22,13 @@ public class CheckPoint : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(_isActive) return;
-        _isActive = true;
-        _spawnManager.ChangeSpawnPos(_respawnPos, this);
+        if (collision.CompareTag("Player"))
+        {
+            if(_isActive) return;
+            _isActive = true;
+            _spawnManager.ChangeSpawnPos(_respawnPos, this);
+            print(collision.gameObject.name);
+        }
     }
 
     public void ResetCheckPoint()
