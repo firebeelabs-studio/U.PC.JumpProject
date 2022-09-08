@@ -102,6 +102,10 @@ public class FinishPanelManagement : MonoBehaviour
             newScoreTextRect.DOScale(0, 1).SetEase(Ease.InBack).OnComplete(() =>
             {
                 _newScoreText.gameObject.SetActive(false);
+                foreach (StarAnim star in _stars)
+                {
+                    star.gameObject.SetActive(false);
+                }
                 _finishPanel.SetActive(true);
                 _finishPanel.transform.localScale = Vector2.zero;
                 _finishPanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
@@ -121,6 +125,8 @@ public class FinishPanelManagement : MonoBehaviour
             if ((int)_endLevelTimers.TimeInSeconds <= _thresholds[i])
             {
                 _stars[i].gameObject.SetActive(true);
+                if (!_stars[i].isActiveAndEnabled) break;
+
                 _stars[i].RunPunchAnimation();
             }
             yield return new WaitForSeconds(.75f);
@@ -135,6 +141,8 @@ public class FinishPanelManagement : MonoBehaviour
 
     private void OnPlayerRestart()
     {
+        DOTween.KillAll();
+        StopCoroutine(SetupStars());
         PlayerAnimator playerAnimator = _player.GetComponentInChildren<PlayerAnimator>();
         BoxCollider2D boxCollider = _player.GetComponent<BoxCollider2D>();
         input.enabled = true;
