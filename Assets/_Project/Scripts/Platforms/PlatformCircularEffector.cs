@@ -27,12 +27,12 @@ public class PlatformCircularEffector : MonoBehaviour, IPlayerEffector
         {
             Angle = 0;
         }
-        _change = _lastPos - _nextPos; //calculating the difference between last position and next position
+        _change = _nextPos - _lastPos; //calculating the difference between last position and next position
         _lastPos = _nextPos;
     }
 
     public Vector2 EvaluateEffector()
     {
-        return -_change;
+        return _change;
     }
 }
