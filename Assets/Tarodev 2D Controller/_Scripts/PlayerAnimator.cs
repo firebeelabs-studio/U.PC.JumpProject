@@ -69,7 +69,7 @@ namespace TarodevController {
                 if (!hit || hit.collider.isTrigger || !hit.transform.TryGetComponent(out SpriteRenderer r)) continue;
                 var color = r.color;
                 _currentGradient = new ParticleSystem.MinMaxGradient(color * 0.9f, color * 1.2f);
-                SetColor(_moveParticles);
+                //SetColor(_moveParticles);
                 return;
             }
         }
