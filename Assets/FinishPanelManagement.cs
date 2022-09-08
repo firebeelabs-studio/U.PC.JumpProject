@@ -28,7 +28,10 @@ public class FinishPanelManagement : MonoBehaviour
     [SerializeField] private StarAnim[] _stars;
     [SerializeField] private List<float> _thresholds = new();
     private TimerSinglePlayer _timerSinglePlayer;
-    public static event Action PlayerRestart; 
+    public static event Action PlayerRestart;
+    private PlayersInput input;
+    private IPawnController _pawnController;
+    private float _previousMoveClamp;
 
     private void Awake()
     {
@@ -46,6 +49,9 @@ public class FinishPanelManagement : MonoBehaviour
             _finishPanel.SetActive(false);
             RestartPlayer();
         });
+        input = _player.GetComponent<PlayersInput>();
+        _pawnController = _player.GetComponent<IPawnController>();
+        _previousMoveClamp = _player.GetComponent<PawnController>().MoveClamp;
     }
 
     private void OnEnable()
@@ -62,6 +68,8 @@ public class FinishPanelManagement : MonoBehaviour
 
     private void OnRunFinish()
     {
+        input.enabled = false;
+        _pawnController.ChangeMoveClamp(0);
         _yourTimeText.text = $"Your time: {(int)_endLevelTimers.TimeInSeconds}s";
         _previousTimeText.text = _endLevelTimers.Times.Count > 1 ? $"Previous time: {(int)_endLevelTimers.Times[^2]}s" : "Your first try was Swamptastic!";
         int timeInSeconds = (int)_endLevelTimers.TimeInSeconds;
@@ -94,6 +102,10 @@ public class FinishPanelManagement : MonoBehaviour
             newScoreTextRect.DOScale(0, 1).SetEase(Ease.InBack).OnComplete(() =>
             {
                 _newScoreText.gameObject.SetActive(false);
+                foreach (StarAnim star in _stars)
+                {
+                    star.gameObject.SetActive(false);
+                }
                 _finishPanel.SetActive(true);
                 _finishPanel.transform.localScale = Vector2.zero;
                 _finishPanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
@@ -113,6 +125,8 @@ public class FinishPanelManagement : MonoBehaviour
             if ((int)_endLevelTimers.TimeInSeconds <= _thresholds[i])
             {
                 _stars[i].gameObject.SetActive(true);
+                if (!_stars[i].isActiveAndEnabled) break;
+
                 _stars[i].RunPunchAnimation();
             }
             yield return new WaitForSeconds(.75f);
@@ -127,8 +141,12 @@ public class FinishPanelManagement : MonoBehaviour
 
     private void OnPlayerRestart()
     {
+        DOTween.KillAll();
+        StopCoroutine(SetupStars());
         PlayerAnimator playerAnimator = _player.GetComponentInChildren<PlayerAnimator>();
         BoxCollider2D boxCollider = _player.GetComponent<BoxCollider2D>();
+        input.enabled = true;
+        _pawnController.ChangeMoveClamp(_previousMoveClamp);
         boxCollider.enabled = false;
         _finish.IsFinished = false;
         _spawnManager.ChangeSpawnPos(_spawnManager.StartPos, null);
