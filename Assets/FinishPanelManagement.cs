@@ -28,7 +28,10 @@ public class FinishPanelManagement : MonoBehaviour
     [SerializeField] private StarAnim[] _stars;
     [SerializeField] private List<float> _thresholds = new();
     private TimerSinglePlayer _timerSinglePlayer;
-    public static event Action PlayerRestart; 
+    public static event Action PlayerRestart;
+    private PlayersInput input;
+    private IPawnController _pawnController;
+    private float _previousMoveClamp;
 
     private void Awake()
     {
@@ -46,6 +49,9 @@ public class FinishPanelManagement : MonoBehaviour
             _finishPanel.SetActive(false);
             RestartPlayer();
         });
+        input = _player.GetComponent<PlayersInput>();
+        _pawnController = _player.GetComponent<IPawnController>();
+        _previousMoveClamp = _player.GetComponent<PawnController>().MoveClamp;
     }
 
     private void OnEnable()
@@ -62,6 +68,8 @@ public class FinishPanelManagement : MonoBehaviour
 
     private void OnRunFinish()
     {
+        input.enabled = false;
+        _pawnController.ChangeMoveClamp(0);
         _yourTimeText.text = $"Your time: {(int)_endLevelTimers.TimeInSeconds}s";
         _previousTimeText.text = _endLevelTimers.Times.Count > 1 ? $"Previous time: {(int)_endLevelTimers.Times[^2]}s" : "Your first try was Swamptastic!";
         int timeInSeconds = (int)_endLevelTimers.TimeInSeconds;
@@ -129,6 +137,8 @@ public class FinishPanelManagement : MonoBehaviour
     {
         PlayerAnimator playerAnimator = _player.GetComponentInChildren<PlayerAnimator>();
         BoxCollider2D boxCollider = _player.GetComponent<BoxCollider2D>();
+        input.enabled = true;
+        _pawnController.ChangeMoveClamp(_previousMoveClamp);
         boxCollider.enabled = false;
         _finish.IsFinished = false;
         _spawnManager.ChangeSpawnPos(_spawnManager.StartPos, null);
