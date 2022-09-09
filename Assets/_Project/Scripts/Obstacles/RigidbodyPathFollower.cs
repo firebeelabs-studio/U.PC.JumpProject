@@ -56,7 +56,7 @@ namespace TarodevController {
             _lastPos = newPos;
         }
 
-        private void OnDrawGizmosSelected() 
+        private void OnDrawGizmos() 
         {
             if (Application.isPlaying) return;
             var curPos = (Vector2)transform.position;

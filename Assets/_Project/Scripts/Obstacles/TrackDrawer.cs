@@ -2,20 +2,19 @@ using UnityEngine;
 
 public class TrackDrawer : MonoBehaviour
 {
-    [SerializeField] private IWaypointPath _waypointPath;
     [SerializeField] private GameObject _joint, _track;
-    [SerializeField] private Transform _objectToFollow;
+    private IWaypointPath _waypointPath;
 
     private void Awake()
     {
-        _waypointPath = GetComponentInChildren<IWaypointPath>();
+        _waypointPath = GetComponent<IWaypointPath>();
     }
 
     private void Start()
     {
         for (int i = 0; i < _waypointPath.Points.Length; i++)
         {
-            Instantiate(_joint, (Vector2)_objectToFollow.transform.position + _waypointPath.Points[i], Quaternion.identity, transform);
+            Instantiate(_joint, (Vector2)transform.position + _waypointPath.Points[i], Quaternion.identity);
         }
 
         for (int i = 0; i < _waypointPath.Points.Length - 1; i++)
@@ -38,7 +37,7 @@ public class TrackDrawer : MonoBehaviour
         Vector2 midPos = new Vector2((previousWaypoint.x + nextWaypoint.x) / 2, (previousWaypoint.y + nextWaypoint.y) / 2);
 
         // creates instantiate of the single track and put it in _midPos
-        SpriteRenderer sprite = Instantiate(_track, (Vector2)_objectToFollow.transform.position + midPos, trackRotation, transform).GetComponent<SpriteRenderer>();
+        SpriteRenderer sprite = Instantiate(_track, (Vector2)transform.position + midPos, trackRotation).GetComponent<SpriteRenderer>();
 
         // calculates the length of the track and set it
         float length = Vector2.Distance(previousWaypoint, nextWaypoint);

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 187224115239897276}
   - component: {fileID: 187224115239897218}
   - component: {fileID: 752460516285373378}
+  - component: {fileID: 1955435056039758955}
   m_Layer: 3
   m_Name: Horizontal Platform
   m_TagString: Untagged
@@ -150,4 +151,18 @@ MonoBehaviour:
   - {x: 0, y: 0}
   - {x: 5, y: 0}
   _speed: 2
-  _looped: 0
+  _isTrackLooped: 0
+--- !u!114 &1955435056039758955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187224115239897278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6172bc9c78575d8479d2ad3db50f11da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _joint: {fileID: 4987831343245517583, guid: 47a47a6f9dc5d894fafaf568eea66611, type: 3}
+  _track: {fileID: 2472207604232887905, guid: 6358c9fc1b93ab342b7bc9d4c3ddfafe, type: 3}
