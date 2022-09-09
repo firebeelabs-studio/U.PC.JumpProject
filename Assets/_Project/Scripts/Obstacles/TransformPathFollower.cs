@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SawPathFollower : MonoBehaviour, IWaypointPath
+public class TransformPathFollower : MonoBehaviour, IWaypointPath
 {
     [SerializeField] private float _speed = 1;
     [SerializeField] private bool _isTrackLooped;
@@ -17,8 +17,6 @@ public class SawPathFollower : MonoBehaviour, IWaypointPath
             return _points;
         }
     }
-
-    public float Speed => _speed;
 
     public bool IsTrackLooped => _isTrackLooped;
 
