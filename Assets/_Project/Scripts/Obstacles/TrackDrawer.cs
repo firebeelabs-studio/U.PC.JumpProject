@@ -2,37 +2,30 @@ using UnityEngine;
 
 public class TrackDrawer : MonoBehaviour
 {
+    [SerializeField] private IWaypointPath _waypointPath;
     [SerializeField] private GameObject _joint, _track;
-    [SerializeField] private Transform _saw;
-    [SerializeField] private float _speed = 1;
-    [SerializeField] private bool _isTrackLooped;
-    [SerializeField] private Vector2[] _points;
+    [SerializeField] private Transform _objectToFollow;
 
-    public Vector2[] Points
+    private void Awake()
     {
-        get
-        {
-            return _points;
-        }
+        _waypointPath = GetComponentInChildren<IWaypointPath>();
     }
-    public float Speed => _speed;
-    public bool IsTrackLooped => _isTrackLooped;
 
     private void Start()
     {
-        for (int i = 0; i < _points.Length; i++)
+        for (int i = 0; i < _waypointPath.Points.Length; i++)
         {
-            Instantiate(_joint, (Vector2)transform.position + _points[i], Quaternion.identity, transform);
+            Instantiate(_joint, (Vector2)transform.position + _waypointPath.Points[i], Quaternion.identity, transform);
         }
 
-        for (int i = 0; i < _points.Length - 1; i++)
+        for (int i = 0; i < _waypointPath.Points.Length - 1; i++)
         {
-            SetTrack(_points[i + 1], _points[i]);
+            SetTrack(_waypointPath.Points[i + 1], _waypointPath.Points[i]);
         }
 
-        if (_isTrackLooped)
+        if (_waypointPath.IsTrackLooped)
         {
-            SetTrack(_points[^1], _points[0]);
+            SetTrack(_waypointPath.Points[^1], _waypointPath.Points[0]);
         }
     }
 
@@ -49,7 +42,7 @@ public class TrackDrawer : MonoBehaviour
 
         // calculates the length of the track and set it
         float length = Vector2.Distance(previousWaypoint, nextWaypoint);
-        sprite.size = new Vector2(length, 1);
+        sprite.size = new Vector2(length, 5.12f);
     }
 
     private Quaternion CalculateRotationBetween2Points(Vector2 firstWaypoint, Vector2 secondWaypoint)
@@ -67,24 +60,6 @@ public class TrackDrawer : MonoBehaviour
         {
             angle = -Vector2.Angle(Vector2.right, direction);
         }
-
         return Quaternion.Euler(0, 0, angle);
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (Application.isPlaying) return;
-        Vector2 curPos = _saw.transform.position;
-        Vector2 previous = curPos + _points[0];
-        for (int i = 0; i < _points.Length; i++)
-        {
-            Vector2 next = _points[i] + curPos;
-            Gizmos.DrawWireSphere(next, 0.2f);
-            Gizmos.DrawLine(previous, next);
-
-            previous = next;
-
-            if (_isTrackLooped && i == _points.Length - 1) Gizmos.DrawLine(next, curPos + _points[0]);
-        }
     }
 }

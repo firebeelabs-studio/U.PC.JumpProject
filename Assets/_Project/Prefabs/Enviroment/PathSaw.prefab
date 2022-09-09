@@ -25,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2515654970582648059}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 2515654970830821732}
   - component: {fileID: 2515654970830821735}
   m_Layer: 0
-  m_Name: TrackSaw
+  m_Name: PathSaw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,13 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _joint: {fileID: 4987831343245517583, guid: 47a47a6f9dc5d894fafaf568eea66611, type: 3}
   _track: {fileID: 2472207604232887905, guid: 6358c9fc1b93ab342b7bc9d4c3ddfafe, type: 3}
-  _saw: {fileID: 2515654971384536078}
-  _speed: 5
-  _isTrackLooped: 0
-  _points:
-  - {x: 0, y: 0}
-  - {x: 2, y: 2.5}
-  - {x: 5, y: 2.5}
+  _objectToFollow: {fileID: 2515654971384536078}
 --- !u!1 &2515654971384536079
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +159,6 @@ GameObject:
   - component: {fileID: 2515654971384536080}
   - component: {fileID: 2515654971384536081}
   - component: {fileID: 633380826}
-  - component: {fileID: 761064354005839191}
   - component: {fileID: 838070053001517481}
   m_Layer: 0
   m_Name: SawBlade
@@ -205,7 +198,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.85
+  m_Radius: 0.75
 --- !u!114 &2515654971384536081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d427b6f4ce6b484a86dfaa32618a589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _penaltyTime: 2
 --- !u!114 &633380826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,21 +223,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393ff5278a824f3428624b29b316cf48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _track: {fileID: 2515654970830821735}
---- !u!114 &761064354005839191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2515654971384536079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98a674a0f9528054a9bcc8a2d40e7388, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHearableDistance: 30
-  _shouldRespectDistance: 0
+  _speed: 3
+  _isTrackLooped: 1
+  _points:
+  - {x: 0, y: 0}
+  - {x: 5, y: 0}
 --- !u!82 &838070053001517481
 AudioSource:
   m_ObjectHideFlags: 0
