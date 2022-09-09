@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ public class SkinCreator : MonoBehaviour
     {
         var data = SwampieSkin.CreateInstance<SwampieSkin>();
         data.skinType = SwampieSkin.SkinType.Hat;
-        data.Positions = _skinTransforms;
+        data.Positions = _skinTransforms.ToList();
         data.SkinSprite = _sprite;
         string path = $"Assets/_Project/Art/Characters/Skins/{SwampieSkin.SkinType.Jacket.ToString()}/{_name}.asset";
         AssetDatabase.CreateAsset(data, path);
