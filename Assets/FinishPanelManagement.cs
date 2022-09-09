@@ -13,6 +13,7 @@ using TarodevController;
 public class FinishPanelManagement : MonoBehaviour
 {
     [SerializeField] private GameObject _finishPanel;
+    [SerializeField] private Image _darkeningImage;
     [SerializeField] private TMP_Text _newScoreText;
     [SerializeField] private TMP_Text _timerText;
     [SerializeField] private TMP_Text _yourTimeText;
@@ -46,6 +47,7 @@ public class FinishPanelManagement : MonoBehaviour
         _backToMenuButton.onClick.AddListener(() => { SceneManager.LoadScene("Feature-MenuPet"); });
         _restartButton.onClick.AddListener(() => 
         {
+            _newScoreText.gameObject.SetActive(false);
             _finishPanel.SetActive(false);
             RestartPlayer();
         });
@@ -70,6 +72,8 @@ public class FinishPanelManagement : MonoBehaviour
     {
         input.enabled = false;
         _pawnController.ChangeMoveClamp(0);
+
+        // Finish Panel Text
         _yourTimeText.text = $"Your time: {(int)_endLevelTimers.TimeInSeconds}s";
         _previousTimeText.text = _endLevelTimers.Times.Count > 1 ? $"Previous time: {(int)_endLevelTimers.Times[^2]}s" : "Your first try was Swamptastic!";
         int timeInSeconds = (int)_endLevelTimers.TimeInSeconds;
@@ -93,6 +97,19 @@ public class FinishPanelManagement : MonoBehaviour
             }
             _timeNeededForNextStarText.text = $"Time needed for next star: {timeForNextStar}s";
         }
+
+        // Darkening
+        _darkeningImage.DOColor(new Color32(0, 0, 0, 100), 3).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            //_darkeningImage.DOColor(new Color32(0, 0, 0, 0), 2).SetEase(Ease.Linear);
+        });
+
+        // Timer Text
+        RectTransform timerTextRect = _timerText.GetComponent<RectTransform>();
+        timerTextRect.DOScale(0, 0.5f).SetEase(Ease.Linear);
+
+        // New Record Text
+        _newScoreText.text = "NEW RECORD! " + _timerText.text;
         _newScoreText.gameObject.SetActive(true);
         _confettiParticles.StartParticleEmission();
         RectTransform newScoreTextRect = _newScoreText.GetComponent<RectTransform>();
@@ -142,6 +159,12 @@ public class FinishPanelManagement : MonoBehaviour
     private void OnPlayerRestart()
     {
         DOTween.KillAll();
+
+        // Timer Text & Darkening
+        RectTransform timerTextRect = _timerText.GetComponent<RectTransform>();
+        timerTextRect.DOScale(1, 1).SetEase(Ease.Linear);
+        _darkeningImage.DOColor(new Color32(0, 0, 0, 0), 1).SetEase(Ease.Linear);
+
         StopCoroutine(SetupStars());
         PlayerAnimator playerAnimator = _player.GetComponentInChildren<PlayerAnimator>();
         BoxCollider2D boxCollider = _player.GetComponent<BoxCollider2D>();
@@ -158,6 +181,7 @@ public class FinishPanelManagement : MonoBehaviour
             playerAnimator?.ClearTrail();
         });
     }
+
     public static void RestartPlayer()
     {
         PlayerRestart?.Invoke();
