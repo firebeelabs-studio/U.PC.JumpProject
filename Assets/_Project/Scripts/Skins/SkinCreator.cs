@@ -7,13 +7,26 @@ using UnityEngine;
 
 public class SkinCreator : MonoBehaviour
 {
-    [SerializeField] private SwampieSkin _skinToLoad;
-    private SwampieSkin skin;
+    private SwampieSkin _skinToLoad;
+    private SwampieSkin _skin;
+    
+    
+    [SerializeField] private SwampieSkin.SwampieType _swampieType;
+    [SerializeField] private SwampieSkin.SkinType _skinType;
+
+    [SerializeField] private Transform _skinTransform;
+    [SerializeField] private Transform _hatTransform;
+    [SerializeField] private Transform _jacketTransform;
+    
     private int _currentIndex = 0;
-    public Transform _transform;
     public string _name;
-    public Sprite _sprite;
+    public Sprite SkinSprite;
     List<SwampieSkin.SkinTransform> _skinTransforms = new List<SwampieSkin.SkinTransform>();
+
+    private void OnEnable()
+    {
+        _skinTransform.GetComponent<SpriteRenderer>().sprite = SkinSprite;
+    }
 
     [ContextMenu("Create Skin")]
     public void CreateSkin()
@@ -21,10 +34,9 @@ public class SkinCreator : MonoBehaviour
         var data = SwampieSkin.CreateInstance<SwampieSkin>();
         data.skinType = SwampieSkin.SkinType.Hat;
         data.Positions = _skinTransforms.ToList();
-        data.SkinSprite = _sprite;
-        string path = $"Assets/_Project/Art/Characters/Skins/{SwampieSkin.SkinType.Jacket.ToString()}/{_name}.asset";
+        data.SkinSprite = SkinSprite;
+        string path = $"Assets/_Project/Art/Characters/Skins/{_skinType.ToString()}/{_name}_{_swampieType.ToString()}.asset";
         AssetDatabase.CreateAsset(data, path);
-        skin = data;
     }
 
     public void AddVariant()
@@ -37,30 +49,53 @@ public class SkinCreator : MonoBehaviour
     public void ChangeVariant(int number)
     {
         ChangeIndex(number);
-        transform.position = _skinTransforms[_currentIndex].Pos;
-        transform.rotation = _skinTransforms[_currentIndex].Rot;
-        transform.localScale = _skinTransforms[_currentIndex].Scale;
+        _skinTransform.position = _skinTransforms[_currentIndex].Pos;
+        _skinTransform.rotation = _skinTransforms[_currentIndex].Rot;
+        _skinTransform.localScale = _skinTransforms[_currentIndex].Scale;
+    }
+    
+    private SwampieSkin.SkinTransform CreateSkinTransform()
+    {
+        return new SwampieSkin.SkinTransform
+        {
+            Scale = _skinTransform.localScale,
+            Rot = _skinTransform.rotation,
+            Pos = _skinTransform.position
+        };
     }
 
     [ContextMenu("ReadSkin")]
     public void ReadSkin()
     {
-        skin = _skinToLoad;
+        _skin = _skinToLoad;
         _currentIndex = 0;
-        _skinTransforms = skin.Positions;
+        _skinTransforms = _skin.Positions;
         transform.position = _skinTransforms[0].Pos;
         transform.rotation = _skinTransforms[0].Rot;
         transform.localScale = _skinTransforms[0].Scale;
     }
 
-    private SwampieSkin.SkinTransform CreateSkinTransform()
+    private void SetDefPos()
     {
-        return new SwampieSkin.SkinTransform
+        if (_skinType == SwampieSkin.SkinType.Hat)
         {
-            Scale = _transform.localScale,
-            Rot = _transform.rotation,
-            Pos = _transform.position
-        };
+            //TODO: Move this to seperate function
+            _skinTransform.position = _hatTransform.position;
+            _skinTransform.rotation = _hatTransform.rotation;
+            _skinTransform.localScale = _hatTransform.localScale;
+        }
+        else if (_skinType == SwampieSkin.SkinType.Jacket)
+        {
+            _skinTransform.position = _jacketTransform.position;
+            _skinTransform.rotation = _jacketTransform.rotation;
+            _skinTransform.localScale = _jacketTransform.localScale;
+        }
+    }
+
+    public void ChangeSkinType()
+    {
+        _skinType = SwampieSkin.SkinType.Jacket;
+        SetDefPos();
     }
 
     private void ChangeIndex(int number)
