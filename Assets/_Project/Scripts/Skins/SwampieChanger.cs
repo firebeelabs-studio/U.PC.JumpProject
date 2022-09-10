@@ -69,4 +69,19 @@ public class SwampieChanger : MonoBehaviour
     {
         CurrentCreator.AddVariant();
     }
+    
+    public void ChangeSkinType(int type)
+    {
+        switch (type)
+        {
+            case 0:
+                CurrentCreator.SkinType = SwampieSkin.SkinType.Hat;
+                break;
+            case 1:
+                CurrentCreator.SkinType = SwampieSkin.SkinType.Jacket;
+                break;
+        }
+
+        CurrentCreator.SetDefPos();
+    }
 }

@@ -12,7 +12,7 @@ public class SkinCreator : MonoBehaviour
     
     
     [SerializeField] private SwampieSkin.SwampieType _swampieType;
-    [SerializeField] private SwampieSkin.SkinType _skinType;
+    public SwampieSkin.SkinType SkinType;
 
     [SerializeField] private Transform _skinTransform;
     [SerializeField] private Transform _hatTransform;
@@ -35,7 +35,7 @@ public class SkinCreator : MonoBehaviour
         data.skinType = SwampieSkin.SkinType.Hat;
         data.Positions = _skinTransforms.ToList();
         data.SkinSprite = SkinSprite;
-        string path = $"Assets/_Project/Art/Characters/Skins/{_skinType.ToString()}/{_name}_{_swampieType.ToString()}.asset";
+        string path = $"Assets/_Project/Art/Characters/Skins/{SkinType.ToString()}/{_name}_{_swampieType.ToString()}.asset";
         AssetDatabase.CreateAsset(data, path);
     }
 
@@ -75,16 +75,16 @@ public class SkinCreator : MonoBehaviour
         transform.localScale = _skinTransforms[0].Scale;
     }
 
-    private void SetDefPos()
+    public void SetDefPos()
     {
-        if (_skinType == SwampieSkin.SkinType.Hat)
+        if (SkinType == SwampieSkin.SkinType.Hat)
         {
             //TODO: Move this to seperate function
             _skinTransform.position = _hatTransform.position;
             _skinTransform.rotation = _hatTransform.rotation;
             _skinTransform.localScale = _hatTransform.localScale;
         }
-        else if (_skinType == SwampieSkin.SkinType.Jacket)
+        else if (SkinType == SwampieSkin.SkinType.Jacket)
         {
             _skinTransform.position = _jacketTransform.position;
             _skinTransform.rotation = _jacketTransform.rotation;
@@ -94,7 +94,7 @@ public class SkinCreator : MonoBehaviour
 
     public void ChangeSkinType()
     {
-        _skinType = SwampieSkin.SkinType.Jacket;
+        SkinType = SwampieSkin.SkinType.Jacket;
         SetDefPos();
     }
 
