@@ -51192,6 +51192,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 465888919}
     m_Modifications:
+    - target: {fileID: 5176818957031417778, guid: 1bac898917e9f4a44a78cb18f1cb20c7, type: 3}
+      propertyPath: _slowDuration
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5176818957251564641, guid: 1bac898917e9f4a44a78cb18f1cb20c7, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -54698,7 +54702,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d427b6f4ce6b484a86dfaa32618a589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _penaltyTime: 2
 --- !u!1001 &1549953707
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63996,7 +63999,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d427b6f4ce6b484a86dfaa32618a589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _penaltyTime: 2
 --- !u!1001 &2092319977
 PrefabInstance:
   m_ObjectHideFlags: 0
