@@ -99,7 +99,7 @@ public class FinishPanelManagement : MonoBehaviour
         }
 
         // Darkening
-        _darkeningImage.DOColor(new Color32(0, 0, 0, 100), 3).SetEase(Ease.Linear).OnComplete(() =>
+        _darkeningImage.DOColor(new Color32(0, 0, 0, 100), 1).SetEase(Ease.Linear).OnComplete(() =>
         {
             //_darkeningImage.DOColor(new Color32(0, 0, 0, 0), 2).SetEase(Ease.Linear);
         });
@@ -114,7 +114,7 @@ public class FinishPanelManagement : MonoBehaviour
         _confettiParticles.StartParticleEmission();
         RectTransform newScoreTextRect = _newScoreText.GetComponent<RectTransform>();
         newScoreTextRect.localScale = Vector2.zero;
-        newScoreTextRect.DOScale(1.5f, 3).SetEase(Ease.OutBack).OnComplete(() =>
+        newScoreTextRect.DOScale(1.5f, 1.5f).SetEase(Ease.OutBack).OnComplete(() =>
         {
             newScoreTextRect.DOScale(0, 1).SetEase(Ease.InBack).OnComplete(() =>
             {

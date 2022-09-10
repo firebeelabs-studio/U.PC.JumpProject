@@ -1,18 +1,27 @@
 using UnityEngine;
 
 namespace TarodevController {
-    public class PatrolPlatform : MonoBehaviour, IPlayerEffector
+    public class RigidbodyPathFollower : MonoBehaviour, IPlayerEffector, IWaypointPath
     {
         [SerializeField] private Vector2[] _points;
         [SerializeField] private float _speed = 1;
-        [SerializeField] private bool _looped;
+        [SerializeField] private bool _isTrackLooped;
 
         private Rigidbody2D _rb;
-        private Vector2 _startPos;
+        private Vector2 _pos => _rb.position;
+        private Vector2 _change, _startPos, _lastPos;
         private int _index;
-        private Vector2 Pos => _rb.position;
-        private Vector2 _change, _lastPos;
         private bool _ascending;
+
+        public Vector2[] Points
+        {
+            get
+            {
+                return _points;
+            }
+        }
+
+        public bool IsTrackLooped => _isTrackLooped;
 
         private void Awake() 
         {
@@ -23,14 +32,14 @@ namespace TarodevController {
         private void FixedUpdate() 
         {
             var target = _points[_index] + _startPos;
-            var newPos = Vector2.MoveTowards(Pos, target, _speed * Time.fixedDeltaTime);
+            var newPos = Vector2.MoveTowards(_pos, target, _speed * Time.fixedDeltaTime);
             _rb.MovePosition(newPos);
 
-            if (Pos == target) 
+            if (_pos == target) 
             {
                 _index = _ascending ? _index + 1 : _index - 1;
                 if (_index >= _points.Length) {
-                    if (_looped) {
+                    if (_isTrackLooped) {
                         _index = 0;
                     }
                     else {
@@ -47,7 +56,7 @@ namespace TarodevController {
             _lastPos = newPos;
         }
 
-        private void OnDrawGizmosSelected() 
+        private void OnDrawGizmos() 
         {
             if (Application.isPlaying) return;
             var curPos = (Vector2)transform.position;
@@ -60,7 +69,7 @@ namespace TarodevController {
 
                 previous = p;
 
-                if (_looped && i == _points.Length - 1) Gizmos.DrawLine(p, curPos + _points[0]);
+                if (_isTrackLooped && i == _points.Length - 1) Gizmos.DrawLine(p, curPos + _points[0]);
             }
         }
 
