@@ -12,13 +12,15 @@ public class SwampieChanger : MonoBehaviour
     public SkinCreator CurrentCreator;
     public List<Sprite> _skinSprites;
 
-    private void Awake()
+    private void Start()
     {
         _activeCharacter = _swampies[0];
         CurrentCreator = _swampies[0].GetComponent<SkinCreator>();
         CurrentCreator.SkinSprite = _skinSprites[0];
+        CurrentCreator.SetSkinSprite();
     }
 
+    //change swampie type and handle skin sprite change
     public void ChangeCharacter(int index)
     {
         ChangeIndex(index);
@@ -27,11 +29,37 @@ public class SwampieChanger : MonoBehaviour
         CurrentCreator = newActiveCharacter.GetComponent<SkinCreator>();
         CurrentCreator.SkinSprite = _skinSprites[0];
         newActiveCharacter.SetActive(true);
+        CurrentCreator.SetSkinSprite();
         _activeCharacter = newActiveCharacter;
         if (_currentIndex == _swampies.Count - 1)
         {
             _skinSprites.RemoveAt(0);
         }
+    }
+    
+    public void Save()
+    {
+        CurrentCreator.CreateSkin();
+    }
+
+    public void AddVariant()
+    {
+        CurrentCreator.AddVariant();
+    }
+    
+    public void ChangeSkinType(int type)
+    {
+        switch (type)
+        {
+            case 0:
+                CurrentCreator.SkinType = SwampieSkin.SkinType.Hat;
+                break;
+            case 1:
+                CurrentCreator.SkinType = SwampieSkin.SkinType.Jacket;
+                break;
+        }
+
+        CurrentCreator.SetDefPos();
     }
     
     private void ChangeIndex(int number)
@@ -58,30 +86,5 @@ public class SwampieChanger : MonoBehaviour
                 _currentIndex += number;
             }
         }
-    }
-
-    public void Save()
-    {
-        CurrentCreator.CreateSkin();
-    }
-
-    public void AddVariant()
-    {
-        CurrentCreator.AddVariant();
-    }
-    
-    public void ChangeSkinType(int type)
-    {
-        switch (type)
-        {
-            case 0:
-                CurrentCreator.SkinType = SwampieSkin.SkinType.Hat;
-                break;
-            case 1:
-                CurrentCreator.SkinType = SwampieSkin.SkinType.Jacket;
-                break;
-        }
-
-        CurrentCreator.SetDefPos();
     }
 }

@@ -23,7 +23,7 @@ public class SkinCreator : MonoBehaviour
     public Sprite SkinSprite;
     List<SwampieSkin.SkinTransform> _skinTransforms = new List<SwampieSkin.SkinTransform>();
 
-    private void OnEnable()
+    public void SetSkinSprite()
     {
         _skinTransform.GetComponent<SpriteRenderer>().sprite = SkinSprite;
     }
@@ -35,7 +35,7 @@ public class SkinCreator : MonoBehaviour
         data.skinType = SwampieSkin.SkinType.Hat;
         data.Positions = _skinTransforms.ToList();
         data.SkinSprite = SkinSprite;
-        string path = $"Assets/_Project/Art/Characters/Skins/{SkinType.ToString()}/{_name}_{_swampieType.ToString()}.asset";
+        string path = $"Assets/_Project/Art/Characters/Skins/Data/{_name}_{_swampieType.ToString()}_{SkinType.ToString()}.asset";
         AssetDatabase.CreateAsset(data, path);
     }
 
