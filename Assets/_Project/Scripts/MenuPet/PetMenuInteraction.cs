@@ -7,6 +7,8 @@ public class PetMenuInteraction : MonoBehaviour
     [SerializeField] private float _explosionForce;
     [SerializeField] private float _fieldOfImpact;
     [SerializeField] private ParticleSystem _mouseClickRingParticle;
+    [SerializeField] private AudioClip _petClickSound;
+    [SerializeField] private float _pitch;
     [Space(10)]
     [Header("Holding")]
     [SerializeField] private float _maxMouseSpeed = 10;
@@ -23,10 +25,16 @@ public class PetMenuInteraction : MonoBehaviour
     private Vector3 _mousePos, _mouseForce, _lastMousePosition, _targetStartPos;
     private GameObject _selectedObj;
     private Rigidbody2D _selectedRb;
+    private AudioPlayer _audioPlayer;
     private bool _stopIdle = false;
     private float _counter = 0;
     private float _idleAnimDelay;
     private float _angle;
+
+    private void Awake()
+    {
+        _audioPlayer = GetComponent<AudioPlayer>();
+    }
 
     private void Start()
     {
@@ -99,6 +107,11 @@ public class PetMenuInteraction : MonoBehaviour
 
         foreach (Collider2D obj in objects)
         {
+            if (objects.Length > 0)
+            {
+                _audioPlayer.PlayOneShotSound(_petClickSound, 1, _pitch);
+            }
+
             //checks if any of bones that will be moved by explosion is affected by idle animation
             foreach (var bone in _bonesTransformsAndStartPos)
             {
