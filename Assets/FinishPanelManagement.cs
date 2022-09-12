@@ -25,7 +25,7 @@ public class FinishPanelManagement : MonoBehaviour
     [SerializeField] private Respawn _spawnManager;
     [SerializeField] private Transform _player;
     [SerializeField] private FinishSinglePlayer _finish;
-    [SerializeField] private UIParticleSystem _confettiParticles;
+    [SerializeField] private UIParticleSystem _confettiParticles, _pepeParticles;
     [SerializeField] private StarAnim[] _stars;
     [SerializeField] private List<float> _thresholds = new();
     private TimerSinglePlayer _timerSinglePlayer;
@@ -112,6 +112,7 @@ public class FinishPanelManagement : MonoBehaviour
         _newScoreText.text = "NEW RECORD! " + _timerText.text;
         _newScoreText.gameObject.SetActive(true);
         _confettiParticles.StartParticleEmission();
+        _pepeParticles.StartParticleEmission();
         RectTransform newScoreTextRect = _newScoreText.GetComponent<RectTransform>();
         newScoreTextRect.localScale = Vector2.zero;
         newScoreTextRect.DOScale(1.5f, 1.5f).SetEase(Ease.OutBack).OnComplete(() =>
