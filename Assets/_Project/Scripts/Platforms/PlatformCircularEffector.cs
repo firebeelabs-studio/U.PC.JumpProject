@@ -17,7 +17,7 @@ public class PlatformCircularEffector : MonoBehaviour, IPlayerEffector
 
     private void FixedUpdate()
     {
-        Angle += Time.fixedDeltaTime * Speed; //increasing angle value
+        Angle += Time.fixedDeltaTime; //* Speed; //increasing angle value
         
         _nextPosX = _axisObj.position.x + Mathf.Cos(Angle) * Radius; //calculating new x position around the axis (parent object)
         _nextPosY = _axisObj.position.y + Mathf.Sin(Angle) * Radius; //calculating new y position around the axis (parent object)
@@ -27,12 +27,12 @@ public class PlatformCircularEffector : MonoBehaviour, IPlayerEffector
         {
             Angle = 0;
         }
-        _change = _lastPos - _nextPos; //calculating the difference between last position and next position
+        _change = _nextPos - _lastPos; //calculating the difference between last position and next position
         _lastPos = _nextPos;
     }
 
     public Vector2 EvaluateEffector()
     {
-        return -_change;
+        return _change;
     }
 }
