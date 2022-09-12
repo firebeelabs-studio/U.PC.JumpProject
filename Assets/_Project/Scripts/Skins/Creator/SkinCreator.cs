@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ public class SkinCreator : MonoBehaviour
     private int _currentIndex = 0;
     public string _name;
     public Sprite SkinSprite;
-    List<SwampieSkin.SkinTransform> _skinTransforms = new List<SwampieSkin.SkinTransform>();
+    private List<SwampieSkin.SkinTransform> _skinTransforms = new List<SwampieSkin.SkinTransform>();
 
     public void SetSkinSprite()
     {
@@ -32,7 +33,8 @@ public class SkinCreator : MonoBehaviour
     public void CreateSkin()
     {
         var data = SwampieSkin.CreateInstance<SwampieSkin>();
-        data.skinType = SwampieSkin.SkinType.Hat;
+        data.skinType = SkinType;
+        data.swampieType = _swampieType;
         data.Positions = _skinTransforms.ToList();
         data.SkinSprite = SkinSprite;
         string path = $"Assets/_Project/Art/Characters/Skins/Data/{_name}_{_swampieType.ToString()}_{SkinType.ToString()}.asset";
@@ -45,10 +47,14 @@ public class SkinCreator : MonoBehaviour
         //if we are adding new Variant set current index to last one in list
         _currentIndex = _skinTransforms.Count - 1;
     }
-    
+
+    public void ResetPositions()
+    {
+        _skinTransforms = new();
+    }
     public void ChangeVariant(int number)
     {
-        ChangeIndex(number);
+        _currentIndex = ArcnesTools.IndexHelper.LoopIndex(number, _currentIndex, _skinTransforms);
         _skinTransform.position = _skinTransforms[_currentIndex].Pos;
         _skinTransform.rotation = _skinTransforms[_currentIndex].Rot;
         _skinTransform.localScale = _skinTransforms[_currentIndex].Scale;
@@ -62,17 +68,6 @@ public class SkinCreator : MonoBehaviour
             Rot = _skinTransform.rotation,
             Pos = _skinTransform.position
         };
-    }
-
-    [ContextMenu("ReadSkin")]
-    public void ReadSkin()
-    {
-        _skin = _skinToLoad;
-        _currentIndex = 0;
-        _skinTransforms = _skin.Positions;
-        transform.position = _skinTransforms[0].Pos;
-        transform.rotation = _skinTransforms[0].Rot;
-        transform.localScale = _skinTransforms[0].Scale;
     }
 
     public void SetDefPos()
@@ -96,31 +91,5 @@ public class SkinCreator : MonoBehaviour
     {
         SkinType = SwampieSkin.SkinType.Jacket;
         SetDefPos();
-    }
-
-    private void ChangeIndex(int number)
-    {
-        if (number > 0)
-        {
-            if (_currentIndex + number > _skinTransforms.Count - 1)
-            {
-                _currentIndex = 0;
-            }
-            else
-            {
-                _currentIndex += number;
-            }
-        }
-        else if (number < 0)
-        {
-            if (_currentIndex + number < 0)
-            {
-                _currentIndex = _skinTransforms.Count - 1;
-            }
-            else
-            {
-                _currentIndex += number;
-            }
-        }
     }
 }

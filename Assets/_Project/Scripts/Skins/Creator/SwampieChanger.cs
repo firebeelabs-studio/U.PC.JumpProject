@@ -23,11 +23,12 @@ public class SwampieChanger : MonoBehaviour
     //change swampie type and handle skin sprite change
     public void ChangeCharacter(int index)
     {
-        ChangeIndex(index);
+        _currentIndex = ArcnesTools.IndexHelper.LoopIndex(index, _currentIndex, _swampies);
         _activeCharacter.SetActive(false);
         GameObject newActiveCharacter = _swampies[_currentIndex];
         CurrentCreator = newActiveCharacter.GetComponent<SkinCreator>();
         CurrentCreator.SkinSprite = _skinSprites[0];
+        CurrentCreator.ResetPositions();
         newActiveCharacter.SetActive(true);
         CurrentCreator.SetSkinSprite();
         _activeCharacter = newActiveCharacter;
@@ -60,31 +61,5 @@ public class SwampieChanger : MonoBehaviour
         }
 
         CurrentCreator.SetDefPos();
-    }
-    
-    private void ChangeIndex(int number)
-    {
-        if (number > 0)
-        {
-            if (_currentIndex + number > _swampies.Count - 1)
-            {
-                _currentIndex = 0;
-            }
-            else
-            {
-                _currentIndex += number;
-            }
-        }
-        else if (number < 0)
-        {
-            if (_currentIndex + number < 0)
-            {
-                _currentIndex = _swampies.Count - 1;
-            }
-            else
-            {
-                _currentIndex += number;
-            }
-        }
     }
 }

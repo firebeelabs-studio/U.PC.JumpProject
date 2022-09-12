@@ -23,12 +23,12 @@ public class CharacterChanger : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            ChangeIndex(1);
+            _characterIndex = ArcnesTools.IndexHelper.LoopIndex(1, _characterIndex, _spawnedCharacters);
             ChangeCharacter(_characterIndex);
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            ChangeIndex(-1);
+            _characterIndex = ArcnesTools.IndexHelper.LoopIndex(-1, _characterIndex, _spawnedCharacters);
             ChangeCharacter(_characterIndex);
         }
     }
@@ -46,32 +46,6 @@ public class CharacterChanger : MonoBehaviour
             GameObject spawnedPlayer = Instantiate(character, transform);
             _spawnedCharacters.Add(spawnedPlayer);
             spawnedPlayer.SetActive(false);
-        }
-    }
-    //works only for 1 or -1 TODO: Move this to Utilities, make it more complex (make it works for bigger numbers)
-    private void ChangeIndex(int number)
-    {
-        if (number > 0)
-        {
-            if (_characterIndex + number > _spawnedCharacters.Count - 1)
-            {
-                _characterIndex = 0;
-            }
-            else
-            {
-                _characterIndex += number;
-            }
-        }
-        else if (number < 0)
-        {
-            if (_characterIndex + number < 0)
-            {
-                _characterIndex = _spawnedCharacters.Count - 1;
-            }
-            else
-            {
-                _characterIndex += number;
-            }
         }
     }
 }

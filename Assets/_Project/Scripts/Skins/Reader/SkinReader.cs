@@ -38,7 +38,7 @@ public class SkinReader : MonoBehaviour
         _skinSpriteRenderer.sprite = skinData.SkinSprite;
         _positions = skinData.Positions;
         SetSkinPos(0);
-        ChangeIndex(addToIndex);
+        _currentSkinIndex = ArcnesTools.IndexHelper.LoopIndex(addToIndex, _currentSkinIndex, _sortedSkins);
     }
 
     public void ChangeVariant(int variantNumber)
@@ -46,35 +46,21 @@ public class SkinReader : MonoBehaviour
         SetSkinPos(variantNumber);
     }
 
+    public void ChangeSwampieType(SwampieSkin.SwampieType type)
+    {
+        _swampieType = type;
+        LoadSkins();
+        if (_currentSkinIndex > 0)
+        {
+            _currentSkinIndex--;
+        }
+        ChangeSkin(1);
+    }
+
     private void SetSkinPos(int index)
     {
         transform.position = _positions[index].Pos;
         transform.rotation = _positions[index].Rot;
         transform.localScale = _positions[index].Scale;
-    }
-    private void ChangeIndex(int number)
-    {
-        if (number > 0)
-        {
-            if (_currentSkinIndex + number > _skins.Count - 1)
-            {
-                _currentSkinIndex = 0;
-            }
-            else
-            {
-                _currentSkinIndex += number;
-            }
-        }
-        else if (number < 0)
-        {
-            if (_currentSkinIndex + number < 0)
-            {
-                _currentSkinIndex = _skins.Count - 1;
-            }
-            else
-            {
-                _currentSkinIndex += number;
-            }
-        }
     }
 }
