@@ -43,16 +43,16 @@ namespace MasterServerToolkit.MasterServer
 
             // Set server behaviour to be able to use in all levels
             DontDestroyOnLoad(gameObject);
-        }
-
-        protected override void Start()
-        {
-            base.Start();
 
             // If master IP is provided via cmd arguments
             serverIp = Mst.Args.AsString(Mst.Args.Names.MasterIp, serverIp);
             // If master port is provided via cmd arguments
             serverPort = Mst.Args.AsInt(Mst.Args.Names.MasterPort, serverPort);
+        }
+
+        protected override void Start()
+        {
+            base.Start();
 
             // Start master server at start
             if (Mst.Args.StartMaster && !Mst.Runtime.IsEditor)

@@ -80,7 +80,7 @@ namespace MasterServerToolkit.Networking
         /// <param name="callback"></param>
         public void WaitPing(string address, WaitPingCallback callback, float timeout = 5f)
         {
-            if (!Instance) return;
+            if (_instance == null) return;
 
 #if !UNITY_WEBGL
             StartCoroutine(WaitPingCoroutine(address, callback, timeout));

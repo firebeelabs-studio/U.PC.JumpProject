@@ -334,8 +334,6 @@ namespace MasterServerToolkit.Networking
         {
             MstUpdateRunner.Instance.Remove(this);
 
-            Logs.Info("Close connection");
-
             if (webSocket != null)
                 webSocket.Close(code, reason);
 

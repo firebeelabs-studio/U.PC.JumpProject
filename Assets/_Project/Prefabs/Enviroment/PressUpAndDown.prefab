@@ -4980,7 +4980,8 @@ MonoBehaviour:
   _smashDelay: 0.5
   _distance: 2
   _pressParticles: {fileID: 8136920093858163922}
-  _smashSound: {fileID: 8300000, guid: abf3e1e0a59706441b7f6582014fb775, type: 3}
+  _hitPlayerSound: {fileID: 8300000, guid: 6c41049eecad362428dbd5ba717beeaa, type: 3}
+  _hitGroundSound: {fileID: 8300000, guid: abf3e1e0a59706441b7f6582014fb775, type: 3}
   _returnSound: {fileID: 8300000, guid: 44ec3fc769b266f479596fe5ea555795, type: 3}
   _slowDuration: 1
   _slowPower: 5
@@ -5083,7 +5084,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 1234071623547302648, guid: 0ebb45d5bcf3dfd44a93ce89052ca6cc, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5277,7 +5278,8 @@ MonoBehaviour:
   _smashDelay: 0.5
   _distance: 2
   _pressParticles: {fileID: 8136920093145144757}
-  _smashSound: {fileID: 8300000, guid: abf3e1e0a59706441b7f6582014fb775, type: 3}
+  _hitPlayerSound: {fileID: 8300000, guid: 6c41049eecad362428dbd5ba717beeaa, type: 3}
+  _hitGroundSound: {fileID: 8300000, guid: abf3e1e0a59706441b7f6582014fb775, type: 3}
   _returnSound: {fileID: 8300000, guid: 44ec3fc769b266f479596fe5ea555795, type: 3}
   _slowDuration: 1
   _slowPower: 5
@@ -5288,7 +5290,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8136920093813943110}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98a674a0f9528054a9bcc8a2d40e7388, type: 3}
   m_Name: 
@@ -5375,12 +5377,12 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8136920093813943110}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 1234071623547302648, guid: 0ebb45d5bcf3dfd44a93ce89052ca6cc, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -62,39 +62,6 @@ namespace MasterServerToolkit.Games
             FindGames();
         }
 
-        /// <summary>
-        /// Sends request to master server to find games list
-        /// </summary>
-        public void FindGames()
-        {
-            ClearGamesList();
-
-            canvasGroup.interactable = false;
-
-            if (statusInfoText)
-            {
-                statusInfoText.text = "Finding rooms... Please wait!";
-                statusInfoText.gameObject.SetActive(true);
-            }
-
-            MstTimer.Instance.WaitForSeconds(0.2f, () =>
-            {
-                Mst.Client.Matchmaker.FindGames((games) =>
-                {
-                    canvasGroup.interactable = true;
-
-                    if (games.Count == 0)
-                    {
-                        statusInfoText.text = "No games found! Try to create your own one.";
-                        return;
-                    }
-
-                    statusInfoText.gameObject.SetActive(false);
-                    DrawGamesList(games);
-                });
-            });
-        }
-
         private void DrawGamesList(IEnumerable<GameInfoPacket> games)
         {
             if (listContainer)
@@ -199,6 +166,44 @@ namespace MasterServerToolkit.Games
                     Destroy(tr.gameObject);
                 }
             }
+        }
+
+        public void ShowCreateNewRoomView()
+        {
+            Mst.Events.Invoke(MstEventKeys.showCreateNewRoomView);
+        }
+
+        /// <summary>
+        /// Sends request to master server to find games list
+        /// </summary>
+        public void FindGames()
+        {
+            ClearGamesList();
+
+            canvasGroup.interactable = false;
+
+            if (statusInfoText)
+            {
+                statusInfoText.text = "Finding rooms... Please wait!";
+                statusInfoText.gameObject.SetActive(true);
+            }
+
+            MstTimer.Instance.WaitForSeconds(0.2f, () =>
+            {
+                Mst.Client.Matchmaker.FindGames((games) =>
+                {
+                    canvasGroup.interactable = true;
+
+                    if (games.Count == 0)
+                    {
+                        statusInfoText.text = "No games found! Try to create your own one.";
+                        return;
+                    }
+
+                    statusInfoText.gameObject.SetActive(false);
+                    DrawGamesList(games);
+                });
+            });
         }
     }
 }

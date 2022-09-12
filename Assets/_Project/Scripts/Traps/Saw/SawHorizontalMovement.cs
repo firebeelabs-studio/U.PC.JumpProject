@@ -7,7 +7,7 @@ public class SawHorizontalMovement : MonoBehaviour
     [Tooltip("Left = 0, right = 1")]
     [SerializeField] private int _currentWaypointIndex;
     [SerializeField] Transform parentTransform;
-    [SerializeField] private Transform _particleTransform;
+    //[SerializeField] private Transform _particleTransform; --> uncoment all lines with this variable when we add particles
     private int _sparkDirection;
 
     private void Start()
@@ -21,7 +21,7 @@ public class SawHorizontalMovement : MonoBehaviour
             _sparkDirection = -1;
         }
         transform.localScale = new Vector3 (_sparkDirection, 1, 1);
-        _particleTransform.localScale = new Vector3(_sparkDirection, 1, 1);  
+        //_particleTransform.localScale = new Vector3(_sparkDirection, 1, 1);  
         parentTransform.position = Vector2.MoveTowards(parentTransform.position, _waypoints[_currentWaypointIndex].transform.position, Time.deltaTime * _speed);
     }
 
@@ -37,7 +37,7 @@ public class SawHorizontalMovement : MonoBehaviour
                 _sparkDirection = 1;
             }
             transform.localScale = new Vector3 (_sparkDirection, 1, 1);
-            _particleTransform.localScale = new Vector3(_sparkDirection, 1, 1);
+            //_particleTransform.localScale = new Vector3(_sparkDirection, 1, 1);
         }
         parentTransform.position = Vector2.MoveTowards(parentTransform.position, _waypoints[_currentWaypointIndex].transform.position, Time.deltaTime * _speed);
     }

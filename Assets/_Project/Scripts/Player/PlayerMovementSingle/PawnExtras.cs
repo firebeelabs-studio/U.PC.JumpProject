@@ -16,7 +16,8 @@ public interface IPawnController
     public event Action<bool> OnDashingChanged;
     public event Action<bool> OnCrouchingChanged;
     public event Action PlayerSmashed;
-    public event Action PlayerDeath, PlayerRespawn;
+    public event Action PlayerDeath;
+    public event Action PlayerRespawn;
 
     /// <summary>
     /// Add force to the character

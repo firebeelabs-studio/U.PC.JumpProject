@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KillPlayer : MonoBehaviour
 {
-    [SerializeField] private float _penaltyTime = 2f;
+    private float _penaltyTime = 0.65f;
     private Respawn _spawnManager;
     private bool _canKill = true;
     private void Awake()

@@ -55,7 +55,9 @@ namespace TarodevController {
         private ParticleSystem _moveParticles;
 
         [SerializeField] private float _tileChangeSpeed = .05f;
-        [SerializeField] private AudioClip[] _footstepClips;
+        [SerializeField] private AudioClip[] _groundFootstepClips;
+        [SerializeField] private AudioClip _basicFootstepClip;
+        private float[] _pitch = { 0.8f, 1f, 1.2f };
         private ParticleSystem.MinMaxGradient _currentGradient;
         private readonly RaycastHit2D[] _groundHits = new RaycastHit2D[2];
         private Vector2 _tiltVelocity;
@@ -67,7 +69,7 @@ namespace TarodevController {
                 if (!hit || hit.collider.isTrigger || !hit.transform.TryGetComponent(out SpriteRenderer r)) continue;
                 var color = r.color;
                 _currentGradient = new ParticleSystem.MinMaxGradient(color * 0.9f, color * 1.2f);
-                SetColor(_moveParticles);
+                //SetColor(_moveParticles);
                 return;
             }
         }
@@ -88,7 +90,8 @@ namespace TarodevController {
 
         public void PlayFootstep() 
         {
-            PlaySound(_footstepClips[_stepIndex++ % _footstepClips.Length], 0.2f);
+            //PlaySound(_basicFootstepClip, 0.1f, _pitch[_stepIndex++ % _pitch.Length]);
+            PlaySound(_groundFootstepClips[_stepIndex++ % _groundFootstepClips.Length], 0.2f);
         }
 
         #endregion
@@ -97,7 +100,7 @@ namespace TarodevController {
 
         [Header("JUMPING")] [SerializeField] private float _minImpactForce = 20;
         [SerializeField] private float _landAnimDuration = 0.5f;
-        [SerializeField] private AudioClip _landClip, _jumpClip, _doubleJumpClip;
+        [SerializeField] private AudioClip _jumpClip, _doubleJumpClip;
         [SerializeField] private ParticleSystem _jumpParticles, _launchParticles, _doubleJumpParticles, _landParticles;
 
         private bool _jumpTriggered;
@@ -126,7 +129,6 @@ namespace TarodevController {
             //     _landParticles.transform.localScale = p * Vector3.one;
             //     _landParticles.Play();
             //     //SetColor(_landParticles);
-            //     //PlaySound(_landClip, p * 0.1f);
             // }
 
             if (_grounded)
@@ -293,21 +295,19 @@ namespace TarodevController {
         [SerializeField] private AudioClip _deathClip;
         private void OnPlayerDeath()
         {
-            if (_trail)
-            {
-                _trail.enabled = false;
-            }
             _deathParticles.Play();
             PlaySound(_deathClip, 1);
             _renderer.enabled = false;
+            ClearTrail();
         }
         private void OnPlayerRespawn()
         {
-            if (_trail)
-            {
-                _trail.enabled = true;
-            }
             _renderer.enabled = true;
+            ClearTrail();
+        }
+        public void ClearTrail()
+        {
+            _trail.Clear();
         }
     }
 }
