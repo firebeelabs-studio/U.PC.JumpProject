@@ -121,6 +121,7 @@ public class PawnController : MonoBehaviour, IPawnController
             _canDash = true;
             OnGroundedChanged?.Invoke(true);
             _speed.y = 0;
+            _speed.y = _groundingForce;
         }
 
         _grounded = groundedCheck;
