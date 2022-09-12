@@ -38,11 +38,12 @@ public class SwampieChanger : MonoBehaviour
         }
     }
     
+    #if unity_editor
     public void Save()
     {
         CurrentCreator.CreateSkin();
     }
-
+    #endif
     public void AddVariant()
     {
         CurrentCreator.AddVariant();

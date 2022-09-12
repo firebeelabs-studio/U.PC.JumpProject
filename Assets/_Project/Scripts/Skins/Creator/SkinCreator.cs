@@ -29,6 +29,7 @@ public class SkinCreator : MonoBehaviour
         _skinTransform.GetComponent<SpriteRenderer>().sprite = SkinSprite;
     }
 
+    #if unity_editor
     [ContextMenu("Create Skin")]
     public void CreateSkin()
     {
@@ -40,7 +41,7 @@ public class SkinCreator : MonoBehaviour
         string path = $"Assets/_Project/Art/Characters/Skins/Data/{_name}_{_swampieType.ToString()}_{SkinType.ToString()}.asset";
         AssetDatabase.CreateAsset(data, path);
     }
-
+#endif
     public void AddVariant()
     {
         _skinTransforms.Add(CreateSkinTransform());
