@@ -17,10 +17,11 @@ public class Press : MonoBehaviour, IPlayerEffector
     [Space(10)]
     [Header("Particles")]
     [SerializeField] private ParticleSystem _pressParticles;
-    
+
     [Space(10)]
     [Header("Sounds")]
-    [SerializeField] private AudioClip _smashSound;
+    [SerializeField] private AudioClip _hitPlayerSound;
+    [SerializeField] private AudioClip _hitGroundSound;
     [SerializeField] private AudioClip _returnSound;
     private AudioPlayer _audioPlayer;
 
@@ -103,7 +104,12 @@ public class Press : MonoBehaviour, IPlayerEffector
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") && _angle >= Mathf.PI && !_didSmashOnce)
         {
             _pressParticles.Play();
-            _audioPlayer.PlayOneShotSound(_smashSound);
+            _audioPlayer.PlayOneShotSound(_hitGroundSound);
+        }
+        else if (collision.gameObject.CompareTag("Player"))
+        {
+            _audioPlayer.PlayOneShotSound(_hitPlayerSound);
+            _didSmashOnce = true;
         }
     }
 
