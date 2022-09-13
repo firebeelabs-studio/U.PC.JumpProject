@@ -12,6 +12,8 @@ public class DisappearingPlatform : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            if (collision.gameObject.transform.position.y <= gameObject.transform.position.y) return; //if player is under the platform
+
             _disableManager.Disable();
         }
     }
