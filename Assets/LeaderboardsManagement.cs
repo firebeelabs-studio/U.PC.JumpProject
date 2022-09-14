@@ -54,7 +54,7 @@ public class LeaderboardsManagement : MonoBehaviour
         _tempScores.Add(new("xXxGigaKox2007PLxXx", 20.07f));
         _tempScores.Add(new("Maciek2000", 2000.00f));
         _tempScores.Add(new("Endrju", 65.35f));
-        _tempScores.Add(new("Do Kwon", 66.76f));
+        _tempScores.Add(new("Mariusz Pudzianowski", 66.76f));
         _tempScores.Add(new("Piotr Luszcz", 26.12f));
         _tempScores.Add(new("Paluch", 129.52f));
         var tempOrdered = _tempScores.OrderBy(s => s.Time).ToList();
