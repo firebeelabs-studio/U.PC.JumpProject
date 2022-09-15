@@ -1,8 +1,15 @@
+using DG.Tweening;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PetMenuInteraction : MonoBehaviour
 {
+    [Header("Pawn")]
+    [SerializeField] private GameObject _pawn;
+    [Space(10)]
+
     [Header("OnClickEffect")]
     [SerializeField] private float _explosionForce;
     [SerializeField] private float _fieldOfImpact;
@@ -10,26 +17,46 @@ public class PetMenuInteraction : MonoBehaviour
     [SerializeField] private AudioClip _petClickSound;
     [SerializeField] private float _pitch;
     [Space(10)]
+
     [Header("Holding")]
     [SerializeField] private float _maxMouseSpeed = 10;
     [SerializeField] private float _maxPullDistance;
     [Space(10)]
+
     [Header("IdleAnimation")]
     [SerializeField] private float _speed;
     [SerializeField] private float _idleAnimPower;
-    [SerializeField] private List<Transform> _bonesTransforms = new();
+    [SerializeField] private List<Transform> _animatedBonesTransforms = new();
+    private List<BonesWithOrigins> _animatedBones = new();
     [SerializeField] private Transform _eyes;
-
-    private List<(Transform transform, Vector2 startPos)> _bonesTransformsAndStartPos = new();
     private Vector2 _eyesStartPos;
+    private bool _stopIdle = false;
+    private float _idleAnimDelay;
+    [Space(10)]
+
+    [Header("NonAnimatedBones")]
+    [SerializeField] private List<Transform> _nonAnimatedBonesTransforms = new();
+    private List<BonesWithOrigins> _nonAnimatedBones = new();
+    private bool _startTimerToResetBones;
+    private float _resetBonesTimer = 2;
+
     private Vector3 _mousePos, _mouseForce, _lastMousePosition, _targetStartPos;
     private GameObject _selectedObj;
     private Rigidbody2D _selectedRb;
     private AudioPlayer _audioPlayer;
-    private bool _stopIdle = false;
     private float _counter = 0;
-    private float _idleAnimDelay;
     private float _angle;
+    private struct BonesWithOrigins
+    {
+        public Transform Transform { get; set; }
+        public Vector3 Origin { get; set; }
+
+        public BonesWithOrigins(Transform transform, Vector3 origin)
+        {
+            Transform = transform;
+            Origin = origin;
+        }
+    }
 
     private void Awake()
     {
@@ -38,9 +65,13 @@ public class PetMenuInteraction : MonoBehaviour
 
     private void Start()
     {
-        foreach (Transform bone in _bonesTransforms)
+        foreach (Transform bone in _animatedBonesTransforms)
         {
-            _bonesTransformsAndStartPos.Add(new(bone, bone.position));
+            _animatedBones.Add(new(bone, bone.position));
+        }
+        foreach (Transform transform in _nonAnimatedBonesTransforms)
+        {
+            _nonAnimatedBones.Add(new(transform, transform.position));
         }
         _eyesStartPos = _eyes.position;
     }
@@ -81,6 +112,7 @@ public class PetMenuInteraction : MonoBehaviour
         _idleAnimDelay -= Time.deltaTime;
         EnableAnimatorBack();
         IdleAnimation();
+        ResetBones();
     }
 
     void FixedUpdate()
@@ -113,9 +145,9 @@ public class PetMenuInteraction : MonoBehaviour
             }
 
             //checks if any of bones that will be moved by explosion is affected by idle animation
-            foreach (var bone in _bonesTransformsAndStartPos)
+            foreach (var bone in _animatedBones)
             {
-                if (obj.gameObject.name == bone.transform.gameObject.name)
+                if (obj.gameObject.name == bone.Transform.gameObject.name)
                 {
                     //if it is stop the animation
                     _stopIdle = true;
@@ -132,6 +164,8 @@ public class PetMenuInteraction : MonoBehaviour
 
         //play onclick particle
         _mouseClickRingParticle.gameObject.transform.position = pos;
+        _startTimerToResetBones = true;
+        _resetBonesTimer = 2f;
 
         Destroy(explosion);
     }
@@ -149,9 +183,9 @@ public class PetMenuInteraction : MonoBehaviour
             }
 
             //checks if target object is affected by idle animation
-            foreach (var bone in _bonesTransformsAndStartPos)
+            foreach (var bone in _animatedBones)
             {
-                if (targetObject.gameObject.name == bone.transform.gameObject.name)
+                if (targetObject.gameObject.name == bone.Transform.gameObject.name)
                 {
                     _stopIdle = true;
                 }
@@ -204,10 +238,13 @@ public class PetMenuInteraction : MonoBehaviour
 
         _selectedObj = null;
         _selectedRb = null;
+        _startTimerToResetBones = true;
     }
 
     private void EnableAnimatorBack()
     {
+        if (_pawn && !_pawn.activeInHierarchy) return;
+        
         if (_idleAnimDelay <= 0 && !_selectedObj)
         {
             _stopIdle = false;
@@ -218,11 +255,40 @@ public class PetMenuInteraction : MonoBehaviour
     {
         if (_stopIdle) return;
         _angle += Time.deltaTime * _speed;
-        foreach (var bone in _bonesTransformsAndStartPos)
+        foreach (var bone in _animatedBones)
         {
-            bone.transform.position = new Vector2(bone.startPos.x, bone.startPos.y + Mathf.Sin(_angle) * _idleAnimPower);
+            bone.Transform.position = new Vector2(bone.Origin.x, bone.Origin.y + Mathf.Sin(_angle) * _idleAnimPower);
         }
         _eyes.position = new Vector2(_eyesStartPos.x, _eyesStartPos.y + Mathf.Sin(_angle) * (_idleAnimPower/2));
     }
+    protected internal void ToggleIdle(bool doDisable)
+    {
+        if (doDisable)
+        {
+            _stopIdle = true;
+        }
+        else
+        {
+            _stopIdle = false;
+        }
+    }
+    private void ResetBones()
+    {
+        if (!_startTimerToResetBones) return;
+        
+        _resetBonesTimer -= Time.deltaTime;
 
+        if (_resetBonesTimer <= 0)
+        {
+            foreach (var nonAnimatedBone in _nonAnimatedBones)
+            {
+                if (Vector2.Distance(nonAnimatedBone.Transform.position, nonAnimatedBone.Origin) > _maxPullDistance/2)
+                {
+                    nonAnimatedBone.Transform.DOMove(nonAnimatedBone.Origin, 2f).SetEase(Ease.InOutCubic);
+                }
+            }
+            _startTimerToResetBones = false;
+            _resetBonesTimer = 2f;
+        }
+    }
 }
