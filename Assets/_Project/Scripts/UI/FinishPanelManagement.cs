@@ -21,6 +21,7 @@ public class FinishPanelManagement : MonoBehaviour
     [SerializeField] private TMP_Text _timeNeededForNextStarText;
     [SerializeField] private TimerSinglePlayer _endLevelTimers;
     [SerializeField] private Button _backToMenuButton;
+    [SerializeField] private string _homeSceneName;
     [SerializeField] private Button _restartButton;
     [SerializeField] private Respawn _spawnManager;
     [SerializeField] private Transform _player;
@@ -44,7 +45,7 @@ public class FinishPanelManagement : MonoBehaviour
 
     private void Start()
     {
-        _backToMenuButton.onClick.AddListener(() => { SceneManager.LoadScene("Feature-MenuPet"); });
+        _backToMenuButton.onClick.AddListener(() => { LoadingScreenCanvas.Instance.LoadScene(_homeSceneName); });
         _restartButton.onClick.AddListener(() => 
         {
             _newScoreText.gameObject.SetActive(false);
