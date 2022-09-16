@@ -263,14 +263,7 @@ public class PetMenuInteraction : MonoBehaviour
     }
     protected internal void ToggleIdle(bool doDisable)
     {
-        if (doDisable)
-        {
-            _stopIdle = true;
-        }
-        else
-        {
-            _stopIdle = false;
-        }
+        _stopIdle = doDisable;
     }
     private void ResetBones()
     {
