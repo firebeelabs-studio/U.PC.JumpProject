@@ -68,6 +68,5 @@ public class Respawn : MonoBehaviour
     private void OnSpeedrunModeToggle(bool isOn)
     {
         _speedrunModeEnabled = isOn;
-        print(_speedrunModeEnabled);
     }
 }
