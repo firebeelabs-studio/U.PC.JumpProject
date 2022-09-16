@@ -29,6 +29,7 @@ public class MenuManagement : MonoBehaviour
     [SerializeField] private TMP_Text _levelNameText;
     [SerializeField] private TMP_Text _yourScoreText;
     [SerializeField] private GameObject _closeLevelPanelButton;
+    [SerializeField] private Toggle _speedrunToggle;
 
     private ButtonsAnimations _DOTweenAnimations;
     private GameObject _currentPanel;
@@ -67,6 +68,17 @@ public class MenuManagement : MonoBehaviour
         _playButton.GetComponent<Button>().onClick.AddListener(() => { SwitchBetweenPanels(_modeMenuPanel); });
         _singleButton.GetComponent<Button>().onClick.AddListener(() => { SwitchBetweenPanels(_levelsMenuPanel); });
         //multi button
+        if (PlayerPrefs.HasKey("SpeedrunMode"))
+        {
+            _speedrunToggle.isOn = PlayerPrefs.GetInt("SpeedrunMode") == 1;
+        }
+        else
+        {
+            PlayerPrefs.SetInt("SpeedrunMode", 0);
+            _speedrunToggle.isOn = false;
+        }
+        
+        _speedrunToggle.onValueChanged.AddListener((isOn) => { ToggleSpeedrunMode(isOn); });
     }
 
     public void SwitchBetweenPanels(GameObject openPanel)
@@ -133,5 +145,19 @@ public class MenuManagement : MonoBehaviour
     public void SetLevelToLoad(string levelName)
     {
         _levelNameToLoad = levelName;
+    }
+    public void ToggleSpeedrunMode(bool isOn)
+    {
+        if (isOn)
+        {
+            //enable speedrun mode
+            PlayerPrefs.SetInt("SpeedrunMode", 1);
+
+        }
+        else
+        {
+            //disable speedrun
+            PlayerPrefs.SetInt("SpeedrunMode", 0);
+        }
     }
 }
