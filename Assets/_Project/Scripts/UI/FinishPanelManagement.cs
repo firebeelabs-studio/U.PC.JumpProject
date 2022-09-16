@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
 using System;
 using TarodevController;
+using MongoDB.Bson.Serialization.IdGenerators;
 
 public class FinishPanelManagement : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class FinishPanelManagement : MonoBehaviour
     [SerializeField] private Button _backToMenuButton;
     [SerializeField] private string _homeSceneName;
     [SerializeField] private Button _restartButton;
+    [SerializeField] private Button _nextLevelButton;
+    [SerializeField] private string _nextLevelName;
     [SerializeField] private Respawn _spawnManager;
     [SerializeField] private Transform _player;
     [SerializeField] private FinishSinglePlayer _finish;
@@ -52,6 +55,10 @@ public class FinishPanelManagement : MonoBehaviour
             _finishPanel.SetActive(false);
             RestartPlayer();
         });
+        if (!string.IsNullOrEmpty(_nextLevelName))
+        {
+            _nextLevelButton.onClick.AddListener(() => { LoadingScreenCanvas.Instance.LoadScene(_nextLevelName); });
+        }
         input = _player.GetComponent<PlayersInput>();
         _pawnController = _player.GetComponent<IPawnController>();
         _previousMoveClamp = _player.GetComponent<PawnController>().MoveClamp;
