@@ -32,7 +32,7 @@ public class ParallaxBackground : MonoBehaviour
             //calculates the temporary position of the part depending on parallax effect power relating to the camera position
             float tempPosOfBgPart = parallaxAxis * (1 - part.ParallaxEffectPower);
             //calculates distance which background part will move
-            float distance = parallaxAxis * part.ParallaxEffectPower;
+            float distance = parallaxAxis * -part.ParallaxEffectPower;
             if (isXAxis)
             {
                 //moves each part in x axis depending on it's starting position and distance
