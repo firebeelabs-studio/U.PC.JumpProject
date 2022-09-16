@@ -9,6 +9,7 @@ public class Respawn : MonoBehaviour
     public Transform StartPos => _startPos;
     private float _timeStartedPenalty;
     private CheckPoint _lastCheckPoint;
+    private bool _speedrunModeEnabled;
 
 
     private void Start()
@@ -16,6 +17,21 @@ public class Respawn : MonoBehaviour
         FinishSinglePlayer.RunFinish += EndRun;
         StartRun.RunStart += RunStart;
         _startPos = _respawnPos;
+        ToggleSpeedrunMode.SpeedrunModeToggle += OnSpeedrunModeToggle;
+        if (PlayerPrefs.HasKey("SpeedrunMode"))
+        {
+            _speedrunModeEnabled = PlayerPrefs.GetInt("SpeedrunMode") == 1;
+        }
+    }
+    private void Update()
+    {
+        if (_speedrunModeEnabled)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                FinishPanelManagement.RestartPlayer();
+            }
+        }
     }
 
     private void OnDisable()
@@ -48,5 +64,10 @@ public class Respawn : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(_respawnPos.position, 0.5f);
+    }
+    private void OnSpeedrunModeToggle(bool isOn)
+    {
+        _speedrunModeEnabled = isOn;
+        print(_speedrunModeEnabled);
     }
 }

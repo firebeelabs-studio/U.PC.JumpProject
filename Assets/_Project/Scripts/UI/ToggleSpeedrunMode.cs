@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,9 +6,12 @@ using UnityEngine.UI;
 
 public class ToggleSpeedrunMode : MonoBehaviour
 {
+    public static event Action<bool> SpeedrunModeToggle;
+    public static ToggleSpeedrunMode Instance;
     private Toggle _toggle;
     private void Awake()
     {
+        Instance = this;
         _toggle = GetComponent<Toggle>();
     }
     private void Start()
@@ -26,6 +30,7 @@ public class ToggleSpeedrunMode : MonoBehaviour
     }
     public void Toggle(bool isOn)
     {
+        SpeedrunModeToggle?.Invoke(isOn);
         if (isOn)
         {
             //enable speedrun mode
