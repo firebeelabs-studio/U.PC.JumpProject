@@ -11,6 +11,9 @@ public class MenuManagement : MonoBehaviour
     [Space(10   )]
     [Header("MAIN MENU")]
     [SerializeField] private GameObject _mainMenuPanel;
+    [SerializeField] private Button _enableSettingsButton;
+    [SerializeField] private Button _disableSettingsButton;
+    [SerializeField] private GameObject _settingsPanel;
     [SerializeField] private GameObject _switchQuests;
     [SerializeField] private GameObject _suggestedQuestPanel;
     [SerializeField] private GameObject _dailyQuestsPanel;
@@ -64,9 +67,21 @@ public class MenuManagement : MonoBehaviour
 
     private void Start()
     {
-        _switchQuests.GetComponent<Button>().onClick.AddListener(() => { SwitchBetweenQuests(); });
-        _playButton.GetComponent<Button>().onClick.AddListener(() => { SwitchBetweenPanels(_modeMenuPanel); });
-        _singleButton.GetComponent<Button>().onClick.AddListener(() => { SwitchBetweenPanels(_levelsMenuPanel); });
+        _enableSettingsButton.onClick.AddListener(() =>
+        {
+            if (_settingsPanel.activeInHierarchy)
+            {
+                ClosePanel(_settingsPanel);
+            }
+            else
+            {
+                OpenPanel(_settingsPanel);
+            }
+        });
+        _disableSettingsButton.onClick.AddListener(() => ClosePanel(_settingsPanel));
+        _switchQuests.GetComponent<Button>().onClick.AddListener(() => SwitchBetweenQuests());
+        _playButton.GetComponent<Button>().onClick.AddListener(() => SwitchBetweenPanels(_modeMenuPanel));
+        _singleButton.GetComponent<Button>().onClick.AddListener(() => SwitchBetweenPanels(_levelsMenuPanel));
         //multi button
         if (PlayerPrefs.HasKey("SpeedrunMode"))
         {
@@ -131,16 +146,14 @@ public class MenuManagement : MonoBehaviour
 
     public void OpenLevelPanel(string levelName)
     {
-        _levelPanel.transform.localScale = Vector3.zero;
         _levelNameText.text = levelName;
         //TO DO: read score of current player and display here
         //_yourScoreText.text = ;
-        _levelPanel.SetActive(true);
-        _levelPanel.transform.DOScale(1, 0.5f).SetEase(Ease.InOutCubic);
+        OpenPanel(_levelPanel);
     }
     public void CloseLevelPanel()
     {
-        _levelPanel.transform.DOScale(0, 0.5f).SetEase(Ease.InOutCubic).OnComplete(() => { _levelPanel.SetActive(false); });
+        ClosePanel(_levelPanel);
     }
     public void SetLevelToLoad(string levelName)
     {
@@ -159,5 +172,15 @@ public class MenuManagement : MonoBehaviour
             //disable speedrun
             PlayerPrefs.SetInt("SpeedrunMode", 0);
         }
+    }
+    private void OpenPanel(GameObject panel)
+    {
+        panel.transform.localScale = Vector2.zero;
+        panel.SetActive(true);
+        panel.transform.DOScale(1, 0.5f).SetEase(Ease.InOutCubic);
+    }
+    private void ClosePanel(GameObject panel)
+    {
+        panel.transform.DOScale(0, 0.5f).SetEase(Ease.InOutCubic).OnComplete(() => { panel.SetActive(false); });
     }
 }
