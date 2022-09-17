@@ -139179,6 +139179,11 @@ PrefabInstance:
     - {fileID: 874246082638717847, guid: 12d26efff02c65544ae50b31b09de157, type: 3}
     - {fileID: 1543496978333968755, guid: 12d26efff02c65544ae50b31b09de157, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 12d26efff02c65544ae50b31b09de157, type: 3}
+--- !u!20 &1665581492 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 975513947, guid: 12d26efff02c65544ae50b31b09de157, type: 3}
+  m_PrefabInstance: {fileID: 1665581491}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1690487337
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -149439,6 +149444,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6311589460613197320, guid: 4dc52d2f1504fb64d871b9be882cb3fb, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1665581492}
     - target: {fileID: 6311589461492922641, guid: 4dc52d2f1504fb64d871b9be882cb3fb, type: 3}
       propertyPath: m_Name
       value: UI

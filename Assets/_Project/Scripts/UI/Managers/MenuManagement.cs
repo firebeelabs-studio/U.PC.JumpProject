@@ -11,6 +11,8 @@ public class MenuManagement : MonoBehaviour
     [Space(10   )]
     [Header("MAIN MENU")]
     [SerializeField] private GameObject _mainMenuPanel;
+    [SerializeField] private Button _settingsButton;
+    [SerializeField] private GameObject _settingsPanel;
     [SerializeField] private GameObject _switchQuests;
     [SerializeField] private GameObject _suggestedQuestPanel;
     [SerializeField] private GameObject _dailyQuestsPanel;
@@ -64,6 +66,7 @@ public class MenuManagement : MonoBehaviour
 
     private void Start()
     {
+        //_settingsButton.onClick.AddListener(() => { _settingsPanel.SetActive(true); });
         _switchQuests.GetComponent<Button>().onClick.AddListener(() => { SwitchBetweenQuests(); });
         _playButton.GetComponent<Button>().onClick.AddListener(() => { SwitchBetweenPanels(_modeMenuPanel); });
         _singleButton.GetComponent<Button>().onClick.AddListener(() => { SwitchBetweenPanels(_levelsMenuPanel); });
