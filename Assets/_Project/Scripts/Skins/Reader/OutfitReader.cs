@@ -19,7 +19,7 @@ public class OutfitReader : MonoBehaviour
     private void Start()
     {
         if (SkinsHolder.Instance == null) return;
-        List<OutfitData> skinList = SkinsHolder.Instance.Skins;
+        List<OutfitData> skinList = SkinsHolder.Instance.Skins.Count != 0 ? SkinsHolder.Instance.Skins : SkinsHolder.Instance.LastUsedSkins;
         
         foreach (var skin in skinList)
         {

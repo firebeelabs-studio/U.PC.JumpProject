@@ -29,7 +29,7 @@ public class SkinCreator : MonoBehaviour
         _skinTransform.GetComponent<SpriteRenderer>().sprite = SkinSprite;
     }
 
-    #if unity_editor
+    #if UNITY_EDITOR
     [ContextMenu("Create Skin")]
     public void CreateSkin()
     {
