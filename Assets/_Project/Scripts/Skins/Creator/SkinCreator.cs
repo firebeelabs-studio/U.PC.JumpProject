@@ -41,7 +41,7 @@ public class SkinCreator : MonoBehaviour
         string path = $"Assets/_Project/Art/Characters/Skins/Data/{_name}_{_swampieType.ToString()}_{SkinType.ToString()}.asset";
         AssetDatabase.CreateAsset(data, path);
     }
-#endif
+    #endif
     public void AddVariant()
     {
         _skinTransforms.Add(CreateSkinTransform());

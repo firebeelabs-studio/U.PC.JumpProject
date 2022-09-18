@@ -131,6 +131,13 @@ public class MenuManagement : MonoBehaviour
         DOTween.KillAll();
         LoadingScreenCanvas.Instance?.LoadScene(_levelNameToLoad);
     }
+    public void LoadSceneWithName(string sceneName)
+    {
+        if (string.IsNullOrEmpty(sceneName)) return;
+
+        DOTween.KillAll();
+        LoadingScreenCanvas.Instance?.LoadScene(sceneName);
+    }
 
     public void BackToMenu(RectTransform button)
     {
