@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 975513943}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.0887594, y: 0.6419544, z: -39.842243}
+  m_LocalPosition: {x: 1.0887604, y: 0.6419544, z: -39.842243}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -268,7 +268,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2464260465772213116}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.0887594, y: 0.6419544, z: -39.842243}
+  m_LocalPosition: {x: 1.0887604, y: 0.6419544, z: -39.842243}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -377,10 +377,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2535414284227618074}
   - component: {fileID: 2535414284227618072}
-  - component: {fileID: 2535414284227618052}
   - component: {fileID: 596491817}
   - component: {fileID: 596491815}
   - component: {fileID: 596491816}
+  - component: {fileID: 2855044218933314472}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -427,26 +427,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &2535414284227618052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2535414284227618069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 649b73d3f69e63d4b9fd05d1ba9399be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characters:
-  - {fileID: 6626059192466601636, guid: d1f4acb90149df5469a29464bab1c87f, type: 3}
-  - {fileID: 3539694892506933498, guid: 858f7952e313a1644a792ed90d3d1ab6, type: 3}
-  - {fileID: 5171241392930077139, guid: 4cffc279371eefd4c9102fbec2559396, type: 3}
-  - {fileID: 7630900516789254253, guid: 883b80d9e2227664dadc7ac3a1548983, type: 3}
-  - {fileID: 4340820024993516481, guid: 858edd27f1038fd44a676b80609b0dd4, type: 3}
-  - {fileID: 1208773389777533461, guid: 60c2d032f227f684788a287db9425fd8, type: 3}
-  _spawnedCharacters: []
 --- !u!61 &596491817
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -526,6 +506,23 @@ MonoBehaviour:
   _dashLength: 6
   _dashEndHorizontalMultiplier: 0.25
   _forceDecay: 1
+--- !u!114 &2855044218933314472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2535414284227618069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ec97aa3ceeff054cb26163c4413b13a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _blueSwampie: {fileID: 3836054527727189976, guid: 0638fb3063cb5434c955fdb3f2dc59ed, type: 3}
+  _yellowSwampie: {fileID: 3836054527727189976, guid: c14552950b7f8b348a95f513b486cc9a, type: 3}
+  _greenSwampie: {fileID: 3836054527727189976, guid: b3cf37b477cc32340b68353df5dc7e00, type: 3}
+  _turquoiseSwampie: {fileID: 3836054527727189976, guid: c2a5e5aa3efef004e8bee79cc18ad231, type: 3}
+  _purpleSwampie: {fileID: 3836054527727189976, guid: e258d00027dc208469aac403ec2ade46, type: 3}
 --- !u!1001 &454901129
 PrefabInstance:
   m_ObjectHideFlags: 0
