@@ -64,6 +64,9 @@ namespace TarodevController {
                     transform.localScale = localScale;
                 }
 
+                //in this case hat must be first in list. That's disgusting gonna change that
+                _skinsTransforms[0].localPosition = new Vector2(-_skinsTransforms[0].localPosition.x, _skinsTransforms[0].localPosition.y);
+
                 _lastMoveDirection = _moveDirection;
             }
 
