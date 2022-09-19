@@ -47,7 +47,9 @@ namespace SOHNE.Accessibility.Colorblindness
         #endregion
 
         public static Colorblindness Instance { get; private set; }
-
+        
+        #if UNITY_EDITOR
+        
         [UnityEditor.Callbacks.DidReloadScripts]
         private static void OnScriptsReloaded()
         {
@@ -55,6 +57,7 @@ namespace SOHNE.Accessibility.Colorblindness
             Debug.LogError("There is no type of <b>SRP</b> included in this project.");
 #endif
         }
+        #endif
 
         void Awake()
         {
