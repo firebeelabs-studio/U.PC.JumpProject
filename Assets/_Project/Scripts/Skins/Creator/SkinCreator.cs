@@ -18,9 +18,10 @@ public class SkinCreator : MonoBehaviour
     [SerializeField] private Transform _skinTransform;
     [SerializeField] private Transform _hatTransform;
     [SerializeField] private Transform _jacketTransform;
+    [SerializeField] private Transform _eyeTransform;
+    [SerializeField] private Transform _mouthTransform;
     
     private int _currentIndex = 0;
-    public string _name;
     public Sprite SkinSprite;
     private List<SwampieSkin.SkinTransform> _skinTransforms = new List<SwampieSkin.SkinTransform>();
 
@@ -73,21 +74,29 @@ public class SkinCreator : MonoBehaviour
 
     public void SetDefPos()
     {
-        if (SkinType == SwampieSkin.SkinType.Hat)
+        switch (SkinType)
         {
-            //TODO: Move this to seperate function
-            _skinTransform.position = _hatTransform.position;
-            _skinTransform.rotation = _hatTransform.rotation;
-            _skinTransform.localScale = _hatTransform.localScale;
-        }
-        else if (SkinType == SwampieSkin.SkinType.Jacket)
-        {
-            _skinTransform.position = _jacketTransform.position;
-            _skinTransform.rotation = _jacketTransform.rotation;
-            _skinTransform.localScale = _jacketTransform.localScale;
+            case SwampieSkin.SkinType.Hat:
+                ChangePos(_hatTransform);
+                break;
+            case SwampieSkin.SkinType.Jacket:
+                ChangePos(_jacketTransform);
+                break;
+            case SwampieSkin.SkinType.Eyes:
+                ChangePos(_jacketTransform);
+                break;
+            case SwampieSkin.SkinType.Mouth:
+                ChangePos(_jacketTransform);
+                break;
         }
     }
 
+    private void ChangePos(Transform skinTransform)
+    {
+        _skinTransform.position = skinTransform.position;
+        _skinTransform.rotation = skinTransform.rotation;
+        _skinTransform.localScale = skinTransform.localScale;
+    }
     public void ChangeSkinType()
     {
         SkinType = SwampieSkin.SkinType.Jacket;
