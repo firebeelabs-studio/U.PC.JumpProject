@@ -314,6 +314,7 @@ MonoBehaviour:
   _vibratio: 1
   _force: 0.75
   _starSound: {fileID: 8300000, guid: 1e6c0e3300deb0c479c951ff9aa2ebb9, type: 3}
+  _pitch: 0.8
 --- !u!114 &1894786413761354738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,6 +674,7 @@ MonoBehaviour:
   _vibratio: 1
   _force: 0.75
   _starSound: {fileID: 8300000, guid: 8dda07ad8644865419ad79203f972ee0, type: 3}
+  _pitch: 0.8
 --- !u!114 &1894786414028531108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -934,6 +936,7 @@ MonoBehaviour:
   _vibratio: 1
   _force: 0.75
   _starSound: {fileID: 8300000, guid: ccd2cc1958172fa4da4fcf463d28a948, type: 3}
+  _pitch: 0.8
 --- !u!114 &1894786414165688008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1128,16 +1131,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _finishPanel: {fileID: 2227269350059837241}
+  _darkeningImage: {fileID: 0}
+  _newScoreText: {fileID: 0}
   _timerText: {fileID: 0}
   _yourTimeText: {fileID: 2227269348742454202}
   _previousTimeText: {fileID: 2227269348560933571}
   _timeNeededForNextStarText: {fileID: 2227269350446602791}
   _endLevelTimers: {fileID: 0}
   _backToMenuButton: {fileID: 2227269350450340994}
+  _homeSceneName: MainMenu
   _restartButton: {fileID: 2227269349130601442}
+  _nextLevelButton: {fileID: 0}
+  _nextLevelName: 
   _spawnManager: {fileID: 0}
   _player: {fileID: 0}
   _finish: {fileID: 0}
+  _confettiParticles: {fileID: 0}
+  _pepeParticles: {fileID: 0}
   _stars:
   - {fileID: 1894786413761354747}
   - {fileID: 1894786414028531117}
