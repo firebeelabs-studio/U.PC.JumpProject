@@ -26,6 +26,7 @@ public class CircularRandomPoint : MonoBehaviour
 
         if ((Vector2)transform.position == _newPos)
         {
+            
             //adds a litle delay before setting newPos
             _timer += Time.deltaTime;
 
@@ -40,14 +41,18 @@ public class CircularRandomPoint : MonoBehaviour
             if (Vector2.Distance(transform.position, _randomPos) < _minNewPosDistance)
             {
                 _randomPos = ReturnPointOnCircle(transform.position, _randomPos, _minNewPosDistance);
+                _newPos = _circleCenter + _randomPos;
             }
-
-            _newPos = _circleCenter + _randomPos;
+            else
+            {
+                _newPos = _randomPos;
+            }
 
             // checks if new position calculated in ReturnPointOnCircle is inside the main circle
             if (Vector2.Distance(_circleCenter, _newPos) > _radius)
             {
-                _newPos = (Vector2)transform.position - _randomPos;
+                Debug.Log("print");
+                //_newPos = (Vector2)transform.position - _randomPos;
             }
         }
     }
