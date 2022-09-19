@@ -11,12 +11,14 @@ public class SwampieTypeReader : MonoBehaviour
     [SerializeField] private GameObject _greenSwampie;
     [SerializeField] private GameObject _turquoiseSwampie;
     [SerializeField] private GameObject _purpleSwampie;
-    private SwampieSkin.SwampieType _swampieType;
-    private void Start()
+    public static SwampieSkin.SwampieType SwampieType { get; private set; }
+
+    private void Awake()
     {
         if (!SkinsHolder.Instance)
         {
             InstantiateSwampie(_blueSwampie);
+            SwampieType = SwampieSkin.SwampieType.Blue;
             return;
         }
         
@@ -28,10 +30,10 @@ public class SwampieTypeReader : MonoBehaviour
 
         if (instanceSkins.Count > 0)
         {
-            _swampieType = instanceSkins[0].swampieType;
+            SwampieType = instanceSkins[0].swampieType;
         }
         
-        switch (_swampieType)
+        switch (SwampieType)
         {
             case SwampieSkin.SwampieType.Blue:
                 InstantiateSwampie(_blueSwampie);
