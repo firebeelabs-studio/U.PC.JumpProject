@@ -47,13 +47,6 @@ public class CircularRandomPoint : MonoBehaviour
             {
                 _newPos = _randomPos;
             }
-
-            // checks if new position calculated in ReturnPointOnCircle is inside the main circle
-            if (Vector2.Distance(_circleCenter, _newPos) > _radius)
-            {
-                Debug.Log("print");
-                //_newPos = (Vector2)transform.position - _randomPos;
-            }
         }
     }
 
