@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,6 +10,9 @@ namespace TarodevController {
         private SpriteRenderer _renderer;
         private AudioSource _source;
         [SerializeField] private TrailRenderer _trail;
+        [SerializeField] private List<Transform> _skinsTransforms;
+        private int _moveDirection = 1;
+        private int _lastMoveDirection = 1;
 
         private void Awake() {
             _player = GetComponentInParent<IPawnController>();
@@ -42,6 +46,26 @@ namespace TarodevController {
 
         private void Update() {
             if (_player.Input.Move.x != 0) _renderer.flipX = _player.Input.Move.x < 0;
+            if (_player.Input.Move.x < 0)
+            {
+                _moveDirection = -1;
+            }
+            else if (_player.Input.Move.x > 0)
+            {
+                _moveDirection = 1;
+            }
+
+            if (_moveDirection != _lastMoveDirection)
+            {
+                foreach (var transform in _skinsTransforms)
+                {
+                    var localScale = transform.localScale;
+                    localScale = new Vector3(-localScale.x, localScale.y, localScale.z);
+                    transform.localScale = localScale;
+                }
+
+                _lastMoveDirection = _moveDirection;
+            }
 
             HandleGroundEffects();
             DetectGroundColor();
