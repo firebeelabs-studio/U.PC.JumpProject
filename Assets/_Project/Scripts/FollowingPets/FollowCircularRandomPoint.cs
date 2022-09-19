@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CircularRandomPoint : MonoBehaviour
+public class FollowCircularRandomPoint : MonoBehaviour
 {
     [SerializeField] private AnimationCurve _animationCurve;
     [SerializeField] private float _radius, _speed, _minNewPosDistance, _newPosTimeDelay;
