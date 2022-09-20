@@ -34,8 +34,9 @@ public class InsectPlayerFollower : InsectIdleMovement
             _circleCenter = Vector3.Lerp(_circleCenter, _player.position + new Vector3(-1, 1, 0), _circleSpeed * _curve.Evaluate(_current));
         }
 
-        //follow the middle of circle when is out of the range
-        if (Vector2.Distance(transform.position, _circleCenter) > _radius)
+        // follow the middle of circle when is out of the range
+        // multiplying by 1.1 prevents setting new position when the previous one was on edge of the circle
+        if (Vector2.Distance(transform.position, _circleCenter) > 1.1f * _radius)
         {
             _newPos = _circleCenter;
 
@@ -46,7 +47,7 @@ public class InsectPlayerFollower : InsectIdleMovement
             _checkPlayerPos = _player.transform.position.x - transform.position.x;
             _isGoingRight = (_checkPlayerPos > 0) ? true : false;
         }
-        else if (_newPos == _circleCenter)
+        else
         {
             _speed = _basicSpeed;
         }
