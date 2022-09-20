@@ -6,12 +6,12 @@ public class MovementTiltAnimation : MonoBehaviour
     private float _lastPosX, _checkDirection;
     private int _inputX;
 
-    void Start()
+    protected virtual void Start()
     {
         _lastPosX = transform.position.x;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         _checkDirection = transform.position.x - _lastPosX;
         _lastPosX = transform.position.x;

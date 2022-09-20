@@ -1,14 +1,17 @@
 using UnityEngine;
 
-public class FollowCircularRandomPoint : MonoBehaviour
+public class InsectIdleMovement : MonoBehaviour
 {
+    [Header("INSECT MOVEMENT")]
     [SerializeField] private AnimationCurve _animationCurve;
-    [SerializeField] private float _radius, _speed, _minNewPosDistance, _newPosTimeDelay;
+    [SerializeField] protected float _radius, _speed;
+    [SerializeField] private float _minNewPosDistance, _newPosTimeDelay;
 
-    private Vector2 _circleCenter, _startPos, _newPos, _randomPos;
+    protected Vector2 _circleCenter, _newPos;
+    private Vector2 _startPos, _randomPos;
     private float _timer, _progress;
 
-    void Start()
+    protected virtual void Start()
     {
         _circleCenter = transform.position;
         _startPos = transform.position;
@@ -19,7 +22,7 @@ public class FollowCircularRandomPoint : MonoBehaviour
         }
     }
 
-    void Update()
+    protected virtual void Update()
     {
         _progress = Mathf.InverseLerp(_startPos.x, _newPos.x, transform.position.x);
         transform.position = Vector3.MoveTowards(transform.position, _newPos, _speed * _animationCurve.Evaluate(_progress) * Time.deltaTime);

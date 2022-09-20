@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PetAnimator : MonoBehaviour
+public class OldPetAnimator : MonoBehaviour
 {
     [SerializeField] private PointFollower _pF;
 
