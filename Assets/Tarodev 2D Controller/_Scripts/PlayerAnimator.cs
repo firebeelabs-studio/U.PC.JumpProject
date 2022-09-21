@@ -118,7 +118,7 @@ namespace TarodevController {
         public void PlayFootstep() 
         {
             //PlaySound(_basicFootstepClip, 0.1f, _pitch[_stepIndex++ % _pitch.Length]);
-//            PlaySound(_groundFootstepClips[_stepIndex++ % _groundFootstepClips.Length], 0.2f);
+            PlaySound(_groundFootstepClips[_stepIndex++ % _groundFootstepClips.Length], 0.2f);
         }
 
         #endregion
