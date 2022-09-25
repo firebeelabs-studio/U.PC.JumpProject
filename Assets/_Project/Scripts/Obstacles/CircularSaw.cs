@@ -9,6 +9,7 @@ public class CircularSaw : MonoBehaviour
     [SerializeField] private float _maxFallingSpeed;
     [Range(0, 180)]
     [SerializeField] private float _maxSwingDegree;
+    [SerializeField] private bool _isStartingLeft;
     private Quaternion _maxSwingQuaternion, _targetQuaternion, _middleQuaternion = Quaternion.Euler(0, 0, 0);
     private float _startPos, _targetAngle, _progress, _currentAngle;
 
@@ -37,8 +38,16 @@ public class CircularSaw : MonoBehaviour
     {
         if (_motion == TypeOfMotion.Pendulum)
         {
-            _targetAngle = _maxSwingDegree;
-            transform.rotation = Quaternion.Euler(0, 0, _maxSwingDegree);
+            if (!_isStartingLeft)
+            {
+                _targetAngle = _maxSwingDegree;
+            }
+            else
+            {
+                _targetAngle = -_maxSwingDegree;
+            }
+
+            transform.rotation = Quaternion.Euler(0, 0, _targetAngle);
         }
         else
         {
