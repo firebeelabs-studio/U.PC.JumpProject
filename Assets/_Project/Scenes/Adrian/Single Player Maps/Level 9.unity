@@ -2333,7 +2333,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 2.56, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -125000,6 +125000,29 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 372584476833848910, guid: 86a99318b5620e246851a8a3e664cec4, type: 3}
   m_PrefabInstance: {fileID: 2017654156}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2049610887 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 975513943, guid: 12d26efff02c65544ae50b31b09de157, type: 3}
+  m_PrefabInstance: {fileID: 1665581491}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2049610894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049610887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f44acd586df4aac49b2ed286bbd6b627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  captureWidth: 600
+  captureHeight: 600
+  hideGameObject: {fileID: 0}
+  optimizeForManyScreenshots: 1
+  format: 2
+  folder: 
 --- !u!1 &2088656051
 GameObject:
   m_ObjectHideFlags: 0
