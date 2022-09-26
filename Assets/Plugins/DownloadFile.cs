@@ -7,27 +7,6 @@ using System.IO;
 
 public class DownloadFile : MonoBehaviour
 {
-    [DllImport("__Internal")]
-    private static extern void FileDownload(byte[] array, int byteLength, string fileName);
-
-    private void CreateTexture()
-    {
-        var texture = ReturnTexture();
-        byte[] textureBytes = texture.EncodeToPNG();
-        FileDownload(textureBytes, textureBytes.Length, "screenshot.png");
-        Destroy(texture);
-    }
-
-    private void Awake()
-    {
-        captureScreenshot = true;
-    }
-
-    private void Start()
-    {
-        CreateTexture();
-    }
-
 
     public int captureWidth = 400;
     public int captureHeight = 400;
@@ -48,55 +27,25 @@ public class DownloadFile : MonoBehaviour
     // private vars for screenshot
     private Rect rect;
     private RenderTexture renderTexture;
-    private static Texture2D screenShot;
+    [SerializeField] private Texture2D screenShot;
     private int counter = 0; // image #
 
     // commands
     private bool captureScreenshot = false;
     private bool captureVideo = false;
-
-    // create a unique filename using a one-up variable
-    //private string uniqueFilename(int width, int height)
-    //{
-    //    // if folder not specified by now use a good default
-    //    if (folder == null || folder.Length == 0)
-    //    {
-    //        folder = Application.dataPath;
-    //        if (Application.isEditor)
-    //        {
-    //            // put screenshots in folder above asset path so unity doesn't index the files
-    //            var stringPath = folder + "/..";
-    //            folder = Path.GetFullPath(stringPath);
-    //        }
-    //        folder += "/screenshots";
-
-    //        // make sure directoroy exists
-    //        //System.IO.Directory.CreateDirectory(folder);
-
-    //        // count number of files of specified format in folder
-    //        string mask = string.Format("screen_{0}x{1}*.{2}", width, height, format.ToString().ToLower());
-    //        counter = Directory.GetFiles(folder, mask, SearchOption.TopDirectoryOnly).Length;
-    //    }
-
-    //    // use width, height, and counter for unique file name
-    //    var filename = string.Format("{0}/screen_{1}x{2}_{3}.{4}", folder, width, height, counter, format.ToString().ToLower());
-
-    //    // up counter for next call
-    //    ++counter;
-
-    //    // return unique filename
-    //    return filename;
-    //}
+    
+    
+    [DllImport("__Internal")]
+    private static extern void FileDownload(byte[] array, int byteLength, string fileName);
+    
+    private void Start()
+    {
+        DoScreenshot();
+    }
 
     public void CaptureScreenshot()
     {
         captureScreenshot = true;
-    }
-
-    public static Texture2D ReturnTexture()
-    {
-      
-        return screenShot;
     }
 
     private void DoScreenshot()
@@ -105,83 +54,72 @@ public class DownloadFile : MonoBehaviour
         //captureScreenshot |= Input.GetKeyDown("k");
         //captureVideo = Input.GetKey("v");
 
-        if (captureScreenshot || captureVideo)
+        //if (!captureScreenshot && !captureVideo) return;
+        captureScreenshot = false;
+
+        // hide optional game object if set
+        if (hideGameObject != null) hideGameObject.SetActive(false);
+
+        // create screenshot objects if needed
+        if (renderTexture == null)
         {
-            captureScreenshot = false;
+            // creates off-screen render texture that can rendered into
+            rect = new Rect(0, 0, captureWidth, captureHeight);
+            renderTexture = new RenderTexture(captureWidth, captureHeight, 24);
+            screenShot = new Texture2D(captureWidth, captureHeight, TextureFormat.RGB24, false);
+        }
 
-            // hide optional game object if set
-            if (hideGameObject != null) hideGameObject.SetActive(false);
+        // get main camera and manually render scene into rt
+        Camera camera = Camera.main; // NOTE: added because there was no reference to camera in original script; must add this script to Camera
+        camera.targetTexture = renderTexture;
+        camera.Render();
 
-            // create screenshot objects if needed
-            if (renderTexture == null)
-            {
-                // creates off-screen render texture that can rendered into
-                rect = new Rect(0, 0, captureWidth, captureHeight);
-                renderTexture = new RenderTexture(captureWidth, captureHeight, 24);
-                screenShot = new Texture2D(captureWidth, captureHeight, TextureFormat.RGB24, false);
-            }
+        // read pixels will read from the currently active render texture so make our offscreen 
+        // render texture active and then read the pixels
+        RenderTexture.active = renderTexture;
+        screenShot.ReadPixels(rect, 0, 0);
 
-            // get main camera and manually render scene into rt
-            Camera camera = Camera.main; // NOTE: added because there was no reference to camera in original script; must add this script to Camera
-            camera.targetTexture = renderTexture;
-            camera.Render();
+        // reset active camera texture and render texture
+        camera.targetTexture = null;
+        RenderTexture.active = null;
 
-            // read pixels will read from the currently active render texture so make our offscreen 
-            // render texture active and then read the pixels
-            RenderTexture.active = renderTexture;
-            screenShot.ReadPixels(rect, 0, 0);
+        // get our unique filename
+        //string filename = uniqueFilename((int)rect.width, (int)rect.height);
 
-            // reset active camera texture and render texture
-            camera.targetTexture = null;
-            RenderTexture.active = null;
+        // pull in our file header/data bytes for the specified image format (has to be done from main thread)
+        byte[] fileHeader = null;
+        byte[] fileData = null;
+        // if (format == Format.RAW)
+        // {
+        //     fileData = screenShot.GetRawTextureData();
+        // }
+        // else if (format == Format.PNG)
+        // {
+        // }
+        // else if (format == Format.JPG)
+        // {
+        //     fileData = screenShot.EncodeToJPG();
+        // }
+        // else // ppm
+        // {
+        //     // create a file header for ppm formatted file
+        //     string headerStr = string.Format("P6\n{0} {1}\n255\n", rect.width, rect.height);
+        //     fileHeader = System.Text.Encoding.ASCII.GetBytes(headerStr);
+        //     fileData = screenShot.GetRawTextureData();
+        // }
+        fileData = screenShot.EncodeToPNG();
+        print(fileData);
+        FileDownload(fileData, fileData.Length, "screenshot.png");
 
-            // get our unique filename
-            //string filename = uniqueFilename((int)rect.width, (int)rect.height);
+        // unhide optional game object if set
+        if (hideGameObject != null) hideGameObject.SetActive(true);
 
-            // pull in our file header/data bytes for the specified image format (has to be done from main thread)
-            byte[] fileHeader = null;
-            byte[] fileData = null;
-            if (format == Format.RAW)
-            {
-                fileData = screenShot.GetRawTextureData();
-            }
-            else if (format == Format.PNG)
-            {
-                fileData = screenShot.EncodeToPNG();
-            }
-            else if (format == Format.JPG)
-            {
-                fileData = screenShot.EncodeToJPG();
-            }
-            else // ppm
-            {
-                // create a file header for ppm formatted file
-                string headerStr = string.Format("P6\n{0} {1}\n255\n", rect.width, rect.height);
-                fileHeader = System.Text.Encoding.ASCII.GetBytes(headerStr);
-                fileData = screenShot.GetRawTextureData();
-            }
-
-            //create new thread to save the image to file(only operation that can be done in background)
-            //new System.Threading.Thread(() =>
-            //{
-            //    // create file and write optional header with image bytes
-            //    //var f = System.IO.File.Create(filename);
-            //    if (fileHeader != null) f.Write(fileHeader, 0, fileHeader.Length);
-            //    f.Write(fileData, 0, fileData.Length);
-            //    f.Close();
-            //    Debug.Log(string.Format("Wrote screenshot {0} of size {1}", filename, fileData.Length));
-            //}).Start();
-
-            // unhide optional game object if set
-            if (hideGameObject != null) hideGameObject.SetActive(true);
-
-            // cleanup if needed
-            if (optimizeForManyScreenshots == false)
-            {
-                Destroy(renderTexture);
-                renderTexture = null;
-                screenShot = null;
-            }
+        // cleanup if needed
+        if (optimizeForManyScreenshots == false)
+        {
+            Destroy(renderTexture);
+            renderTexture = null;
+            screenShot = null;
         }
     }
 
