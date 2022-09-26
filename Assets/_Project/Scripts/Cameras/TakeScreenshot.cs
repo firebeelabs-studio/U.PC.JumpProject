@@ -30,7 +30,7 @@ public class TakeScreenshot : MonoBehaviour
     // private vars for screenshot
     private Rect rect;
     private RenderTexture renderTexture;
-    private Texture2D screenShot;
+    private static Texture2D screenShot;
     private int counter = 0; // image #
 
     // commands
@@ -73,6 +73,11 @@ public class TakeScreenshot : MonoBehaviour
     public void CaptureScreenshot()
     {
         captureScreenshot = true;
+    }
+
+    public static Texture2D ReturnTexture()
+    {
+        return screenShot;
     }
 
     void Update()
