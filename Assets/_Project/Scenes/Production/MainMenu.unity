@@ -8513,7 +8513,7 @@ RectTransform:
   m_GameObject: {fileID: 539044559}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.15, y: 1.09, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1479340616}
@@ -8528,8 +8528,8 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 454, y: 492}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 454, y: 503.06}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &539044561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8853,7 +8853,7 @@ RectTransform:
   m_GameObject: {fileID: 564722430}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1998809508}
@@ -32888,7 +32888,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 64, y: -284}
+  m_AnchoredPosition: {x: 64, y: -275}
   m_SizeDelta: {x: 500, y: 700}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1326301783
@@ -32917,7 +32917,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 0
+  m_Spacing: 15.313557
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -32975,7 +32975,16 @@ MonoBehaviour:
       - Mode: 0
         Impact: 1
   customSpacingSizers:
-    items: []
+    items:
+    - screenConfigName: Landscape
+      OptimizedSize: 30.18
+      MinSize: 0
+      MaxSize: 300
+      Mod:
+        ExponentialScale: 1
+        SizeModifiers:
+        - Mode: 0
+          Impact: 1
   settingsFallback:
     ChildAlignment: 1
     ReverseArrangement: 0
