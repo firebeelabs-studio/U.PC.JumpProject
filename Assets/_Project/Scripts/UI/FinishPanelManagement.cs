@@ -9,7 +9,6 @@ using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
 using System;
 using TarodevController;
-using MongoDB.Bson.Serialization.IdGenerators;
 
 public class FinishPanelManagement : MonoBehaviour
 {
