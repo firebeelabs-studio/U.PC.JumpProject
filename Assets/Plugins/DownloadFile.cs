@@ -60,7 +60,9 @@ public class DownloadFile : MonoBehaviour
         RenderTexture.active = null;
         
         byte[] fileData = screenShot.EncodeToPNG();
-        FileDownload(fileData, fileData.Length, "avatar400x400.png");
+        //FileDownload(fileData, fileData.Length, "avatar400x400.png");
+        File.WriteAllBytes(Application.dataPath + "/Screenshot.png", fileData);
+        Destroy(screenShot);
         ChangeObjectsActiveState(true);
 
         // cleanup if needed

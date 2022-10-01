@@ -9,7 +9,7 @@ public class ScreenShotPreparer : MonoBehaviour
 
     public void DoScreenshot()
     {
-        _transformToScale.localScale = new Vector3(2f, 2f, 1f);
+        _transformToScale.localScale = new Vector3(1.3f, 1.3f, 1f);
         _fileDownloader.DoScreenshot();
         _transformToScale.localScale = new Vector3(1f, 1f, 1f);
     }
