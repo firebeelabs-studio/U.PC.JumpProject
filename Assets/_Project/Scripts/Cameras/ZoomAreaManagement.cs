@@ -42,6 +42,8 @@ public class ZoomAreaManagement : MonoBehaviour
 
     private void Update()
     {
+        if (_zoomPoints.Count == 0) return;
+        
         _currentWaypointPos = _cameraBody.m_PathPosition;
         
         if (_currentWaypointPos >= point[_currentIndex].WaypointNumber + 1)
