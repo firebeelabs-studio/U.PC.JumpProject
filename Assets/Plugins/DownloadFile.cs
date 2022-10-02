@@ -16,7 +16,7 @@ public class DownloadFile : MonoBehaviour
     public List<GameObject> GameObjectsToHide =  new();
 
     // optimize for many screenshots will not destroy any objects so future screenshots will be fast
-    public bool optimizeForManyScreenshots = true;
+    private bool optimizeForManyScreenshots = false;
     
     // private vars for screenshot
     private Rect _rect;
@@ -60,8 +60,19 @@ public class DownloadFile : MonoBehaviour
         RenderTexture.active = null;
         
         byte[] fileData = screenShot.EncodeToPNG();
-        //FileDownload(fileData, fileData.Length, "avatar400x400.png");
+        
+        #if UNITY_WEBGL 
+        
+        FileDownload(fileData, fileData.Length, "avatar400x400.png");
+        
+        #endif
+        
+        #if UNITY_EDITOR || UNITY_STANDALONE_WIN
+        
         File.WriteAllBytes(Application.dataPath + "/Screenshot.png", fileData);
+
+        #endif
+        
         Destroy(screenShot);
         ChangeObjectsActiveState(true);
 
