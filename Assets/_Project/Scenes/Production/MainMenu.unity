@@ -6418,12 +6418,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 64
-    m_Right: 64
-    m_Top: 64
-    m_Bottom: 64
+    m_Left: 41
+    m_Right: 41
+    m_Top: 41
+    m_Bottom: 41
   m_ChildAlignment: 1
-  m_Spacing: 2.6937037
+  m_Spacing: 1.707695
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -21436,8 +21436,8 @@ MonoBehaviour:
   m_VerticalScrollbar: {fileID: 0}
   m_HorizontalScrollbarVisibility: 2
   m_VerticalScrollbarVisibility: 2
-  m_HorizontalScrollbarSpacing: -1.6162223
-  m_VerticalScrollbarSpacing: -1.6162223
+  m_HorizontalScrollbarSpacing: -1.0246171
+  m_VerticalScrollbarSpacing: -1.0246171
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -22714,7 +22714,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1313430240}
+      - m_Target: {fileID: 1234169195}
         m_TargetAssemblyTypeName: SetVolume, Assembly-CSharp
         m_MethodName: SetSounds
         m_Mode: 1
@@ -30405,7 +30405,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1313430240}
+      - m_Target: {fileID: 1234169195}
         m_TargetAssemblyTypeName: SetVolume, Assembly-CSharp
         m_MethodName: SetSFX
         m_Mode: 1
@@ -31083,6 +31083,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1233505441}
   m_CullTransparentMesh: 1
+--- !u!1 &1234169193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1234169194}
+  - component: {fileID: 1234169195}
+  m_Layer: 5
+  m_Name: VolumeSettings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1234169194
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234169193}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2132787337}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1234169195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234169193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc292ba83c52614aaf9a6c865566b0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mixer: {fileID: 24100000, guid: 0ebb45d5bcf3dfd44a93ce89052ca6cc, type: 2}
+  _totalSlider: {fileID: 769584596}
+  _musicSlider: {fileID: 1384941417}
+  _sfxSlider: {fileID: 1200895563}
 --- !u!1 &1239763893
 GameObject:
   m_ObjectHideFlags: 0
@@ -32699,7 +32752,6 @@ GameObject:
   - component: {fileID: 1313430239}
   - component: {fileID: 1313430242}
   - component: {fileID: 1313430241}
-  - component: {fileID: 1313430240}
   - component: {fileID: 1313430243}
   - component: {fileID: 1313430244}
   m_Layer: 5
@@ -32732,22 +32784,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1313430240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1313430238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dc292ba83c52614aaf9a6c865566b0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mixer: {fileID: 24100000, guid: 0ebb45d5bcf3dfd44a93ce89052ca6cc, type: 2}
-  _totalSlider: {fileID: 769584596}
-  _musicSlider: {fileID: 1384941417}
-  _sfxSlider: {fileID: 1200895563}
 --- !u!114 &1313430241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32912,12 +32948,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 39
-    m_Right: 39
+    m_Left: 41
+    m_Right: 41
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 15.313557
+  m_Spacing: 16.068056
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -33906,7 +33942,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1313430240}
+      - m_Target: {fileID: 1234169195}
         m_TargetAssemblyTypeName: SetVolume, Assembly-CSharp
         m_MethodName: SetMusic
         m_Mode: 1
@@ -46402,6 +46438,7 @@ RectTransform:
   - {fileID: 1194944479}
   - {fileID: 1154475241}
   - {fileID: 10977834}
+  - {fileID: 1234169194}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46683,7 +46720,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 7.0859375
+  m_Spacing: 4.492187
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
