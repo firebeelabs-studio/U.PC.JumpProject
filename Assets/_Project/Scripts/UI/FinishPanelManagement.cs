@@ -32,8 +32,6 @@ public class FinishPanelManagement : MonoBehaviour
     [SerializeField] private StarAnim[] _stars;
     [SerializeField] private List<float> _thresholds = new();
     private TimerSinglePlayer _timerSinglePlayer;
-    //CURRENTLY NOT CALLED
-    public static event Action PlayerRestart;
     private PlayersInput input;
     private IPawnController _pawnController;
     private float _previousMoveClamp;
@@ -65,13 +63,11 @@ public class FinishPanelManagement : MonoBehaviour
     private void OnEnable()
     {
         FinishSinglePlayer.RunFinish += OnRunFinish;
-        PlayerRestart += OnPlayerRestart;
     }
 
     private void OnDisable()
     {
         FinishSinglePlayer.RunFinish -= OnRunFinish;
-        PlayerRestart -= OnPlayerRestart;
     }
 
     private void OnRunFinish()
@@ -162,32 +158,7 @@ public class FinishPanelManagement : MonoBehaviour
         _thresholds.Sort();
         _thresholds.Reverse();
     }
-
-    private void OnPlayerRestart()
-    {
-        DOTween.KillAll();
-
-        // Timer Text & Darkening
-        RectTransform timerTextRect = _timerText.GetComponent<RectTransform>();
-        timerTextRect.DOScale(1, 1).SetEase(Ease.Linear);
-        _darkeningImage.DOColor(new Color32(0, 0, 0, 0), 1).SetEase(Ease.Linear);
-
-        StopCoroutine(SetupStars());
-        PlayerAnimator playerAnimator = _player.GetComponentInChildren<PlayerAnimator>();
-        BoxCollider2D boxCollider = _player.GetComponent<BoxCollider2D>();
-        input.enabled = true;
-        _pawnController.ChangeMoveClamp(_previousMoveClamp);
-        boxCollider.enabled = false;
-        _finish.IsFinished = false;
-        _spawnManager.ChangeSpawnPos(_spawnManager.StartPos, null);
-        _player.DOMove(_spawnManager.StartPos.position, 0).OnComplete(() =>
-        {
-            boxCollider.enabled = true;
-            _timerSinglePlayer?.ChangeRunStartedBool(false);
-            _timerText.text = "00:00";
-            playerAnimator?.ClearTrail();
-        });
-    }
+    
 
     public static void RestartPlayer()
     {

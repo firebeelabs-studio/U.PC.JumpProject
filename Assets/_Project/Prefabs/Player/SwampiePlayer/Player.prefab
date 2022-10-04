@@ -175,7 +175,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 566079028049205790}
-  - component: {fileID: 6817427041796562319}
   m_Layer: 6
   m_Name: Cameras
   m_TagString: Untagged
@@ -200,20 +199,6 @@ Transform:
   m_Father: {fileID: 2535414284227618074}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6817427041796562319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1528925309999354074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c0d62d62b6dba64da4b87926156f7c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startPosition: {fileID: 0}
-  _camera: {fileID: 2464260465772213116}
 --- !u!1 &2199239065977450393
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,7 +338,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.8591065, y: 1}
+    m_SensorSize: {x: 1.7774006, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -399,6 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caff56ab194e37a47a9ee9d6947aabf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _zoomPoints: []
 --- !u!58 &1087629968822377235
 CircleCollider2D:
   m_ObjectHideFlags: 0
