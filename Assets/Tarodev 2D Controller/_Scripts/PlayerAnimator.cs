@@ -323,7 +323,7 @@ namespace TarodevController {
         private void OnPlayerDeath()
         {
             _deathParticles.Play();
-            PlaySound(_deathClip, 1);
+            PlaySound(_deathClip, 0.7f);
             _renderer.enabled = false;
             ClearTrail();
         }
