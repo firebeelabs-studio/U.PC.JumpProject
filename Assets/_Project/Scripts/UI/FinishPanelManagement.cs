@@ -32,6 +32,7 @@ public class FinishPanelManagement : MonoBehaviour
     [SerializeField] private StarAnim[] _stars;
     [SerializeField] private List<float> _thresholds = new();
     private TimerSinglePlayer _timerSinglePlayer;
+    //CURRENTLY NOT CALLED
     public static event Action PlayerRestart;
     private PlayersInput input;
     private IPawnController _pawnController;
@@ -48,10 +49,8 @@ public class FinishPanelManagement : MonoBehaviour
     private void Start()
     {
         _backToMenuButton.onClick.AddListener(() => { LoadingScreenCanvas.Instance.LoadScene(_homeSceneName); });
-        _restartButton.onClick.AddListener(() => 
+        _restartButton.onClick.AddListener(() =>
         {
-            _newScoreText.gameObject.SetActive(false);
-            _finishPanel.SetActive(false);
             RestartPlayer();
         });
         if (!string.IsNullOrEmpty(_nextLevelName))
@@ -192,6 +191,7 @@ public class FinishPanelManagement : MonoBehaviour
 
     public static void RestartPlayer()
     {
-        PlayerRestart?.Invoke();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1f;
     }
 }
