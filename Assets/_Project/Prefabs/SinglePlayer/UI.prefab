@@ -1262,7 +1262,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1437651880886754633}
+      - m_Target: {fileID: 7829343639087631848}
         m_TargetAssemblyTypeName: SetVolume, Assembly-CSharp
         m_MethodName: SetMusic
         m_Mode: 1
@@ -1366,7 +1366,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1437651880886754633}
+      - m_Target: {fileID: 7829343639087631848}
         m_TargetAssemblyTypeName: SetVolume, Assembly-CSharp
         m_MethodName: SetSFX
         m_Mode: 1
@@ -9727,6 +9727,54 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &6061671041734492196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1109057380322974911}
+  - component: {fileID: 7829343639087631848}
+  m_Layer: 0
+  m_Name: VolumeSettings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1109057380322974911
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6061671041734492196}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -321.5221, y: -663.8327, z: 14.871331}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6311589461492922642}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7829343639087631848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6061671041734492196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc292ba83c52614aaf9a6c865566b0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mixer: {fileID: 24100000, guid: 0ebb45d5bcf3dfd44a93ce89052ca6cc, type: 2}
+  _totalSlider: {fileID: 6323354999194252752}
+  _musicSlider: {fileID: 4109768091821991985}
+  _sfxSlider: {fileID: 5578545916473185223}
 --- !u!1 &6171617220606150975
 GameObject:
   m_ObjectHideFlags: 0
@@ -12032,7 +12080,7 @@ AudioSource:
   m_GameObject: {fileID: 6311589461465398943}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1234071623547302648, guid: 0ebb45d5bcf3dfd44a93ce89052ca6cc, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -12148,6 +12196,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6311589460613197321}
+  - {fileID: 1109057380322974911}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12380,7 +12429,7 @@ AudioSource:
   m_GameObject: {fileID: 6311589461860932501}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1234071623547302648, guid: 0ebb45d5bcf3dfd44a93ce89052ca6cc, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -12620,7 +12669,7 @@ AudioSource:
   m_GameObject: {fileID: 6311589462128371139}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1234071623547302648, guid: 0ebb45d5bcf3dfd44a93ce89052ca6cc, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -12897,7 +12946,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1437651880886754633}
+      - m_Target: {fileID: 7829343639087631848}
         m_TargetAssemblyTypeName: SetVolume, Assembly-CSharp
         m_MethodName: SetSounds
         m_Mode: 1
@@ -18794,7 +18843,6 @@ GameObject:
   - component: {fileID: 4490046416536250855}
   - component: {fileID: 4899626905464515687}
   - component: {fileID: 5795178063683450821}
-  - component: {fileID: 1437651880886754633}
   - component: {fileID: 8280043017296546822}
   m_Layer: 5
   m_Name: SettingsPanel
@@ -18864,22 +18912,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1437651880886754633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8295719524675252711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dc292ba83c52614aaf9a6c865566b0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mixer: {fileID: 24100000, guid: 0ebb45d5bcf3dfd44a93ce89052ca6cc, type: 2}
-  _totalSlider: {fileID: 6323354999194252752}
-  _musicSlider: {fileID: 4109768091821991985}
-  _sfxSlider: {fileID: 5578545916473185223}
 --- !u!114 &8280043017296546822
 MonoBehaviour:
   m_ObjectHideFlags: 0
