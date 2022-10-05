@@ -14,6 +14,8 @@ public class BoulderSpawn : MonoBehaviour
     //private float _spawningTime;
     private float _aliveTime;
     private bool _isAlive = false;
+    [SerializeField] private float _xForce;
+    [SerializeField] private bool _randomDirection;
 
     private float _timer = 0f;
     [SerializeField] private float _timeToSpawn = 5f;
@@ -27,6 +29,8 @@ public class BoulderSpawn : MonoBehaviour
     private Boulder CreateBoulder()
     {
         Boulder boulder = Instantiate(_boulderPrefab);
+        boulder.XForce = _xForce;
+        boulder.RandomDirection = _randomDirection;
         boulder.SetPool(_bouldersPool);
         return boulder;
     }
