@@ -10,16 +10,18 @@ public class ButtonsGroup : MonoBehaviour
     
     public void OnClick(Button btn)
     {
-        var childImg = btn.GetComponentInChildren<Image>();
+        var childImg = btn.transform.GetChild(0).GetComponent<Image>();
         if (!childImg) return;
         
         childImg.color = Color.red;
+        if (_currentlyActiveButton)
+        {
+            var childImgToReset = _currentlyActiveButton.transform.GetChild(0).GetComponent<Image>();
+            if (!childImgToReset) return;
 
-        var childImgToReset = _currentlyActiveButton.GetComponentInChildren<Image>();
-        if (!childImgToReset) return;
+            childImgToReset.color = Color.white;
+        }
         
-        childImgToReset.color = new Color(0, 0, 0, 0);
-
         _currentlyActiveButton = btn;
     }
     
