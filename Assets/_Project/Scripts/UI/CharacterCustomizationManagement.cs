@@ -1,11 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using TheraBytes.BetterUi;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class CharacterCustomizationManagement : MonoBehaviour
@@ -38,7 +33,7 @@ public class CharacterCustomizationManagement : MonoBehaviour
     [SerializeField] private GameObject _templateOff;
     private List<GameObject> _gridCells = new();
     private bool _allSkinsLoaded = false;
-
+    private bool _canInitializeFirsTime = true;
     private void Start()
     {
         _buttonAll.onClick.AddListener((() =>
@@ -98,6 +93,16 @@ public class CharacterCustomizationManagement : MonoBehaviour
                 _buttonArrowLeft.interactable = false;
             }
         }));
+    }
+
+    private void Update()
+    {
+        if (_canInitializeFirsTime)
+        {
+            _buttonAll.Select();
+            _buttonAll.onClick.Invoke();
+            _canInitializeFirsTime = false;
+        }
     }
 
     private void ResetArrows()
