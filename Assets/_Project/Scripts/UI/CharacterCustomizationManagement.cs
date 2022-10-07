@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class CharacterCustomizationManagement : MonoBehaviour
     private List<List<SwampieSkin>> _allSortedSkins = new();
     
     private int _numberOfPages;
+    [SerializeField] private TMP_Text _textPageNumber;
     [SerializeField] private Button _buttonAll;
     [SerializeField] private Button _buttonHats;
     [SerializeField] private Button _buttonColor;
@@ -19,6 +21,7 @@ public class CharacterCustomizationManagement : MonoBehaviour
     [SerializeField] private Button _buttonAccessories;
     [SerializeField] private Button _buttonArrowRight;
     [SerializeField] private Button _buttonArrowLeft;
+    [SerializeField] private Button _buttonBack;
 
     [SerializeField] private SkinReader _hat;
     [SerializeField] private SkinReader _jacket;
@@ -36,6 +39,11 @@ public class CharacterCustomizationManagement : MonoBehaviour
     private bool _canInitializeFirsTime = true;
     private void Start()
     {
+        _buttonBack.onClick.AddListener((() =>
+        {
+            LoadingScreenCanvas.Instance?.LoadScene("MainMenu");
+        }));
+        
         _buttonAll.onClick.AddListener((() =>
         {
             _currentPage = 0;
@@ -129,7 +137,7 @@ public class CharacterCustomizationManagement : MonoBehaviour
             InitializeGrid2(newPage);
         }
         
-        //TODO: change page number on UI
+        _textPageNumber.SetText($"PAGE {newPage}");
     }
     
     private void InitializeGrid2(int currentPage)
