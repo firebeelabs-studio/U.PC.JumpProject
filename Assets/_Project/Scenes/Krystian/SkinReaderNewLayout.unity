@@ -1020,8 +1020,8 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 176.8, y: 180}
-  m_Spacing: {x: 16, y: 16}
+  m_CellSize: {x: 185.23207, y: 180}
+  m_Spacing: {x: 7.6148148, y: 7.6148148}
   m_Constraint: 1
   m_ConstraintCount: 5
   paddingSizerFallback:
@@ -2102,12 +2102,15 @@ MonoBehaviour:
   _buttonMouth: {fileID: 1597786654}
   _buttonClothes: {fileID: 1283235525}
   _buttonAccessories: {fileID: 1275484947}
+  _buttonArrowRight: {fileID: 1398347924}
+  _buttonArrowLeft: {fileID: 1149590030}
   _hat: {fileID: 784100456}
   _jacket: {fileID: 1283542041}
   _body: {fileID: 203526352}
   _pageSize: 10
   _gridHolder: {fileID: 169665901}
   _template: {fileID: 5011634771468251166, guid: 857f58776294edc4499164886e338484, type: 3}
+  _templateOff: {fileID: 5011634771468251166, guid: 176a7c5aec04dd044937028edbc5c230, type: 3}
 --- !u!1 &500083208
 GameObject:
   m_ObjectHideFlags: 0
@@ -2173,8 +2176,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 20
-    m_Right: 20
+    m_Left: 17
+    m_Right: 17
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
@@ -3868,6 +3871,8 @@ GameObject:
   - component: {fileID: 919096662}
   - component: {fileID: 919096661}
   - component: {fileID: 919096660}
+  - component: {fileID: 919096663}
+  - component: {fileID: 919096664}
   m_Layer: 5
   m_Name: ButtonBack
   m_TagString: Untagged
@@ -3939,7 +3944,55 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 919096661}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 919096663}
+        m_TargetAssemblyTypeName: ClearSkins, Assembly-CSharp
+        m_MethodName: Clear
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 784100456}
+        m_TargetAssemblyTypeName: SkinReader, Assembly-CSharp
+        m_MethodName: SaveSkin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1283542041}
+        m_TargetAssemblyTypeName: SkinReader, Assembly-CSharp
+        m_MethodName: SaveSkin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 919096664}
+        m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
+        m_MethodName: Load
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MainMenu
+          m_BoolArgument: 0
+        m_CallState: 2
   betterTransitions: []
 --- !u!114 &919096661
 MonoBehaviour:
@@ -3979,6 +4032,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919096658}
   m_CullTransparentMesh: 1
+--- !u!114 &919096663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919096658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb0e0a49868d9fb4bada0ef3def534f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &919096664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919096658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab3f2d8fae431924aace880aaa349112, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &990322642
 GameObject:
   m_ObjectHideFlags: 0
@@ -4917,7 +4994,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1149590031}
   m_OnClick:
     m_PersistentCalls:
