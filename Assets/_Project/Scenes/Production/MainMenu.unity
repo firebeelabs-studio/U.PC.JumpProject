@@ -6418,12 +6418,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 36
-    m_Right: 36
-    m_Top: 36
-    m_Bottom: 36
+    m_Left: 27
+    m_Right: 27
+    m_Top: 27
+    m_Bottom: 27
   m_ChildAlignment: 1
-  m_Spacing: 1.5265309
+  m_Spacing: 1.1440073
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -21436,8 +21436,8 @@ MonoBehaviour:
   m_VerticalScrollbar: {fileID: 0}
   m_HorizontalScrollbarVisibility: 2
   m_VerticalScrollbarVisibility: 2
-  m_HorizontalScrollbarSpacing: -0.9159186
-  m_VerticalScrollbarSpacing: -0.9159186
+  m_HorizontalScrollbarSpacing: -0.6864044
+  m_VerticalScrollbarSpacing: -0.6864044
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -32912,12 +32912,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 36
-    m_Right: 36
+    m_Left: 27
+    m_Right: 27
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 14.363444
+  m_Spacing: 10.7642
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -46683,7 +46683,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 4.0156245
+  m_Spacing: 3.009375
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -47064,6 +47064,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8505460548857638769, guid: eba98c0cbbfda1a49a9bf4899dd271e4, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8505460548857638769, guid: eba98c0cbbfda1a49a9bf4899dd271e4, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8505460548857638770, guid: eba98c0cbbfda1a49a9bf4899dd271e4, type: 3}
       propertyPath: m_RenderMode
       value: 0
