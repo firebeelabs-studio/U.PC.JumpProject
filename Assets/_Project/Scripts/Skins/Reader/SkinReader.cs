@@ -8,6 +8,7 @@ public class SkinReader : MonoBehaviour
 {
     [SerializeField] private List<SwampieSkin> _skins;
     [SerializeField] private List<SwampieSkin> _sortedSkins;
+    public List<SwampieSkin> SortedSkins => _sortedSkins;
     [SerializeField] private SwampieSkin.SkinType _skinType;
     [SerializeField] private SwampieSkin.SwampieType _swampieType;
     private SwampieSkin _currentSkin;
@@ -29,17 +30,21 @@ public class SkinReader : MonoBehaviour
     //read skins
     private void LoadSkins()
     {
-        _sortedSkins = _skins.Where(x => x.swampieType == _swampieType && x.skinType == _skinType).ToList();
+        _sortedSkins = _skins.Where(x => x.swampieType == _swampieType && x.skinType == _skinType).Reverse().ToList();
     }
-    
-    //set skins
-    public void ChangeSkin(int addToIndex)
+
+    public List<SwampieSkin> LoadAllSkins()
     {
-        _currentSkin = _sortedSkins[_currentSkinIndex];
+        return _skins.Where(x => x.swampieType == _swampieType).Reverse().ToList();
+    }
+    //set skins
+    public void ChangeSkin(int index)
+    {
+        _currentSkin = _sortedSkins[index];
         _skinSpriteRenderer.sprite = _currentSkin.SkinSprite;
         _positions = _currentSkin.Positions;
         SetSkinPos(0);
-        _currentSkinIndex = ArcnesTools.IndexHelper.LoopIndex(addToIndex, _currentSkinIndex, _sortedSkins);
+        //_currentSkinIndex = ArcnesTools.IndexHelper.LoopIndex(addToIndex, _currentSkinIndex, _sortedSkins);
     }
 
     public void ChangeVariant(int variantNumber)
@@ -60,7 +65,7 @@ public class SkinReader : MonoBehaviour
 
     private void SetSkinPos(int index)
     {
-        transform.position = _positions[index].Pos;
+        transform.localPosition = _positions[index].Pos;
         transform.rotation = _positions[index].Rot;
         transform.localScale = _positions[index].Scale;
     }
