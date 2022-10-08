@@ -25,6 +25,7 @@ public class CharacterCustomizationManagement : MonoBehaviour
 
     [SerializeField] private SkinReader _hat;
     [SerializeField] private SkinReader _jacket;
+    [SerializeField] private SkinReader _mouth;
     [SerializeField] private SwampieTypeChanger _body;
 
     [SerializeField] private int _pageSize = 10;
@@ -66,6 +67,15 @@ public class CharacterCustomizationManagement : MonoBehaviour
         {
             _currentPage = 0;
             _sortedSkins = _jacket.SortedSkins;
+            ClearGrid();
+            InitializeGrid2(_currentPage);
+            ResetArrows();
+        }));
+        
+        _buttonMouth.onClick.AddListener((() =>
+        {
+            _currentPage = 0;
+            _sortedSkins = _mouth.SortedSkins;
             ClearGrid();
             InitializeGrid2(_currentPage);
             ResetArrows();
@@ -176,6 +186,10 @@ public class CharacterCustomizationManagement : MonoBehaviour
         _allSortedSkins.Clear();
         _allSortedSkins.Add(_jacket.SortedSkins);
         _allSortedSkins.Add(_hat.SortedSkins);
+        _allSortedSkins.Add(_mouth.SortedSkins);
+        
+        //--------TODO: add remaining elements--------
+        
         //create cells with skins
         int startingIndex = 10 * currentPage;
 
@@ -235,6 +249,12 @@ public class CharacterCustomizationManagement : MonoBehaviour
             case SwampieSkin.SkinType.Jacket:
                 _jacket.ChangeSkin(id);
                 break;
+            case SwampieSkin.SkinType.Mouth:
+                _mouth.ChangeSkin(id);
+                break;
+            
+            //--------TODO: add remaining elements--------
+            
         }
     }
 
