@@ -29,6 +29,25 @@ public class KillPlayer : MonoBehaviour
             GameManager.ResetPlayerPowers();
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            if (col.gameObject.TryGetComponent(out IPawnController player))
+            {
+                player.KillPlayer();
+            }
+            if (_canKill)
+            {
+                StartCoroutine(_spawnManager.RespawnPlayer(col.transform, _penaltyTime));
+                _canKill = false;
+                StartCoroutine(TimeToNextKill());
+            }
+            GameManager.ResetPlayerPowers();
+        }
+    }
+
     private IEnumerator TimeToNextKill()
     {
         yield return new WaitForSeconds(_penaltyTime);
