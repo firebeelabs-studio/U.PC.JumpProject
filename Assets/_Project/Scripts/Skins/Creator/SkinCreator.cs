@@ -83,10 +83,10 @@ public class SkinCreator : MonoBehaviour
                 ChangePos(_jacketTransform);
                 break;
             case SwampieSkin.SkinType.Eyes:
-                ChangePos(_jacketTransform);
+                ChangePos(_eyeTransform);
                 break;
             case SwampieSkin.SkinType.Mouth:
-                ChangePos(_jacketTransform);
+                ChangePos(_mouthTransform);
                 break;
         }
     }
