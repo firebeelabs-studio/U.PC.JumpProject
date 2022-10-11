@@ -20,6 +20,7 @@ public class MenuManagement : MonoBehaviour
     [SerializeField] private GameObject _dailyQuestsScrollView;
     [SerializeField] private GameObject _playButton;
     [SerializeField] private GameObject _pawn;
+    [SerializeField] private Button _secretSceneButton;
     [Space(10)]
     [Header("MODE MENU")]
     [SerializeField] private GameObject _modeMenuPanel;
@@ -94,6 +95,7 @@ public class MenuManagement : MonoBehaviour
                 _dailyQuestsButton.GetComponent<Image>().sprite = _dailyQuestsBarsWithArrows[1];
             }
         });
+        _secretSceneButton.onClick.AddListener((() => LoadSceneWithName("SecretScene")));
         //multi button
         if (PlayerPrefs.HasKey("SpeedrunMode"))
         {
