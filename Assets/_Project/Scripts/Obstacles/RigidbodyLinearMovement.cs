@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class RigidbodyLinearMovement : MonoBehaviour, IPlayerEffector
 {
-    [SerializeField] private float _speed, _targetRange, _startPosDelay, _endPosDelay, _GizmosOffset;
+    [SerializeField] private float _speed, _targetRange, _startDelay, _startPosDelay, _endPosDelay, _GizmosOffset;
     [SerializeField] private bool _isMovingHorizontal;
     [SerializeField] AnimationCurve _forwardMovementCurve, _backwardMovementCurve;
     private Rigidbody2D _rb;
@@ -18,11 +18,26 @@ public class RigidbodyLinearMovement : MonoBehaviour, IPlayerEffector
     void Start()
     {
         _startPos = _rb.position;
-        _timer = _startPosDelay;
+        _timer = _startDelay ;
     }
 
     void FixedUpdate()
     {
+        _move = Mathf.MoveTowards(_move, _currentTarget, _moveSpeed);
+
+        if (!_isMovingHorizontal)
+        {
+            _moveVector = new Vector2(0, _move);
+        }
+        else
+        {
+            _moveVector = new Vector2(_move, 0);
+        }
+
+        _currentPos = _startPos + _moveVector;
+        _rb.MovePosition(_currentPos);
+
+        // adding timer
         if (_move == _targetRange)
         {
             _timer -= Time.fixedDeltaTime;
@@ -33,6 +48,8 @@ public class RigidbodyLinearMovement : MonoBehaviour, IPlayerEffector
             _previousPos = _targetRange;
             _isReturning = true;
             _timer = _startPosDelay;
+            
+
         }
         else if (_move == 0)
         {
@@ -46,15 +63,6 @@ public class RigidbodyLinearMovement : MonoBehaviour, IPlayerEffector
             _timer = _endPosDelay;
         }
 
-        if (!_isMovingHorizontal)
-        {
-            _moveVector = new Vector2(0, _move);
-        }
-        else
-        {
-            _moveVector = new Vector2(_move, 0);
-        }
-
         // calculates speed dependent on direction of movement
         _progress = Mathf.InverseLerp(_previousPos, _currentTarget, _move);
         if (!_isReturning)
@@ -66,22 +74,20 @@ public class RigidbodyLinearMovement : MonoBehaviour, IPlayerEffector
             _moveSpeed = _backwardMovementCurve.Evaluate(_progress) * _speed * Time.fixedDeltaTime;
         }
 
-        _move = Mathf.MoveTowards(_move, _currentTarget, _moveSpeed);
-        _currentPos = _startPos + _moveVector; 
-        _rb.MovePosition(_currentPos);
-
-        if (!_isReturning)
+        // calculates effector
+        if (_move == 0 || _move == _targetRange)
         {
+            print("done");
+            //_change = _lastPos - _currentPos;
             _change = Vector2.zero;
         }
         else
         {
             _change = _lastPos - _currentPos;
         }
-
         _lastPos = _currentPos;
     }
-
+    
     public Vector2 EvaluateEffector()
     {
         return -_change; // * _speed;
