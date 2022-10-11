@@ -10,6 +10,8 @@ public class ButtonsGroup : MonoBehaviour
     
     public void OnClick(Button btn)
     {
+        if (btn == _currentlyActiveButton) return;
+
         var childImg = btn.transform.GetChild(0).GetComponent<Image>();
         if (!childImg) return;
         
