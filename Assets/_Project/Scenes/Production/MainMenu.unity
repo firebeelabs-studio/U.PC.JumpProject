@@ -6418,12 +6418,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 27
-    m_Right: 27
-    m_Top: 27
-    m_Bottom: 27
+    m_Left: 59
+    m_Right: 59
+    m_Top: 59
+    m_Bottom: 59
   m_ChildAlignment: 1
-  m_Spacing: 1.1440073
+  m_Spacing: 1.71512
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -7270,7 +7270,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 462189092}
   m_OnClick:
     m_PersistentCalls:
@@ -7296,7 +7296,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level 7.4
+          m_StringArgument: LavaCave5
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2132787341}
@@ -7308,7 +7308,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: LavaCave5
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &462189092
@@ -9252,7 +9252,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 575302236}
   m_OnClick:
     m_PersistentCalls:
@@ -9278,7 +9278,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level 7.3
+          m_StringArgument: LavaCave4
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2132787341}
@@ -9290,7 +9290,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: LavaCave4
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &575302236
@@ -21436,8 +21436,8 @@ MonoBehaviour:
   m_VerticalScrollbar: {fileID: 0}
   m_HorizontalScrollbarVisibility: 2
   m_VerticalScrollbarVisibility: 2
-  m_HorizontalScrollbarSpacing: -0.6864044
-  m_VerticalScrollbarSpacing: -0.6864044
+  m_HorizontalScrollbarSpacing: -1.029072
+  m_VerticalScrollbarSpacing: -1.029072
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -32912,12 +32912,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 27
-    m_Right: 27
+    m_Left: 41
+    m_Right: 41
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 10.7642
+  m_Spacing: 16.137917
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -34975,6 +34975,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1434606010}
   m_CullTransparentMesh: 1
+--- !u!1 &1442626287 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8505460548857638775, guid: eba98c0cbbfda1a49a9bf4899dd271e4, type: 3}
+  m_PrefabInstance: {fileID: 8505460549423048878}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1442626295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442626287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb68a7cc2568cb9488126f4c2c4e6b0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1451235637
 GameObject:
   m_ObjectHideFlags: 0
@@ -46683,7 +46700,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 3.009375
+  m_Spacing: 4.5117188
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0

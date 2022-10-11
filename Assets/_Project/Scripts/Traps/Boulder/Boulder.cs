@@ -7,10 +7,10 @@ using Random = UnityEngine.Random;
 
 public class Boulder : MonoBehaviour
 {
-    [SerializeField] private float _xForce = 20f;
+    public float XForce = 20f;
     private IObjectPool<Boulder> _pool;
     private ConstantForce2D _constantForce2D;
-    [SerializeField] private bool _randomDirection;
+    public bool RandomDirection;
     private int _value;
 
     private void Start()
@@ -34,22 +34,22 @@ public class Boulder : MonoBehaviour
     {
         if (col.gameObject.tag == "Ground")
         {
-            _constantForce2D.force = new Vector2(_xForce, 0f);
+            _constantForce2D.force = new Vector2(XForce, 0f);
         }
     }
 
     private void OnEnable()
     {
-        if (_randomDirection)
+        if (RandomDirection)
         {
             _value = Random.Range(0, 2);
             if (_value == 0)
             {
-                _xForce = _xForce * (-1);
+                XForce = XForce * (-1);
             }
             else if (_value == 1)
             {
-                _xForce = _xForce * 1;
+                XForce = XForce * 1;
             }
         }
     }
