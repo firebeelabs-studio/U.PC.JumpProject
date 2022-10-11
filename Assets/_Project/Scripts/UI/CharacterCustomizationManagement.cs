@@ -47,22 +47,22 @@ public class CharacterCustomizationManagement : MonoBehaviour
         
         _buttonAll.onClick.AddListener((() =>
         {
-            LoadSkinsBySkinType(SwampieSkin.SkinType.Hat, true);
+            LoadAllSkins();
         }));
         
         _buttonHats.onClick.AddListener((() =>
         {
-            LoadSkinsBySkinType(SwampieSkin.SkinType.Hat, false);
+            LoadSkinsBySkinType(SwampieSkin.SkinType.Hat);
         }));
         
         _buttonClothes.onClick.AddListener((() =>
         {
-            LoadSkinsBySkinType(SwampieSkin.SkinType.Jacket, false);
+            LoadSkinsBySkinType(SwampieSkin.SkinType.Jacket);
         }));
         
         _buttonMouth.onClick.AddListener((() =>
         {
-            LoadSkinsBySkinType(SwampieSkin.SkinType.Mouth, false);
+            LoadSkinsBySkinType(SwampieSkin.SkinType.Mouth);
         }));
         
         _buttonArrowRight.onClick.AddListener((() =>
@@ -251,31 +251,32 @@ public class CharacterCustomizationManagement : MonoBehaviour
         _gridCells.Clear();
     }
 
-    private void LoadSkinsBySkinType(SwampieSkin.SkinType skinType, bool shouldLoadAll)
+    private void LoadSkinsBySkinType(SwampieSkin.SkinType skinType)
     {
         _currentPage = 0;
         ClearGrid();
-        if (shouldLoadAll)
+        switch (skinType)
         {
-            _hat.LoadAllSkins();
-            InitializeGridWithAllSkins(_currentPage);
+            case SwampieSkin.SkinType.Hat:
+                _sortedSkins = _hat.SortedSkins;
+                break;
+            case SwampieSkin.SkinType.Jacket:
+                _sortedSkins = _jacket.SortedSkins;
+                break;
+            case SwampieSkin.SkinType.Mouth:
+                _sortedSkins = _mouth.SortedSkins;
+                break;
         }
-        else
-        {
-            switch (skinType)
-            {
-                case SwampieSkin.SkinType.Hat:
-                    _sortedSkins = _hat.SortedSkins;
-                    break;
-                case SwampieSkin.SkinType.Jacket:
-                    _sortedSkins = _jacket.SortedSkins;
-                    break;
-                case SwampieSkin.SkinType.Mouth:
-                    _sortedSkins = _mouth.SortedSkins;
-                    break;
-            }
-            InitializeGrid2(_currentPage);
-        }
+        InitializeGrid2(_currentPage);
+        ResetArrows();
+    }
+
+    private void LoadAllSkins()
+    {
+        _currentPage = 0;
+        ClearGrid();
+        _sortedSkins = _hat.LoadAllSkins();
+        InitializeGridWithAllSkins(_currentPage);
         ResetArrows();
     }
     
