@@ -11,6 +11,7 @@ namespace TarodevController {
         private AudioSource _source;
         [SerializeField] private TrailRenderer _trail;
         [SerializeField] private List<Transform> _skinsTransforms;
+        [SerializeField] private List<SpriteRenderer> _skinsRenderers;
         private int _moveDirection = 1;
         private int _lastMoveDirection = 1;
 
@@ -325,11 +326,19 @@ namespace TarodevController {
             _deathParticles.Play();
             PlaySound(_deathClip, 0.7f);
             _renderer.enabled = false;
+            foreach (var skinrenderer in _skinsRenderers)
+            {
+                skinrenderer.enabled = false;
+            }
             ClearTrail();
         }
         private void OnPlayerRespawn()
         {
             _renderer.enabled = true;
+            foreach (var skinrenderer in _skinsRenderers)
+            {
+                skinrenderer.enabled = true;
+            }
             ClearTrail();
         }
         public void ClearTrail()
