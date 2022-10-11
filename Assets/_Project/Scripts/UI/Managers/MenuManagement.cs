@@ -1,6 +1,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MenuManagement : MonoBehaviour
@@ -14,10 +15,9 @@ public class MenuManagement : MonoBehaviour
     [SerializeField] private Button _enableSettingsButton;
     [SerializeField] private Button _disableSettingsButton;
     [SerializeField] private GameObject _settingsPanel;
-    [SerializeField] private GameObject _switchQuests;
-    [SerializeField] private GameObject _suggestedQuestPanel;
-    [SerializeField] private GameObject _dailyQuestsPanel;
-    [SerializeField] private GameObject _questsPanel;
+    [SerializeField] private Button _dailyQuestsButton;
+    [SerializeField] private Sprite[] _dailyQuestsBarsWithArrows = new Sprite[2];
+    [SerializeField] private GameObject _dailyQuestsScrollView;
     [SerializeField] private GameObject _playButton;
     [SerializeField] private GameObject _pawn;
     [Space(10)]
@@ -79,9 +79,21 @@ public class MenuManagement : MonoBehaviour
             }
         });
         _disableSettingsButton.onClick.AddListener(() => ClosePanel(_settingsPanel));
-        _switchQuests.GetComponent<Button>().onClick.AddListener(() => SwitchBetweenQuests());
         _playButton.GetComponent<Button>().onClick.AddListener(() => SwitchBetweenPanels(_modeMenuPanel));
         _singleButton.GetComponent<Button>().onClick.AddListener(() => SwitchBetweenPanels(_levelsMenuPanel));
+        _dailyQuestsButton.onClick.AddListener(() =>
+        {
+            if (_dailyQuestsScrollView.activeInHierarchy)
+            { 
+                _dailyQuestsScrollView.SetActive(false);
+                _dailyQuestsButton.GetComponent<Image>().sprite = _dailyQuestsBarsWithArrows[0];
+            }
+            else
+            {
+                _dailyQuestsScrollView.SetActive(true);
+                _dailyQuestsButton.GetComponent<Image>().sprite = _dailyQuestsBarsWithArrows[1];
+            }
+        });
         //multi button
         if (PlayerPrefs.HasKey("SpeedrunMode"))
         {
@@ -109,18 +121,6 @@ public class MenuManagement : MonoBehaviour
         else
         {
             _pawn.SetActive(false);
-        }
-    }
-
-    private void SwitchBetweenQuests()
-    {
-        if (_suggestedQuestPanel.activeInHierarchy)
-        {
-            _DOTweenAnimations.SwitchPanels(_suggestedQuestPanel, _dailyQuestsPanel);
-        }
-        else
-        {
-            _DOTweenAnimations.SwitchPanels(_dailyQuestsPanel, _suggestedQuestPanel);
         }
     }
 
