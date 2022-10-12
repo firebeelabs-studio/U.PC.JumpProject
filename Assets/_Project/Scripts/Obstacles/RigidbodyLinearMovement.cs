@@ -37,6 +37,18 @@ public class RigidbodyLinearMovement : MonoBehaviour, IPlayerEffector
         _currentPos = _startPos + _moveVector;
         _rb.MovePosition(_currentPos);
 
+        
+        // calculates effector
+        if (_move == 0 || _move == _targetRange)
+        {
+            _change = Vector2.zero;
+        }
+        else
+        {
+            _change = _lastPos - _currentPos;
+        }
+        _lastPos = _currentPos;
+        
         // adding timer
         if (_move == _targetRange)
         {
@@ -73,19 +85,6 @@ public class RigidbodyLinearMovement : MonoBehaviour, IPlayerEffector
         {
             _moveSpeed = _backwardMovementCurve.Evaluate(_progress) * _speed * Time.fixedDeltaTime;
         }
-
-        // calculates effector
-        if (_move == 0 || _move == _targetRange)
-        {
-            print("done");
-            //_change = _lastPos - _currentPos;
-            _change = Vector2.zero;
-        }
-        else
-        {
-            _change = _lastPos - _currentPos;
-        }
-        _lastPos = _currentPos;
     }
     
     public Vector2 EvaluateEffector()
