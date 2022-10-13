@@ -6,9 +6,9 @@ public class GuillotineMove : MonoBehaviour
     [SerializeField] Transform _lines;
     [SerializeField] SpriteRenderer _linesSprite;
     [SerializeField] BoxCollider2D _collider;
-    [SerializeField] private float _fallSpeed, _returnSpeed, _delay;
+    [SerializeField] private float _fallSpeed, _returnSpeed, _delay, _startDelay;
 
-    private float _speed, _distance, _timer = 0.5f, _angle = Mathf.PI;
+    private float _speed, _distance, _timer, _angle = Mathf.PI;
     private Vector2 _endPos, _startPos, _startSize;
 
     private void Start()
@@ -26,6 +26,8 @@ public class GuillotineMove : MonoBehaviour
 
         //set start speed
         _speed = _fallSpeed;
+        _timer = _startDelay;
+
     }
 
     private void Update()
