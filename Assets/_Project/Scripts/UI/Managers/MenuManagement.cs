@@ -33,6 +33,8 @@ public class MenuManagement : MonoBehaviour
     [SerializeField] private TMP_Text _levelNameText;
     [SerializeField] private TMP_Text _yourScoreText;
     [SerializeField] private GameObject _closeLevelPanelButton;
+    [SerializeField] private LevelsInfoHolder _levelsInfoHolder;
+    private int _currentLevelIndex = 0;
 
     private ButtonsAnimations _DOTweenAnimations;
     private GameObject _currentPanel;
@@ -140,12 +142,28 @@ public class MenuManagement : MonoBehaviour
         _levelPanel.SetActive(false);
     }
 
-    public void OpenLevelPanel(string levelName)
+    public void OpenLevelPanel(int levelIndex)
     {
-        _levelNameText.text = levelName;
-        //TO DO: read score of current player and display here
-        //_yourScoreText.text = ;
+        _currentLevelIndex = levelIndex;
+        LoadLevelData(_currentLevelIndex);
         OpenPanel(_levelPanel);
+    }
+    public void ChangeLevelPanel(int incrementIndex)
+    {
+        if (!_levelsInfoHolder.LevelsInfo[_currentLevelIndex + incrementIndex].IsAvailable) return;
+        
+        _currentLevelIndex += incrementIndex;
+        
+        LoadLevelData(_currentLevelIndex);
+    }
+
+    private void LoadLevelData(int levelIndex)
+    {
+        _levelNameText.text = _levelsInfoHolder.LevelsInfo[levelIndex].LevelName;
+        //load scores
+        //load stars info
+        //load bg picture
+        SetLevelToLoad(_levelsInfoHolder.LevelsInfo[levelIndex].SceneName);
     }
     public void CloseLevelPanel()
     {

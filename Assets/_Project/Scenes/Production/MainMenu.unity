@@ -662,7 +662,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -44.791664
+  m_Spacing: -41.62037
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -1868,11 +1868,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 26
           m_FloatArgument: 0
           m_StringArgument: LavaCave2
           m_BoolArgument: 0
@@ -2698,11 +2698,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 15
           m_FloatArgument: 0
           m_StringArgument: 3Matitek
           m_BoolArgument: 0
@@ -3472,7 +3472,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &227184261
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4360,6 +4360,7 @@ GameObject:
   - component: {fileID: 309982136}
   - component: {fileID: 309982135}
   - component: {fileID: 309982134}
+  - component: {fileID: 309982137}
   m_Layer: 5
   m_Name: LeftArrow
   m_TagString: Untagged
@@ -4431,7 +4432,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 309982135}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2132787341}
+        m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
+        m_MethodName: ChangeLevelPanel
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &309982135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4470,6 +4483,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 309982132}
   m_CullTransparentMesh: 1
+--- !u!114 &309982137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309982132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2132787342}
+          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
+          m_MethodName: ButtonOnEnterSmall
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 309982133}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2132787342}
+          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
+          m_MethodName: ButtonOnExit
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 309982133}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &313821993
 GameObject:
   m_ObjectHideFlags: 0
@@ -5096,7 +5154,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 2132787342}
           m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnEnter
+          m_MethodName: ButtonOnEnterSmall
           m_Mode: 2
           m_Arguments:
             m_ObjectArgument: {fileID: 356627362}
@@ -5524,11 +5582,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: Jungle3
           m_BoolArgument: 0
@@ -5987,11 +6045,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 10
           m_FloatArgument: 0
           m_StringArgument: Matitek
           m_BoolArgument: 0
@@ -6245,7 +6303,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 4
     m_Right: 0
-    m_Top: 9
+    m_Top: 8
     m_Bottom: 0
   m_ChildAlignment: 1
   m_Spacing: 5
@@ -7087,11 +7145,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 30
           m_FloatArgument: 0
           m_StringArgument: LavaCave5
           m_BoolArgument: 0
@@ -7869,11 +7927,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: Jungle5
           m_BoolArgument: 0
@@ -8381,11 +8439,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 11
           m_FloatArgument: 0
           m_StringArgument: Level 3.1
           m_BoolArgument: 0
@@ -9288,11 +9346,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 29
           m_FloatArgument: 0
           m_StringArgument: LavaCave4
           m_BoolArgument: 0
@@ -10554,11 +10612,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 20
           m_FloatArgument: 0
           m_StringArgument: 4Matitek
           m_BoolArgument: 0
@@ -11603,11 +11661,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: JungleCave1
           m_BoolArgument: 0
@@ -11986,11 +12044,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 8
           m_FloatArgument: 0
           m_StringArgument: JungleCave4
           m_BoolArgument: 0
@@ -12245,8 +12303,8 @@ MonoBehaviour:
   m_VerticalScrollbar: {fileID: 0}
   m_HorizontalScrollbarVisibility: 2
   m_VerticalScrollbarVisibility: 2
-  m_HorizontalScrollbarSpacing: -1.7240298
-  m_VerticalScrollbarSpacing: -1.7240298
+  m_HorizontalScrollbarSpacing: -1.6019667
+  m_VerticalScrollbarSpacing: -1.6019667
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -12904,11 +12962,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: Jungle2
           m_BoolArgument: 0
@@ -13623,11 +13681,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 21
           m_FloatArgument: 0
           m_StringArgument: Level 5.1
           m_BoolArgument: 0
@@ -14091,11 +14149,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 24
           m_FloatArgument: 0
           m_StringArgument: Level 5.4
           m_BoolArgument: 0
@@ -14914,7 +14972,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -44.791664
+  m_Spacing: -41.62037
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -15616,11 +15674,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 12
           m_FloatArgument: 0
           m_StringArgument: Level 3.2
           m_BoolArgument: 0
@@ -16077,11 +16135,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 6
           m_FloatArgument: 0
           m_StringArgument: JungleCave2
           m_BoolArgument: 0
@@ -16702,11 +16760,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 16
           m_FloatArgument: 0
           m_StringArgument: Level 4.1
           m_BoolArgument: 0
@@ -17383,7 +17441,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -44.791664
+  m_Spacing: -41.62037
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -22920,11 +22978,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 28
           m_FloatArgument: 0
           m_StringArgument: LavaCave3
           m_BoolArgument: 0
@@ -23123,11 +23181,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 13
           m_FloatArgument: 0
           m_StringArgument: Level 3.3
           m_BoolArgument: 0
@@ -25421,7 +25479,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -44.791664
+  m_Spacing: -41.62037
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -26265,7 +26323,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -26991,11 +27049,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 17
           m_FloatArgument: 0
           m_StringArgument: Level 4.2
           m_BoolArgument: 0
@@ -27418,7 +27476,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 2132787342}
           m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnEnter
+          m_MethodName: ButtonOnEnterSmall
           m_Mode: 2
           m_Arguments:
             m_ObjectArgument: {fileID: 1348034837}
@@ -28836,7 +28894,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -44.791664
+  m_Spacing: -41.62037
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -29309,11 +29367,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 7
           m_FloatArgument: 0
           m_StringArgument: JungleCave3
           m_BoolArgument: 0
@@ -30890,11 +30948,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 9
           m_FloatArgument: 0
           m_StringArgument: JungleCave5
           m_BoolArgument: 0
@@ -31467,7 +31525,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -44.791664
+  m_Spacing: -41.62037
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -31944,11 +32002,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 23
           m_FloatArgument: 0
           m_StringArgument: Level 5.3
           m_BoolArgument: 0
@@ -32479,6 +32537,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 439866258}
+  - {fileID: 2076561027}
   m_Father: {fileID: 2132787337}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -32669,11 +32728,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 22
           m_FloatArgument: 0
           m_StringArgument: Level 5.2
           m_BoolArgument: 0
@@ -32908,6 +32967,7 @@ GameObject:
   - component: {fileID: 1611685377}
   - component: {fileID: 1611685376}
   - component: {fileID: 1611685375}
+  - component: {fileID: 1611685378}
   m_Layer: 5
   m_Name: RightArrow
   m_TagString: Untagged
@@ -32979,7 +33039,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1611685376}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2132787341}
+        m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
+        m_MethodName: ChangeLevelPanel
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1611685376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33018,6 +33090,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1611685373}
   m_CullTransparentMesh: 1
+--- !u!114 &1611685378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611685373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2132787342}
+          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
+          m_MethodName: ButtonOnEnterSmall
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1611685374}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2132787342}
+          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
+          m_MethodName: ButtonOnExit
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1611685374}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!4 &1613054377 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7910392273976760837, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
@@ -33118,7 +33235,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1698797368}
+        - m_Target: {fileID: 227184260}
           m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_MethodName: SetActive
           m_Mode: 6
@@ -33134,7 +33251,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1698797368}
+        - m_Target: {fileID: 227184260}
           m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_MethodName: SetActive
           m_Mode: 6
@@ -33497,11 +33614,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 25
           m_FloatArgument: 0
           m_StringArgument: LavaCave1
           m_BoolArgument: 0
@@ -35433,11 +35550,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 18
           m_FloatArgument: 0
           m_StringArgument: Level 4.3
           m_BoolArgument: 0
@@ -36804,11 +36921,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: Jungle4
           m_BoolArgument: 0
@@ -38292,11 +38409,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 19
           m_FloatArgument: 0
           m_StringArgument: Level 4.4
           m_BoolArgument: 0
@@ -40158,11 +40275,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2132787341}
         m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
         m_MethodName: OpenLevelPanel
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 14
           m_FloatArgument: 0
           m_StringArgument: Level 3.4
           m_BoolArgument: 0
@@ -40655,6 +40772,149 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075549379}
   m_CullTransparentMesh: 1
+--- !u!1 &2076561026
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2076561027}
+  - component: {fileID: 2076561028}
+  m_Layer: 5
+  m_Name: LevelsInfoHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2076561027
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076561026}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1584598180}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2076561028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076561026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82cb5c22498792a4a8da157ac8dcc6ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelsInfo:
+  - LevelName: Jungle 1
+    SceneName: Jungle1
+    IsAvailable: 0
+  - LevelName: Jungle 2
+    SceneName: Jungle2
+    IsAvailable: 1
+  - LevelName: Jungle 3
+    SceneName: Jungle3
+    IsAvailable: 1
+  - LevelName: Jungle 4
+    SceneName: Jungle4
+    IsAvailable: 1
+  - LevelName: Jungle 5
+    SceneName: Jungle5
+    IsAvailable: 1
+  - LevelName: Jungle Cave 1
+    SceneName: JungleCave1
+    IsAvailable: 1
+  - LevelName: Jungle Cave 2
+    SceneName: JungleCave2
+    IsAvailable: 1
+  - LevelName: Jungle Cave 3
+    SceneName: JungleCave3
+    IsAvailable: 1
+  - LevelName: Jungle Cave 4
+    SceneName: JungleCave4
+    IsAvailable: 1
+  - LevelName: Jungle Cave 5
+    SceneName: JungleCave5
+    IsAvailable: 0
+  - LevelName: Water 1
+    SceneName: Water1
+    IsAvailable: 0
+  - LevelName: Water 2
+    SceneName: Water2
+    IsAvailable: 0
+  - LevelName: Water 3
+    SceneName: Water3
+    IsAvailable: 0
+  - LevelName: Water 4
+    SceneName: Water4
+    IsAvailable: 0
+  - LevelName: Water 5
+    SceneName: Water5
+    IsAvailable: 0
+  - LevelName: JungleNight 1
+    SceneName: JungleNight1
+    IsAvailable: 0
+  - LevelName: JungleNight 2
+    SceneName: JungleNight2
+    IsAvailable: 0
+  - LevelName: JungleNight 3
+    SceneName: JungleNight3
+    IsAvailable: 0
+  - LevelName: JungleNight 4
+    SceneName: JungleNight4
+    IsAvailable: 0
+  - LevelName: JungleNight 5
+    SceneName: JungleNight5
+    IsAvailable: 0
+  - LevelName: Castle 1
+    SceneName: Castle1
+    IsAvailable: 0
+  - LevelName: Castle 2
+    SceneName: Castle2
+    IsAvailable: 0
+  - LevelName: Castle 3
+    SceneName: Castle3
+    IsAvailable: 0
+  - LevelName: Castle 4
+    SceneName: Castle4
+    IsAvailable: 0
+  - LevelName: Castle 5
+    SceneName: Castle5
+    IsAvailable: 0
+  - LevelName: Lava Cave 1
+    SceneName: LavaCave1
+    IsAvailable: 1
+  - LevelName: Lava Cave 2
+    SceneName: LavaCave2
+    IsAvailable: 1
+  - LevelName: Lava Cave 3
+    SceneName: LavaCave3
+    IsAvailable: 1
+  - LevelName: Lava Cave 4
+    SceneName: LavaCave4
+    IsAvailable: 1
+  - LevelName: Lava Cave 5
+    SceneName: LavaCave5
+    IsAvailable: 1
+  - LevelName: Cloud World 1
+    SceneName: CloudWorld1
+    IsAvailable: 0
 --- !u!1 &2076689896
 GameObject:
   m_ObjectHideFlags: 0
@@ -46161,6 +46421,7 @@ MonoBehaviour:
   _levelNameText: {fileID: 943363194}
   _yourScoreText: {fileID: 0}
   _closeLevelPanelButton: {fileID: 1348034836}
+  _levelsInfoHolder: {fileID: 2076561028}
 --- !u!114 &2132787342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46373,7 +46634,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 7.5585938
+  m_Spacing: 7.0234375
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
