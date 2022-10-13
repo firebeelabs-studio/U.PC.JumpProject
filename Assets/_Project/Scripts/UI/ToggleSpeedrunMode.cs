@@ -8,25 +8,23 @@ public class ToggleSpeedrunMode : MonoBehaviour
 {
     public static event Action<bool> SpeedrunModeToggle;
     public static ToggleSpeedrunMode Instance;
-    private Toggle _toggle;
+    [SerializeField] private AnimatedToggle _animToggle;
     private void Awake()
     {
         Instance = this;
-        _toggle = GetComponent<Toggle>();
+        _animToggle.ToggleValueChanged += Toggle;
     }
     private void Start()
     {
         if (PlayerPrefs.HasKey("SpeedrunMode"))
         {
-            _toggle.isOn = PlayerPrefs.GetInt("SpeedrunMode") == 1;
+            _animToggle.SetStartToggle(PlayerPrefs.GetInt("SpeedrunMode") == 1);
         }
         else
         {
             PlayerPrefs.SetInt("SpeedrunMode", 0);
-            _toggle.isOn = false;
+            _animToggle.SetStartToggle(false);
         }
-
-        _toggle.onValueChanged.AddListener((isOn) => { Toggle(isOn); });
     }
     public void Toggle(bool isOn)
     {
