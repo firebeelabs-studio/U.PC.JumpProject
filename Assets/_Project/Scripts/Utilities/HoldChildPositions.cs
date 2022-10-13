@@ -15,6 +15,12 @@ public class HoldChildPositions : MonoBehaviour
 
     private void Start()
     {
+        SetPos();
+    }
+
+    public void SetPos()
+    {
+        _startingPositions.Clear();
         for (int i = 0; i < _children.Count; i++)
         {
             _startingPositions.Add(_children[i].transform.position);
@@ -33,9 +39,9 @@ public class HoldChildPositions : MonoBehaviour
     }
     
     //used to overcome fookin panel animation
-    public IEnumerator StartHolding()
+    public IEnumerator StartHolding(float time)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(time);
         _startHolding = true;
     }
     
