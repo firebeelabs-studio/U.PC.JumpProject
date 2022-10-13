@@ -31,6 +31,7 @@ public class MenuManagement : MonoBehaviour
     [SerializeField] private GameObject _levelsMenuPanel;
     [SerializeField] private GameObject _levelPanel;
     [SerializeField] private TMP_Text _levelNameText;
+    [SerializeField] private Image _levelBg;
     [SerializeField] private TMP_Text _yourScoreText;
     [SerializeField] private GameObject _closeLevelPanelButton;
     [SerializeField] private LevelsInfoHolder _levelsInfoHolder;
@@ -162,7 +163,7 @@ public class MenuManagement : MonoBehaviour
         _levelNameText.text = _levelsInfoHolder.LevelsInfo[levelIndex].LevelName;
         //load scores
         //load stars info
-        //load bg picture
+        _levelBg.sprite = _levelsInfoHolder.LevelsInfo[levelIndex].LevelImage;
         SetLevelToLoad(_levelsInfoHolder.LevelsInfo[levelIndex].SceneName);
     }
     public void CloseLevelPanel()

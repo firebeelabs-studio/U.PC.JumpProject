@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class LevelsInfoHolder : MonoBehaviour
 {
@@ -16,4 +17,5 @@ public struct LevelInfo
     public string LevelName;
     public string SceneName;
     public bool IsAvailable;
+    public Sprite LevelImage;
 }

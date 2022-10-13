@@ -36032,7 +36032,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -25.601852
+  m_Spacing: -21.75926
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -40825,96 +40825,127 @@ MonoBehaviour:
   - LevelName: Jungle 1
     SceneName: Jungle1
     IsAvailable: 0
+    LevelImage: {fileID: 0}
   - LevelName: Jungle 2
     SceneName: Jungle2
     IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: c02938124bbcf9e4781ee923c7a58169, type: 3}
   - LevelName: Jungle 3
     SceneName: Jungle3
     IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: 09e92cb8e1e03dc4599a466c6f9351a6, type: 3}
   - LevelName: Jungle 4
     SceneName: Jungle4
     IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: 09e92cb8e1e03dc4599a466c6f9351a6, type: 3}
   - LevelName: Jungle 5
     SceneName: Jungle5
     IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: 09e92cb8e1e03dc4599a466c6f9351a6, type: 3}
   - LevelName: Jungle Cave 1
     SceneName: JungleCave1
     IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: c02938124bbcf9e4781ee923c7a58169, type: 3}
   - LevelName: Jungle Cave 2
     SceneName: JungleCave2
     IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: c02938124bbcf9e4781ee923c7a58169, type: 3}
   - LevelName: Jungle Cave 3
     SceneName: JungleCave3
     IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: c02938124bbcf9e4781ee923c7a58169, type: 3}
   - LevelName: Jungle Cave 4
     SceneName: JungleCave4
     IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: c02938124bbcf9e4781ee923c7a58169, type: 3}
   - LevelName: Jungle Cave 5
     SceneName: JungleCave5
     IsAvailable: 0
+    LevelImage: {fileID: 21300000, guid: c02938124bbcf9e4781ee923c7a58169, type: 3}
   - LevelName: Water 1
     SceneName: Water1
     IsAvailable: 0
+    LevelImage: {fileID: 0}
   - LevelName: Water 2
     SceneName: Water2
     IsAvailable: 0
+    LevelImage: {fileID: 0}
   - LevelName: Water 3
     SceneName: Water3
     IsAvailable: 0
+    LevelImage: {fileID: 0}
   - LevelName: Water 4
     SceneName: Water4
     IsAvailable: 0
+    LevelImage: {fileID: 0}
   - LevelName: Water 5
     SceneName: Water5
     IsAvailable: 0
+    LevelImage: {fileID: 0}
   - LevelName: JungleNight 1
     SceneName: JungleNight1
     IsAvailable: 0
+    LevelImage: {fileID: 0}
   - LevelName: JungleNight 2
     SceneName: JungleNight2
     IsAvailable: 0
+    LevelImage: {fileID: 0}
   - LevelName: JungleNight 3
     SceneName: JungleNight3
     IsAvailable: 0
+    LevelImage: {fileID: 0}
   - LevelName: JungleNight 4
     SceneName: JungleNight4
     IsAvailable: 0
+    LevelImage: {fileID: 0}
   - LevelName: JungleNight 5
     SceneName: JungleNight5
     IsAvailable: 0
+    LevelImage: {fileID: 0}
   - LevelName: Castle 1
     SceneName: Castle1
     IsAvailable: 0
+    LevelImage: {fileID: 0}
   - LevelName: Castle 2
     SceneName: Castle2
     IsAvailable: 0
+    LevelImage: {fileID: 0}
   - LevelName: Castle 3
     SceneName: Castle3
     IsAvailable: 0
+    LevelImage: {fileID: 0}
   - LevelName: Castle 4
     SceneName: Castle4
     IsAvailable: 0
+    LevelImage: {fileID: 0}
   - LevelName: Castle 5
     SceneName: Castle5
     IsAvailable: 0
+    LevelImage: {fileID: 0}
   - LevelName: Lava Cave 1
     SceneName: LavaCave1
     IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: c02938124bbcf9e4781ee923c7a58169, type: 3}
   - LevelName: Lava Cave 2
     SceneName: LavaCave2
     IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: c02938124bbcf9e4781ee923c7a58169, type: 3}
   - LevelName: Lava Cave 3
     SceneName: LavaCave3
     IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: c02938124bbcf9e4781ee923c7a58169, type: 3}
   - LevelName: Lava Cave 4
     SceneName: LavaCave4
     IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: c02938124bbcf9e4781ee923c7a58169, type: 3}
   - LevelName: Lava Cave 5
     SceneName: LavaCave5
     IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: c02938124bbcf9e4781ee923c7a58169, type: 3}
   - LevelName: Cloud World 1
     SceneName: CloudWorld1
     IsAvailable: 0
+    LevelImage: {fileID: 0}
 --- !u!1 &2076689896
 GameObject:
   m_ObjectHideFlags: 0
@@ -46419,6 +46450,7 @@ MonoBehaviour:
   _levelsMenuPanel: {fileID: 1584598179}
   _levelPanel: {fileID: 501152927}
   _levelNameText: {fileID: 943363194}
+  _levelBg: {fileID: 783034725}
   _yourScoreText: {fileID: 0}
   _closeLevelPanelButton: {fileID: 1348034836}
   _levelsInfoHolder: {fileID: 2076561028}
