@@ -15,10 +15,12 @@ public class AnimatedToggle : MonoBehaviour, IPointerDownHandler
     [SerializeField] private Image _backgroundImage;
     [SerializeField] private HoldChildPositions _childholder;
 
+    [SerializeField] private float _holdTogglePosAfterSeconds = 0.5f;
     private float _offX;
     private float _onX;
 
     [SerializeField] private float _tweenTime = 0.25f;
+    [SerializeField] private bool _getPosOnEnable;
 
     public delegate void ValueChanged(bool value);
 
@@ -63,7 +65,11 @@ public class AnimatedToggle : MonoBehaviour, IPointerDownHandler
 
     private void OnEnable()
     {
-        StartCoroutine(_childholder.StartHolding());
+        if (_getPosOnEnable)
+        {
+            _childholder.SetPos();
+        }
+        StartCoroutine(_childholder.StartHolding(_holdTogglePosAfterSeconds));
     }
 
 }
