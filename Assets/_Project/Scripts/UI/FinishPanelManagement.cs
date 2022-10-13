@@ -25,23 +25,16 @@ public class FinishPanelManagement : MonoBehaviour
     [SerializeField] private Button _restartButton;
     [SerializeField] private Button _nextLevelButton;
     [SerializeField] private string _nextLevelName;
-    [SerializeField] private Respawn _spawnManager;
     [SerializeField] private Transform _player;
-    [SerializeField] private FinishSinglePlayer _finish;
     [SerializeField] private UIParticleSystem _confettiParticles, _pepeParticles;
     [SerializeField] private StarAnim[] _stars;
     [SerializeField] private List<float> _thresholds = new();
-    private TimerSinglePlayer _timerSinglePlayer;
     private PlayersInput input;
     private IPawnController _pawnController;
-    private float _previousMoveClamp;
 
     private void Awake()
     {
-        _timerSinglePlayer = GetComponentInParent<TimerSinglePlayer>();
-        _spawnManager = FindObjectOfType<Respawn>();
         _player = GameObject.FindGameObjectWithTag("Player").transform;
-        _finish = GameObject.FindGameObjectWithTag("Finish").GetComponent<FinishSinglePlayer>();
     }
 
     private void Start()
@@ -57,7 +50,6 @@ public class FinishPanelManagement : MonoBehaviour
         }
         input = _player.GetComponent<PlayersInput>();
         _pawnController = _player.GetComponent<IPawnController>();
-        _previousMoveClamp = _player.GetComponent<PawnController>().MoveClamp;
     }
 
     private void OnEnable()
