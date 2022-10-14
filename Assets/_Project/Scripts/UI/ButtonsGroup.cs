@@ -15,7 +15,6 @@ public class ButtonsGroup : MonoBehaviour
         var childImg = btn.transform.GetChild(0).GetComponent<Image>();
         if (!childImg) return;
         
-        childImg.color = Color.red;
         if (_currentlyActiveButton)
         {
             var childImgToReset = _currentlyActiveButton.transform.GetChild(0).GetComponent<Image>();
