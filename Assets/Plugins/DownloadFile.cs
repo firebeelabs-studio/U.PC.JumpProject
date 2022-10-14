@@ -22,7 +22,8 @@ public class DownloadFile : MonoBehaviour
     private Rect _rect;
     private RenderTexture _renderTexture;
     [SerializeField] private Texture2D screenShot;
-    private Camera camera;
+    [SerializeField] private Camera cam1;
+    [SerializeField] private Camera cam2;
 
 
     [DllImport("__Internal")]
@@ -30,58 +31,64 @@ public class DownloadFile : MonoBehaviour
 
     private void Awake()
     {
-        camera = GetComponent<Camera>();
+        cam2 = GetComponent<Camera>();
     }
 
     public void DoScreenshot()
     {
-        ChangeObjectsActiveState(false);
+        cam2.enabled = true;
 
-        // create screenshot objects if needed
-        if (_renderTexture == null)
+        if (cam2.enabled == true)
         {
-            // creates off-screen render texture that can rendered into
-            _rect = new Rect(0, 0, captureWidth, captureHeight);
-            _renderTexture = new RenderTexture(captureWidth, captureHeight, 24);
-            screenShot = new Texture2D(captureWidth, captureHeight, TextureFormat.RGB24, false);
-        }
+            ChangeObjectsActiveState(false);
 
-        //render scene into rt
-        camera.targetTexture = _renderTexture;
-        camera.Render();
+            // create screenshot objects if needed
+            if (_renderTexture == null)
+            {
+                // creates off-screen render texture that can rendered into
+                _rect = new Rect(0, 0, captureWidth, captureHeight);
+                _renderTexture = new RenderTexture(captureWidth, captureHeight, 24);
+                screenShot = new Texture2D(captureWidth, captureHeight, TextureFormat.RGB24, false);
+            }
 
-        // read pixels will read from the currently active render texture so make our offscreen 
-        // render texture active and then read the pixels
-        RenderTexture.active = _renderTexture;
-        screenShot.ReadPixels(_rect, 0, 0);
+            //render scene into rt
+            cam2.targetTexture = _renderTexture;
+            cam2.Render();
 
-        // reset active camera texture and render texture
-        camera.targetTexture = null;
-        RenderTexture.active = null;
-        
-        byte[] fileData = screenShot.EncodeToPNG();
-        
-        #if UNITY_WEBGL 
-        
-        FileDownload(fileData, fileData.Length, "avatar400x400.png");
-        
-        #endif
-        
-        #if UNITY_EDITOR || UNITY_STANDALONE_WIN
-        
-        File.WriteAllBytes(Application.dataPath + "/Screenshot.png", fileData);
+            // read pixels will read from the currently active render texture so make our offscreen 
+            // render texture active and then read the pixels
+            RenderTexture.active = _renderTexture;
+            screenShot.ReadPixels(_rect, 0, 0);
 
-        #endif
-        
-        Destroy(screenShot);
-        ChangeObjectsActiveState(true);
+            // reset active camera texture and render texture
+            cam2.targetTexture = null;
+            RenderTexture.active = null;
 
-        // cleanup if needed
-        if (optimizeForManyScreenshots == false)
-        {
-            Destroy(_renderTexture);
-            _renderTexture = null;
-            screenShot = null;
+            byte[] fileData = screenShot.EncodeToPNG();
+
+#if UNITY_WEBGL
+
+            FileDownload(fileData, fileData.Length, "avatar400x400.png");
+
+#endif
+
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+
+            File.WriteAllBytes(Application.dataPath + "/Screenshot.png", fileData);
+
+#endif
+            Destroy(screenShot);
+            ChangeObjectsActiveState(true);
+
+            // cleanup if needed
+            if (optimizeForManyScreenshots == false)
+            {
+                Destroy(_renderTexture);
+                _renderTexture = null;
+                screenShot = null;
+            }
+
+            cam2.enabled = false;
         }
     }
 
@@ -93,6 +100,5 @@ public class DownloadFile : MonoBehaviour
             go.SetActive(makeActive);
         }
     }
-
 }
     
