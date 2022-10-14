@@ -22,10 +22,18 @@ public class AnimatedToggle : MonoBehaviour, IPointerDownHandler
     [SerializeField] private float _tweenTime = 0.25f;
     [SerializeField] private bool _getPosOnEnable;
 
+    private AudioPlayer _audioPlayer;
+    [SerializeField] private AudioClip _toggleSound;
+
     public delegate void ValueChanged(bool value);
 
     public event ValueChanged ToggleValueChanged;
-    // Start is called before the first frame update
+
+    private void Awake()
+    {
+        _audioPlayer = GetComponent<AudioPlayer>();
+    }
+
     private void Start()
     {
         _onX = _toggleIndicator.anchoredPosition.x;
@@ -36,10 +44,24 @@ public class AnimatedToggle : MonoBehaviour, IPointerDownHandler
     {
         _onX = _toggleIndicator.anchoredPosition.x;
         _offX = _backgroundImage.rectTransform.rect.width - _toggleIndicator.rect.width;
-        Toggle(isOn);
+        InitializeToggle(isOn);
     }
 
     private void Toggle(bool value)
+    {
+        if (value != _isOn)
+        {
+            _audioPlayer.PlayOneShotSound(_toggleSound);
+            _isOn = value;
+            MoveIndicator(_isOn);
+
+            if (ToggleValueChanged != null)
+            {
+                ToggleValueChanged(_isOn);
+            }
+        }
+    }
+    private void InitializeToggle(bool value)
     {
         if (value != _isOn)
         {
