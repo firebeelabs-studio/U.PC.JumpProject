@@ -15,7 +15,7 @@ public class AnimatedToggle : MonoBehaviour, IPointerDownHandler
     [SerializeField] private Image _backgroundImage;
     [SerializeField] private HoldChildPositions _childholder;
 
-    [SerializeField] private float _holdTogglePosAfterSeconds = 0.5f;
+    [SerializeField] private float _holdTogglePosAfterSeconds = 0.4f;
     private float _offX;
     private float _onX;
 
