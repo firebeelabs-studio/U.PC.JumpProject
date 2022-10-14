@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using UnityEngine;
-using System.IO;
 
 public class DownloadFile : MonoBehaviour
 {
@@ -66,14 +65,14 @@ public class DownloadFile : MonoBehaviour
 
             byte[] fileData = screenShot.EncodeToPNG();
 
-#if UNITY_WEBGL
+#if (UNITY_WEBGL && !UNITY_EDITOR)
 
             FileDownload(fileData, fileData.Length, "avatar400x400.png");
 
 #endif
 
-#if UNITY_EDITOR || UNITY_STANDALONE_WIN
-
+#if (UNITY_EDITOR || UNITY_STANDALONE_WIN)
+            
             File.WriteAllBytes(Application.dataPath + "/Screenshot.png", fileData);
 
 #endif
