@@ -6,6 +6,8 @@ public class PausePanel : MonoBehaviour
 {
     [Header("PAUSE")]
     [SerializeField] private GameObject _pausePanel;
+    [SerializeField] private GameObject _pauseBg;
+    [SerializeField] private GameObject _timerText;
     [SerializeField] private Button _resumeButton;
     [SerializeField] private Button _restartButton;
     [SerializeField] private Button _homeButton;
@@ -95,10 +97,14 @@ public class PausePanel : MonoBehaviour
                     }
                     Time.timeScale = 1;
                     _pausePanel.SetActive(false);
+                    _pauseBg.SetActive(false);
+                    _timerText.SetActive(true);
                 }).SetUpdate(true);
         }
         else
         {
+            _pauseBg.SetActive(true);
+            _timerText.SetActive(false);
             _pausePanel.SetActive(true);
             _pausePanel.gameObject.transform.
                DOScale(1, 0.15f).
