@@ -28,6 +28,11 @@ public class FinishPanelManagement : MonoBehaviour
     [SerializeField] private Transform _player;
     [SerializeField] private UIParticleSystem _confettiParticles, _pepeParticles;
     [SerializeField] private StarAnim[] _stars;
+    
+    //TEMP REMOVE THIS AFTER FINISHING LEADERBOARDS
+    [SerializeField] private int _bestStarAmount = 3;
+    [SerializeField] private StarAnim[] _mainStars;
+    [SerializeField] private StarAnim[] _nextStars;
     [SerializeField] private List<float> _thresholds = new();
     private PlayersInput input;
     private IPawnController _pawnController;
@@ -109,6 +114,9 @@ public class FinishPanelManagement : MonoBehaviour
         _pepeParticles.StartParticleEmission();
         RectTransform newScoreTextRect = _newScoreText.GetComponent<RectTransform>();
         newScoreTextRect.localScale = Vector2.zero;
+        //setup main stars
+        //setup max stars from previous runs
+        SetupMainStars();
         newScoreTextRect.DOScale(1.5f, 1.5f).SetEase(Ease.OutBack).OnComplete(() =>
         {
             newScoreTextRect.DOScale(0, 1).SetEase(Ease.InBack).OnComplete(() =>
@@ -122,7 +130,14 @@ public class FinishPanelManagement : MonoBehaviour
                 _finishPanel.transform.localScale = Vector2.zero;
                 _finishPanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
                 {
+                    //TODO: move this to another class
+                    //if user achieved run animation with normal animation (DON'T PLAY SOUNDS)
+
+                    //setup next star stars (DON'T PLAY ANIMATION)
+                    SetupNextStars();
+                    //setup your score stars
                     StartCoroutine(SetupStars());
+                    
                     SetupThresholdsDescending();
                 });
             });
@@ -142,6 +157,31 @@ public class FinishPanelManagement : MonoBehaviour
                 _stars[i].RunPunchAnimation();
             }
             yield return new WaitForSeconds(.75f);
+        }
+    }
+
+    private void SetupMainStars()
+    {
+        //Get stars from last run
+        for (int i = 0; i < _bestStarAmount; i++)
+        {
+            //set active
+            _mainStars[i].gameObject.SetActive(true);
+        }
+    }
+
+    private void SetupNextStars()
+    {
+        if (_bestStarAmount >= 3)
+        {
+            //change somehow this shit
+        }
+        else
+        {
+            for (int i = 0; i < _bestStarAmount + 1; i++)
+            {
+                _nextStars[i].gameObject.SetActive(true);
+            }
         }
     }
 
