@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 825751230058157887}
   - component: {fileID: 825751230058157884}
   - component: {fileID: 8348770892943180924}
+  - component: {fileID: 4925450531905836511}
   m_Layer: 0
   m_Name: KillCollider
   m_TagString: Untagged
@@ -43,7 +44,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.25}
@@ -111,6 +112,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4925450531905836511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825751230058157886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d427b6f4ce6b484a86dfaa32618a589, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &825751230234685964
 GameObject:
   m_ObjectHideFlags: 0
