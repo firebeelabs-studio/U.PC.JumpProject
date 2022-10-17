@@ -114,9 +114,11 @@ public class FinishPanelManagement : MonoBehaviour
         _pepeParticles.StartParticleEmission();
         RectTransform newScoreTextRect = _newScoreText.GetComponent<RectTransform>();
         newScoreTextRect.localScale = Vector2.zero;
+        
         //setup main stars
         //setup max stars from previous runs
         SetupMainStars();
+        
         newScoreTextRect.DOScale(1.5f, 1.5f).SetEase(Ease.OutBack).OnComplete(() =>
         {
             newScoreTextRect.DOScale(0, 1).SetEase(Ease.InBack).OnComplete(() =>
@@ -130,6 +132,8 @@ public class FinishPanelManagement : MonoBehaviour
                 _finishPanel.transform.localScale = Vector2.zero;
                 _finishPanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
                 {
+                    
+                    
                     //TODO: move this to another class
                     //if user achieved run animation with normal animation (DON'T PLAY SOUNDS)
 
@@ -137,6 +141,8 @@ public class FinishPanelManagement : MonoBehaviour
                     SetupNextStars();
                     //setup your score stars
                     StartCoroutine(SetupStars());
+                    
+                    
                     
                     SetupThresholdsDescending();
                 });
