@@ -133,15 +133,14 @@ public class FinishPanelManagement : MonoBehaviour
                 _finishPanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
                 {
                     
-                    
-                    //TODO: move this to another class
-                    //if user achieved run animation with normal animation (DON'T PLAY SOUNDS)
-
                     //setup next star stars (DON'T PLAY ANIMATION)
                     SetupNextStars();
+                    
+
                     //setup your score stars
                     StartCoroutine(SetupStars());
                     
+                    //if user achieved run animation with normal animation (DON'T PLAY SOUNDS)
                     
                     
                     SetupThresholdsDescending();
