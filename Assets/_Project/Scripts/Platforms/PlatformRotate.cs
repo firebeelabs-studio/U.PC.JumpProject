@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class PlatformRotate : MonoBehaviour
 {
-    [SerializeField] private float _startDelay, _rotationTime = 0.5f, _timeToRotate = 3f, _shakeAmplitude = 5f, _shakeDuration = 1f; 
+    [SerializeField] private float _startDelay, _rotationTime = 0.5f, _topPosTime = 3f, _backPosTime = 2f, _shakeAmplitude = 5f, _shakeDuration = 1f; 
     [SerializeField] private int _shakeFrequency = 10;
     [SerializeField] private bool _isRotatingClockvise;
     private float _rotateTimer;
@@ -30,13 +30,13 @@ public class PlatformRotate : MonoBehaviour
     {
         _rotateTimer += Time.deltaTime;
 
-        if (_rotateTimer >= _timeToRotate && !_isRotated)
+        if (_rotateTimer >= _topPosTime && !_isRotated)
         {
             transform.DOPunchRotation(new Vector3(0, 0, _shakeAmplitude), _shakeDuration, _shakeFrequency, 1f).OnComplete(() => { transform.DORotate(new Vector3(0, 0, _rotationAngle), _rotationTime); ; });
             _rotateTimer = 0;
             _isRotated = true;
         }
-        if (_rotateTimer >= _timeToRotate && _isRotated)
+        if (_rotateTimer >= _backPosTime && _isRotated)
         {
             transform.DOPunchRotation(new Vector3(0, 0, _shakeAmplitude), _shakeDuration, _shakeFrequency, 1f).OnComplete(() => { transform.DORotate(new Vector3(0, 0, 0), _rotationTime); ; });
             _rotateTimer = 0;
