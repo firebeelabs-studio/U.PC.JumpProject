@@ -158,8 +158,10 @@ public class FinishPanelManagement : MonoBehaviour
             {
                 _stars[i].gameObject.SetActive(true);
                 if (!_stars[i].isActiveAndEnabled) break;
-
-                _stars[i].RunPunchAnimation();
+                
+                bool isScoreBetterThanGlobalBest = i + 1 > _bestStarAmount;
+                
+                _stars[i].RunPunchAnimation(isScoreBetterThanGlobalBest);
             }
             yield return new WaitForSeconds(.75f);
         }
