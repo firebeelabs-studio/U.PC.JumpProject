@@ -1466,7 +1466,6 @@ GameObject:
   m_Component:
   - component: {fileID: 159894459}
   - component: {fileID: 159894461}
-  - component: {fileID: 159894460}
   m_Layer: 5
   m_Name: ButtonsHolder
   m_TagString: Untagged
@@ -1506,97 +1505,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 159894458}
   m_CullTransparentMesh: 1
---- !u!114 &159894460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 159894458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b54b16f2fcdba244b49be1f398b6562, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 134
-    m_Right: 134
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 4
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
-  paddingSizerFallback:
-    screenConfigName: 
-    OptimizedSize:
-      left: 200
-      right: 200
-      top: 0
-      bottom: 0
-    MinSize:
-      left: 0
-      right: 0
-      top: 0
-      bottom: 0
-    MaxSize:
-      left: 1000
-      right: 1000
-      top: 1000
-      bottom: 1000
-    ModLeft:
-      ExponentialScale: 1
-      SizeModifiers:
-      - Mode: 1
-        Impact: 1
-    ModRight:
-      ExponentialScale: 1
-      SizeModifiers:
-      - Mode: 1
-        Impact: 1
-    ModTop:
-      ExponentialScale: 1
-      SizeModifiers:
-      - Mode: 1
-        Impact: 1
-    ModBottom:
-      ExponentialScale: 1
-      SizeModifiers:
-      - Mode: 1
-        Impact: 1
-  customPaddingSizers:
-    items: []
-  spacingSizerFallback:
-    screenConfigName: 
-    OptimizedSize: 0
-    MinSize: 0
-    MaxSize: 300
-    Mod:
-      ExponentialScale: 1
-      SizeModifiers:
-      - Mode: 0
-        Impact: 1
-  customSpacingSizers:
-    items: []
-  settingsFallback:
-    ChildAlignment: 4
-    ReverseArrangement: 0
-    ChildForceExpandHeight: 1
-    ChildForceExpandWidth: 1
-    ChildScaleWidth: 0
-    ChildScaleHeight: 0
-    ChildControlWidth: 0
-    ChildControlHeight: 0
-    Orientation: 0
-    screenConfigName: Fallback
-  customSettings:
-    items: []
-  orientation: 0
 --- !u!1 &160752439
 GameObject:
   m_ObjectHideFlags: 0
@@ -2112,7 +2020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9811321, g: 0.9811321, b: 0.9811321, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2580,7 +2488,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 369.75, y: -540}
+  m_AnchoredPosition: {x: 427, y: -540}
   m_SizeDelta: {x: 301.32996, y: 459.08}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &341821737
@@ -2604,7 +2512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8867924, g: 0.8650409, b: 0.8650409, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6297,7 +6205,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 763.25, y: -540}
+  m_AnchoredPosition: {x: 777, y: -540}
   m_SizeDelta: {x: 301.32996, y: 459.08}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &642103682
@@ -6321,7 +6229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8867924, g: 0.8650409, b: 0.8650409, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -12050,7 +11958,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1156.75, y: -540}
+  m_AnchoredPosition: {x: 1127, y: -540}
   m_SizeDelta: {x: 301.32996, y: 459.08}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1361592696
@@ -12074,7 +11982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8867924, g: 0.8650409, b: 0.8650409, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -15115,7 +15023,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1550.25, y: -540}
+  m_AnchoredPosition: {x: 1477, y: -540}
   m_SizeDelta: {x: 301.32996, y: 459.08}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1743738181
@@ -15139,7 +15047,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8867924, g: 0.8650409, b: 0.8650409, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
