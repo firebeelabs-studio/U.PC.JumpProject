@@ -15,7 +15,7 @@ public class MovingClouds : MonoBehaviour
         foreach (GameObject obj in _objects)
         {
             obj.transform.position += new Vector3(_speed * Time.deltaTime, 0);
-            if (obj.transform.position.x > _endPos.position.x)
+            if (obj.transform.position.x < _endPos.position.x)
             {
                 obj.transform.position = _startPos.position;
             }
