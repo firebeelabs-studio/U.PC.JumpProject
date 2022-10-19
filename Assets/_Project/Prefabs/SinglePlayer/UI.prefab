@@ -1736,8 +1736,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -25.809998, y: 0}
-  m_SizeDelta: {x: 304.38, y: 6}
+  m_AnchoredPosition: {x: -0.0000019073, y: 0}
+  m_SizeDelta: {x: 356, y: 6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &234589957
 CanvasRenderer:
@@ -4829,7 +4829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &544965591
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5278,11 +5278,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 974f700db1a5fa448b1e8d3628379696, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillMethod: 0
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -33678,9 +33678,9 @@ MonoBehaviour:
   _darkeningImage: {fileID: 4091115031260766315}
   _newScoreText: {fileID: 2413348652662185374}
   _timerText: {fileID: 6311589461079095334}
-  _yourTimeText: {fileID: 5995485949465877460}
+  _yourTimeText: {fileID: 305688594}
   _previousTimeText: {fileID: 5995485949624947373}
-  _timeNeededForNextStarText: {fileID: 5995485950431894089}
+  _timeNeededForNextStarText: {fileID: 677554361}
   _endLevelTimers: {fileID: 6311589460613197322}
   _backToMenuButton: {fileID: 873965635177405363}
   _homeSceneName: MainMenu
@@ -33694,7 +33694,7 @@ MonoBehaviour:
   - {fileID: 623330329}
   - {fileID: 1658689670}
   - {fileID: 1998955778}
-  _bestStarAmount: 1
+  _bestStarAmount: 0
   _mainStars:
   - {fileID: 1591573785}
   - {fileID: 637444432}
@@ -33707,6 +33707,7 @@ MonoBehaviour:
   - 180
   - 120
   - 60
+  _progressBar: {fileID: 584854156}
 --- !u!222 &819363404
 CanvasRenderer:
   m_ObjectHideFlags: 0

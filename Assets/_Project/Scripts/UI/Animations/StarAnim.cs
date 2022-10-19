@@ -23,7 +23,7 @@ public class StarAnim : MonoBehaviour
         _audioPlayer = GetComponent<AudioPlayer>();
     }
 
-    public void RunPunchAnimation(bool runAdditionalAnimation)
+    public void RunPunchAnimation(bool runAdditionalAnimation = false)
     {
         _audioPlayer.PlayOneShotSound(_starSound, 1, _pitch);
         transform.localScale = Vector3.one;

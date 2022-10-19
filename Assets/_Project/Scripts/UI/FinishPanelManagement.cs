@@ -37,6 +37,8 @@ public class FinishPanelManagement : MonoBehaviour
     private PlayersInput input;
     private IPawnController _pawnController;
 
+    [SerializeField] private Image _progressBar;
+
     private void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -73,12 +75,11 @@ public class FinishPanelManagement : MonoBehaviour
         _pawnController.ChangeMoveClamp(0);
 
         // Finish Panel Text
-        _yourTimeText.text = $"Your time: {(int)_endLevelTimers.TimeInSeconds}s";
-        _previousTimeText.text = _endLevelTimers.Times.Count > 1 ? $"Previous time: {(int)_endLevelTimers.Times[^2]}s" : "Your first try was Swamptastic!";
+        _yourTimeText.text = $"{(int)_endLevelTimers.TimeInSeconds}s";
         int timeInSeconds = (int)_endLevelTimers.TimeInSeconds;
         if (timeInSeconds <= _thresholds[2])
         {
-            _timeNeededForNextStarText.text = $"Congratulations! You've achieved all stars!";
+            _timeNeededForNextStarText.text = $"Gj!";
         }
         else
         {
@@ -94,7 +95,7 @@ public class FinishPanelManagement : MonoBehaviour
                     break;
                 }
             }
-            _timeNeededForNextStarText.text = $"Time needed for next star: {timeForNextStar}s";
+            _timeNeededForNextStarText.text = $"{timeForNextStar}s";
         }
 
         // Darkening
@@ -132,23 +133,27 @@ public class FinishPanelManagement : MonoBehaviour
                 _finishPanel.transform.localScale = Vector2.zero;
                 _finishPanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
                 {
-                    
-                    //setup next star stars (DON'T PLAY ANIMATION)
                     SetupNextStars();
-                    
-
-                    //setup your score stars
-                    StartCoroutine(SetupStars());
-                    
-                    //if user achieved run animation with normal animation (DON'T PLAY SOUNDS)
-                    
-                    
+                    StartCoroutine(FillBar());
                     SetupThresholdsDescending();
                 });
             });
         });
     }
-    
+
+    private int CountStars()
+    {
+        int stars = 0;
+        for (int i = 0; i < _thresholds.Count; i++)
+        {
+            if ((int)_endLevelTimers.TimeInSeconds <= _thresholds[i])
+            {
+                stars++;
+            }
+        }
+
+        return stars;
+    }
     private IEnumerator SetupStars()
     {
         yield return new WaitForSeconds(.25f);
@@ -160,10 +165,41 @@ public class FinishPanelManagement : MonoBehaviour
                 if (!_stars[i].isActiveAndEnabled) break;
                 
                 bool isScoreBetterThanGlobalBest = i + 1 > _bestStarAmount;
-                
                 _stars[i].RunPunchAnimation(isScoreBetterThanGlobalBest);
             }
             yield return new WaitForSeconds(.75f);
+        }
+    }
+
+    private void SetupStar(int starIndex)
+    {
+        _stars[starIndex].gameObject.SetActive(true);
+        if (!_stars[starIndex].isActiveAndEnabled) return;
+                
+        bool isScoreBetterThanGlobalBest = starIndex + 1 > _bestStarAmount;
+        _stars[starIndex].RunPunchAnimation(isScoreBetterThanGlobalBest);
+    }
+
+    private IEnumerator FillBar()
+    {
+        yield return new WaitForSeconds(.25f);
+        for (int i = 0; i < CountStars(); i++)
+        {
+            _progressBar.fillAmount = 0;
+            if (i == CountStars() - 1 && CountStars() != 3)
+            {
+                float secondsFromCurrentTimeToBetterTime = _thresholds[i] - _thresholds[i + 1];
+                float missingSeconds = (int)_endLevelTimers.TimeInSeconds - _thresholds[i + 1];
+                DOTween.To(() => _progressBar.fillAmount, x => _progressBar.fillAmount = x, missingSeconds/secondsFromCurrentTimeToBetterTime, 1f);
+            }
+            else
+            {
+                DOTween.To(() => _progressBar.fillAmount, x => _progressBar.fillAmount = x, 1, 0.6f).OnComplete(() =>
+                {
+                    SetupStar(i);
+                });
+                yield return new WaitForSeconds(.75f);
+            }
         }
     }
 
@@ -179,13 +215,17 @@ public class FinishPanelManagement : MonoBehaviour
 
     private void SetupNextStars()
     {
-        if (_bestStarAmount >= 3)
+        if (CountStars() >= 3)
         {
             //change somehow this shit
+            for (int i = 0; i < 3; i++)
+            {
+                _nextStars[i].gameObject.SetActive(true);
+            }
         }
         else
         {
-            for (int i = 0; i < _bestStarAmount + 1; i++)
+            for (int i = 0; i < CountStars() + 1; i++)
             {
                 _nextStars[i].gameObject.SetActive(true);
             }
