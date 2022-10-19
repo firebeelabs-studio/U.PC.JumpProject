@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7670166901574574189}
   - component: {fileID: 7670166901574574188}
   - component: {fileID: 7670166901574574187}
+  - component: {fileID: 5349654762788760122}
   m_Layer: 0
   m_Name: Small Bluefish 1
   m_TagString: Untagged
@@ -105,3 +106,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5349654762788760122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7670166901574574186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd8d7183689a4745832afce17cd87c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 2
+  _amplitude: 1

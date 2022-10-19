@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8351288036876187489}
   - component: {fileID: 8351288036876187488}
   - component: {fileID: 8351288036876187491}
+  - component: {fileID: 8545197918233421840}
   m_Layer: 0
   m_Name: GreenFish
   m_TagString: Untagged
@@ -105,3 +106,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8545197918233421840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8351288036876187490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd8d7183689a4745832afce17cd87c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 1
+  _amplitude: 1
