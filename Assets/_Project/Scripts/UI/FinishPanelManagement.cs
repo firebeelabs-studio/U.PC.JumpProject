@@ -186,13 +186,13 @@ public class FinishPanelManagement : MonoBehaviour
     private IEnumerator FillBar()
     {
         yield return new WaitForSeconds(.25f);
-        for (int i = 0; i < CountStars(); i++)
+        for (int i = 0; i <= CountStars(); i++)
         {
             _progressBar.fillAmount = 0;
-            if (i == CountStars() - 1 && CountStars() != 3)
+            if (i == CountStars() && CountStars() != 3)
             {
-                float secondsFromCurrentTimeToBetterTime = _thresholds[i] - _thresholds[i + 1];
-                float missingSeconds = (int)_endLevelTimers.TimeInSeconds - _thresholds[i + 1];
+                float secondsFromCurrentTimeToBetterTime = _thresholds[i - 1] - _thresholds[i];
+                float missingSeconds = (int)_endLevelTimers.TimeInSeconds - _thresholds[i];
                 DOTween.To(() => _progressBar.fillAmount, x => _progressBar.fillAmount = x, missingSeconds/secondsFromCurrentTimeToBetterTime, 1f);
             }
             else
