@@ -6,10 +6,11 @@ using UnityEngine;
 
 public class ScoreReader : MonoBehaviour
 {
-    [SerializeField] private static List<PlayerLevelData> _levelData;
+    [SerializeField] private static List<PlayerLevelData> _levelData = new();
 
     private void Awake()
     {
+        if (_levelData.Any()) return;
         //Init _levelData cuz we don't have db rn
         _levelData.Add(new PlayerLevelData
         {
@@ -28,8 +29,8 @@ public class ScoreReader : MonoBehaviour
             TimeInSeconds = 110f,
             LevelName = "Jungle 1",
             UserName = "test 3"
-        })
-            ;_levelData.Add(new PlayerLevelData
+        });
+        _levelData.Add(new PlayerLevelData
         {
             TimeInSeconds = 90f,
             LevelName = "Jungle 1",
@@ -45,7 +46,7 @@ public class ScoreReader : MonoBehaviour
 
     public static void AddPlayerScore(PlayerLevelData newScore)
     {
-        if (_levelData.Where(x => x.UserName == newScore.UserName && x.LevelName == newScore.LevelName).Count() != 0)
+        if (_levelData.Where(x => x.UserName == newScore.UserName && x.LevelName == newScore.LevelName).FirstOrDefault() != null)
         {
             PlayerLevelData lastscore = _levelData.Where(x => x.UserName == newScore.UserName && x.LevelName == newScore.LevelName).Single();
             if (lastscore.TimeInSeconds > newScore.TimeInSeconds)

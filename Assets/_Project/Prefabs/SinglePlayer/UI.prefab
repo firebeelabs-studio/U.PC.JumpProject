@@ -33632,6 +33632,8 @@ GameObject:
   - component: {fileID: 6311589461632416758}
   - component: {fileID: 6311589461632416753}
   - component: {fileID: 819363404}
+  - component: {fileID: 2114722824}
+  - component: {fileID: 2114722825}
   m_Layer: 5
   m_Name: FinishMenu
   m_TagString: Untagged
@@ -33708,6 +33710,7 @@ MonoBehaviour:
   - 120
   - 60
   _progressBar: {fileID: 584854156}
+  _summaryPlaces: {fileID: 2114722824}
 --- !u!222 &819363404
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -33716,6 +33719,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6311589461632416757}
   m_CullTransparentMesh: 1
+--- !u!114 &2114722824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6311589461632416757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ea84b4c55672b549a5427a73999888c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _1stPlaceNick: {fileID: 459604094251521037}
+  _1stPlaceTime: {fileID: 6009006064105804939}
+  _2ndPlaceNick: {fileID: 1613149144654786235}
+  _2ndPlaceTime: {fileID: 4259490103739315379}
+  _3rdPlaceNick: {fileID: 4055588930372179847}
+  _3rdPlaceTime: {fileID: 3356126587594715726}
+  _playerTime: {fileID: 6816827704339147509}
+  _playerPlace:
+  - {fileID: 3151757305869659127}
+  - {fileID: 1063090147}
+--- !u!114 &2114722825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6311589461632416757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f547fb6e5ddaadc488aadebd3f461964, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6311589461860932501
 GameObject:
   m_ObjectHideFlags: 0
