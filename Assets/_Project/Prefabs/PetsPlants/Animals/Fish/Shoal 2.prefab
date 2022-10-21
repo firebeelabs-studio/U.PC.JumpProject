@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4303024145742637875}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.510002, y: -12.110001, z: -0.18207121}
+  m_LocalPosition: {x: -17.510002, y: 0, z: -0.18207121}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6781917569960324186}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.39, y: -12.110001, z: -0.18207121}
+  m_LocalPosition: {x: 21.39, y: 0, z: -0.18207121}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -121,7 +121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 450c1e8e60fb58b43be7c9fda370c006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _waypoints: []
+  _waypoints:
+  - {fileID: 6781917569960324186}
+  - {fileID: 4303024145742637875}
   _speed: 2
 --- !u!1 &7379696427445935443
 GameObject:
