@@ -547,7 +547,7 @@ public class PawnController : MonoBehaviour, IPawnController
         }
     }
 
-    public void ToggleUnderwaterBehaviour(float newAcceleration = 80, float newDeceleration = 40, float newMoveClamp = 10, float newFallClamp = -45, float newGroundingForce = -0.5F, float newJumpHeight = 30, float newJumpApexThreshold = 30)
+    public void ToggleUnderwaterBehaviour(float newAcceleration = 80, float newDeceleration = 40, float newMoveClamp = 10, float newFallClamp = -30, float newGroundingForce = -0.5F, float newJumpHeight = 30, float newJumpApexThreshold = 10)
     {
         _acceleration = newAcceleration;
         _deceleration = newDeceleration;
