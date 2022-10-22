@@ -20,12 +20,28 @@ public class ZoomAreaManagement : MonoBehaviour
     private int _currentIndex = 0;
     private bool _checked;
     private List<ZoomPoint> point;
+    [SerializeField] private PawnController _pawn;
+    private float _lastPointZoomValue;
+
     private void Awake()
     {
+        //Disgusting, change this while working on multiplayer
+        _pawn = FindObjectOfType<PawnController>();
+        
         Instance = this;
         _vcam = GetComponent<CinemachineVirtualCamera>();
         _cameraBody = _vcam.GetCinemachineComponent<CinemachineTrackedDolly>();
         _dollyTrack = FindObjectOfType<CinemachineSmoothPath>();
+    }
+
+    private void OnEnable()
+    {
+        _pawn.PlayerRespawn += OnPlayerRespawn;
+    }
+
+    private void OnDisable()
+    {
+        _pawn.PlayerRespawn -= OnPlayerRespawn;
     }
 
     private void Start()
@@ -55,9 +71,10 @@ public class ZoomAreaManagement : MonoBehaviour
         }
         else if (_currentWaypointPos >= point[_currentIndex].WaypointNumber)
         {
-            var completionPercent = _currentWaypointPos - (int) _currentWaypointPos;
-            var currentZoom = (point[_currentIndex].ZoomValue - _currentZoom)  * completionPercent;
+            float completionPercent = _currentWaypointPos - (int) _currentWaypointPos;
+            float currentZoom = (point[_currentIndex].ZoomValue - _currentZoom)  * completionPercent;
             _vcam.m_Lens.OrthographicSize = _currentZoom + currentZoom;
+            _lastPointZoomValue = point[_currentIndex].ZoomValue;
             _checked = false;
         }
     }
@@ -80,6 +97,12 @@ public class ZoomAreaManagement : MonoBehaviour
                 _currentIndex = i;
             }
         }
+    }
+
+    private void OnPlayerRespawn()
+    {
+        if (_lastPointZoomValue == 0) return;
+        _vcam.m_Lens.OrthographicSize = _lastPointZoomValue;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
