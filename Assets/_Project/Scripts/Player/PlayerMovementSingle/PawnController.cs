@@ -77,6 +77,11 @@ public class PawnController : MonoBehaviour, IPawnController
         {
             _lastJumpPressed = _fixedFrame;
             _jumpToConsume = true;
+            
+            if (_grounded)
+            {
+                _executedBufferedJump = false;
+            }
         }
     }
 
@@ -128,6 +133,7 @@ public class PawnController : MonoBehaviour, IPawnController
         if (_grounded)
         {
             _forceAdded = false;
+            _jumpToConsume = false;
         }
 
         bool RunDetection(Vector2 dir, out RaycastHit2D[] hits)
