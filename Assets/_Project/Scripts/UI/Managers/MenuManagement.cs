@@ -15,6 +15,7 @@ public class MenuManagement : MonoBehaviour
     [SerializeField] private Button _enableSettingsButton;
     [SerializeField] private Button _disableSettingsButton;
     [SerializeField] private GameObject _settingsPanel;
+    [SerializeField] private GameObject _settingsBgPanel;
     [SerializeField] private Button _dailyQuestsButton;
     [SerializeField] private Sprite[] _dailyQuestsBarsWithArrows = new Sprite[2];
     [SerializeField] private GameObject _dailyQuestsScrollView;
@@ -74,14 +75,14 @@ public class MenuManagement : MonoBehaviour
         {
             if (_settingsPanel.activeInHierarchy)
             {
-                ClosePanel(_settingsPanel);
+                ClosePanel(_settingsPanel, _settingsBgPanel);
             }
             else
             {
-                OpenPanel(_settingsPanel);
+                OpenPanel(_settingsPanel, _settingsBgPanel);
             }
         });
-        _disableSettingsButton.onClick.AddListener(() => ClosePanel(_settingsPanel));
+        _disableSettingsButton.onClick.AddListener(() => ClosePanel(_settingsPanel, _settingsBgPanel));
         _playButton.GetComponent<Button>().onClick.AddListener(() => SwitchBetweenPanels(_modeMenuPanel));
         _singleButton.GetComponent<Button>().onClick.AddListener(() => SwitchBetweenPanels(_levelsMenuPanel));
         _dailyQuestsButton.onClick.AddListener(() =>
@@ -174,14 +175,22 @@ public class MenuManagement : MonoBehaviour
     {
         _levelNameToLoad = levelName;
     }
-    private void OpenPanel(GameObject panel)
+    private void OpenPanel(GameObject panel, GameObject anotherPanel = null)
     {
+        if (anotherPanel != null)
+        {
+            anotherPanel.SetActive(true);
+        }
         panel.transform.localScale = Vector2.zero;
         panel.SetActive(true);
         panel.transform.DOScale(1, 0.5f).SetEase(Ease.InOutCubic);
     }
-    private void ClosePanel(GameObject panel)
+    private void ClosePanel(GameObject panel, GameObject anotherPanel = null)
     {
+        if (anotherPanel != null)
+        {
+            anotherPanel.SetActive(false);
+        }
         panel.transform.DOScale(0, 0.5f).SetEase(Ease.InOutCubic).OnComplete(() => { panel.SetActive(false); });
     }
 }
