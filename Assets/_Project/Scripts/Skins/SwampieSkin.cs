@@ -10,6 +10,7 @@ public class SwampieSkin : ScriptableObject
     public SwampieType swampieType;
     public string SkinName;
     public Sprite SkinSprite;
+    public Sprite DisplaySprite;
     public List<SkinTransform> Positions;
     public Color color;
     
