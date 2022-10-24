@@ -7502,7 +7502,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 30
+          m_IntArgument: 29
           m_FloatArgument: 0
           m_StringArgument: LavaCave5
           m_BoolArgument: 0
@@ -9904,7 +9904,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 29
+          m_IntArgument: 28
           m_FloatArgument: 0
           m_StringArgument: LavaCave4
           m_BoolArgument: 0
@@ -23882,7 +23882,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 28
+          m_IntArgument: 27
           m_FloatArgument: 0
           m_StringArgument: LavaCave3
           m_BoolArgument: 0
@@ -24061,7 +24061,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1094075760}
   m_OnClick:
     m_PersistentCalls:
@@ -24099,7 +24099,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Water4
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1094075760
@@ -27505,7 +27505,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1307369827}
   m_OnClick:
     m_PersistentCalls:
@@ -27543,7 +27543,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 1Matitek
+          m_StringArgument: Jungle1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1307369827
@@ -28252,7 +28252,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1331481702}
   m_OnClick:
     m_PersistentCalls:
@@ -28290,7 +28290,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: JungleNight3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1331481702
@@ -40483,7 +40483,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1932597357}
   m_OnClick:
     m_PersistentCalls:
@@ -40521,7 +40521,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: JungleNight5
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1932597357
@@ -42397,7 +42397,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 2050685848}
   m_OnClick:
     m_PersistentCalls:
@@ -42435,7 +42435,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Water5
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2050685848
@@ -42966,8 +42966,8 @@ MonoBehaviour:
   LevelsInfo:
   - LevelName: Jungle 1
     SceneName: Jungle1
-    IsAvailable: 0
-    LevelImage: {fileID: 0}
+    IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: 09e92cb8e1e03dc4599a466c6f9351a6, type: 3}
   - LevelName: Jungle 2
     SceneName: Jungle2
     IsAvailable: 1
@@ -43018,12 +43018,12 @@ MonoBehaviour:
     LevelImage: {fileID: 21300000, guid: 09e92cb8e1e03dc4599a466c6f9351a6, type: 3}
   - LevelName: Water 4
     SceneName: Water4
-    IsAvailable: 0
-    LevelImage: {fileID: 0}
+    IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: 09e92cb8e1e03dc4599a466c6f9351a6, type: 3}
   - LevelName: Water 5
     SceneName: Water5
-    IsAvailable: 0
-    LevelImage: {fileID: 0}
+    IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: 09e92cb8e1e03dc4599a466c6f9351a6, type: 3}
   - LevelName: JungleNight 1
     SceneName: JungleNight1
     IsAvailable: 1
@@ -43034,16 +43034,16 @@ MonoBehaviour:
     LevelImage: {fileID: 21300000, guid: 09e92cb8e1e03dc4599a466c6f9351a6, type: 3}
   - LevelName: JungleNight 3
     SceneName: JungleNight3
-    IsAvailable: 0
-    LevelImage: {fileID: 0}
+    IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: 09e92cb8e1e03dc4599a466c6f9351a6, type: 3}
   - LevelName: JungleNight 4
     SceneName: JungleNight4
     IsAvailable: 0
     LevelImage: {fileID: 0}
   - LevelName: JungleNight 5
     SceneName: JungleNight5
-    IsAvailable: 0
-    LevelImage: {fileID: 0}
+    IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: 09e92cb8e1e03dc4599a466c6f9351a6, type: 3}
   - LevelName: Castle 1
     SceneName: Castle1
     IsAvailable: 1
@@ -43085,9 +43085,9 @@ MonoBehaviour:
     IsAvailable: 1
     LevelImage: {fileID: 21300000, guid: c02938124bbcf9e4781ee923c7a58169, type: 3}
   - LevelName: Cloud World 1
-    SceneName: CloudWorld1
-    IsAvailable: 0
-    LevelImage: {fileID: 0}
+    SceneName: Ending
+    IsAvailable: 1
+    LevelImage: {fileID: 21300000, guid: c02938124bbcf9e4781ee923c7a58169, type: 3}
 --- !u!1 &2076689896
 GameObject:
   m_ObjectHideFlags: 0
@@ -43100,6 +43100,7 @@ GameObject:
   - component: {fileID: 2076689900}
   - component: {fileID: 2076689899}
   - component: {fileID: 2076689898}
+  - component: {fileID: 2076689901}
   m_Layer: 5
   m_Name: Level8
   m_TagString: Untagged
@@ -43153,7 +43154,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -43167,7 +43168,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 2076689899}
   m_OnClick:
     m_PersistentCalls:
@@ -43182,6 +43183,30 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2132787341}
+        m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
+        m_MethodName: OpenLevelPanel
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 30
+          m_FloatArgument: 0
+          m_StringArgument: LavaCave5
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2132787341}
+        m_TargetAssemblyTypeName: MenuManagement, Assembly-CSharp
+        m_MethodName: SetLevelToLoad
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Ending
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2076689899
@@ -43222,6 +43247,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2076689896}
   m_CullTransparentMesh: 1
+--- !u!114 &2076689901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076689896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2132787342}
+          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
+          m_MethodName: ButtonOnEnter
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 2076689897}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2132787342}
+          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
+          m_MethodName: ButtonOnExit
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 2076689897}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2077928068
 GameObject:
   m_ObjectHideFlags: 0
