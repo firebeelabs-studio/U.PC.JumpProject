@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 public class AnimatedToggle : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] private bool _isOn = false;
-
+    
     [SerializeField] private RectTransform _toggleIndicator;
 
     [SerializeField] private Image _backgroundImage;
@@ -19,7 +20,13 @@ public class AnimatedToggle : MonoBehaviour, IPointerDownHandler
     private float _offX;
     private float _onX;
 
-    [SerializeField] private float _tweenTime = 0.25f;
+    [SerializeField] private TMP_Text _on;
+    [SerializeField] private TMP_Text _off;
+
+    [SerializeField] private Color _colorOn;
+    [SerializeField] private Color _colorOff;
+    
+    [SerializeField] private float _tweenTime = 0.1f;
     [SerializeField] private bool _getPosOnEnable;
 
     private AudioPlayer _audioPlayer;
@@ -54,6 +61,7 @@ public class AnimatedToggle : MonoBehaviour, IPointerDownHandler
             _audioPlayer.PlayOneShotSound(_toggleSound);
             _isOn = value;
             MoveIndicator(_isOn);
+            ChangeColors(_isOn);
 
             if (ToggleValueChanged != null)
             {
@@ -67,12 +75,21 @@ public class AnimatedToggle : MonoBehaviour, IPointerDownHandler
         {
             _isOn = value;
             MoveIndicator(_isOn);
+            ChangeColors(_isOn);
 
             if (ToggleValueChanged != null)
             {
                 ToggleValueChanged(_isOn);
             }
         }
+    }
+
+    private void ChangeColors(bool isOn)
+    {
+        Color colorOn = isOn ?  _colorOff : _colorOn;
+        Color colorOff = isOn ? _colorOn : _colorOff;
+        _on.color = colorOn;
+        _off.color = colorOff;
     }
 
     private void MoveIndicator(bool isOn)
