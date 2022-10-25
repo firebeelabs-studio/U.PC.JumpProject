@@ -94,7 +94,7 @@ public class AnimatedToggle : MonoBehaviour, IPointerDownHandler
 
     private void MoveIndicator(bool isOn)
     {
-        _toggleIndicator.DOAnchorPosX(isOn ? _onX : -_offX, _tweenTime);
+        _toggleIndicator.DOAnchorPosX(isOn ? _onX : -_offX, _tweenTime).SetUpdate(true);
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -102,13 +102,13 @@ public class AnimatedToggle : MonoBehaviour, IPointerDownHandler
         Toggle(!_isOn);
     }
 
-    private void OnEnable()
-    {
-        if (_getPosOnEnable)
-        {
-            _childholder.SetPos();
-        }
-        StartCoroutine(_childholder.StartHolding(_holdTogglePosAfterSeconds));
-    }
+    // private void OnEnable()
+    // {
+    //     if (_getPosOnEnable)
+    //     {
+    //         _childholder.SetPos();
+    //     }
+    //     StartCoroutine(_childholder.StartHolding(_holdTogglePosAfterSeconds));
+    // }
 
 }
