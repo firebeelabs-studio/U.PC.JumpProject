@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class TransformPathFollower : MonoBehaviour, IWaypointPath
@@ -30,7 +31,7 @@ public class TransformPathFollower : MonoBehaviour, IWaypointPath
         Vector2 target = _points[_index] + _startPos;
         transform.position = Vector2.MoveTowards(transform.position, target, _speed * Time.deltaTime);
 
-        if ((Vector2)transform.position == target)
+        if (Vector2.Distance(transform.position, target) < 0.1f)
         {
             _index = _ascending ? _index + 1 : _index - 1;
             if (_index >= _points.Length)

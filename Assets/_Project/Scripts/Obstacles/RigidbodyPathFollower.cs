@@ -15,53 +15,55 @@ namespace TarodevController {
 
         public Vector2[] Points
         {
-            get
-            {
-                return _points;
-            }
+            get { return _points; }
         }
 
         public bool IsTrackLooped => _isTrackLooped;
 
-        private void Awake() 
+        private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
             _startPos = _rb.position;
         }
 
-        private void FixedUpdate() 
+        private void FixedUpdate()
         {
             var target = _points[_index] + _startPos;
             var newPos = Vector2.MoveTowards(_pos, target, _speed * Time.fixedDeltaTime);
             _rb.MovePosition(newPos);
 
-            if (_pos == target) 
+            if (Vector2.Distance(_pos, target) < 0.1f)
             {
                 _index = _ascending ? _index + 1 : _index - 1;
-                if (_index >= _points.Length) {
-                    if (_isTrackLooped) {
+                if (_index >= _points.Length)
+                {
+                    if (_isTrackLooped)
+                    {
                         _index = 0;
                     }
-                    else {
+                    else
+                    {
                         _ascending = false;
                         _index--;
                     }
                 }
-                else if (_index < 0) {
+                else if (_index < 0)
+                {
                     _ascending = true;
                     _index = 1;
                 }
             }
+
             _change = _lastPos - newPos;
             _lastPos = newPos;
         }
 
-        private void OnDrawGizmos() 
+        private void OnDrawGizmos()
         {
             if (Application.isPlaying) return;
             var curPos = (Vector2)transform.position;
             var previous = curPos + _points[0];
-            for (var i = 0; i < _points.Length; i++) 
+            for (var i = 0; i < _points.Length; i++)
             {
                 var p = _points[i] + curPos;
                 Gizmos.DrawWireSphere(p, 0.2f);
