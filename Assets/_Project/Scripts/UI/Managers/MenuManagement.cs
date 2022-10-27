@@ -14,6 +14,7 @@ public class MenuManagement : MonoBehaviour
     [SerializeField] private GameObject _mainMenuPanel;
     [SerializeField] private Button _enableSettingsButton;
     [SerializeField] private Button _disableSettingsButton;
+    [SerializeField] private Button _battlepassButton;
     [SerializeField] private GameObject _settingsPanel;
     [SerializeField] private GameObject _settingsBgPanel;
     [SerializeField] private Button _dailyQuestsButton;
@@ -99,6 +100,7 @@ public class MenuManagement : MonoBehaviour
             }
         });
         _secretSceneButton.onClick.AddListener((() => LoadSceneWithName("SecretScene")));
+        _battlepassButton.onClick.AddListener((() => LoadSceneWithName("Battlepass")));
     }
 
     public void SwitchBetweenPanels(GameObject openPanel)
