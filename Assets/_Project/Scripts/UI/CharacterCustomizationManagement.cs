@@ -151,7 +151,7 @@ public class CharacterCustomizationManagement : MonoBehaviour
             GameObject newGridCell = Instantiate(_template, _gridHolder.transform);
             SkinGridTemplate references = newGridCell.GetComponent<SkinGridTemplate>();
             references.SkinImage.enabled = true;
-            references.SkinImage.sprite = _sortedSkins[i].SkinSprite;
+            references.SkinImage.sprite = _sortedSkins[i].DisplaySprite;
             references.Id = i;
             references.SkinType = _sortedSkins[i].skinType;
             newGridCell.GetComponent<Button>().onClick.AddListener((() =>
@@ -191,7 +191,7 @@ public class CharacterCustomizationManagement : MonoBehaviour
                 GameObject newGridCell = Instantiate(_template, _gridHolder.transform);
                 SkinGridTemplate references = newGridCell.GetComponent<SkinGridTemplate>();
                 references.SkinImage.enabled = true;
-                references.SkinImage.sprite = sortedSkins[i].SkinSprite;
+                references.SkinImage.sprite = sortedSkins[i].DisplaySprite;
                 references.Id = i;
                 references.SkinType = sortedSkins[i].skinType;
                 newGridCell.GetComponent<Button>().onClick.AddListener((() =>
