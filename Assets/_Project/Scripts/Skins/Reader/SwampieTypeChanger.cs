@@ -25,10 +25,9 @@ public class SwampieTypeChanger : MonoBehaviour
         ChangeVisuals(SwampieSkin.SwampieType.Blue, _blueSwampie);
     }
 
-    public void ReplaceSwampie(int incrementationNumber)
+    public void ReplaceSwampie(int swampieIndex)
     {
-        _swampieIndex = ArcnesTools.IndexHelper.LoopIndexControlledByNumber(incrementationNumber, _swampieIndex, 4);
-        ChangeSwampie(_swampieIndex);
+        ChangeSwampie(swampieIndex);
     }
 
     private void ChangeSwampie(int swampieIndex)

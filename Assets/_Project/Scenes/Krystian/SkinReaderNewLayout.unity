@@ -1026,8 +1026,8 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 182.29416, y: 180}
-  m_Spacing: {x: 6.702223, y: 6.702223}
+  m_CellSize: {x: 178.13333, y: 180}
+  m_Spacing: {x: 14.666667, y: 14.666667}
   m_Constraint: 1
   m_ConstraintCount: 5
   paddingSizerFallback:
@@ -6342,6 +6342,7 @@ MonoBehaviour:
   _skinReaders:
   - {fileID: 784100456}
   - {fileID: 1283542041}
+  - {fileID: 1698534836}
 --- !u!1 &215760955
 GameObject:
   m_ObjectHideFlags: 0
@@ -7260,6 +7261,14 @@ MonoBehaviour:
   _gridHolder: {fileID: 169665901}
   _template: {fileID: 5011634771468251166, guid: 857f58776294edc4499164886e338484, type: 3}
   _templateOff: {fileID: 5011634771468251166, guid: 176a7c5aec04dd044937028edbc5c230, type: 3}
+  _currentType: 0
+  _typeChanger: {fileID: 203526352}
+  _typeSprites:
+  - {fileID: 21300000, guid: 8814d30fd8696274fac07248cd9ac6e3, type: 3}
+  - {fileID: 21300000, guid: c339920789baae04795b405ec4f567ad, type: 3}
+  - {fileID: 21300000, guid: 6039c1cb1b19fc2409d6ef992be9da73, type: 3}
+  - {fileID: 21300000, guid: 81565c1b17c2b754d8f12ad264607967, type: 3}
+  - {fileID: 21300000, guid: 25265d1e3500a5a43b582b77e07a2808, type: 3}
 --- !u!1 &479257552
 GameObject:
   m_ObjectHideFlags: 0
@@ -7373,8 +7382,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 15
-    m_Right: 15
+    m_Left: 20
+    m_Right: 20
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4

@@ -38,6 +38,9 @@ public class CharacterCustomizationManagement : MonoBehaviour
     private List<GameObject> _gridCells = new();
     private bool _allSkinsLoaded = false;
     private bool _canInitializeFirsTime = true;
+    [SerializeField] private SwampieSkin.SwampieType _currentType;
+    [SerializeField] private SwampieTypeChanger _typeChanger;
+    [SerializeField] private List<Sprite> _typeSprites;
     private void Start()
     {
         _buttonBack.onClick.AddListener((() =>
@@ -65,6 +68,10 @@ public class CharacterCustomizationManagement : MonoBehaviour
             LoadSkinsBySkinType(SwampieSkin.SkinType.Mouth);
         }));
         
+        _buttonBody.onClick.AddListener(() =>
+        {
+            ShowTypes();
+        });
         _buttonArrowRight.onClick.AddListener((() =>
         {
             _buttonArrowLeft.interactable = true;
@@ -269,6 +276,50 @@ public class CharacterCustomizationManagement : MonoBehaviour
         }
         InitializeGrid2(_currentPage);
         ResetArrows();
+    }
+
+    private void ShowTypes()
+    {
+        _currentPage = 0;
+        ClearGrid();
+        InitializeGridWithTypes(_currentPage);
+        ResetArrows();
+    }
+
+    private void InitializeGridWithTypes(int currentPage)
+    {
+        //create cells with skins
+        int startingIndex = 10 * currentPage;
+        int createdCells = 0;
+        for (int i = startingIndex; i < _pageSize + startingIndex && i < _typeSprites.Count; i++)
+        {
+            GameObject newGridCell = Instantiate(_template, _gridHolder.transform);
+            SkinGridTemplate references = newGridCell.GetComponent<SkinGridTemplate>();
+            references.SkinImage.enabled = true;
+            references.SkinImage.sprite = _typeSprites[i];
+            references.Id = i;
+            newGridCell.GetComponent<Button>().onClick.AddListener((() =>
+            {
+                ChangeSwampieType(references.Id);
+            }));
+            _gridCells.Add(newGridCell);
+            createdCells++;
+        }
+        _allSkinsLoaded = false;
+        double maxPage = _sortedSkins.Count / 10.0;
+        _lastPage = Convert.ToInt32(Math.Ceiling(maxPage) - 1);
+        
+        //create missing cells
+        for (int i = 0; i < 10 - createdCells; i++)
+        {
+            GameObject newGridCell = Instantiate(_templateOff, _gridHolder.transform);
+            _gridCells.Add(newGridCell);
+        }
+    }
+
+    private void ChangeSwampieType(int index)
+    {
+        _typeChanger.ReplaceSwampie(index);
     }
 
     private void LoadAllSkins()
