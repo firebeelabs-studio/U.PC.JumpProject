@@ -154,6 +154,8 @@ public class MenuManagement : MonoBehaviour
     }
     public void ChangeLevelPanel(int incrementIndex)
     {
+        if (_currentLevelIndex + incrementIndex >= _levelsInfoHolder.LevelsInfo.Count || _currentLevelIndex + incrementIndex < 0) return;
+            
         if (!_levelsInfoHolder.LevelsInfo[_currentLevelIndex + incrementIndex].IsAvailable) return;
         
         _currentLevelIndex += incrementIndex;
