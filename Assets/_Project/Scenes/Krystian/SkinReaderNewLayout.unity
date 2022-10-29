@@ -6261,7 +6261,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 203526347}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6280,7 +6280,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 203526347}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -9065,6 +9065,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 89fa2a22e32447f4793fa84daab6f271, type: 2}
   - {fileID: 11400000, guid: 7a47d0c41420494418c95d76b9a9da2c, type: 2}
   - {fileID: 11400000, guid: 9d4b92276d4b2a3488da492491a70ea7, type: 2}
+  - {fileID: 11400000, guid: 193c84b6ab2fc8d419a732401afc4969, type: 2}
+  - {fileID: 11400000, guid: c2291a1df79073241a5ad440366cedb8, type: 2}
+  - {fileID: 11400000, guid: 51e677851b1214343b9f0c0a79f2a257, type: 2}
+  - {fileID: 11400000, guid: 21ac706d22f17394e940dfb62342d9a4, type: 2}
   _sortedSkins: []
   _skinType: 0
   _swampieType: 4
@@ -17011,6 +17015,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 509ee2588d97fed41b32557a3be03ce6, type: 2}
   - {fileID: 11400000, guid: d8ab307339f48c9418c96d42881c8ae4, type: 2}
   - {fileID: 11400000, guid: 05b1c69a2bdb6eb458ef45c75cea01ca, type: 2}
+  - {fileID: 11400000, guid: 3361f8ac68bc8be48a118b2f64344187, type: 2}
+  - {fileID: 11400000, guid: 81ebbbb924abbca429332f7c5ae8f2e6, type: 2}
   _sortedSkins: []
   _skinType: 1
   _swampieType: 4
@@ -19559,6 +19565,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8c22b123e00638b4cb9618442a1731e5, type: 2}
   - {fileID: 11400000, guid: 1a309165fa19f6340a76038c8c3d2efa, type: 2}
   - {fileID: 11400000, guid: abb9e38bf143f9a46b9795a353be0257, type: 2}
+  - {fileID: 11400000, guid: 76d3cc484586ef54bb5d39dab6e06e19, type: 2}
+  - {fileID: 11400000, guid: daf52133ee6a11d49af87244b4423223, type: 2}
+  - {fileID: 11400000, guid: 39e91416852b96c44ae50fc8d083b1ee, type: 2}
+  - {fileID: 11400000, guid: 57fe24ecd293e124f8056a5e3dca688c, type: 2}
+  - {fileID: 11400000, guid: f025d77899e239b4cb540e0a85fb295f, type: 2}
   _sortedSkins: []
   _skinType: 3
   _swampieType: 4
@@ -20967,9 +20978,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9f957a63009c1054baf0b607335875d1, type: 2}
   - {fileID: 11400000, guid: e6bc7831b3a6c414f8828e7e4f2a2641, type: 2}
   - {fileID: 11400000, guid: f15c8431d6e289a4497e5e72f3177e95, type: 2}
-  - {fileID: 11400000, guid: 5f579de4268377e42a9f100ec6d73767, type: 2}
-  - {fileID: 11400000, guid: d3aca81712d10ab49adf05f251870c32, type: 2}
-  - {fileID: 11400000, guid: fa7ffb4850da076468eb3bc5ed213ff5, type: 2}
+  - {fileID: 11400000, guid: a661e48f18d36af4798b3c5b313e5495, type: 2}
+  - {fileID: 11400000, guid: 9956422ce13229b4ab02a6dbc7f3f727, type: 2}
+  - {fileID: 11400000, guid: e8db99639c61cc740a0cd1804c93ee49, type: 2}
+  - {fileID: 11400000, guid: f15c8431d6e289a4497e5e72f3177e95, type: 2}
+  - {fileID: 11400000, guid: ab64fa562b765b94ab3638a37ce40c97, type: 2}
+  - {fileID: 11400000, guid: 9e4a377cfa20cb94cb7782486bae6692, type: 2}
   _sortedSkins: []
   _skinType: 4
   _swampieType: 4
