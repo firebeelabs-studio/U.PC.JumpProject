@@ -19,6 +19,7 @@ public class PausePanel : MonoBehaviour
     [Header("SETTINGS")]
     [SerializeField] private GameObject _settingsPanel;
     [SerializeField] private Button _backToPauseMenuPanel;
+    [SerializeField] private AudioSource _audioSource;
     private PlayersInput _inputs;
 
     private void Awake()
@@ -34,7 +35,11 @@ public class PausePanel : MonoBehaviour
         {
             _inputs = _player.GetComponent<PlayersInput>();
         }
-        _resumeButton.GetComponent<Button>().onClick.AddListener(() => { TogglePanel(); });
+        _resumeButton.GetComponent<Button>().onClick.AddListener(() => 
+        { 
+            TogglePanel(); 
+            _audioSource.Play(); 
+        });
         if (!_spawnManager)
         {
             Debug.Log("SpawnManager reference is missing");
@@ -49,21 +54,25 @@ public class PausePanel : MonoBehaviour
             {
                 FinishPanelManagement.RestartPlayer();
                 TogglePanel();
+                _audioSource.Play();
             });
         }
         _homeButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             Time.timeScale = 1;
+            _audioSource.Play();
             LoadingScreenCanvas.Instance.LoadScene(_homeSceneName);
         } );
         _settingsButton.GetComponent<Button>().onClick.AddListener(() =>
         {
             _settingsPanel.SetActive(true);
+            _audioSource.Play();
             _pausePanel.SetActive(false);
         });
         _backToPauseMenuPanel.onClick.AddListener(() =>
         {
             _settingsPanel.SetActive(false);
+            _audioSource.Play();
             _pausePanel.SetActive(true);
         });
     }
