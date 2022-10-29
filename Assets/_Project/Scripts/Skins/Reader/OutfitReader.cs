@@ -26,9 +26,6 @@ public class OutfitReader : MonoBehaviour
             if (skin.skinType == _skinType)
             {
                 _spriteRenderer.sprite = skin.SkinSprite;
-                _transform.localPosition = skin.Position.Pos;
-                _transform.rotation = skin.Position.Rot;
-                _transform.localScale = skin.Position.Scale;
             }
         }
     }
