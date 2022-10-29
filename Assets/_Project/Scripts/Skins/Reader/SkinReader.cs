@@ -31,7 +31,7 @@ public class SkinReader : MonoBehaviour
     //read skins
     private void LoadSkins()
     {
-        _sortedSkins = _skins.Where(x => x.swampieType == _swampieType && x.skinType == _skinType).Reverse().ToList();
+        _sortedSkins = _skins.Where(x => x.swampieType == _swampieType && x.skinType == _skinType).ToList();
     }
 
     public List<SwampieSkin> LoadAllSkins()

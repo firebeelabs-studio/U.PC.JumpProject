@@ -27,6 +27,7 @@ public class CharacterCustomizationManagement : MonoBehaviour
     [SerializeField] private SkinReader _jacket;
     [SerializeField] private SkinReader _mouth;
     [SerializeField] private SkinReader _color;
+    [SerializeField] private SkinReader _eyes;
     [SerializeField] private SwampieTypeChanger _body;
 
     [SerializeField] private int _pageSize = 10;
@@ -72,6 +73,10 @@ public class CharacterCustomizationManagement : MonoBehaviour
         _buttonColor.onClick.AddListener(() =>
         {
             LoadSkinsBySkinType(SwampieSkin.SkinType.Body);
+        });
+        _buttonEyes.onClick.AddListener(() =>
+        {
+            LoadSkinsBySkinType(SwampieSkin.SkinType.Eyes);
         });
         
         _buttonBody.onClick.AddListener(() =>
@@ -185,6 +190,7 @@ public class CharacterCustomizationManagement : MonoBehaviour
         _allSortedSkins.Add(_hat.SortedSkins);
         _allSortedSkins.Add(_mouth.SortedSkins);
         _allSortedSkins.Add(_color.SortedSkins);
+        _allSortedSkins.Add(_eyes.SortedSkins);
 
         //--------TODO: add remaining elements--------
         
@@ -253,6 +259,9 @@ public class CharacterCustomizationManagement : MonoBehaviour
             case SwampieSkin.SkinType.Body:
                 _color.ChangeSkin(id);
                 break;
+            case SwampieSkin.SkinType.Eyes:
+                _eyes.ChangeSkin(id);
+                break;
             
             //--------TODO: add remaining elements--------
             
@@ -285,6 +294,9 @@ public class CharacterCustomizationManagement : MonoBehaviour
                 break;
             case SwampieSkin.SkinType.Body:
                 _sortedSkins = _color.SortedSkins;
+                break;
+            case SwampieSkin.SkinType.Eyes:
+                _sortedSkins = _eyes.SortedSkins;
                 break;
         }
         InitializeGrid2(_currentPage);
