@@ -66,29 +66,29 @@ public class SkinCreator : MonoBehaviour
     {
         return new SwampieSkin.SkinTransform
         {
-            Scale = _skinTransform.localScale,
+            Scale = Vector3.one,
             Rot = _skinTransform.rotation,
-            Pos = _skinTransform.position
+            Pos = Vector3.zero
         };
     }
 
     public void SetDefPos()
     {
-        switch (SkinType)
-        {
-            case SwampieSkin.SkinType.Hat:
-                ChangePos(_hatTransform);
-                break;
-            case SwampieSkin.SkinType.Jacket:
-                ChangePos(_jacketTransform);
-                break;
-            case SwampieSkin.SkinType.Eyes:
-                ChangePos(_eyeTransform);
-                break;
-            case SwampieSkin.SkinType.Mouth:
-                ChangePos(_mouthTransform);
-                break;
-        }
+        // switch (SkinType)
+        // {
+        //     case SwampieSkin.SkinType.Hat:
+        //         ChangePos(_hatTransform);
+        //         break;
+        //     case SwampieSkin.SkinType.Jacket:
+        //         ChangePos(_jacketTransform);
+        //         break;
+        //     case SwampieSkin.SkinType.Eyes:
+        //         ChangePos(_eyeTransform);
+        //         break;
+        //     case SwampieSkin.SkinType.Mouth:
+        //         ChangePos(_mouthTransform);
+        //         break;
+        // }
     }
 
     private void ChangePos(Transform skinTransform)

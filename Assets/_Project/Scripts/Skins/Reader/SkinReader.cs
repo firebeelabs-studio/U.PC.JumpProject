@@ -11,6 +11,7 @@ public class SkinReader : MonoBehaviour
     public List<SwampieSkin> SortedSkins => _sortedSkins;
     [SerializeField] private SwampieSkin.SkinType _skinType;
     [SerializeField] private SwampieSkin.SwampieType _swampieType;
+    [SerializeField] private bool _optional = false;
     private SwampieSkin _currentSkin;
     private int _currentSkinIndex = 0;
     private SpriteRenderer _skinSpriteRenderer;
@@ -24,7 +25,7 @@ public class SkinReader : MonoBehaviour
     private void Start()
     {
         LoadSkins();
-        ChangeSkin(1);
+        ChangeSkin(_optional ? 1 : 0);
     }
 
     //read skins

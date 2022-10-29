@@ -26,7 +26,8 @@ public class SwampieSkin : ScriptableObject
         Hat,
         Jacket,
         Eyes,
-        Mouth
+        Mouth,
+        Body
     }
     public enum SwampieType
     {

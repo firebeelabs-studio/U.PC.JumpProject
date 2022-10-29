@@ -65,6 +65,9 @@ public class SwampieChanger : MonoBehaviour
             case 3:
                 CurrentCreator.SkinType = SwampieSkin.SkinType.Mouth;
                 break;
+            case 4:
+                CurrentCreator.SkinType = SwampieSkin.SkinType.Body;
+                break;
         }
 
         CurrentCreator.SetDefPos();
