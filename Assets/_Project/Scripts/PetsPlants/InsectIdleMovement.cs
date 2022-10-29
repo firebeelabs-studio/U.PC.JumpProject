@@ -11,6 +11,8 @@ public class InsectIdleMovement : MonoBehaviour
     private Vector2 _startPos, _randomPos;
     private float _timer, _progress;
 
+    public Vector2 NewPos => _newPos;
+
     protected virtual void Start()
     {
         _circleCenter = transform.position;
