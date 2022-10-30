@@ -25,9 +25,15 @@ public class OutfitReader : MonoBehaviour
 
     private void Start()
     {
-        if (SkinsHolder.Instance == null) return;
+        if (SkinsHolder.Instance == null)
+        {
+            _spriteRenderer.sprite = _defaultSkin.SkinSprite;
+            return;
+        }
+        
         List<OutfitData> skinList = SkinsHolder.Instance.Skins.Count != 0 ? SkinsHolder.Instance.Skins : SkinsHolder.Instance.LastUsedSkins;
 
+        //if in menu
         if (skinList.Count == 0 && _isInMenu)
         {
             _spriteRenderer.sprite = _defaultSkin.SkinSprite;
@@ -40,11 +46,17 @@ public class OutfitReader : MonoBehaviour
             
             return;
         }
-        else if (_isInMenu && _createBones)
+        if (_isInMenu && _createBones)
         {
             _boneCreator.CreateBones();
             _boneCreator.CreateBones();
             StartCoroutine(SetBones(0.1f));
+        }
+
+        //if not in menu
+        if (skinList.Count == 0)
+        {
+            _spriteRenderer.sprite = _defaultSkin.SkinSprite;
         }
         foreach (var skin in skinList)
         {

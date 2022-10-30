@@ -12,7 +12,7 @@ public class SwampieTypeReader : MonoBehaviour
 
     private void Awake()
     {
-        if (!SkinsHolder.Instance)
+        if (!SkinsHolder.Instance || SkinsHolder.Instance.Skins.Count == 0)
         {
             InstantiateSwampie(_blueSwampie);
             SwampieType = SwampieSkin.SwampieType.Blue;
