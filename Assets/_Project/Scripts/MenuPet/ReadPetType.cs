@@ -19,33 +19,39 @@ public class ReadPetType : MonoBehaviour
         List<OutfitData> skinList = SkinsHolder.Instance.Skins.Count != 0 ? SkinsHolder.Instance.Skins : SkinsHolder.Instance.LastUsedSkins;
         
         if (skinList.Count == 0) return;
-        
         SwampieSkin.SwampieType swampieType = skinList[0].swampieType;
         switch (swampieType)
         {
             case SwampieSkin.SwampieType.Blue:
                 DisablePawns();
                 _blueSwampie.SetActive(true);
+                _currentPawn = _blueSwampie;
                 break;
             case SwampieSkin.SwampieType.Green:
                 DisablePawns();
                 _greenSwampie.SetActive(true);
+                _currentPawn = _greenSwampie;
                 break;
             case SwampieSkin.SwampieType.Turquoise:
                 DisablePawns();
                 _turquoiseSwampie.SetActive(true);
+                _currentPawn = _turquoiseSwampie;
                 break;
             case SwampieSkin.SwampieType.Yellow:
                 DisablePawns();
                 _yellowSwampie.SetActive(true);
+                _currentPawn = _yellowSwampie;
                 break;
             case SwampieSkin.SwampieType.Purple:
                 DisablePawns();
                 _purpleSwampie.SetActive(true);
+                _currentPawn = _purpleSwampie;
                 break;
         }
+        
         _petMenu.CurrentPawn = _currentPawn;
         _menuMan._pawn = _currentPawn;
+        
     }
 
     private void DisablePawns()
