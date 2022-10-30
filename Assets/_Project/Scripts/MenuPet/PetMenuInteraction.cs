@@ -46,6 +46,8 @@ public class PetMenuInteraction : MonoBehaviour
     private AudioPlayer _audioPlayer;
     private float _counter = 0;
     private float _angle;
+
+    [SerializeField] private GameObject _settingsPanel;
     private struct BonesWithOrigins
     {
         public Transform Transform { get; set; }
@@ -141,7 +143,10 @@ public class PetMenuInteraction : MonoBehaviour
         {
             if (objects.Length > 0)
             {
-                _audioPlayer.PlayOneShotSound(_petClickSound, 1, _pitch);
+                if (!_settingsPanel.activeInHierarchy)
+                {
+                    _audioPlayer.PlayOneShotSound(_petClickSound, 1, _pitch);
+                }  
             }
 
             //checks if any of bones that will be moved by explosion is affected by idle animation
