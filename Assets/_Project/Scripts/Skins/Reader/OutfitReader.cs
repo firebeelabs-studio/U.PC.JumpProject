@@ -35,9 +35,16 @@ public class OutfitReader : MonoBehaviour
             if (_createBones)
             {
                 _boneCreator.CreateBones();
+                _boneCreator.CreateBones();
             }
             
             return;
+        }
+        else if (_isInMenu && _createBones)
+        {
+            _boneCreator.CreateBones();
+            _boneCreator.CreateBones();
+            StartCoroutine(SetBones(0.1f));
         }
         foreach (var skin in skinList)
         {
@@ -46,5 +53,11 @@ public class OutfitReader : MonoBehaviour
                 _spriteRenderer.sprite = skin.SkinSprite;
             }
         }
+    }
+
+    IEnumerator SetBones(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        _boneCreator.CreateBones();
     }
 }

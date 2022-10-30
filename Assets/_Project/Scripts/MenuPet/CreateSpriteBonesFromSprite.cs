@@ -17,7 +17,7 @@ public class CreateSpriteBonesFromSprite : MonoBehaviour
     [ContextMenu("SetBones")]
     public void CreateBones()
     {
-        NativeArray<BoneWeight> boneWeights = new NativeArray<BoneWeight>(46, Allocator.Temp); 
+        NativeArray<BoneWeight> boneWeights = new NativeArray<BoneWeight>(53, Allocator.Temp); 
         SpriteBone[] spriteBones = _spriteWithBones.GetBones();
         NativeArray<Matrix4x4> bindPoses = _spriteWithBones.GetBindPoses();
         _spriteWithBones.GetVertexAttribute<BoneWeight>(VertexAttribute.BlendWeight).CopyTo(boneWeights);
