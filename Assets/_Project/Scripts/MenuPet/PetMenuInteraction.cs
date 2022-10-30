@@ -7,7 +7,7 @@ using UnityEngine;
 public class PetMenuInteraction : MonoBehaviour
 {
     [Header("Pawn")]
-    [SerializeField] private GameObject _pawn;
+    public GameObject CurrentPawn;
     [Space(10)]
 
     [Header("OnClickEffect")]
@@ -156,6 +156,8 @@ public class PetMenuInteraction : MonoBehaviour
             
             //calculate the explosion direction and apply it
             Vector2 direction = obj.transform.position - explosion.transform.position;
+            
+            if (obj.CompareTag("IgnorePetInteraction")) continue;
             obj.GetComponent<Rigidbody2D>().AddForce(direction * _explosionForce);
         }
         
@@ -243,7 +245,7 @@ public class PetMenuInteraction : MonoBehaviour
 
     private void EnableAnimatorBack()
     {
-        if (_pawn && !_pawn.activeInHierarchy) return;
+        if (CurrentPawn && !CurrentPawn.activeInHierarchy) return;
         
         if (_idleAnimDelay <= 0 && !_selectedObj)
         {
