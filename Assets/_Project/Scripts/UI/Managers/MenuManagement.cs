@@ -40,6 +40,11 @@ public class MenuManagement : MonoBehaviour
     [SerializeField] private Button _leftArrow;
     [SerializeField] private Button _rightArrow;
     private int _currentLevelIndex = 0;
+    [Space(10)]
+    [Header("SETTINGS MENU")]
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private TMP_Dropdown _dropdown;
+
 
     private ButtonsAnimations _DOTweenAnimations;
     private GameObject _currentPanel;
