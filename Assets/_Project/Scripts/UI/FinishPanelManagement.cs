@@ -23,6 +23,8 @@ public class FinishPanelManagement : MonoBehaviour
     [SerializeField] private Button _backToMenuButton;
     [SerializeField] private string _homeSceneName;
     [SerializeField] private Button _restartButton;
+    [SerializeField] private string _previousLevelName;
+    [SerializeField] private Button _previousLevelButton;
     [SerializeField] private Button _nextLevelButton;
     [SerializeField] private string _nextLevelName;
     [SerializeField] private Transform _player;
@@ -53,6 +55,10 @@ public class FinishPanelManagement : MonoBehaviour
         {
             RestartPlayer();
         });
+        if (!string.IsNullOrEmpty(_previousLevelName))
+        {
+            _previousLevelButton.onClick.AddListener(() => { LoadingScreenCanvas.Instance.LoadScene(_previousLevelName); });
+        }
         if (!string.IsNullOrEmpty(_nextLevelName))
         {
             _nextLevelButton.onClick.AddListener(() => { LoadingScreenCanvas.Instance.LoadScene(_nextLevelName); });

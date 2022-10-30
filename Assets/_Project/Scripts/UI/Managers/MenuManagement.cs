@@ -37,6 +37,8 @@ public class MenuManagement : MonoBehaviour
     [SerializeField] private TMP_Text _yourScoreText;
     [SerializeField] private GameObject _closeLevelPanelButton;
     [SerializeField] private LevelsInfoHolder _levelsInfoHolder;
+    [SerializeField] private Button _leftArrow;
+    [SerializeField] private Button _rightArrow;
     private int _currentLevelIndex = 0;
 
     private ButtonsAnimations _DOTweenAnimations;
@@ -165,6 +167,24 @@ public class MenuManagement : MonoBehaviour
 
     private void LoadLevelData(int levelIndex)
     {
+        if (levelIndex == 0)
+        {
+            _leftArrow.interactable = false;
+        }
+        else
+        {
+            _leftArrow.interactable = true;
+        }
+
+        if (levelIndex == (_levelsInfoHolder.LevelsInfo.Count - 1))
+        {
+            _rightArrow.interactable = false;
+        }
+        else
+        {
+            _rightArrow.interactable = true;
+        }
+
         _levelNameText.text = _levelsInfoHolder.LevelsInfo[levelIndex].LevelName;
         //load scores
         //load stars info
