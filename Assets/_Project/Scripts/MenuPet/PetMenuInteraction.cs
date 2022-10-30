@@ -156,6 +156,8 @@ public class PetMenuInteraction : MonoBehaviour
             
             //calculate the explosion direction and apply it
             Vector2 direction = obj.transform.position - explosion.transform.position;
+            
+            if (obj.CompareTag("IgnorePetInteraction")) continue;
             obj.GetComponent<Rigidbody2D>().AddForce(direction * _explosionForce);
         }
         

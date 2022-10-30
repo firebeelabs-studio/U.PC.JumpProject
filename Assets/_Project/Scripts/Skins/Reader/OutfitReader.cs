@@ -7,6 +7,13 @@ using UnityEngine;
 public class OutfitReader : MonoBehaviour
 {
     [SerializeField] private SwampieSkin.SkinType _skinType;
+    [SerializeField] private SwampieSkin _defaultSkin;
+    
+    //set only in menu
+    [SerializeField] private bool _isInMenu;
+    [SerializeField] private bool _createBones;
+    [SerializeField] private CreateSpriteBonesFromSprite _boneCreator;
+    
     private SpriteRenderer _spriteRenderer;
     private Transform _transform;
 
@@ -20,7 +27,18 @@ public class OutfitReader : MonoBehaviour
     {
         if (SkinsHolder.Instance == null) return;
         List<OutfitData> skinList = SkinsHolder.Instance.Skins.Count != 0 ? SkinsHolder.Instance.Skins : SkinsHolder.Instance.LastUsedSkins;
-        
+
+        if (skinList.Count == 0 && _isInMenu)
+        {
+            _spriteRenderer.sprite = _defaultSkin.SkinSprite;
+            
+            if (_createBones)
+            {
+                _boneCreator.CreateBones();
+            }
+            
+            return;
+        }
         foreach (var skin in skinList)
         {
             if (skin.skinType == _skinType)

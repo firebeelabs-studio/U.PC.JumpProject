@@ -17,9 +17,7 @@ public class CreateSpriteBonesFromSprite : MonoBehaviour
     [ContextMenu("SetBones")]
     public void CreateBones()
     {
-#if UNITY_EDITOR
-        
-        NativeArray<BoneWeight> boneWeights = new NativeArray<BoneWeight>(48, Allocator.Temp); 
+        NativeArray<BoneWeight> boneWeights = new NativeArray<BoneWeight>(46, Allocator.Temp); 
         SpriteBone[] spriteBones = _spriteWithBones.GetBones();
         NativeArray<Matrix4x4> bindPoses = _spriteWithBones.GetBindPoses();
         _spriteWithBones.GetVertexAttribute<BoneWeight>(VertexAttribute.BlendWeight).CopyTo(boneWeights);
@@ -30,7 +28,6 @@ public class CreateSpriteBonesFromSprite : MonoBehaviour
         boneWeights.Dispose();
 
         //note to future myself: DON'T FUCK WITH VERTEXATTRIBUTE.POSITION
-#endif
     }
     
 }
