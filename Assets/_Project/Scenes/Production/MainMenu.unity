@@ -1403,7 +1403,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -50
+  m_Spacing: -30.462963
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -2805,8 +2805,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 72555648}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7033756, w: 0.71081847}
-  m_LocalPosition: {x: -0.06502545, y: 0.014581456, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7033756, w: 0.71081847}
+  m_LocalPosition: {x: -0.06502545, y: 0.014581323, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2865,7 +2865,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.5022825, y: -0.4620959}
+  m_ConnectedAnchor: {x: 0.5022815, y: -0.46209562}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -2885,7 +2885,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.3845592, y: 0.46258548}
+  m_ConnectedAnchor: {x: 0.38455868, y: 0.46258527}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -2905,7 +2905,7 @@ DistanceJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -0.62310266, y: -0.00402447}
+  m_ConnectedAnchor: {x: -0.62310284, y: -0.00402425}
   m_AutoConfigureDistance: 0
   m_Distance: 0.05
   m_MaxDistanceOnly: 0
@@ -3018,7 +3018,6 @@ Transform:
   - {fileID: 763415768}
   - {fileID: 906681346}
   - {fileID: 437969563}
-  - {fileID: 833963114}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7322,8 +7321,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 210145380}
-  m_LocalRotation: {x: 0, y: 0, z: 0.99998844, w: -0.004808928}
-  m_LocalPosition: {x: 0.71921945, y: 0.75547624, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.9999885, w: -0.0048089623}
+  m_LocalPosition: {x: 0.71921957, y: 0.7554763, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7382,7 +7381,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.3539063, y: -0.6158506}
+  m_ConnectedAnchor: {x: 0.35390565, y: -0.6158511}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -7402,7 +7401,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.46049148, y: 0.51249367}
+  m_ConnectedAnchor: {x: 0.46049163, y: 0.5124939}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -7422,7 +7421,7 @@ DistanceJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.15188214, y: -0.75459975}
+  m_ConnectedAnchor: {x: 0.15188228, y: -0.7545998}
   m_AutoConfigureDistance: 0
   m_Distance: 0.05
   m_MaxDistanceOnly: 0
@@ -13857,11 +13856,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!4 &390787110 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7910392273268675239, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
-  m_PrefabInstance: {fileID: 7910392274650574916}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &396098559
 GameObject:
   m_ObjectHideFlags: 0
@@ -14273,9 +14267,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 5
+    m_Left: 3
     m_Right: 0
-    m_Top: 10
+    m_Top: 6
     m_Bottom: 0
   m_ChildAlignment: 1
   m_Spacing: 5
@@ -15482,16 +15476,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 439866257}
   m_CullTransparentMesh: 1
---- !u!4 &440235567 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7910392274284430955, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
-  m_PrefabInstance: {fileID: 7910392274650574916}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &450317573 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7910392274494134316, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
-  m_PrefabInstance: {fileID: 7910392274650574916}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &450334968
 GameObject:
   m_ObjectHideFlags: 0
@@ -18764,7 +18748,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -0.02758789, y: -0.693604}
+  m_ConnectedAnchor: {x: -0.0275865, y: -0.6936038}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -18784,7 +18768,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.02434906, y: 0.6820758}
+  m_ConnectedAnchor: {x: 0.024349546, y: 0.68207484}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -18804,7 +18788,7 @@ DistanceJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -0.62187797, y: 0.6784848}
+  m_ConnectedAnchor: {x: -0.6218777, y: 0.67848414}
   m_AutoConfigureDistance: 0
   m_Distance: 0.05
   m_MaxDistanceOnly: 0
@@ -20841,8 +20825,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 581391128}
-  m_LocalRotation: {x: 0, y: 0, z: 0.6912307, w: 0.72263414}
-  m_LocalPosition: {x: -0.04137981, y: 0.63724834, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.69123065, w: 0.7226342}
+  m_LocalPosition: {x: -0.041379746, y: 0.63724834, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26465,8 +26449,8 @@ MonoBehaviour:
   m_VerticalScrollbar: {fileID: 0}
   m_HorizontalScrollbarVisibility: 2
   m_VerticalScrollbarVisibility: 2
-  m_HorizontalScrollbarSpacing: -1.9244983
-  m_VerticalScrollbarSpacing: -1.9244983
+  m_HorizontalScrollbarSpacing: -1.1725185
+  m_VerticalScrollbarSpacing: -1.1725185
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -27236,7 +27220,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.20029825, y: -0.5945689}
+  m_ConnectedAnchor: {x: 0.20029807, y: -0.5945686}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -27256,7 +27240,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.13399124, y: 0.6305485}
+  m_ConnectedAnchor: {x: 0.13399167, y: 0.63054866}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -27276,7 +27260,7 @@ DistanceJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.7081428, y: 0.57585764}
+  m_ConnectedAnchor: {x: 0.70814306, y: 0.57585806}
   m_AutoConfigureDistance: 0
   m_Distance: 0.05
   m_MaxDistanceOnly: 0
@@ -30345,8 +30329,8 @@ MonoBehaviour:
   - {fileID: 922718238}
   - {fileID: 741200381}
   m_Bounds:
-    m_Center: {x: -0.035762787, y: 0.78127944, z: 0}
-    m_Extent: {x: 0.78248984, y: 0.78083885, z: 0}
+    m_Center: {x: -0.035762787, y: 0.78127956, z: 0}
+    m_Extent: {x: 0.78248984, y: 0.7808391, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -30390,7 +30374,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 54965d1e80c4ca64b9c43366b32f9014, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -30410,7 +30394,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 833963111}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: 0}
+  m_LocalPosition: {x: 0.079, y: -0.754, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -30423,8 +30407,8 @@ Transform:
   - {fileID: 534701409}
   - {fileID: 922718238}
   - {fileID: 741200381}
-  m_Father: {fileID: 73290991}
-  m_RootOrder: 5
+  m_Father: {fileID: 8524887850178572890}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &834983744
 GameObject:
@@ -31097,7 +31081,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -50
+  m_Spacing: -30.462963
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -33518,8 +33502,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 922718237}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.71921974, y: 0.7397126, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.7192198, y: 0.73971266, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -33578,7 +33562,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.35723922, y: -0.5365865}
+  m_ConnectedAnchor: {x: 0.35723904, y: -0.53658694}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -33598,7 +33582,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.46667066, y: 0.5138736}
+  m_ConnectedAnchor: {x: 0.46666944, y: 0.51387435}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -33618,7 +33602,7 @@ DistanceJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.07226694, y: 0.68172026}
+  m_ConnectedAnchor: {x: 0.072266944, y: 0.68172103}
   m_AutoConfigureDistance: 0
   m_Distance: 0.05
   m_MaxDistanceOnly: 0
@@ -36348,7 +36332,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -50
+  m_Spacing: -30.462963
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -46902,9 +46886,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1177788359}
-  m_LocalRotation: {x: 0, y: 0, z: 0.92387956, w: 0.38268346}
-  m_LocalPosition: {x: 0.53399587, y: 0.069754474, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.9238796, w: 0.38268346}
+  m_LocalPosition: {x: 0.533996, y: 0.06975448, z: 0}
+  m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 833963114}
@@ -46962,7 +46946,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.061474986, y: -0.598408}
+  m_ConnectedAnchor: {x: 0.061475217, y: -0.5984074}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -46982,7 +46966,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.19180919, y: 0.6839087}
+  m_ConnectedAnchor: {x: 0.19180998, y: 0.6839083}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -47002,7 +46986,7 @@ DistanceJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -0.54138744, y: -0.6000059}
+  m_ConnectedAnchor: {x: -0.5413873, y: -0.60000527}
   m_AutoConfigureDistance: 0
   m_Distance: 0.05
   m_MaxDistanceOnly: 0
@@ -47610,11 +47594,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1192987706}
   m_CullTransparentMesh: 1
---- !u!4 &1193477987 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7910392274759878570, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
-  m_PrefabInstance: {fileID: 7910392274650574916}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1194199828
 GameObject:
   m_ObjectHideFlags: 0
@@ -49856,7 +49835,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -50
+  m_Spacing: -30.462963
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -56000,7 +55979,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -50
+  m_Spacing: -30.462963
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -60982,7 +60961,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -50
+  m_Spacing: -30.462963
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -61442,11 +61421,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1558020222}
   m_CullTransparentMesh: 1
---- !u!4 &1562937989 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7910392273407513695, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
-  m_PrefabInstance: {fileID: 7910392274650574916}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1564742757
 GameObject:
   m_ObjectHideFlags: 0
@@ -63377,11 +63351,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!4 &1613054377 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7910392273976760837, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
-  m_PrefabInstance: {fileID: 7910392274650574916}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1613434996
 GameObject:
   m_ObjectHideFlags: 0
@@ -66072,7 +66041,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.060397383, y: -0.686334}
+  m_ConnectedAnchor: {x: 0.06039743, y: -0.6863341}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -66092,7 +66061,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.073873125, y: 0.6384497}
+  m_ConnectedAnchor: {x: 0.07387293, y: 0.6384503}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -66112,7 +66081,7 @@ DistanceJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.8339527, y: -0.65722394}
+  m_ConnectedAnchor: {x: 0.8339531, y: -0.6572239}
   m_AutoConfigureDistance: 0
   m_Distance: 0.05
   m_MaxDistanceOnly: 0
@@ -69113,7 +69082,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -50
+  m_Spacing: -30.462963
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -69703,11 +69672,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1789722674}
   m_CullTransparentMesh: 1
---- !u!4 &1798380084 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7910392274033027696, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
-  m_PrefabInstance: {fileID: 7910392274650574916}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1803475103
 GameObject:
   m_ObjectHideFlags: 0
@@ -75634,11 +75598,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
---- !u!4 &1964270568 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7910392273796256684, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
-  m_PrefabInstance: {fileID: 7910392274650574916}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1966875917
 GameObject:
   m_ObjectHideFlags: 0
@@ -77426,7 +77385,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.3529149, y: -0.53714645}
+  m_ConnectedAnchor: {x: 0.35291547, y: -0.5371468}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -77446,7 +77405,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.2974884, y: 0.5523878}
+  m_ConnectedAnchor: {x: 0.29748824, y: 0.5523874}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
@@ -77466,7 +77425,7 @@ DistanceJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.90814435, y: -0.018811185}
+  m_ConnectedAnchor: {x: 0.90814453, y: -0.01881042}
   m_AutoConfigureDistance: 0
   m_Distance: 0.05
   m_MaxDistanceOnly: 0
@@ -85895,16 +85854,17 @@ MonoBehaviour:
   _speed: 1.5
   _idleAnimPower: 0.1
   _animatedBonesTransforms:
-  - {fileID: 1964270568}
-  - {fileID: 1798380084}
-  - {fileID: 440235567}
+  - {fileID: 2024810095}
+  - {fileID: 1679528306}
+  - {fileID: 741200381}
   _eyes: {fileID: 8514294154001816419}
   _nonAnimatedBonesTransforms:
-  - {fileID: 1613054377}
-  - {fileID: 450317573}
-  - {fileID: 1193477987}
-  - {fileID: 1562937989}
-  - {fileID: 390787110}
+  - {fileID: 581391129}
+  - {fileID: 210145381}
+  - {fileID: 1177788360}
+  - {fileID: 72555649}
+  - {fileID: 534701409}
+  - {fileID: 922718238}
 --- !u!222 &2132787339
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -86463,7 +86423,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 8.4375
+  m_Spacing: 5.140625
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -86799,10 +86759,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4637102375592997374, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8524887850178572890, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
       propertyPath: _petInteraction
       value: 
       objectReference: {fileID: 2132787338}
+    - target: {fileID: 8524887850178572890, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
+      propertyPath: _bones.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8524887850178572890, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
+      propertyPath: _bones.Array.data[0]
+      value: 
+      objectReference: {fileID: 581391129}
+    - target: {fileID: 8524887850178572890, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
+      propertyPath: _bones.Array.data[1]
+      value: 
+      objectReference: {fileID: 2024810095}
+    - target: {fileID: 8524887850178572890, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
+      propertyPath: _bones.Array.data[2]
+      value: 
+      objectReference: {fileID: 1679528306}
+    - target: {fileID: 8524887850178572890, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
+      propertyPath: _bones.Array.data[3]
+      value: 
+      objectReference: {fileID: 210145381}
+    - target: {fileID: 8524887850178572890, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
+      propertyPath: _bones.Array.data[4]
+      value: 
+      objectReference: {fileID: 1177788360}
+    - target: {fileID: 8524887850178572890, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
+      propertyPath: _bones.Array.data[5]
+      value: 
+      objectReference: {fileID: 72555649}
+    - target: {fileID: 8524887850178572890, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
+      propertyPath: _bones.Array.data[6]
+      value: 
+      objectReference: {fileID: 534701409}
+    - target: {fileID: 8524887850178572890, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
+      propertyPath: _bones.Array.data[7]
+      value: 
+      objectReference: {fileID: 922718238}
+    - target: {fileID: 8524887850178572890, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
+      propertyPath: _bones.Array.data[8]
+      value: 
+      objectReference: {fileID: 741200381}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
 --- !u!1001 &8505460549423048878
@@ -86942,5 +86946,10 @@ Transform:
 --- !u!1 &8524887850178572888 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1984160584079589916, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
+  m_PrefabInstance: {fileID: 7910392274650574916}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8524887850178572890 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1984160584079589917, guid: 9398ab39e9d0d6c4ea7140a2865d2057, type: 3}
   m_PrefabInstance: {fileID: 7910392274650574916}
   m_PrefabAsset: {fileID: 0}
