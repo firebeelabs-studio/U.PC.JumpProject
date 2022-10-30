@@ -21,7 +21,7 @@ public class MenuManagement : MonoBehaviour
     [SerializeField] private Sprite[] _dailyQuestsBarsWithArrows = new Sprite[2];
     [SerializeField] private GameObject _dailyQuestsScrollView;
     [SerializeField] private GameObject _playButton;
-    [SerializeField] private GameObject _pawn;
+    [SerializeField] public GameObject _pawn;
     [SerializeField] private Button _secretSceneButton;
     [Space(10)]
     [Header("MODE MENU")]
