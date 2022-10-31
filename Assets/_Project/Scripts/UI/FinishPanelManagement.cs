@@ -57,11 +57,21 @@ public class FinishPanelManagement : MonoBehaviour
         });
         if (!string.IsNullOrEmpty(_previousLevelName))
         {
+            _previousLevelButton.interactable = true;
             _previousLevelButton.onClick.AddListener(() => { LoadingScreenCanvas.Instance.LoadScene(_previousLevelName); });
+        }
+        else
+        {
+            _previousLevelButton.interactable = false;
         }
         if (!string.IsNullOrEmpty(_nextLevelName))
         {
+            _nextLevelButton.interactable = true;
             _nextLevelButton.onClick.AddListener(() => { LoadingScreenCanvas.Instance.LoadScene(_nextLevelName); });
+        }
+        else
+        {
+            _nextLevelButton.interactable = false;
         }
         input = _player.GetComponent<PlayersInput>();
         _pawnController = _player.GetComponent<IPawnController>();
