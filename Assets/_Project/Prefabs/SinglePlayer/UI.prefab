@@ -29522,7 +29522,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.32, y: -800.02}
+  m_AnchoredPosition: {x: 0, y: -800}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!198 &1530321648284175326
@@ -30240,7 +30240,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 16
+      value: 18
       mode: 0
       spread: 0
       speed:
@@ -41593,6 +41593,8 @@ MonoBehaviour:
   _backToMenuButton: {fileID: 873965635177405363}
   _homeSceneName: MainMenu
   _restartButton: {fileID: 2862835989083705961}
+  _previousLevelName: 
+  _previousLevelButton: {fileID: 0}
   _nextLevelButton: {fileID: 3491860875631522885}
   _nextLevelName: Jungle2
   _player: {fileID: 0}
@@ -42482,7 +42484,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -32.8, y: -812.9}
+  m_AnchoredPosition: {x: 0, y: -800}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!198 &2718126170215843639
@@ -43200,7 +43202,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 16
+      value: 18
       mode: 0
       spread: 0
       speed:
