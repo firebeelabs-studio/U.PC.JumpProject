@@ -205,7 +205,13 @@ public class FinishPanelManagement : MonoBehaviour
         for (int i = 0; i <= CountStars(); i++)
         {
             _progressBar.fillAmount = 0;
-            if (i == CountStars() && CountStars() != 3)
+            if (CountStars() == 0)
+            {
+                float secondsToBetterTime = _thresholds[0];
+                float missingSeconds = (int)_endLevelTimers.TimeInSeconds - secondsToBetterTime;
+                DOTween.To(() => _progressBar.fillAmount, x => _progressBar.fillAmount = x, 1 - (missingSeconds/secondsToBetterTime), 1f);
+            }
+            else if (i == CountStars() && CountStars() != 3)
             {
                 float secondsFromCurrentTimeToBetterTime = _thresholds[i - 1] - _thresholds[i];
                 float missingSeconds = (int)_endLevelTimers.TimeInSeconds - _thresholds[i];
@@ -234,6 +240,7 @@ public class FinishPanelManagement : MonoBehaviour
 
     private void SetupNextStars()
     {
+        
         if (CountStars() >= 3)
         {
             //change somehow this shit
