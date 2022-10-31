@@ -70,6 +70,12 @@ public class PawnController : MonoBehaviour, IPawnController
 
     private void GatherInput()
     {
+        if (_forceAdded)
+        {
+            Input = new FrameInput();
+            _jumpToConsume = false;
+            return;
+        }
         Input = _input.FrameInput;
 
         if (Input.DashDown) _dashToConsume = true;
