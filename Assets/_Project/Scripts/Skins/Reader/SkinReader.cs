@@ -16,6 +16,7 @@ public class SkinReader : MonoBehaviour
     [SerializeField] private int _currentSkinIndex = 0;
     private SpriteRenderer _skinSpriteRenderer;
     private List<SwampieSkin.SkinTransform> _positions;
+    [SerializeField] private bool _changeSkinAtStart = true;
 
     private void Awake()
     {
@@ -24,8 +25,25 @@ public class SkinReader : MonoBehaviour
 
     private void Start()
     {
-        LoadSkins();
-        ChangeSkin(_optional ? 1 : 0);
+        
+        if (_changeSkinAtStart || SkinsHolder.Instance == null || SkinsHolder.Instance.Skins.Count == 0)
+        {
+            LoadSkins();
+            ChangeSkin(_optional ? 1 : 0);
+        }
+        //if in skinreader (this is only one place where we have to get swampie skins via skinreader and not by outfitreader)
+        else
+        {
+            //get current skin from skin holder
+            OutfitData skinFromHolder = SkinsHolder.Instance.Skins.Where(x => x.skinType == _skinType).FirstOrDefault();
+            //read swampie type from skinsholder
+            _swampieType = skinFromHolder.swampieType;
+            //load skins with new swampietype
+            LoadSkins();
+            //find same skins with imageContentsHash because we don't store on skinsholder any other unique data :/
+            SwampieSkin skinOnReader = _sortedSkins.Where(x => x.SkinSprite.texture.imageContentsHash == skinFromHolder.SkinSprite.texture.imageContentsHash).FirstOrDefault();
+            ChangeSkin(_sortedSkins.IndexOf(skinOnReader));
+        }
     }
 
     //read skins
