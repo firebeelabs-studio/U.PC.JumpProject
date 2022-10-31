@@ -41,7 +41,7 @@ public class SkinReader : MonoBehaviour
             //load skins with new swampietype
             LoadSkins();
             //find same skins with imageContentsHash because we don't store on skinsholder any other unique data :/
-            SwampieSkin skinOnReader = _sortedSkins.Where(x => x.SkinSprite.texture.imageContentsHash == skinFromHolder.SkinSprite.texture.imageContentsHash).FirstOrDefault();
+            SwampieSkin skinOnReader = _sortedSkins.Where(x => x.SkinSprite.texture == skinFromHolder.SkinSprite.texture).FirstOrDefault();
             ChangeSkin(_sortedSkins.IndexOf(skinOnReader));
         }
     }
