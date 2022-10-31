@@ -51,6 +51,7 @@ public class OutfitReader : MonoBehaviour
             _boneCreator.CreateBones();
             _boneCreator.CreateBones();
             StartCoroutine(SetBones(0.1f));
+            StartCoroutine(SetBones(0.2f));
         }
 
         //if not in menu

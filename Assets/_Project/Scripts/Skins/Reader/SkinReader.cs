@@ -13,7 +13,7 @@ public class SkinReader : MonoBehaviour
     [SerializeField] private SwampieSkin.SwampieType _swampieType;
     [SerializeField] private bool _optional = false;
     private SwampieSkin _currentSkin;
-    private int _currentSkinIndex = 0;
+    [SerializeField] private int _currentSkinIndex = 0;
     private SpriteRenderer _skinSpriteRenderer;
     private List<SwampieSkin.SkinTransform> _positions;
 
@@ -45,7 +45,7 @@ public class SkinReader : MonoBehaviour
         _skinSpriteRenderer.sprite = _currentSkin.SkinSprite;
         _positions = _currentSkin.Positions;
         SetSkinPos(0);
-        //_currentSkinIndex = ArcnesTools.IndexHelper.LoopIndex(addToIndex, _currentSkinIndex, _sortedSkins);
+        _currentSkinIndex = index;
     }
 
     public void ChangeVariant(int variantNumber)
@@ -57,11 +57,7 @@ public class SkinReader : MonoBehaviour
     {
         _swampieType = type;
         LoadSkins();
-        if (_currentSkinIndex > 0)
-        {
-            _currentSkinIndex--;
-        }
-        ChangeSkin(1);
+        ChangeSkin(_currentSkinIndex);
     }
 
     private void SetSkinPos(int index)
