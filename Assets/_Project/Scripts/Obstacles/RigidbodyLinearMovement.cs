@@ -61,7 +61,7 @@ public class RigidbodyLinearMovement : MonoBehaviour, IPlayerEffector
         _lastPos = _currentPos;
         
         // adding timer
-        if (_move == _targetRange)
+        if (Mathf.Abs(_move - _targetRange) < 0.1f)
         {
             if (!_didPlayEndOnce && _PlayEndPosSound)
             {
