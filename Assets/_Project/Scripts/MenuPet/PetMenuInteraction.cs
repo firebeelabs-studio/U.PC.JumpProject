@@ -143,9 +143,10 @@ public class PetMenuInteraction : MonoBehaviour
         {
             if (objects.Length > 0)
             {
-                if (!_settingsPanel.activeInHierarchy)
+                if (!_settingsPanel.activeInHierarchy && obj.CompareTag("BodyBones"))
                 {
                     _audioPlayer.PlayOneShotSound(_petClickSound, 1, _pitch);
+                    ArcnesTools.Debug.Log("song");
                 }  
             }
 
