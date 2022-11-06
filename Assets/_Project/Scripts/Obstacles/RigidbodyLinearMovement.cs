@@ -2,23 +2,34 @@ using UnityEngine;
 
 public class RigidbodyLinearMovement : MonoBehaviour, IPlayerEffector
 {
+    [Space(10)]
+    [Header("Movement")]
     [SerializeField] private float _speed, _targetRange, _startDelay, _startPosDelay, _endPosDelay, _GizmosOffset;
     [SerializeField] private bool _isMovingHorizontal;
     [SerializeField] AnimationCurve _forwardMovementCurve, _backwardMovementCurve;
+
+    [Space(10)]
+    [Header("Sounds")]
+    [SerializeField] private AudioClip _endPosSound;
+    [SerializeField] private AudioClip _MoveSound;
+    [SerializeField] private bool _PlayEndPosSound;
+    private AudioPlayer _audioPlayer;
+
     private Rigidbody2D _rb;
     private Vector2 _lastPos, _startPos, _currentPos, _moveVector, _change;
     private float _move, _moveSpeed, _progress, _previousPos, _currentTarget, _timer;
-    private bool _isReturning;
+    private bool _isReturning, _didPlayEndOnce, _didPlayForwardOnce, _didPlayReturnOnce;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _audioPlayer = GetComponent<AudioPlayer>();
     }
 
     void Start()
     {
         _startPos = _rb.position;
-        _timer = _startDelay ;
+        _timer = _startDelay;
     }
 
     void FixedUpdate()
@@ -52,6 +63,11 @@ public class RigidbodyLinearMovement : MonoBehaviour, IPlayerEffector
         // adding timer
         if (_move == _targetRange)
         {
+            if (!_didPlayEndOnce && _PlayEndPosSound)
+            {
+                _audioPlayer.PlayOneShotSound(_endPosSound);
+                _didPlayEndOnce = true;
+            }
             _timer -= Time.fixedDeltaTime;
 
             if (_timer > 0) return;
@@ -60,9 +76,15 @@ public class RigidbodyLinearMovement : MonoBehaviour, IPlayerEffector
             _previousPos = _targetRange;
             _isReturning = true;
             _timer = _startPosDelay;
-            
+            _didPlayForwardOnce = false;
 
+            if (!_didPlayReturnOnce)
+            {
+                _audioPlayer.PlayOneShotSound(_MoveSound);
+                _didPlayReturnOnce = true;
+            }
         }
+
         else if (_move == 0)
         {
             _timer -= Time.fixedDeltaTime;
@@ -73,6 +95,14 @@ public class RigidbodyLinearMovement : MonoBehaviour, IPlayerEffector
             _previousPos = 0;
             _isReturning = false;
             _timer = _endPosDelay;
+            _didPlayEndOnce = false;
+            _didPlayReturnOnce = false;
+
+            if (!_didPlayForwardOnce)
+            {
+                _audioPlayer.PlayOneShotSound(_MoveSound);
+                _didPlayForwardOnce = true;
+            }
         }
 
         // calculates speed dependent on direction of movement
