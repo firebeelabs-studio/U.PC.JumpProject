@@ -80,7 +80,10 @@ public class PausePanel : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            TogglePanel();
+            if (_inputs.enabled)
+            {
+                TogglePanel();
+            }
         }
     }
     private void TogglePanel()
