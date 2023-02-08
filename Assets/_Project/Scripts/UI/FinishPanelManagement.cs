@@ -197,10 +197,13 @@ public class FinishPanelManagement : MonoBehaviour
         if (LoadingScreenCanvas.Instance.IsNewSceneLoading) return;
         
         _stars[starIndex].gameObject.SetActive(true);
+        
         if (!_stars[starIndex].isActiveAndEnabled) return;
-                
+
         bool isScoreBetterThanGlobalBest = starIndex + 1 > _bestStarAmount;
-        _stars[starIndex].RunPunchAnimation(isScoreBetterThanGlobalBest);
+        
+        
+        _stars[starIndex]?.RunPunchAnimation(isScoreBetterThanGlobalBest);
     }
 
     private IEnumerator FillBar()
@@ -210,7 +213,7 @@ public class FinishPanelManagement : MonoBehaviour
         //we have to check this to prevent null reference on scene reloading 
         if (LoadingScreenCanvas.Instance.IsNewSceneLoading) yield break;
         
-        for (int i = 0; i <= CountStars(); i++)
+        for (int i = 0; i < CountStars(); i++)
         {
             _progressBar.fillAmount = 0;
             if (CountStars() == 0)
