@@ -25,6 +25,8 @@ public class StarAnim : MonoBehaviour
 
     public void RunPunchAnimation(bool runAdditionalAnimation = false)
     {
+        if(LoadingScreenCanvas.Instance.IsNewSceneLoading) return;
+        
         _audioPlayer.PlayOneShotSound(_starSound, 1, _pitch);
         transform.localScale = Vector3.one;
         transform.DOPunchScale(new Vector3(_force, _force, _force), _duration, _vibratio).OnComplete(() =>

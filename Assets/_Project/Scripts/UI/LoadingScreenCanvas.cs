@@ -9,6 +9,8 @@ public class LoadingScreenCanvas : MonoBehaviour
 {
     public static LoadingScreenCanvas Instance { get; private set; }
 
+    //If you are using dotween inside coroutine use this bool to check if new scene isn't loading
+    public bool IsNewSceneLoading { get; private set; }
     [SerializeField] private GameObject _loadingScreen;
     [SerializeField] private Image _loadingImageProgress;
     [SerializeField] private Image _crossFadeImg;
@@ -41,6 +43,7 @@ public class LoadingScreenCanvas : MonoBehaviour
 
     private IEnumerator LoadSceneAsync(string sceneName)
     {
+        IsNewSceneLoading = true;
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
         operation.allowSceneActivation = false;
         _loadingScreen.SetActive(true);
@@ -51,6 +54,7 @@ public class LoadingScreenCanvas : MonoBehaviour
         { 
             if (_loadingImageProgress.fillAmount == 1)
             {
+                DOTween.KillAll();
                 operation.allowSceneActivation = true;
             }
 
@@ -64,6 +68,7 @@ public class LoadingScreenCanvas : MonoBehaviour
             //    _crossFadeImg.DOFillAmount(0, 0.25f);
             //    _loadingScreen.SetActive(false);
             //});
+            IsNewSceneLoading = false;
             _loadingScreen.SetActive(false);
             _crossFadeImg.gameObject.SetActive(true);
             

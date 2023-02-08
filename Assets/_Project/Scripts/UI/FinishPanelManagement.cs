@@ -192,6 +192,10 @@ public class FinishPanelManagement : MonoBehaviour
 
     private void SetupStar(int starIndex)
     {
+        
+        //null reference on scene reload prevent
+        if (LoadingScreenCanvas.Instance.IsNewSceneLoading) return;
+        
         _stars[starIndex].gameObject.SetActive(true);
         if (!_stars[starIndex].isActiveAndEnabled) return;
                 
@@ -202,6 +206,10 @@ public class FinishPanelManagement : MonoBehaviour
     private IEnumerator FillBar()
     {
         yield return new WaitForSeconds(.25f);
+        
+        //we have to check this to prevent null reference on scene reloading 
+        if (LoadingScreenCanvas.Instance.IsNewSceneLoading) yield break;
+        
         for (int i = 0; i <= CountStars(); i++)
         {
             _progressBar.fillAmount = 0;
