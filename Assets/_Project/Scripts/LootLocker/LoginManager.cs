@@ -13,7 +13,7 @@ public class LoginManager : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
-        StartGuestSession();
+        //StartGuestSession();
     }
 
     public void StartGuestSession()
@@ -21,61 +21,86 @@ public class LoginManager : MonoBehaviour
         StartCoroutine(LoginRoutine());
     }
 
-    public void SetPlayerName()
+    private IEnumerator CheckPlayerSession()
     {
-        PlayerPrefs.SetString("NicknameSet", "true");
-        LootLockerSDKManager.SetPlayerName(_nicknameText.text, (response) =>
+        bool done = false;
+        LootLockerSDKManager.CheckWhiteLabelSession(response =>
         {
-            if (response.success)
+            if (response)
             {
-                Debug.Log("Name set");
+                //somehow sessions ain't working 
+                LootLockerSDKManager.StartWhiteLabelSession((response) =>
+                {
+                    if (response.success)
+                    {
+                        ArcnesTools.Debug.Log("session started successfully");
+                    }
+                    else
+                    {
+                        ArcnesTools.Debug.Log("error starting LootLocker session");
+                    }
+                });
+                
+                ArcnesTools.Debug.Log("session is valid, you can start a game session");
             }
             else
             {
-                Debug.Log("Error");
+                // Show login form here
+                ArcnesTools.Debug.Log("session is NOT valid, we should show the login form");
             }
+
+            done = true;
         });
+        yield return new WaitWhile(() => done == false);
     }
 
-    public void ChangePlayerName()
+    private IEnumerator RegisterRoutine()
     {
-        PlayerPrefs.SetString("NicknameSet", "true");
-        LootLockerSDKManager.SetPlayerName(_changedNicknameText.text, (response) =>
+        string email = "xqonam@gmail.com";
+        string password = "password here";
+        bool done = false;
+        LootLockerSDKManager.WhiteLabelSignUp(email, password, (response) =>
         {
             if (response.success)
             {
-                Debug.Log("Name set");
+                done = true;
             }
             else
             {
-                Debug.Log("Error");
+                done = true;
             }
         });
+        yield return new WaitWhile(() => done == false);
     }
     
     private IEnumerator LoginRoutine()
     {
+        string email = "xqonam@gmail.com";
+        string password = "password here";
+        bool rememberMe = true;
         bool done = false;
-        LootLockerSDKManager.StartGuestSession((response) =>
+        LootLockerSDKManager.WhiteLabelLogin(email, password, rememberMe, (response) =>
         {
             if (response.success)
             {
-                PlayerPrefs.SetString("PlayerId", response.player_id.ToString());
-                done = true;
-                if (PlayerPrefs.GetString("NicknameSet") is not null && PlayerPrefs.GetString("NicknameSet") == "true")
+                string token = response.SessionToken;
+                LootLockerSDKManager.StartWhiteLabelSession((response) =>
                 {
-                    //SceneManager.LoadScene("EvoWorld");
-                    return;
-                }
-                else
-                {
-                    _nameSetPanel.SetActive(true);
-                }
+                    if (response.success)
+                    {
+                        ArcnesTools.Debug.Log("session started successfully");
+                    }
+                    else
+                    {
+                        ArcnesTools.Debug.Log("error starting LootLocker session");
+                    }
+                });
             }
             else
             {
-                done = true;
+                //show info about failed login
             }
+            done = true;
         });
         yield return new WaitWhile(() => done == false);
     }
