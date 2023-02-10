@@ -40,8 +40,7 @@ public class FinishPanelManagement : MonoBehaviour
     private IPawnController _pawnController;
 
     [SerializeField] private Image _progressBar;
-
-    [SerializeField] private SetSummaryPlaces _summaryPlaces;
+    
 
     private void Awake()
     {
@@ -95,7 +94,6 @@ public class FinishPanelManagement : MonoBehaviour
         // Finish Panel Text
         _yourTimeText.text = $"{(int)_endLevelTimers.TimeInSeconds}s";
         int timeInSeconds = (int)_endLevelTimers.TimeInSeconds;
-        _summaryPlaces.UpdatePlaces(timeInSeconds);
         if (timeInSeconds <= _thresholds[2])
         {
             _timeNeededForNextStarText.text = $"Gj!";

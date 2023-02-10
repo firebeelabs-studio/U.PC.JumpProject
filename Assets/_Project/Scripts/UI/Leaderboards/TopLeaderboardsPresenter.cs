@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LeaderboardsPresenter : MonoBehaviour
+public class TopLeaderboardsPresenter : MonoBehaviour
 {
     [SerializeField] private LeaderboardsPlayerRowTemplate _firstPlace;
     [SerializeField] private LeaderboardsPlayerRowTemplate _secondPlace;
