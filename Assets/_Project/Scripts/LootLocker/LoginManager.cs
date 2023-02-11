@@ -13,12 +13,7 @@ public class LoginManager : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
-        //StartGuestSession();
-    }
-
-    public void StartGuestSession()
-    {
-        StartCoroutine(LoginRoutine());
+        StartCoroutine(CheckPlayerSession());
     }
 
     private IEnumerator CheckPlayerSession()
@@ -54,16 +49,15 @@ public class LoginManager : MonoBehaviour
         yield return new WaitWhile(() => done == false);
     }
 
-    private IEnumerator RegisterRoutine()
+    private IEnumerator RegisterRoutine(string email, string password)
     {
-        string email = "xqonam@gmail.com";
-        string password = "password here";
         bool done = false;
         LootLockerSDKManager.WhiteLabelSignUp(email, password, (response) =>
         {
             if (response.success)
             {
-                done = true;
+                //TODO: probably we can just move player here to login panel and force him to type his data
+                StartCoroutine(LoginRoutine(email, password, true));
             }
             else
             {
@@ -73,20 +67,18 @@ public class LoginManager : MonoBehaviour
         yield return new WaitWhile(() => done == false);
     }
     
-    private IEnumerator LoginRoutine()
+    private IEnumerator LoginRoutine(string email, string password, bool rememberMe)
     {
-        string email = "xqonam@gmail.com";
-        string password = "password here";
-        bool rememberMe = true;
         bool done = false;
         LootLockerSDKManager.WhiteLabelLogin(email, password, rememberMe, (response) =>
         {
             if (response.success)
             {
                 string token = response.SessionToken;
-                LootLockerSDKManager.StartWhiteLabelSession((response) =>
+
+                LootLockerSDKManager.StartWhiteLabelSession((response2) =>
                 {
-                    if (response.success)
+                    if (response2.success)
                     {
                         ArcnesTools.Debug.Log("session started successfully");
                     }
@@ -99,9 +91,11 @@ public class LoginManager : MonoBehaviour
             else
             {
                 //show info about failed login
+                done = true;
             }
-            done = true;
+           
         });
         yield return new WaitWhile(() => done == false);
     }
+
 }
