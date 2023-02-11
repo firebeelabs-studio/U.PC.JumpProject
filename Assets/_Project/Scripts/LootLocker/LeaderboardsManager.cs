@@ -5,49 +5,62 @@ using LootLocker.Requests;
 using UnityEngine;
 
 //TODO: Move it to serverside
+[RequireComponent(typeof(LoginManager))]
 public class LeaderboardsManager : MonoBehaviour
 {
     public event Action LoadTop10Score;
     public event Action LoadPlayerBestScore;
 
-    [field: SerializeField] public List<LootLockerScoreData> Top10Scores { get; private set; }
+    private LoginManager _loginManager;
+    [field: SerializeField] public List<LootLockerScoreData> Scores { get; private set; }
     [field: SerializeField] public LootLockerScoreData UserBestScore { get; private set; }
-    
-    private const int LEADERBOARD_ID = 10814;
 
-    private void Start()
+    private void Awake()
     {
-        GetTop10Scores();
-        GetLoggedUserBestScore();
+        _loginManager = GetComponent<LoginManager>();
     }
 
-    public void SendHighScore(int score)
+    /// <summary>
+    /// Submits user score
+    /// </summary>
+    /// <param name="seconds"></param>
+    /// /// <param name="levelName">Paste here scene name</param>
+    public void SendHighScore(int seconds, string levelName)
     {
-        StartCoroutine(SubmitScoreRoutine(score));
+        StartCoroutine(SubmitScoreRoutine(seconds, levelName));
     }
     
-    public void GetTop10Scores()
+    /// <summary>
+    /// Populate list "Scores"
+    /// </summary>
+    /// <param name="count">How many users should download</param>
+    /// <param name="afterPlace">After which place should download positions 0 -> starts from 1, 5 -> starts from 6</param>
+    /// <param name="levelName">Paste here scene name</param>
+    public void GetScores(int count, int afterPlace, string levelName)
     {
-        StartCoroutine(FetchTop10HighScoresRoutine());
+        StartCoroutine(FetchScoresRoutine(count, afterPlace, levelName));
     }
     
-    public void GetLoggedUserBestScore()
+    /// <summary>
+    /// Populate UserBestScore variable
+    /// </summary>
+    /// /// <param name="levelName">Paste here scene name</param>
+    public void GetLoggedUserBestScore(string levelName)
     {
-        StartCoroutine(FetchLoggedUserHighScoreRoutine());
+        StartCoroutine(FetchLoggedUserHighScoreRoutine(levelName));
     }
    
-    private IEnumerator SubmitScoreRoutine(int scoreToUpload)
+    private IEnumerator SubmitScoreRoutine(int scoreToUpload, string levelName)
     {
         bool done = false;
-        string playerId = PlayerPrefs.GetString("PlayerId");
-        LootLockerSDKManager.SubmitScore(playerId, scoreToUpload, LEADERBOARD_ID, (response) =>
+        string playerId = _loginManager.PlayerId.ToString();
+        LootLockerSDKManager.SubmitScore(playerId, scoreToUpload, levelName, (response) =>
         {
             if (response.success)
             {
                 Debug.Log("successfully uploaded score");
                 done = true;
-                GetTop10Scores();
-                GetLoggedUserBestScore();
+                //TODO: update leaderboards
             }
             else
             {
@@ -58,11 +71,10 @@ public class LeaderboardsManager : MonoBehaviour
         yield return new WaitWhile(() => done == false);
     }
 
-    private IEnumerator FetchTop10HighScoresRoutine()
+    private IEnumerator FetchScoresRoutine(int count, int afterPlace, string levelName)
     {
         bool done = false;
-        //TODO: Change leaderboard id to leaderboard key
-        LootLockerSDKManager.GetScoreList(LEADERBOARD_ID,10,0, (response) =>
+        LootLockerSDKManager.GetScoreList(levelName, count, afterPlace, (response) =>
         {
             if (response.success)
             {
@@ -79,7 +91,7 @@ public class LeaderboardsManager : MonoBehaviour
                     });
                 }
 
-                Top10Scores = tempPlayers;
+                Scores = tempPlayers;
                 LoadTop10Score?.Invoke();
                 done = true;
             }
@@ -91,11 +103,12 @@ public class LeaderboardsManager : MonoBehaviour
         });
         yield return new WaitWhile(() => done == false);
     }
-    private IEnumerator FetchLoggedUserHighScoreRoutine()
+    
+    private IEnumerator FetchLoggedUserHighScoreRoutine(string levelName)
     {
         bool done = false;
-        string playerId = PlayerPrefs.GetString("PlayerId");
-        LootLockerSDKManager.GetByListOfMembers(new string[]{playerId} , LEADERBOARD_ID,(response) =>
+        string playerId = _loginManager.PlayerId.ToString();
+        LootLockerSDKManager.GetByListOfMembers(new string[]{playerId} , levelName,(response) =>
         {
             if (response.success)
             {
@@ -116,7 +129,7 @@ public class LeaderboardsManager : MonoBehaviour
                     {
                         Rank = 0,
                         Score = 0,
-                        UserName = PlayerPrefs.GetString("PlayerId")
+                        UserName = playerId
                     };
                 }
 

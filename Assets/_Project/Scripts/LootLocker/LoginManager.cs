@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class LoginManager : MonoBehaviour
 {
+    public int PlayerId;
+    
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
@@ -35,6 +37,7 @@ public class LoginManager : MonoBehaviour
                 {
                     if (response.success)
                     {
+                        PlayerId = response.player_id;
                         ArcnesTools.Debug.Log("session started successfully");
                         LoadingScreenCanvas.Instance.LoadScene("MainMenu");
                     }
@@ -88,6 +91,7 @@ public class LoginManager : MonoBehaviour
                 {
                     if (response2.success)
                     {
+                        PlayerId = response2.player_id;
                         ArcnesTools.Debug.Log("session started successfully");
                         LoadingScreenCanvas.Instance.LoadScene("MainMenu");
                     }
