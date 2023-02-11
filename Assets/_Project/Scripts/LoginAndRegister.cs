@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class LoginAndRegister : MonoBehaviour
 {
+    [SerializeField] private LoginManager _loginManager;
     [Header("LOGIN PANEL")] 
     [SerializeField] private GameObject _loginPanel;
     [SerializeField] private TMP_InputField _nameFieldLogin;
@@ -13,6 +14,7 @@ public class LoginAndRegister : MonoBehaviour
     [SerializeField] private Button _submitButtonLogin;
     [SerializeField] private Button _switchToRegister;
     private List<TMP_InputField> _loginInputFields;
+    
     [Header("REGISTRATION PANEL")]
     [SerializeField] private GameObject _registrationPanel;
     [SerializeField] private TMP_InputField _nameFieldRegistration;
@@ -23,15 +25,20 @@ public class LoginAndRegister : MonoBehaviour
 
     private GameObject _currentPanel;
     private int _fieldsIndex;
+    
     private void Start()
     {
         _loginInputFields = new List<TMP_InputField>() { _nameFieldLogin, _passwordFieldLogin };
         _registrationInputFields = new List<TMP_InputField>() { _nameFieldRegistration, _passwordFieldRegistration };
         _currentPanel = _loginPanel;
-        //TODO: LOGIN
-        //_submitButtonLogin.onClick.AddListener();
-        //TODO: REGISTER
-        //_submitButtonRegistration.onClick.AddListener();
+        _submitButtonLogin.onClick.AddListener(() =>
+        {
+            _loginManager.Login(_nameFieldLogin.text, _passwordFieldLogin.text, true);
+        });
+        _submitButtonRegistration.onClick.AddListener(() =>
+        {
+            _loginManager.Register(_nameFieldRegistration.text, _passwordFieldRegistration.text);
+        });
         _nameFieldLogin.onValueChanged.AddListener(value => VerifyInputs(_submitButtonLogin,_nameFieldLogin, _passwordFieldLogin));
         _nameFieldLogin.onSelect.AddListener(value => _fieldsIndex = 0);
         _passwordFieldLogin.onValueChanged.AddListener(value => VerifyInputs(_submitButtonLogin,_nameFieldLogin, _passwordFieldLogin));
