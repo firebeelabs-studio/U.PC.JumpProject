@@ -6,14 +6,21 @@ using UnityEngine.SceneManagement;
 
 public class LoginManager : MonoBehaviour
 {
-    [SerializeField] private TMP_Text _nicknameText;
-    [SerializeField] private TMP_Text _changedNicknameText;
-    [SerializeField] private GameObject _nameSetPanel;
-
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
+        //if player marked
         StartCoroutine(CheckPlayerSession());
+    }
+
+    public void Login(string email, string password, bool rememberMe)
+    {
+        StartCoroutine(LoginRoutine(email, password, rememberMe));
+    }
+
+    public void Register(string email, string password)
+    {
+        StartCoroutine(RegisterRoutine(email, password));
     }
 
     private IEnumerator CheckPlayerSession()
@@ -29,6 +36,7 @@ public class LoginManager : MonoBehaviour
                     if (response.success)
                     {
                         ArcnesTools.Debug.Log("session started successfully");
+                        LoadingScreenCanvas.Instance.LoadScene("MainMenu");
                     }
                     else
                     {
@@ -81,11 +89,14 @@ public class LoginManager : MonoBehaviour
                     if (response2.success)
                     {
                         ArcnesTools.Debug.Log("session started successfully");
+                        LoadingScreenCanvas.Instance.LoadScene("MainMenu");
                     }
                     else
                     {
                         ArcnesTools.Debug.Log("error starting LootLocker session");
                     }
+
+                    done = true;
                 });
             }
             else
