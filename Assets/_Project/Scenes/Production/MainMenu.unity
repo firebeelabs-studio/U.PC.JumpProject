@@ -1139,7 +1139,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -36.11111
+  m_Spacing: -22.222221
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -9360,6 +9360,7 @@ GameObject:
   m_Component:
   - component: {fileID: 353147661}
   - component: {fileID: 353147660}
+  - component: {fileID: 353147662}
   m_Layer: 0
   m_Name: SkinsHolder
   m_TagString: Untagged
@@ -9394,6 +9395,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &353147662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353147659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b5a2841d7aea194db1eea30d14520da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nicknameText: {fileID: 0}
+  _changedNicknameText: {fileID: 0}
+  _nameSetPanel: {fileID: 0}
 --- !u!1 &353952829
 GameObject:
   m_ObjectHideFlags: 0
@@ -11622,9 +11638,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 4
+    m_Left: 2
     m_Right: 0
-    m_Top: 7
+    m_Top: 3
     m_Bottom: 0
   m_ChildAlignment: 1
   m_Spacing: 5
@@ -20631,8 +20647,8 @@ MonoBehaviour:
   m_VerticalScrollbar: {fileID: 0}
   m_HorizontalScrollbarVisibility: 2
   m_VerticalScrollbarVisibility: 2
-  m_HorizontalScrollbarSpacing: -1.3899155
-  m_VerticalScrollbarSpacing: -1.3899155
+  m_HorizontalScrollbarSpacing: -0.8553326
+  m_VerticalScrollbarSpacing: -0.8553326
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -24484,7 +24500,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -36.11111
+  m_Spacing: -22.222221
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -31057,7 +31073,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -36.11111
+  m_Spacing: -22.222221
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -43729,7 +43745,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -36.11111
+  m_Spacing: -22.222221
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -48791,7 +48807,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -36.11111
+  m_Spacing: -22.222221
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -53876,7 +53892,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -36.11111
+  m_Spacing: -22.222221
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -62533,7 +62549,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -36.11111
+  m_Spacing: -29.35185
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -79220,7 +79236,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 6.09375
+  m_Spacing: 3.75
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
