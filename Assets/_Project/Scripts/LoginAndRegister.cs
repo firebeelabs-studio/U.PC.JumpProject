@@ -9,15 +9,17 @@ public class LoginAndRegister : MonoBehaviour
     [SerializeField] private LoginManager _loginManager;
     [Header("LOGIN PANEL")] 
     [SerializeField] private GameObject _loginPanel;
-    [SerializeField] private TMP_InputField _nameFieldLogin;
-    [SerializeField] private TMP_InputField _passwordFieldLogin;
+    [SerializeField] private TMP_InputField _emailInputFieldLogin;
+    [SerializeField] private TMP_InputField _passwordInputFieldLogin;
     [SerializeField] private Button _submitButtonLogin;
     [SerializeField] private Button _switchToRegister;
+    [SerializeField] private Toggle _rememberMeToggle;
     private List<TMP_InputField> _loginInputFields;
     
     [Header("REGISTRATION PANEL")]
     [SerializeField] private GameObject _registrationPanel;
-    [SerializeField] private TMP_InputField _nameFieldRegistration;
+    [SerializeField] private TMP_InputField _nicknameInputFieldRegistration;
+    [SerializeField] private TMP_InputField _emailInputFieldRegistration;
     [SerializeField] private TMP_InputField _passwordFieldRegistration;
     [SerializeField] private Button _submitButtonRegistration;
     [SerializeField] private Button _switchToLogin;
@@ -28,38 +30,38 @@ public class LoginAndRegister : MonoBehaviour
     
     private void Start()
     {
-        _loginInputFields = new List<TMP_InputField>() { _nameFieldLogin, _passwordFieldLogin };
-        _registrationInputFields = new List<TMP_InputField>() { _nameFieldRegistration, _passwordFieldRegistration };
+        _loginInputFields = new List<TMP_InputField>() { _emailInputFieldLogin, _passwordInputFieldLogin };
+        _registrationInputFields = new List<TMP_InputField>() { _nicknameInputFieldRegistration, _emailInputFieldRegistration, _passwordFieldRegistration };
         _currentPanel = _loginPanel;
         _submitButtonLogin.onClick.AddListener(() =>
         {
-            _loginManager.Login(_nameFieldLogin.text, _passwordFieldLogin.text, true);
+            _loginManager.Login(_emailInputFieldLogin.text, _passwordInputFieldLogin.text, true);
         });
         _submitButtonRegistration.onClick.AddListener(() =>
         {
-            _loginManager.Register(_nameFieldRegistration.text, _passwordFieldRegistration.text);
+            _loginManager.Register(_nicknameInputFieldRegistration.text, _passwordFieldRegistration.text);
         });
-        _nameFieldLogin.onValueChanged.AddListener(value => VerifyInputs(_submitButtonLogin,_nameFieldLogin, _passwordFieldLogin));
-        _nameFieldLogin.onSelect.AddListener(value => _fieldsIndex = 0);
-        _passwordFieldLogin.onValueChanged.AddListener(value => VerifyInputs(_submitButtonLogin,_nameFieldLogin, _passwordFieldLogin));
-        _passwordFieldLogin.onSelect.AddListener(value => _fieldsIndex = 1);
-        _nameFieldRegistration.onValueChanged.AddListener(value => VerifyInputs(_submitButtonRegistration, _nameFieldRegistration, _passwordFieldRegistration));
-        _nameFieldRegistration.onSelect.AddListener(value => _fieldsIndex = 0);
-        _passwordFieldRegistration.onValueChanged.AddListener(value => VerifyInputs(_submitButtonRegistration, _nameFieldRegistration, _passwordFieldRegistration));
+        _emailInputFieldLogin.onValueChanged.AddListener(value => VerifyInputs(_submitButtonLogin,_emailInputFieldLogin, _passwordInputFieldLogin));
+        _emailInputFieldLogin.onSelect.AddListener(value => _fieldsIndex = 0);
+        _passwordInputFieldLogin.onValueChanged.AddListener(value => VerifyInputs(_submitButtonLogin,_emailInputFieldLogin, _passwordInputFieldLogin));
+        _passwordInputFieldLogin.onSelect.AddListener(value => _fieldsIndex = 1);
+        _nicknameInputFieldRegistration.onValueChanged.AddListener(value => VerifyInputs(_submitButtonRegistration, _nicknameInputFieldRegistration, _passwordFieldRegistration));
+        _nicknameInputFieldRegistration.onSelect.AddListener(value => _fieldsIndex = 0);
+        _passwordFieldRegistration.onValueChanged.AddListener(value => VerifyInputs(_submitButtonRegistration, _nicknameInputFieldRegistration, _passwordFieldRegistration));
         _passwordFieldRegistration.onSelect.AddListener(value => _fieldsIndex = 1);
         _switchToRegister.onClick.AddListener(() =>
         {
             SwitchPanels(_registrationPanel);
-            _nameFieldRegistration.Select();
+            _nicknameInputFieldRegistration.Select();
             _fieldsIndex = 0;
         });
         _switchToLogin.onClick.AddListener(() =>
         {
             SwitchPanels(_loginPanel);
-            _nameFieldLogin.Select();
+            _emailInputFieldLogin.Select();
             _fieldsIndex = 0;
         });
-        _nameFieldLogin.Select();
+        _emailInputFieldLogin.Select();
     }
     private void Update()
     {
