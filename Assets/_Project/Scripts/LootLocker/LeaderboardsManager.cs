@@ -8,13 +8,20 @@ using UnityEngine;
 [RequireComponent(typeof(LoginManager))]
 public class LeaderboardsManager : MonoBehaviour
 {
-    public event Action LoadTop10Score;
-    public event Action LoadPlayerBestScore;
+    public event Action BestScoresForFewLevelsLoaded;
+    public event Action BestScoresForCertainLevelLoaded;
+    
+    public event Action UserBestScoreOnCertainLevelLoaded;
+    public event Action UserBestScoresForFewLevelsLoaded;
+
+    [field: SerializeField] public List<LeaderboardEntry> BestScoresForCertainLevel { get; private set; }
+    [field: SerializeField] public List<LeaderboardEntry> BestScoresForFewLevels { get; private set; }
+    
+    [field: SerializeField] public LeaderboardEntry UserBestScoreForCertainLevel { get; private set; }
+    [field: SerializeField] public List<LeaderboardEntry> UserBestScoresForFewLevels { get; private set; }
 
     private LoginManager _loginManager;
-    [field: SerializeField] public List<LootLockerScoreData> Scores { get; private set; }
-    [field: SerializeField] public LootLockerScoreData UserBestScore { get; private set; }
-
+    
     private void Awake()
     {
         _loginManager = GetComponent<LoginManager>();
@@ -31,23 +38,43 @@ public class LeaderboardsManager : MonoBehaviour
     }
     
     /// <summary>
-    /// Populate list "Scores"
+    /// Populate list "BestScoresForCertainLevel"
     /// </summary>
     /// <param name="count">How many users should download</param>
     /// <param name="afterPlace">After which place should download positions 0 -> starts from 1, 5 -> starts from 6</param>
     /// <param name="levelName">Paste here scene name</param>
-    public void GetScores(int count, int afterPlace, string levelName)
+    public void GetScoresForCertainLevel(int count, int afterPlace, string levelName)
     {
         StartCoroutine(FetchScoresRoutine(count, afterPlace, levelName));
     }
     
     /// <summary>
-    /// Populate UserBestScore variable
+    /// Populate list "BestScoresForFewLevels"
+    /// </summary>
+    /// <param name="count">How many users should download</param>
+    /// <param name="afterPlace">After which place should download positions 0 -> starts from 1, 5 -> starts from 6</param>
+    /// <param name="levelNames">Paste here scene names</param>
+    public void GetScoresForFewLevels(int count, int afterPlace, List<string> levelNames)
+    {
+        StartCoroutine(FetchScoresForFewLevelsRoutine(count, afterPlace, levelNames));
+    }
+    
+    /// <summary>
+    /// Populate UserBestScoreOnCertainLevel variable
     /// </summary>
     /// /// <param name="levelName">Paste here scene name</param>
-    public void GetLoggedUserBestScore(string levelName)
+    public void GetLoggedUserBestScoreForCertainLevel(string levelName)
     {
         StartCoroutine(FetchLoggedUserHighScoreRoutine(levelName));
+    }
+    
+    /// <summary>
+    /// Populate UserBestScoresOnFewLevels variable
+    /// </summary>
+    /// /// <param name="levelNames">Paste here scenes name</param>
+    public void GetLoggedUserBestScoresForFewLevels(List<string> levelNames)
+    {
+        StartCoroutine(FetchLoggedUserHighScoreForFewLevelsRoutine(levelNames));
     }
    
     private IEnumerator SubmitScoreRoutine(int scoreToUpload, string levelName)
@@ -78,21 +105,25 @@ public class LeaderboardsManager : MonoBehaviour
         {
             if (response.success)
             {
-                List<LootLockerScoreData> tempPlayers = new();
+                List<LeaderboardEntry> leaderboardEntries = new();
                 LootLockerLeaderboardMember[] members = response.items;
 
                 for (int i = 0; i < members.Length; i++)
                 {
-                    tempPlayers.Add(new LootLockerScoreData
+                    leaderboardEntries.Add(new LeaderboardEntry
                     {
-                        Rank = members[i].rank,
-                        Score = members[i].score,
-                        UserName = members[i].player.name != "" ? members[i].player.name : members[i].player.public_uid
+                        levelName = levelName,
+                        Score = new LootLockerScoreData
+                        {
+                            Rank = members[i].rank,
+                            Score = members[i].score,
+                            UserName = members[i].player.name != "" ? members[i].player.name : members[i].player.public_uid
+                        }
                     });
                 }
 
-                Scores = tempPlayers;
-                LoadTop10Score?.Invoke();
+                BestScoresForCertainLevel = leaderboardEntries;
+                BestScoresForCertainLevelLoaded?.Invoke();
                 done = true;
             }
             else
@@ -102,6 +133,47 @@ public class LeaderboardsManager : MonoBehaviour
             }
         });
         yield return new WaitWhile(() => done == false);
+    }
+    
+    private IEnumerator FetchScoresForFewLevelsRoutine(int count, int afterPlace, List<string> levelNames)
+    {
+        ResponseFlags responseFlags = new ResponseFlags(levelNames.Count);
+        List<LeaderboardEntry> leaderboardEntries = new();
+        foreach (var levelName in levelNames)
+        {
+            LootLockerSDKManager.GetScoreList(levelName, count, afterPlace, (response) =>
+            {
+                if (response.success)
+                {
+                    LootLockerLeaderboardMember[] members = response.items;
+
+                    for (int i = 0; i < members.Length; i++)
+                    {
+                        leaderboardEntries.Add(new LeaderboardEntry
+                        {
+                            levelName = levelName,
+                            Score = new LootLockerScoreData
+                            {
+                                Rank = members[i].rank,
+                                Score = members[i].score,
+                                UserName = members[i].player.name != "" ? members[i].player.name : members[i].player.public_uid
+                            }
+                        });
+                    }
+                    responseFlags.MarkNextFlagAsReached();
+                }
+                else
+                {
+                    Debug.Log("Failed" + response.Error);
+                    responseFlags.MarkNextFlagAsReached();
+                }
+            });
+        }
+
+        yield return new WaitWhile(() => !responseFlags.IsEverythingTrue());
+
+        BestScoresForFewLevels = leaderboardEntries;
+        BestScoresForFewLevelsLoaded?.Invoke();
     }
     
     private IEnumerator FetchLoggedUserHighScoreRoutine(string levelName)
@@ -116,24 +188,33 @@ public class LeaderboardsManager : MonoBehaviour
 
                 if (members[0] is not null)
                 {
-                    UserBestScore = new LootLockerScoreData
+                    UserBestScoreForCertainLevel = new LeaderboardEntry
                     {
-                        Rank = members[0].rank,
-                        Score = members[0].score,
-                        UserName = members[0].player.name != "" ? members[0].player.name : members[0].player.public_uid
+                        levelName = levelName,
+                        Score = new LootLockerScoreData
+                        {
+                            Rank = members[0].rank,
+                            Score = members[0].score,
+                            UserName = members[0].player.name != "" ? members[0].player.name : members[0].player.public_uid
+                        }
                     };
+
                 }
                 else
                 {
-                    UserBestScore = new LootLockerScoreData
+                    UserBestScoreForCertainLevel = new LeaderboardEntry
                     {
-                        Rank = 0,
-                        Score = 0,
-                        UserName = playerId
+                        levelName = levelName,
+                        Score = new LootLockerScoreData
+                        {
+                            Rank = 0,
+                            Score = 0,
+                            UserName = playerId
+                        }
                     };
                 }
 
-                LoadPlayerBestScore?.Invoke();
+                UserBestScoreOnCertainLevelLoaded?.Invoke();
                 done = true;
             }
             else
@@ -143,5 +224,59 @@ public class LeaderboardsManager : MonoBehaviour
             }
         });
         yield return new WaitWhile(() => done == false);
+    }
+    
+    private IEnumerator FetchLoggedUserHighScoreForFewLevelsRoutine(List<string> levelNames)
+    {
+        ResponseFlags responseFlags = new ResponseFlags(levelNames.Count);
+        List<LeaderboardEntry> leaderboardEntries = new();
+        string playerId = _loginManager.PlayerId.ToString();
+        foreach (var levelName in levelNames)
+        {
+            LootLockerSDKManager.GetByListOfMembers(new string[]{playerId} , levelName,(response) =>
+            {
+                if (response.success)
+                {
+                    LootLockerLeaderboardMember[] members = response.members;
+
+                    if (members[0] is not null)
+                    {
+                        leaderboardEntries.Add( new LeaderboardEntry
+                        {
+                            levelName = levelName,
+                            Score = new LootLockerScoreData
+                            {
+                                Rank = members[0].rank,
+                                Score = members[0].score,
+                                UserName = members[0].player.name != "" ? members[0].player.name : members[0].player.public_uid
+                            }
+                        });
+                    }
+                    else
+                    {
+                        leaderboardEntries.Add( new LeaderboardEntry
+                        {
+                            levelName = levelName,
+                            Score = new LootLockerScoreData
+                            {
+                                Rank = 0,
+                                Score = 0,
+                                UserName = playerId
+                            }
+                        });
+                    }
+                    responseFlags.MarkNextFlagAsReached();
+                }
+                else
+                {
+                    Debug.Log("Failed" + response.Error);
+                    responseFlags.MarkNextFlagAsReached();
+                }
+            });
+        }
+        
+        yield return new WaitWhile(() => !responseFlags.IsEverythingTrue());
+        UserBestScoresForFewLevels = leaderboardEntries;     
+        UserBestScoresForFewLevelsLoaded?.Invoke();
     }
 }
