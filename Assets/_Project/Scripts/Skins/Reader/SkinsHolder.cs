@@ -7,8 +7,8 @@ using UnityEngine;
 public class SkinsHolder : MonoBehaviour
 {
     public static SkinsHolder Instance = null;
-    public List<OutfitData> Skins { get; private set; } = new();
-    public List<OutfitData> LastUsedSkins { get; private set; } = new();
+    [field: SerializeField] public List<OutfitData> Skins { get; private set; } = new();
+    [field: SerializeField] public List<OutfitData> LastUsedSkins { get; private set; } = new();
 
     private void Awake()
     {
@@ -27,6 +27,7 @@ public class SkinsHolder : MonoBehaviour
     {
         OutfitData skinToAdd = new OutfitData
         {
+            Id = swampieSkin.Id,
             skinType = swampieSkin.skinType,
             swampieType = swampieSkin.swampieType,
             SkinSprite = sprite,

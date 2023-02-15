@@ -112,12 +112,16 @@ public class LeaderboardsManager : MonoBehaviour
                 {
                     leaderboardEntries.Add(new LeaderboardEntry
                     {
-                        levelName = levelName,
+                        LevelName = levelName,
                         Score = new LootLockerScoreData
                         {
                             Rank = members[i].rank,
                             Score = members[i].score,
                             UserName = members[i].player.name != "" ? members[i].player.name : members[i].player.public_uid
+                        },
+                        SkinIds = new List<string>
+                        {
+                            "x"
                         }
                     });
                 }
@@ -151,7 +155,7 @@ public class LeaderboardsManager : MonoBehaviour
                     {
                         leaderboardEntries.Add(new LeaderboardEntry
                         {
-                            levelName = levelName,
+                            LevelName = levelName,
                             Score = new LootLockerScoreData
                             {
                                 Rank = members[i].rank,
@@ -190,7 +194,7 @@ public class LeaderboardsManager : MonoBehaviour
                 {
                     UserBestScoreForCertainLevel = new LeaderboardEntry
                     {
-                        levelName = levelName,
+                        LevelName = levelName,
                         Score = new LootLockerScoreData
                         {
                             Rank = members[0].rank,
@@ -204,7 +208,7 @@ public class LeaderboardsManager : MonoBehaviour
                 {
                     UserBestScoreForCertainLevel = new LeaderboardEntry
                     {
-                        levelName = levelName,
+                        LevelName = levelName,
                         Score = new LootLockerScoreData
                         {
                             Rank = 0,
@@ -243,7 +247,7 @@ public class LeaderboardsManager : MonoBehaviour
                     {
                         leaderboardEntries.Add( new LeaderboardEntry
                         {
-                            levelName = levelName,
+                            LevelName = levelName,
                             Score = new LootLockerScoreData
                             {
                                 Rank = members[0].rank,
@@ -256,7 +260,7 @@ public class LeaderboardsManager : MonoBehaviour
                     {
                         leaderboardEntries.Add( new LeaderboardEntry
                         {
-                            levelName = levelName,
+                            LevelName = levelName,
                             Score = new LootLockerScoreData
                             {
                                 Rank = 0,
