@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using LootLocker.Requests;
 using UnityEngine;
 
@@ -32,9 +33,10 @@ public class LeaderboardsManager : MonoBehaviour
     /// </summary>
     /// <param name="seconds"></param>
     /// /// <param name="levelName">Paste here scene name</param>
-    public void SendHighScore(int seconds, string levelName)
+    /// <param name="skinsIds">Paste here skins ids</param>
+    public void SendHighScore(int seconds, string levelName, string skinsIds)
     {
-        StartCoroutine(SubmitScoreRoutine(seconds, levelName));
+        StartCoroutine(SubmitScoreRoutine(seconds, levelName, skinsIds));
     }
     
     /// <summary>
@@ -77,11 +79,11 @@ public class LeaderboardsManager : MonoBehaviour
         StartCoroutine(FetchLoggedUserHighScoreForFewLevelsRoutine(levelNames));
     }
    
-    private IEnumerator SubmitScoreRoutine(int scoreToUpload, string levelName)
+    private IEnumerator SubmitScoreRoutine(int scoreToUpload, string levelName, string skinsIds)
     {
         bool done = false;
         string playerId = _loginManager.PlayerId.ToString();
-        LootLockerSDKManager.SubmitScore(playerId, scoreToUpload, levelName, (response) =>
+        LootLockerSDKManager.SubmitScore(playerId, scoreToUpload, levelName, skinsIds, (response) =>
         {
             if (response.success)
             {
@@ -119,10 +121,7 @@ public class LeaderboardsManager : MonoBehaviour
                             Score = members[i].score,
                             UserName = members[i].player.name != "" ? members[i].player.name : members[i].player.public_uid
                         },
-                        SkinIds = new List<string>
-                        {
-                            "x"
-                        }
+                        SkinIds = members[i].metadata.Split(',').ToList()
                     });
                 }
 
@@ -161,7 +160,8 @@ public class LeaderboardsManager : MonoBehaviour
                                 Rank = members[i].rank,
                                 Score = members[i].score,
                                 UserName = members[i].player.name != "" ? members[i].player.name : members[i].player.public_uid
-                            }
+                            },
+                            SkinIds = members[i].metadata.Split(',').ToList()
                         });
                     }
                     responseFlags.MarkNextFlagAsReached();
@@ -200,7 +200,8 @@ public class LeaderboardsManager : MonoBehaviour
                             Rank = members[0].rank,
                             Score = members[0].score,
                             UserName = members[0].player.name != "" ? members[0].player.name : members[0].player.public_uid
-                        }
+                        },
+                        SkinIds = members[0].metadata.Split(',').ToList()
                     };
 
                 }
@@ -253,7 +254,8 @@ public class LeaderboardsManager : MonoBehaviour
                                 Rank = members[0].rank,
                                 Score = members[0].score,
                                 UserName = members[0].player.name != "" ? members[0].player.name : members[0].player.public_uid
-                            }
+                            },
+                            SkinIds = members[0].metadata.Split(',').ToList()
                         });
                     }
                     else
