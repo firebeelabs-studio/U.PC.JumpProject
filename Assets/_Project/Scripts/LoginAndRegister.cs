@@ -39,7 +39,7 @@ public class LoginAndRegister : MonoBehaviour
         });
         _submitButtonRegistration.onClick.AddListener(() =>
         {
-            _loginManager.Register(_nicknameInputFieldRegistration.text, _passwordFieldRegistration.text);
+            _loginManager.Register(_emailInputFieldRegistration.text, _passwordFieldRegistration.text, _nicknameInputFieldRegistration.text);
         });
         _emailInputFieldLogin.onValueChanged.AddListener(value => VerifyInputs(_submitButtonLogin,_emailInputFieldLogin, _passwordInputFieldLogin));
         _emailInputFieldLogin.onSelect.AddListener(value => _fieldsIndex = 0);
