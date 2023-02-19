@@ -13,7 +13,8 @@ namespace FishNet.Component.Animating.Editing
     public class NetworkAnimatorEditor : Editor
     {
         private SerializedProperty _animator;
-        private SerializedProperty _synchronizeInterval;
+        private SerializedProperty _interpolation;
+        //private SerializedProperty _synchronizeInterval;
         private SerializedProperty _smoothFloats;
         private SerializedProperty _clientAuthoritative;
         private SerializedProperty _sendToOwner;
@@ -23,8 +24,8 @@ namespace FishNet.Component.Animating.Editing
         protected virtual void OnEnable()
         {
             _animator = serializedObject.FindProperty("_animator");
-
-            _synchronizeInterval = serializedObject.FindProperty("_synchronizeInterval");
+            _interpolation = serializedObject.FindProperty("_interpolation");
+            //_synchronizeInterval = serializedObject.FindProperty("_synchronizeInterval");
             _smoothFloats = serializedObject.FindProperty("_smoothFloats");
 
             _clientAuthoritative = serializedObject.FindProperty("_clientAuthoritative");
@@ -40,7 +41,11 @@ namespace FishNet.Component.Animating.Editing
             EditorGUILayout.ObjectField("Script:", MonoScript.FromMonoBehaviour(na), typeof(NetworkAnimator), false);
             GUI.enabled = true;
 
-            
+            //PROSTART
+            if (1 == 1)
+                EditorGUILayout.HelpBox(EditingConstants.PRO_ASSETS_UNLOCKED_TEXT, MessageType.None);
+            else
+                //PROEND
 #pragma warning disable CS0162 // Unreachable code detected
                 EditorGUILayout.HelpBox(EditingConstants.PRO_ASSETS_LOCKED_TEXT, MessageType.Warning);
 #pragma warning restore CS0162 // Unreachable code detected
@@ -55,7 +60,8 @@ namespace FishNet.Component.Animating.Editing
             //Synchronization Processing.
             EditorGUILayout.LabelField("Synchronization Processing", EditorStyles.boldLabel);
             EditorGUI.indentLevel++;
-            EditorGUILayout.PropertyField(_synchronizeInterval, new GUIContent("Synchronize Interval", "How often to synchronize this animator."));
+            EditorGUILayout.PropertyField(_interpolation);
+            //EditorGUILayout.PropertyField(_synchronizeInterval, new GUIContent("Synchronize Interval", "How often to synchronize this animator."));
             EditorGUILayout.PropertyField(_smoothFloats, new GUIContent("Smooth Floats", "True to smooth floats on spectators rather than snap to their values immediately. Commonly set to true for smooth blend tree animations."));
             EditorGUI.indentLevel--;
             EditorGUILayout.Space();
@@ -82,6 +88,7 @@ namespace FishNet.Component.Animating.Editing
         private void DrawParameters(NetworkAnimator na)
         {
             EditorGUILayout.LabelField("* Synchronized Parameters", EditorStyles.boldLabel);
+            EditorGUILayout.HelpBox("This setting allows you to optionally completely prevent the synchronization of certain parameters. Both Fish-Networking free and Pro will only synchronize changes as they occur.", MessageType.Info);
 
             if (Application.isPlaying)
             {

@@ -7,12 +7,12 @@ using UnityEngine;
 public class AnimatorNetworking : MonoBehaviour
 {
     private Animator _animator;
-    private PlayerMotor _player;
+    //private PlayerMotor _player;
 
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
-        _player = GetComponentInParent<PlayerMotor>();
+        //_player = GetComponentInParent<PlayerMotor>();
     }
 
     public void SetMoving(bool value)
