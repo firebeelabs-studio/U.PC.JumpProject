@@ -1,19 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using LootLocker.Requests;
 using UnityEngine;
 
-//TODO: Move it to serverside
-[RequireComponent(typeof(LoginManager))]
-public class LeaderboardsManager : MonoBehaviour
+public class LeaderBoardsServer : MonoBehaviour
 {
-    public event Action BestScoresForFewLevelsLoaded;
-    public event Action BestScoresForCertainLevelLoaded;
-    public event Action UserBestScoreOnCertainLevelLoaded;
-    public event Action UserBestScoresForFewLevelsLoaded;
-
     [field: SerializeField] public List<LeaderboardEntry> BestScoresForCertainLevel { get; private set; }
     [field: SerializeField] public List<LeaderboardEntry> BestScoresForFewLevels { get; private set; }
     [field: SerializeField] public LeaderboardEntry UserBestScoreForCertainLevel { get; private set; }
@@ -124,7 +116,7 @@ public class LeaderboardsManager : MonoBehaviour
                 }
 
                 BestScoresForCertainLevel = leaderboardEntries;
-                BestScoresForCertainLevelLoaded?.Invoke();
+                //BestScoresForCertainLevelLoaded?.Invoke();
                 done = true;
             }
             else
@@ -175,7 +167,7 @@ public class LeaderboardsManager : MonoBehaviour
         yield return new WaitWhile(() => !responseFlags.IsEverythingTrue());
 
         BestScoresForFewLevels = leaderboardEntries;
-        BestScoresForFewLevelsLoaded?.Invoke();
+        //BestScoresForFewLevelsLoaded?.Invoke();
     }
     
     private IEnumerator FetchLoggedUserHighScoreRoutine(string levelName)
@@ -217,7 +209,7 @@ public class LeaderboardsManager : MonoBehaviour
                     };
                 }
 
-                UserBestScoreOnCertainLevelLoaded?.Invoke();
+                //UserBestScoreOnCertainLevelLoaded?.Invoke();
                 done = true;
             }
             else
@@ -281,6 +273,6 @@ public class LeaderboardsManager : MonoBehaviour
         
         yield return new WaitWhile(() => !responseFlags.IsEverythingTrue());
         UserBestScoresForFewLevels = leaderboardEntries;     
-        UserBestScoresForFewLevelsLoaded?.Invoke();
+        //UserBestScoresForFewLevelsLoaded?.Invoke();
     }
 }
