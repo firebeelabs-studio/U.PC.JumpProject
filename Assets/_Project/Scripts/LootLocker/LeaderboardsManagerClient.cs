@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using FishNet.Connection;
 using FishNet.Object;
 using UnityEngine;
 
-public class LeaderBoardsManagerClient : NetworkBehaviour
+public class LeaderboardsManagerClient : NetworkBehaviour
 {
     public event Action BestScoresForFewLevelsLoaded;
     public event Action BestScoresForCertainLevelLoaded;
@@ -27,9 +28,16 @@ public class LeaderBoardsManagerClient : NetworkBehaviour
     /// <param name="seconds"></param>
     /// /// <param name="levelName">Paste here scene name</param>
     /// <param name="skinsIds">Paste here skins ids</param>
+    [ServerRpc]
     public void SendHighScore(int seconds, string levelName, string skinsIds)
     {
-        //StartCoroutine(SubmitScoreRoutine(seconds, levelName, skinsIds));
+        SendHighScoreToServer(base.Owner, seconds, levelName, skinsIds);
+    }
+
+    [Server]
+    private void SendHighScoreToServer(NetworkConnection conn, int seconds, string levelName, string skinsIds)
+    {
+        LeaderboardsManagerServer.Instance.SendHighScore(seconds, levelName, skinsIds);
     }
     
     /// <summary>
@@ -38,9 +46,16 @@ public class LeaderBoardsManagerClient : NetworkBehaviour
     /// <param name="count">How many users should download</param>
     /// <param name="afterPlace">After which place should download positions 0 -> starts from 1, 5 -> starts from 6</param>
     /// <param name="levelName">Paste here scene name</param>
+    [ServerRpc]
     public void GetScoresForCertainLevel(int count, int afterPlace, string levelName)
     {
-        //StartCoroutine(FetchScoresRoutine(count, afterPlace, levelName));
+        GetScoresForCertainLevelFromServer(base.Owner, count, afterPlace, levelName);
+    }
+    
+    [Server]
+    private void GetScoresForCertainLevelFromServer(NetworkConnection conn, int count, int afterPlace, string levelName)
+    {
+        LeaderboardsManagerServer.Instance.GetScoresForCertainLevel(count, afterPlace, levelName);
     }
     
     /// <summary>
@@ -49,26 +64,47 @@ public class LeaderBoardsManagerClient : NetworkBehaviour
     /// <param name="count">How many users should download</param>
     /// <param name="afterPlace">After which place should download positions 0 -> starts from 1, 5 -> starts from 6</param>
     /// <param name="levelNames">Paste here scene names</param>
+    [ServerRpc]
     public void GetScoresForFewLevels(int count, int afterPlace, List<string> levelNames)
     {
-        //StartCoroutine(FetchScoresForFewLevelsRoutine(count, afterPlace, levelNames));
+        GetScoresForFewLevelsFromServer(base.Owner, count, afterPlace, levelNames);
+    }
+    
+    [Server]
+    private void GetScoresForFewLevelsFromServer(NetworkConnection conn, int count, int afterPlace, List<string> levelNames)
+    {
+        LeaderboardsManagerServer.Instance.GetScoresForFewLevels(count, afterPlace, levelNames);
     }
     
     /// <summary>
     /// Populate UserBestScoreOnCertainLevel variable
     /// </summary>
     /// /// <param name="levelName">Paste here scene name</param>
+    [ServerRpc]
     public void GetLoggedUserBestScoreForCertainLevel(string levelName)
     {
-        //StartCoroutine(FetchLoggedUserHighScoreRoutine(levelName));
+        GetLoggedUserBestScoreForCertainLevelFromServer(base.Owner, levelName);
+    }
+    
+    [Server]
+    private void GetLoggedUserBestScoreForCertainLevelFromServer(NetworkConnection conn, string levelName)
+    {
+        LeaderboardsManagerServer.Instance.GetLoggedUserBestScoreForCertainLevel(levelName);
     }
     
     /// <summary>
     /// Populate UserBestScoresOnFewLevels variable
     /// </summary>
     /// /// <param name="levelNames">Paste here scenes name</param>
+    [ServerRpc]
     public void GetLoggedUserBestScoresForFewLevels(List<string> levelNames)
     {
-        //StartCoroutine(FetchLoggedUserHighScoreForFewLevelsRoutine(levelNames));
+        GetLoggedUserBestScoresForFewLevelsFromServer(base.Owner, levelNames);
+    }
+    
+    [Server]
+    private void GetLoggedUserBestScoresForFewLevelsFromServer(NetworkConnection conn, List<string> levelNames)
+    {
+        LeaderboardsManagerServer.Instance.GetLoggedUserBestScoresForFewLevels(levelNames);
     }
 }

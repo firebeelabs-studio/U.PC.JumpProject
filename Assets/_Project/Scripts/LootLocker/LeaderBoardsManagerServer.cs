@@ -4,19 +4,34 @@ using System.Linq;
 using LootLocker.Requests;
 using UnityEngine;
 
-public class LeaderBoardsServer : MonoBehaviour
+public class LeaderboardsManagerServer : MonoBehaviour
 {
     [field: SerializeField] public List<LeaderboardEntry> BestScoresForCertainLevel { get; private set; }
     [field: SerializeField] public List<LeaderboardEntry> BestScoresForFewLevels { get; private set; }
     [field: SerializeField] public LeaderboardEntry UserBestScoreForCertainLevel { get; private set; }
     [field: SerializeField] public List<LeaderboardEntry> UserBestScoresForFewLevels { get; private set; }
 
-    private LoginManager _loginManager;
-    
+    #region Singleton
+
+    private static LeaderboardsManagerServer _instance;
+    public static LeaderboardsManagerServer Instance { get { return _instance; } }
     private void Awake()
     {
         _loginManager = GetComponent<LoginManager>();
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } 
+        else 
+        {
+            _instance = this;
+        }
     }
+
+    #endregion
+    
+    private LoginManager _loginManager;
+
 
     /// <summary>
     /// Submits user score
