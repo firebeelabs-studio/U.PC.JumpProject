@@ -15,13 +15,15 @@ public class LeaderboardsManagerClient : NetworkBehaviour
     [field: SerializeField] public List<LeaderboardEntry> BestScoresForFewLevels { get; private set; }
     [field: SerializeField] public LeaderboardEntry UserBestScoreForCertainLevel { get; private set; }
     [field: SerializeField] public List<LeaderboardEntry> UserBestScoresForFewLevels { get; private set; }
-    
-    private LoginManager _loginManager;
-    private void Awake()
-    {
-        _loginManager = GetComponent<LoginManager>();
-    }
 
+
+
+    [ContextMenu("SendHighScore")]
+    public void Test()
+    {
+        SendHighScore(2, "ss", "x");
+    }
+    
     /// <summary>
     /// Submits user score
     /// </summary>
@@ -47,6 +49,7 @@ public class LeaderboardsManagerClient : NetworkBehaviour
     /// <param name="afterPlace">After which place should download positions 0 -> starts from 1, 5 -> starts from 6</param>
     /// <param name="levelName">Paste here scene name</param>
     [ServerRpc]
+    [ContextMenu("GetScoresForCertainLevel")]
     public void GetScoresForCertainLevel(int count, int afterPlace, string levelName)
     {
         GetScoresForCertainLevelFromServer(base.Owner, count, afterPlace, levelName);
@@ -65,6 +68,7 @@ public class LeaderboardsManagerClient : NetworkBehaviour
     /// <param name="afterPlace">After which place should download positions 0 -> starts from 1, 5 -> starts from 6</param>
     /// <param name="levelNames">Paste here scene names</param>
     [ServerRpc]
+    [ContextMenu("GetScoresForFewLevels")]
     public void GetScoresForFewLevels(int count, int afterPlace, List<string> levelNames)
     {
         GetScoresForFewLevelsFromServer(base.Owner, count, afterPlace, levelNames);
@@ -81,6 +85,7 @@ public class LeaderboardsManagerClient : NetworkBehaviour
     /// </summary>
     /// /// <param name="levelName">Paste here scene name</param>
     [ServerRpc]
+    [ContextMenu("GetLoggedUserBestScoreForCertainLevel")]
     public void GetLoggedUserBestScoreForCertainLevel(string levelName)
     {
         GetLoggedUserBestScoreForCertainLevelFromServer(base.Owner, levelName);
@@ -97,6 +102,7 @@ public class LeaderboardsManagerClient : NetworkBehaviour
     /// </summary>
     /// /// <param name="levelNames">Paste here scenes name</param>
     [ServerRpc]
+    [ContextMenu("GetLoggedUserBestScoresForFewLevels")]
     public void GetLoggedUserBestScoresForFewLevels(List<string> levelNames)
     {
         GetLoggedUserBestScoresForFewLevelsFromServer(base.Owner, levelNames);

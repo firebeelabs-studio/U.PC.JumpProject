@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using LootLocker.Requests;
 using UnityEngine;
 
+[RequireComponent(typeof(RestClient))]
 public class LeaderboardsManagerServer : MonoBehaviour
 {
     [field: SerializeField] public List<LeaderboardEntry> BestScoresForCertainLevel { get; private set; }
@@ -17,6 +19,7 @@ public class LeaderboardsManagerServer : MonoBehaviour
     public static LeaderboardsManagerServer Instance { get { return _instance; } }
     private void Awake()
     {
+        _restClient = GetComponent<RestClient>();
         _loginManager = GetComponent<LoginManager>();
         if (_instance != null && _instance != this)
         {
@@ -31,7 +34,15 @@ public class LeaderboardsManagerServer : MonoBehaviour
     #endregion
     
     private LoginManager _loginManager;
+    private RestClient _restClient;
 
+
+    private void Start()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("game_version", "1.0.0.0");
+        StartCoroutine(_restClient.SendPostRequest(Test, form));
+    }
 
     /// <summary>
     /// Submits user score
@@ -41,7 +52,13 @@ public class LeaderboardsManagerServer : MonoBehaviour
     /// <param name="skinsIds">Paste here skins ids</param>
     public void SendHighScore(int seconds, string levelName, string skinsIds)
     {
-        StartCoroutine(SubmitScoreRoutine(seconds, levelName, skinsIds));
+        StartCoroutine(_restClient.SendGetRequest(Test));
+        //StartCoroutine(SubmitScoreRoutine(seconds, levelName, skinsIds));
+    }
+
+    public void Test(string json)
+    {
+        print(json);
     }
     
     /// <summary>
@@ -52,7 +69,8 @@ public class LeaderboardsManagerServer : MonoBehaviour
     /// <param name="levelName">Paste here scene name</param>
     public void GetScoresForCertainLevel(int count, int afterPlace, string levelName)
     {
-        StartCoroutine(FetchScoresRoutine(count, afterPlace, levelName));
+        print("GetScoresForCertainLevel");
+        //StartCoroutine(FetchScoresRoutine(count, afterPlace, levelName));
     }
     
     /// <summary>
@@ -63,7 +81,9 @@ public class LeaderboardsManagerServer : MonoBehaviour
     /// <param name="levelNames">Paste here scene names</param>
     public void GetScoresForFewLevels(int count, int afterPlace, List<string> levelNames)
     {
-        StartCoroutine(FetchScoresForFewLevelsRoutine(count, afterPlace, levelNames));
+        print("GetScoresForFewLevels");
+
+        //StartCoroutine(FetchScoresForFewLevelsRoutine(count, afterPlace, levelNames));
     }
     
     /// <summary>
@@ -72,7 +92,8 @@ public class LeaderboardsManagerServer : MonoBehaviour
     /// /// <param name="levelName">Paste here scene name</param>
     public void GetLoggedUserBestScoreForCertainLevel(string levelName)
     {
-        StartCoroutine(FetchLoggedUserHighScoreRoutine(levelName));
+        print("GetLoggedUserBestScoreForCertainLevel");
+        //StartCoroutine(FetchLoggedUserHighScoreRoutine(levelName));
     }
     
     /// <summary>
@@ -81,7 +102,8 @@ public class LeaderboardsManagerServer : MonoBehaviour
     /// /// <param name="levelNames">Paste here scenes name</param>
     public void GetLoggedUserBestScoresForFewLevels(List<string> levelNames)
     {
-        StartCoroutine(FetchLoggedUserHighScoreForFewLevelsRoutine(levelNames));
+        print("GetLoggedUserBestScoresForFewLevels");
+        //StartCoroutine(FetchLoggedUserHighScoreForFewLevelsRoutine(levelNames));
     }
    
     private IEnumerator SubmitScoreRoutine(int scoreToUpload, string levelName, string skinsIds)
