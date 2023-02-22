@@ -338,7 +338,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7774006, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -385,6 +385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _zoomPoints: []
+  _pawn: {fileID: 0}
 --- !u!58 &1087629968822377235
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -415,6 +416,7 @@ GameObject:
   - component: {fileID: 596491815}
   - component: {fileID: 596491816}
   - component: {fileID: 2855044218933314472}
+  - component: {fileID: 3261745898596550884}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -556,6 +558,19 @@ MonoBehaviour:
   _greenSwampie: {fileID: 3836054527727189976, guid: b3cf37b477cc32340b68353df5dc7e00, type: 3}
   _turquoiseSwampie: {fileID: 3836054527727189976, guid: c2a5e5aa3efef004e8bee79cc18ad231, type: 3}
   _purpleSwampie: {fileID: 3836054527727189976, guid: e258d00027dc208469aac403ec2ade46, type: 3}
+--- !u!114 &3261745898596550884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2535414284227618069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7003a5f492c55d4c9e84f810797472e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sprite: {fileID: 21300000, guid: c5bdc9489632eeb42a9d92f1d2246086, type: 3}
 --- !u!1001 &454901129
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class SwampieTypeReader : MonoBehaviour
     [SerializeField] private GameObject _turquoiseSwampie;
     [SerializeField] private GameObject _purpleSwampie;
     public static SwampieSkin.SwampieType SwampieType { get; private set; }
+    public static event Action<List<OutfitData>> SwampieInstantiated;
 
     private void Awake()
     {
@@ -54,5 +56,8 @@ public class SwampieTypeReader : MonoBehaviour
     {
         var obj = Instantiate(swampieToSpawn, transform);
         obj.transform.position = transform.position;
+        if (!SkinsHolder.Instance) return;
+        
+        SwampieInstantiated?.Invoke(SkinsHolder.Instance.Skins);
     }
 }
