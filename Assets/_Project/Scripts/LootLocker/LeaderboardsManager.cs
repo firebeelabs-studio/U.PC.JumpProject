@@ -11,13 +11,11 @@ public class LeaderboardsManager : MonoBehaviour
 {
     public event Action BestScoresForFewLevelsLoaded;
     public event Action BestScoresForCertainLevelLoaded;
-    
     public event Action UserBestScoreOnCertainLevelLoaded;
     public event Action UserBestScoresForFewLevelsLoaded;
 
     [field: SerializeField] public List<LeaderboardEntry> BestScoresForCertainLevel { get; private set; }
     [field: SerializeField] public List<LeaderboardEntry> BestScoresForFewLevels { get; private set; }
-    
     [field: SerializeField] public LeaderboardEntry UserBestScoreForCertainLevel { get; private set; }
     [field: SerializeField] public List<LeaderboardEntry> UserBestScoresForFewLevels { get; private set; }
 
