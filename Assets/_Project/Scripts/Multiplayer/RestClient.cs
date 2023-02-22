@@ -7,12 +7,15 @@ using UnityEngine.Networking;
 public class RestClient : MonoBehaviour
 {
     //private const string URL = "https://api.lootlocker.io/server/leaderboards/Jungle1/list?count=10&after=0";
-    private const string URL = "https://api.lootlocker.io/server/session";
+    private const string URL = "https://cqk1q9qr.api.lootlocker.io/server/session";
     
     public IEnumerator SendPostRequest(Action<string> finishDelegate, WWWForm form)
     {
-        using (UnityWebRequest www = UnityWebRequest.Post($"{URL}", form))
+        byte[] body = System.Text.Encoding.UTF8.GetBytes("{ \"game_version\": \"1.0.0.0\"");
+
+        using (UnityWebRequest www = UnityWebRequest.Put($"{URL}", body))
         {
+            www.method = UnityWebRequest.kHttpVerbPOST;
             www.SetRequestHeader("LL-Version", "2021-03-01");
             www.SetRequestHeader("x-server-key", "dev_e492e96b25414f1aa0a15abc9a07ab3f");
             www.SetRequestHeader("Content-Type", "application/json");
