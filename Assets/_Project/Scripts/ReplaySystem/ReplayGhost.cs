@@ -10,7 +10,7 @@ public class ReplayGhost : MonoBehaviour
     [SerializeField] private SpriteRenderer _eyes;
     [SerializeField] private SpriteRenderer _mouth;
     [SerializeField] private SpriteRenderer _jacket;
-    public void SetDataForFrame(ReplayData data)
+    public void InitializeVisuals(ReplayData data)
     {
         if (!string.IsNullOrEmpty(data.BodyId))
         {
@@ -25,7 +25,11 @@ public class ReplayGhost : MonoBehaviour
             _jacket.sprite = SkinsHolder.Instance.Skins.FirstOrDefault(outfitData =>
                 outfitData.skinType == SwampieSkin.SkinType.Jacket && outfitData.Id == data.JacketId)?.SkinSprite;
         }
-        transform.position = data.Position;
-        transform.localScale = data.Scale;
+    }
+
+    public void SetDataForFrame(ReplayStep stepData)
+    {
+        transform.position = stepData.Position;
+        transform.localScale = stepData.Scale;
     }
 }

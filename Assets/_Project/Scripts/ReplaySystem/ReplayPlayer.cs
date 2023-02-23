@@ -6,7 +6,8 @@ using UnityEngine;
 public class ReplayPlayer : MonoBehaviour
 {
     [SerializeField] private GameObject _replayGhostPrefab;
-    public static Queue<ReplayData> RecordedQueue;
+    public static Queue<ReplayStep> RecordedQueue;
+    public static ReplayData ReplayData;
     private bool _isDoingReplay = false;
     private Replay _replay;
 

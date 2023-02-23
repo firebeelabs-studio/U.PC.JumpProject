@@ -1,14 +1,21 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using FishNet.Managing.Scened;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using SceneManager = UnityEngine.SceneManagement.SceneManager;
 
 public class ReplayRecorder : MonoBehaviour
 {
-    [SerializeField] private Sprite _sprite;
-    private Queue<ReplayData> _recordingQueue = new();
+    [SerializeField] private string _levelName;
+    [SerializeField] private string _hash;
+    private Queue<ReplayStep> _recordingQueue = new();
     private bool _isRecording = false;
+
+    private void Start()
+    {
+        _levelName = SceneManager.GetActiveScene().name;
+    }
 
     private void OnEnable()
     {
@@ -27,11 +34,11 @@ public class ReplayRecorder : MonoBehaviour
     {
         if (!_isRecording) return;
         
-        ReplayData data = new(transform.position, transform.localScale);
+        ReplayStep data = new(transform.position, transform.localScale);
         RecordReplayFrame(data);
     }
     
-    private void RecordReplayFrame(ReplayData data)
+    private void RecordReplayFrame(ReplayStep data)
     {
         _recordingQueue.Enqueue(data);
     }
@@ -44,7 +51,7 @@ public class ReplayRecorder : MonoBehaviour
     private void StopRecording()
     {
         _isRecording = false;
-        ReplayPlayer.RecordedQueue = new Queue<ReplayData>(_recordingQueue);
+        ReplayPlayer.RecordedQueue = new Queue<ReplayStep>(_recordingQueue);
     }
 
     private void On_SwampieInstantiated(List<OutfitData> outfitData)
@@ -54,7 +61,7 @@ public class ReplayRecorder : MonoBehaviour
         string eyesId = outfitData.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Eyes)?.Id;
         string mouthId = outfitData.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Mouth)?.Id;
         string jacketId = outfitData.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Jacket)?.Id;
-        ReplayData data = new(transform.position, transform.localScale, bodyId, hatId, eyesId, mouthId, jacketId);
-        RecordReplayFrame(data);
+        ReplayData data = new( _levelName,_hash, bodyId, hatId, eyesId, mouthId, jacketId);
+        ReplayPlayer.ReplayData = data;
     }
 }

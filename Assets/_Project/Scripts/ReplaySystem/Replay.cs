@@ -5,18 +5,18 @@ using UnityEngine;
 public class Replay
 {
     public ReplayGhost ReplayGhost { get; private set; }
-    private Queue<ReplayData> _originalQueue;
-    private Queue<ReplayData> _replayQueue;
+    private Queue<ReplayStep> _originalQueue;
+    private Queue<ReplayStep> _replayQueue;
 
-    public Replay(Queue<ReplayData> recordingQueue)
+    public Replay(Queue<ReplayStep> recordingQueue)
     {
-        _originalQueue = new Queue<ReplayData>(recordingQueue);
-        _replayQueue = new Queue<ReplayData>(recordingQueue);
+        _originalQueue = new Queue<ReplayStep>(recordingQueue);
+        _replayQueue = new Queue<ReplayStep>(recordingQueue);
     }
 
     public void RestartFromBeginning()
     {
-        _replayQueue = new Queue<ReplayData>(_originalQueue);
+        _replayQueue = new Queue<ReplayStep>(_originalQueue);
     }
 
     public bool PlayNextFrame()
@@ -24,7 +24,7 @@ public class Replay
         bool hasMoreFrames = false;
         if (ReplayGhost != null && _replayQueue.Count != 0)
         {
-            ReplayData data = _replayQueue.Dequeue();
+            ReplayStep data = _replayQueue.Dequeue();
             ReplayGhost.SetDataForFrame(data);
             hasMoreFrames = true;
         }
@@ -36,7 +36,7 @@ public class Replay
     {
         if (_replayQueue.Count != 0)
         {
-            ReplayData startingData = _replayQueue.Peek();
+            ReplayStep startingData = _replayQueue.Peek();
             ReplayGhost = Object.Instantiate(ghostPrefab, startingData.Position, Quaternion.identity)
                 .GetComponent<ReplayGhost>();
         }
