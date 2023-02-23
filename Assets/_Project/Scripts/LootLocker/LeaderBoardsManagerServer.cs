@@ -5,10 +5,10 @@ using System.Linq;
 using LootLocker.Requests;
 using UnityEngine;
 
-[RequireComponent(typeof(RestClient))]
+[RequireComponent(typeof(RestClient), typeof(LLServerManager))]
 public class LeaderboardsManagerServer : MonoBehaviour
 {
-    [field: SerializeField] public List<LeaderboardEntry> BestScoresForCertainLevel { get; private set; }
+    [field: SerializeField] public List<LeaderboardEntry> BestScoresForCertainLevel { get; private set; } = new();
     [field: SerializeField] public List<LeaderboardEntry> BestScoresForFewLevels { get; private set; }
     [field: SerializeField] public LeaderboardEntry UserBestScoreForCertainLevel { get; private set; }
     [field: SerializeField] public List<LeaderboardEntry> UserBestScoresForFewLevels { get; private set; }
@@ -19,8 +19,6 @@ public class LeaderboardsManagerServer : MonoBehaviour
     public static LeaderboardsManagerServer Instance { get { return _instance; } }
     private void Awake()
     {
-        _restClient = GetComponent<RestClient>();
-        _loginManager = GetComponent<LoginManager>();
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
@@ -29,31 +27,41 @@ public class LeaderboardsManagerServer : MonoBehaviour
         {
             _instance = this;
         }
+        _restClient = GetComponent<RestClient>();
+        _loginManager = GetComponent<LoginManager>();
+        _serverManager = GetComponent<LLServerManager>();
     }
 
     #endregion
     
     private LoginManager _loginManager;
     private RestClient _restClient;
+    private LLServerManager _serverManager;
+    
 
-
-    private void Start()
+    [ContextMenu("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")]
+    public void TESTY()
     {
-        WWWForm form = new WWWForm();
-        form.AddField("game_version", "1.0.0.0");
-        StartCoroutine(_restClient.SendPostRequest(Test, form));
+        GetScoresForCertainLevel(2000,0,"Jungle5");
+        //SendHighScore(1, "Jungle1", "s", 3431948);
     }
 
     /// <summary>
     /// Submits user score
     /// </summary>
     /// <param name="seconds"></param>
-    /// /// <param name="levelName">Paste here scene name</param>
+    /// <param name="levelName">Paste here scene name</param>
     /// <param name="skinsIds">Paste here skins ids</param>
-    public void SendHighScore(int seconds, string levelName, string skinsIds)
+    public void SendHighScore(int seconds, string levelName, string skinsIds, int memberId)
     {
-        StartCoroutine(_restClient.SendGetRequest(Test));
-        //StartCoroutine(SubmitScoreRoutine(seconds, levelName, skinsIds));
+        string lastPartUrl = $"server/leaderboards/{levelName}/submit";
+        byte[] s = System.Text.Encoding.UTF8.GetBytes($@"{{""member_id"":""{memberId}"",""score"":{seconds},""metadata"":""{skinsIds}""}}");
+        StartCoroutine(_restClient.SendPostRequest(Testaa, lastPartUrl,s, _serverManager.Token));
+        
+        if (BestScoresForCertainLevel.Count(p => p.Score.Score < seconds) < 25)
+        {
+            GetScoresForCertainLevel(2000,0,levelName);
+        }
     }
 
     public void Test(string json)
@@ -69,8 +77,8 @@ public class LeaderboardsManagerServer : MonoBehaviour
     /// <param name="levelName">Paste here scene name</param>
     public void GetScoresForCertainLevel(int count, int afterPlace, string levelName)
     {
-        print("GetScoresForCertainLevel");
-        //StartCoroutine(FetchScoresRoutine(count, afterPlace, levelName));
+        string lastPartUrl = $"server/leaderboards/{levelName}/list?count={count}&after={afterPlace}";
+        StartCoroutine(_restClient.SendGetRequest(Testaa, lastPartUrl, _serverManager.Token));
     }
     
     /// <summary>
@@ -105,27 +113,35 @@ public class LeaderboardsManagerServer : MonoBehaviour
         print("GetLoggedUserBestScoresForFewLevels");
         //StartCoroutine(FetchLoggedUserHighScoreForFewLevelsRoutine(levelNames));
     }
-   
-    private IEnumerator SubmitScoreRoutine(int scoreToUpload, string levelName, string skinsIds)
+
+    private void Testaa(string json)
     {
-        bool done = false;
-        string playerId = _loginManager.PlayerId.ToString();
-        LootLockerSDKManager.SubmitScore(playerId, scoreToUpload, levelName, skinsIds, (response) =>
-        {
-            if (response.success)
-            {
-                Debug.Log("successfully uploaded score");
-                done = true;
-                //TODO: update leaderboards
-            }
-            else
-            {
-                Debug.Log("Failed" + response.Error);
-                done = true;
-            }
-        });
-        yield return new WaitWhile(() => done == false);
+        print(json);
     }
+   
+    // private IEnumerator SubmitScoreRoutine(int scoreToUpload, string levelName, string skinsIds)
+    // {
+    //     string lastPartUrl = $"/server/leaderboards/<{levelName}>/submit";
+    //     byte[] s = System.Text.Encoding.UTF8.GetBytes("{\"member_id\": \"3431948\", \"score\": 12, \"metadata\": \"test\"}");
+    //     StartCoroutine(_restClient.SendPostRequest(Testaa, lastPartUrl,s));
+    //     // bool done = false;
+    //     // string playerId = _loginManager.PlayerId.ToString();
+    //     // LootLockerSDKManager.SubmitScore(playerId, scoreToUpload, levelName, skinsIds, (response) =>
+    //     // {
+    //     //     if (response.success)
+    //     //     {
+    //     //         Debug.Log("successfully uploaded score");
+    //     //         done = true;
+    //     //         //TODO: update leaderboards
+    //     //     }
+    //     //     else
+    //     //     {
+    //     //         Debug.Log("Failed" + response.Error);
+    //     //         done = true;
+    //     //     }
+    //     // });
+    //     // yield return new WaitWhile(() => done == false);
+    // }
 
     private IEnumerator FetchScoresRoutine(int count, int afterPlace, string levelName)
     {

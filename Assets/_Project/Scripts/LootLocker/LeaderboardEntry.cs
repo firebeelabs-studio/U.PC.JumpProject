@@ -8,4 +8,5 @@ public class LeaderboardEntry
     public LootLockerScoreData Score;
     public string LevelName;
     public List<string> SkinIds;
+    public int UserId;
 }

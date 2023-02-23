@@ -39,7 +39,7 @@ public class LeaderboardsManagerClient : NetworkBehaviour
     [Server]
     private void SendHighScoreToServer(NetworkConnection conn, int seconds, string levelName, string skinsIds)
     {
-        LeaderboardsManagerServer.Instance.SendHighScore(seconds, levelName, skinsIds);
+        //LeaderboardsManagerServer.Instance.SendHighScore(seconds, levelName, skinsIds);
     }
     
     /// <summary>
