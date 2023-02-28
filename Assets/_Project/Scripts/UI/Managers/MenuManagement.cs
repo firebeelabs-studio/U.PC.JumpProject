@@ -34,11 +34,11 @@ public class MenuManagement : MonoBehaviour
     [SerializeField] private GameObject _levelPanel;
     [SerializeField] private TMP_Text _levelNameText;
     [SerializeField] private Image _levelBg;
-    [SerializeField] private TMP_Text _yourScoreText;
     [SerializeField] private GameObject _closeLevelPanelButton;
     [SerializeField] private LevelsInfoHolder _levelsInfoHolder;
     [SerializeField] private Button _leftArrow;
     [SerializeField] private Button _rightArrow;
+    [SerializeField] private TopLeaderboardsPresenter _topLeaderboardsPresenter;
     private int _currentLevelIndex = 0;
     [Space(10)]
     [Header("SETTINGS MENU")]
@@ -194,7 +194,7 @@ public class MenuManagement : MonoBehaviour
         //load scores
         //load stars info
         _levelBg.sprite = _levelsInfoHolder.LevelsInfo[levelIndex].LevelImage;
-        SetLevelToLoad(_levelsInfoHolder.LevelsInfo[levelIndex].SceneName);
+        SetLevelToLoad(_levelsInfoHolder.LevelsInfo[levelIndex].LevelName);
     }
     public void CloseLevelPanel()
     {
@@ -203,6 +203,8 @@ public class MenuManagement : MonoBehaviour
     public void SetLevelToLoad(string levelName)
     {
         _levelNameToLoad = levelName;
+        //_topLeaderboardsPresenter.DownloadTop3Places(levelName);
+        _topLeaderboardsPresenter.On_BestScoresForCertainLevelLoaded();
     }
     private void OpenPanel(GameObject panel, GameObject anotherPanel = null)
     {
