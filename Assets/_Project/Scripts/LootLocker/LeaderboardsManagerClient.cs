@@ -10,7 +10,8 @@ public class LeaderboardsManagerClient : NetworkBehaviour
     public event Action BestScoresForCertainLevelLoaded;
     public event Action UserBestScoreOnCertainLevelLoaded;
     public event Action UserBestScoresForFewLevelsLoaded;
-    
+
+    public Dictionary<string, LootLockerResponseData> Scores;
     [field: SerializeField] public List<LeaderboardEntry> BestScoresForCertainLevel { get; private set; }
     [field: SerializeField] public List<LeaderboardEntry> BestScoresForFewLevels { get; private set; }
     [field: SerializeField] public LeaderboardEntry UserBestScoreForCertainLevel { get; private set; }
@@ -50,15 +51,15 @@ public class LeaderboardsManagerClient : NetworkBehaviour
     /// <param name="levelName">Paste here scene name</param>
     [ServerRpc]
     [ContextMenu("GetScoresForCertainLevel")]
-    public void GetScoresForCertainLevel(int count, int afterPlace, string levelName)
+    public void GetScoresForCertainLevel(string levelName)
     {
-        GetScoresForCertainLevelFromServer(base.Owner, count, afterPlace, levelName);
+        GetScoresForCertainLevelFromServer(base.Owner, levelName);
     }
     
     [Server]
-    private void GetScoresForCertainLevelFromServer(NetworkConnection conn, int count, int afterPlace, string levelName)
+    private void GetScoresForCertainLevelFromServer(NetworkConnection conn, string levelName)
     {
-        LeaderboardsManagerServer.Instance.GetScoresForCertainLevel(count, afterPlace, levelName);
+        LeaderboardsManagerServer.Instance.SendScoreToUser(conn, levelName);
     }
     
     /// <summary>
@@ -94,7 +95,7 @@ public class LeaderboardsManagerClient : NetworkBehaviour
     [Server]
     private void GetLoggedUserBestScoreForCertainLevelFromServer(NetworkConnection conn, string levelName)
     {
-        LeaderboardsManagerServer.Instance.GetLoggedUserBestScoreForCertainLevel(levelName);
+        //LeaderboardsManagerServer.Instance.GetLoggedUserBestScoreForCertainLevel(levelName);
     }
     
     /// <summary>
@@ -111,6 +112,6 @@ public class LeaderboardsManagerClient : NetworkBehaviour
     [Server]
     private void GetLoggedUserBestScoresForFewLevelsFromServer(NetworkConnection conn, List<string> levelNames)
     {
-        LeaderboardsManagerServer.Instance.GetLoggedUserBestScoresForFewLevels(levelNames);
+        //LeaderboardsManagerServer.Instance.GetLoggedUserBestScoresForFewLevels(levelNames);
     }
 }

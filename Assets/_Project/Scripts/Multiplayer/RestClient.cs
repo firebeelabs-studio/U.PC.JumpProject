@@ -28,13 +28,13 @@ public class RestClient : MonoBehaviour
             finishDelegate(www.downloadHandler.text);
         }
     }
-    public IEnumerator SendGetRequest(Action<string> finishDelegate,string lastPartUrl, string token)
+    public IEnumerator SendGetRequest(Action<string, string> finishDelegate,string lastPartUrl, string token, string levelName)
     {
         using (UnityWebRequest www = UnityWebRequest.Get($"{URL}{lastPartUrl}"))
         {
             www.SetRequestHeader("x-auth-token", token);
             yield return www.SendWebRequest();
-            finishDelegate(www.downloadHandler.text);
+            finishDelegate(www.downloadHandler.text, levelName);
         }
     }
     private void ReturnResponse(NetworkConnection conn, Action<NetworkConnection, string> finishDelegate, UnityWebRequest www)

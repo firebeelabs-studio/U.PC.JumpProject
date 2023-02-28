@@ -264,9 +264,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2058573767}
-  - component: {fileID: 2058573766}
   - component: {fileID: 2058573768}
   - component: {fileID: 2058573769}
+  - component: {fileID: 2058573770}
   m_Layer: 0
   m_Name: LeaderboardsManagerServer
   m_TagString: Untagged
@@ -274,29 +274,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2058573766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2058573765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc1cb038492b95e40b006be4985fa283, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <BestScoresForCertainLevel>k__BackingField: []
-  <BestScoresForFewLevels>k__BackingField: []
-  <UserBestScoreForCertainLevel>k__BackingField:
-    Score:
-      UserName: 
-      Score: 0
-      Rank: 0
-    LevelName: 
-    SkinIds: []
-    UserId: 0
-  <UserBestScoresForFewLevels>k__BackingField: []
 --- !u!4 &2058573767
 Transform:
   m_ObjectHideFlags: 0
@@ -337,3 +314,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Token: 
+--- !u!114 &2058573770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058573765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc1cb038492b95e40b006be4985fa283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
