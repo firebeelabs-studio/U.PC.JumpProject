@@ -8,8 +8,6 @@ using UnityEngine;
 public class LootLockerResponseData
 {
     public string LevelName;
-    [JsonProperty("pagination")]
-    public Pagination Pagination;
     [JsonProperty("items")]
     public List<LeaderboardEntry> Entries;
 }

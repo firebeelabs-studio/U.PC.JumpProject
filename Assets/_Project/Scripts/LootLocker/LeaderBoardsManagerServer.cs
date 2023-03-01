@@ -16,6 +16,7 @@ public class LeaderboardsManagerServer : MonoBehaviour
     private ConcurrentDictionary<string, LootLockerResponseData> Scores = new();
     private RestClient _restClient;
     private LLServerManager _serverManager;
+    public LeaderboardsManagerClient ManagerClient;
     
     #region Singleton
 
@@ -43,6 +44,11 @@ public class LeaderboardsManagerServer : MonoBehaviour
         yield return new WaitForSecondsRealtime(300);
     }
 
+    [ContextMenu("XXXXXXXXXXXXXXXXXXX")]
+    public void xxx()
+    {
+        GetLeaderboards();
+    }
     private void GetLeaderboards()
     {
         GetScoresForCertainLevel(2000,0,"Jungle5");
@@ -109,9 +115,9 @@ public class LeaderboardsManagerServer : MonoBehaviour
         }
     }
 
-    public void SendScoreToUser(NetworkConnection conn, string levelName)
+    public void SendScoreToUser(NetworkConnection conn, Action<string, LootLockerResponseData> finishDelegate, string levelName)
     {
-        
+        finishDelegate.Invoke(levelName, Scores[levelName]);
     }
     
     private void SendScoreResponse(string json)
