@@ -4,10 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using FishNet.Connection;
-using LootLocker.Requests;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using UnityEditor.ShaderGraph.Serialization;
 using UnityEngine;
 
 [RequireComponent(typeof(RestClient), typeof(LLServerManager))]
