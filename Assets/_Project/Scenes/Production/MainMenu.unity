@@ -1139,7 +1139,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -20.574076
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -2707,7 +2707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _skinType: 3
-  _defaultSkin: {fileID: 11400000, guid: 76d3cc484586ef54bb5d39dab6e06e19, type: 2}
+  _defaultSkin: {fileID: 11400000, guid: f025d77899e239b4cb540e0a85fb295f, type: 2}
   _isInMenu: 1
   _createBones: 1
   _boneCreator: {fileID: 107963187}
@@ -2794,7 +2794,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 928de2e2ca776444ba50ba528242ab96, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4282,7 +4282,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 614455599a67d3945a3dcc9fd09dfaa0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -9379,6 +9379,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab2863e1b3bbf234f8b97081b647aa12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Skins>k__BackingField: []
+  <LastUsedSkins>k__BackingField: []
 --- !u!4 &353147661
 Transform:
   m_ObjectHideFlags: 0
@@ -11622,9 +11624,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 2
+    m_Left: 5
     m_Right: 0
-    m_Top: 4
+    m_Top: 10
     m_Bottom: 0
   m_ChildAlignment: 1
   m_Spacing: 5
@@ -12226,7 +12228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9113195544074430474, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
       propertyPath: m_Name
-      value: PlayerLeaderboardRowTemplate
+      value: PlayerLeaderboardRowTemplate2
       objectReference: {fileID: 0}
     - target: {fileID: 9113195544074430475, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
       propertyPath: m_Pivot.x
@@ -15040,7 +15042,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9113195544074430474, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
       propertyPath: m_Name
-      value: PlayerLeaderboardRowTemplate (1)
+      value: PlayerLeaderboardRowTemplateYourScore
       objectReference: {fileID: 0}
     - target: {fileID: 9113195544074430475, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
       propertyPath: m_Pivot.x
@@ -20443,7 +20445,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 853292af7f6cccc40a92df6324888a07, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -20631,8 +20633,8 @@ MonoBehaviour:
   m_VerticalScrollbar: {fileID: 0}
   m_HorizontalScrollbarVisibility: 2
   m_VerticalScrollbarVisibility: 2
-  m_HorizontalScrollbarSpacing: -0.79189533
-  m_VerticalScrollbarSpacing: -0.79189533
+  m_HorizontalScrollbarSpacing: -1.9244983
+  m_VerticalScrollbarSpacing: -1.9244983
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -24484,7 +24486,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -20.574076
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -24937,7 +24939,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 9a27e6c8a644e17459b4be8660449d27, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -31057,7 +31059,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -20.574076
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -38056,7 +38058,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9113195544074430474, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
       propertyPath: m_Name
-      value: PlayerLeaderboardRowTemplate
+      value: PlayerLeaderboardRowTemplate3
       objectReference: {fileID: 0}
     - target: {fileID: 9113195544074430475, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
       propertyPath: m_Pivot.x
@@ -43729,7 +43731,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -20.574076
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -48791,7 +48793,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -20.574076
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -53876,7 +53878,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -20.574076
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -54138,7 +54140,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 928de2e2ca776444ba50ba528242ab96, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -61878,7 +61880,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1743548230}
   - component: {fileID: 1743548231}
-  - component: {fileID: 1743548232}
   - component: {fileID: 1743548233}
   m_Layer: 5
   m_Name: LeaderBoard
@@ -61918,22 +61919,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1743548229}
   m_CullTransparentMesh: 1
---- !u!114 &1743548232
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1743548229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8868218ff7d1c7e45aadbdadf9978199, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _firstPlace: {fileID: 2128908918}
-  _secondPlace: {fileID: 444876616}
-  _thirdPlace: {fileID: 1110862522}
-  _yourPlace: {fileID: 547389432}
 --- !u!114 &1743548233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62533,7 +62518,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -20.574076
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -63645,7 +63630,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 928de2e2ca776444ba50ba528242ab96, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -64377,7 +64362,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 40b3d2893d3fd894388890b52a6445f5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -78366,6 +78351,7 @@ GameObject:
   - component: {fileID: 2132787339}
   - component: {fileID: 2132787341}
   - component: {fileID: 2132787342}
+  - component: {fileID: 2132787346}
   - component: {fileID: 2132787344}
   - component: {fileID: 2132787343}
   - component: {fileID: 2132787345}
@@ -78691,11 +78677,11 @@ MonoBehaviour:
   _levelPanel: {fileID: 501152927}
   _levelNameText: {fileID: 943363194}
   _levelBg: {fileID: 783034725}
-  _yourScoreText: {fileID: 0}
   _closeLevelPanelButton: {fileID: 1348034836}
   _levelsInfoHolder: {fileID: 2076561028}
   _leftArrow: {fileID: 309982134}
   _rightArrow: {fileID: 1611685375}
+  _topLeaderboardsPresenter: {fileID: 2132787346}
   _audioSource: {fileID: 0}
   _dropdown: {fileID: 0}
 --- !u!114 &2132787342
@@ -78836,6 +78822,24 @@ MonoBehaviour:
   _children:
   - {fileID: 775247103}
   - {fileID: 702255043}
+--- !u!114 &2132787346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132787333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8868218ff7d1c7e45aadbdadf9978199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _leaderboardsManagerClient: {fileID: 0}
+  _scoreRows:
+  - {fileID: 2128908918}
+  - {fileID: 444876616}
+  - {fileID: 1110862522}
+  _yourScoreRow: {fileID: 547389432}
 --- !u!1 &2133378876
 GameObject:
   m_ObjectHideFlags: 0
@@ -79220,7 +79224,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 3.4718747
+  m_Spacing: 8.4375
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -79933,7 +79937,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9113195544074430474, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
       propertyPath: m_Name
-      value: PlayerLeaderboardRowTemplate
+      value: PlayerLeaderboardRowTemplate1
       objectReference: {fileID: 0}
     - target: {fileID: 9113195544074430475, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
       propertyPath: m_Pivot.x

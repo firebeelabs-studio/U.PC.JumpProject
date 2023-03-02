@@ -7,12 +7,13 @@ using UnityEngine.SceneManagement;
 public class LoginManager : MonoBehaviour
 {
     public int PlayerId;
+    public string Nick;
     
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
         //if player marked
-        StartCoroutine(CheckPlayerSession());
+        CheckPlayerSession();
     }
 
     public void Login(string email, string password, bool rememberMe)
@@ -20,12 +21,16 @@ public class LoginManager : MonoBehaviour
         StartCoroutine(LoginRoutine(email, password, rememberMe));
     }
 
-    public void Register(string email, string password)
+    public void Register(string email, string password, string playerName)
     {
-        StartCoroutine(RegisterRoutine(email, password));
+        StartCoroutine(RegisterRoutine(email, password, playerName));
     }
 
-    private IEnumerator CheckPlayerSession()
+    public void CheckPlayerSession()
+    {
+        StartCoroutine(CheckPlayerSessionRoutine());
+    }
+    private IEnumerator CheckPlayerSessionRoutine()
     {
         bool done = false;
         LootLockerSDKManager.CheckWhiteLabelSession(response =>
@@ -60,15 +65,55 @@ public class LoginManager : MonoBehaviour
         yield return new WaitWhile(() => done == false);
     }
 
-    private IEnumerator RegisterRoutine(string email, string password)
+    private IEnumerator RegisterRoutine(string email, string password, string playerName)
     {
         bool done = false;
         LootLockerSDKManager.WhiteLabelSignUp(email, password, (response) =>
         {
             if (response.success)
             {
-                //TODO: probably we can just move player here to login panel and force him to type his data
-                StartCoroutine(LoginRoutine(email, password, true));
+                LootLockerSDKManager.WhiteLabelLogin(email, password, true, (response3) =>
+                {
+                    if (response.success)
+                    {
+                        string token = response3.SessionToken;
+
+                        LootLockerSDKManager.StartWhiteLabelSession((response2) =>
+                        {
+                            if (response2.success)
+                            {
+                                PlayerId = response2.player_id;
+                                
+                                LootLockerSDKManager.SetPlayerName(playerName, (nameChangeResponse) =>
+                                {
+                                    if (nameChangeResponse.success)
+                                    {
+                                        Nick = playerName;
+                                        ArcnesTools.Debug.Log("Account created successfully");
+                                        done = true;
+                                        LoadingScreenCanvas.Instance.LoadScene("MainMenu");
+                                    }
+                                    else
+                                    {
+                                        ArcnesTools.Debug.Log("Name change failed");
+                                        done = true;
+                                    }
+                                });
+                            }
+                            else
+                            {
+                                ArcnesTools.Debug.Log("error starting LootLocker session");
+                                done = true;
+                            }
+                            
+                        });
+                    }
+                    else
+                    {
+                        //show info about failed login
+                        done = true;
+                    }
+                });
             }
             else
             {

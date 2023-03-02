@@ -53,9 +53,10 @@ MonoBehaviour:
   _refreshDefaultPrefabs: 0
   _runInBackground: 1
   _dontDestroyOnLoad: 1
+  _objectPool: {fileID: 0}
   _persistence: 0
   _logging: {fileID: 0}
-  _spawnablePrefabs: {fileID: 11400000, guid: ec64eb18c93ab344892891f33edbf82a, type: 2}
+  _spawnablePrefabs: {fileID: 0}
 --- !u!114 &5387100617060125688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,6 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d331f979d46e8e4a9fc90070c596d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _updateHostVisibility: 1
   _defaultConditions:
   - {fileID: 11400000, guid: 2033f54fd2794464bae08fa5a55c8996, type: 2}
 --- !u!114 &3282736595509308112
@@ -97,8 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57ce8bbb58966cb45a7140f32da5327a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _useGlobalScenes: 1
   _startInOffline: 0
-  _offlineScene: Assets/_Project/Scenes/MainMenu.unity
+  _offlineScene: 
   _onlineScene: Assets/_Project/Scenes/Lobby.unity
   _replaceScenes: 0
 --- !u!114 &5387100618175772185
@@ -113,7 +116,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b6b565cd9533c4ebc18003f0fc18a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _color: {r: 1, g: 1, b: 1, a: 1}
   _placement: 1
+  _hideTickRate: 1
 --- !u!114 &5387100618175772184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,7 +132,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unreliableMTU: 1023
-  _attackResponseType: 1
   _ipv4BindAddress: 
   _ipv6BindAddress: 
   _port: 7770
