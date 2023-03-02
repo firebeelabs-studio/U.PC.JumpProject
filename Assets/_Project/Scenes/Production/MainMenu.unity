@@ -15042,7 +15042,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9113195544074430474, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
       propertyPath: m_Name
-      value: PlayerLeaderboardRowTemplate (1)
+      value: PlayerLeaderboardRowTemplateYourScore
       objectReference: {fileID: 0}
     - target: {fileID: 9113195544074430475, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
       propertyPath: m_Pivot.x
@@ -15135,6 +15135,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9113195544074430475, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
   m_PrefabInstance: {fileID: 547389430}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &547389432 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9113195544074430472, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
+  m_PrefabInstance: {fileID: 547389430}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8abb1c78396d0fc41accecc034da8a14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &556913734
 GameObject:
   m_ObjectHideFlags: 0
@@ -78828,7 +78839,7 @@ MonoBehaviour:
   - {fileID: 2128908918}
   - {fileID: 444876616}
   - {fileID: 1110862522}
-  _yourScoreRow: {fileID: 0}
+  _yourScoreRow: {fileID: 547389432}
 --- !u!1 &2133378876
 GameObject:
   m_ObjectHideFlags: 0
