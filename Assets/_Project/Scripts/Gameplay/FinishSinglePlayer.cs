@@ -4,7 +4,7 @@ using UnityEngine;
 public class FinishSinglePlayer : MonoBehaviour
 {
     public static event Action RunFinish;
-    public bool IsFinished;
+    public static bool IsFinished;
 
     // sounds
     [SerializeField] private AudioClip _finishSound;
@@ -24,5 +24,11 @@ public class FinishSinglePlayer : MonoBehaviour
             RunFinish?.Invoke();
             _audioPlayer.PlayOneShotSound(_finishSound);
         }
+    }
+
+    public static void InvokeRunFinish()
+    {
+        IsFinished = true;
+        RunFinish?.Invoke();
     }
 }

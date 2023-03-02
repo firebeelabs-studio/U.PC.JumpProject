@@ -12,8 +12,9 @@ public class SwampieTypeReader : MonoBehaviour
     public static SwampieSkin.SwampieType SwampieType { get; private set; }
     public static event Action<List<OutfitData>> SwampieInstantiated;
 
-    private void Awake()
+    private void Start()
     {
+        SwampieInstantiated?.Invoke(SkinsHolder.Instance.Skins);
         if (!SkinsHolder.Instance || SkinsHolder.Instance.Skins.Count == 0)
         {
             InstantiateSwampie(_blueSwampie);
@@ -56,8 +57,5 @@ public class SwampieTypeReader : MonoBehaviour
     {
         var obj = Instantiate(swampieToSpawn, transform);
         obj.transform.position = transform.position;
-        if (!SkinsHolder.Instance) return;
-        
-        SwampieInstantiated?.Invoke(SkinsHolder.Instance.Skins);
     }
 }

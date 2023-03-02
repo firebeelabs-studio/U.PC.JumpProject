@@ -25,7 +25,7 @@ public class Replay
         if (ReplayGhost != null && _replayQueue.Count != 0)
         {
             ReplayStep data = _replayQueue.Dequeue();
-            ReplayGhost.SetDataForFrame(data);
+            //ReplayGhost.SetDataForFrame(data);
             hasMoreFrames = true;
         }
 

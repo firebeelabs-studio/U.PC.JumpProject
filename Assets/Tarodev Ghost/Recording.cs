@@ -2,8 +2,10 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace TarodevGhost {
-    public class Recording {
+namespace TarodevGhost 
+{
+    public class Recording 
+    {
         private readonly AnimationCurve _posXCurve = new AnimationCurve();
         private readonly AnimationCurve _posYCurve = new AnimationCurve();
         private readonly AnimationCurve _rotZCurve = new AnimationCurve();
@@ -12,11 +14,13 @@ namespace TarodevGhost {
 
         #region Used For Recording
 
-        public Recording(Transform target) {
+        public Recording(Transform target) 
+        {
             _target = target;
         }
 
-        public void AddSnapshot(float elapsed) {
+        public void AddSnapshot(float elapsed) 
+        {
             Duration = elapsed;
 
             var pos = _target.position;
@@ -26,16 +30,19 @@ namespace TarodevGhost {
             UpdateCurve(_posYCurve, elapsed, pos.y);
             UpdateCurve(_rotZCurve, elapsed, rot.z);
 
-            void UpdateCurve(AnimationCurve curve, float time, float val) {
+            void UpdateCurve(AnimationCurve curve, float time, float val) 
+            {
                 var count = curve.length;
                 var kf = new Keyframe(time, val);
 
                 if (count > 1 &&
                     Mathf.Approximately(curve.keys[count - 1].value, curve.keys[count - 2].value) &&
-                    Mathf.Approximately(val, curve.keys[count - 1].value)) {
+                    Mathf.Approximately(val, curve.keys[count - 1].value)) 
+                {
                     curve.MoveKey(count - 1, kf);
                 }
-                else {
+                else 
+                {
                     curve.AddKey(kf);
                 }
             }
@@ -53,7 +60,8 @@ namespace TarodevGhost {
 
         #region Saving and Loading
 
-        public Recording(string data) {
+        public Recording(string data) 
+        {
             _target = null;
             Deserialize(data);
             Duration = Mathf.Max(_posXCurve.keys.LastOrDefault().time, _posYCurve.keys.LastOrDefault().time);
@@ -62,7 +70,8 @@ namespace TarodevGhost {
         private const char DATA_DELIMITER = '|';
         private const char CURVE_DELIMITER = '\n';
 
-        public string Serialize() {
+        public string Serialize() 
+        {
             var builder = new StringBuilder();
 
             StringifyPoints(_posXCurve);
@@ -82,14 +91,16 @@ namespace TarodevGhost {
             return builder.ToString();
         }
 
-        private void Deserialize(string data) {
+        private void Deserialize(string data) 
+        {
             var components = data.Split(CURVE_DELIMITER);
 
             DeserializePoint(_posXCurve, components[0]);
             DeserializePoint(_posYCurve, components[1]);
             DeserializePoint(_rotZCurve, components[2]);
 
-            void DeserializePoint(AnimationCurve curve, string d) {
+            void DeserializePoint(AnimationCurve curve, string d) 
+            {
                 var splitValues = d.Split(DATA_DELIMITER);
                 foreach (var timeValPair in splitValues) {
                     var s = timeValPair.Split(',');

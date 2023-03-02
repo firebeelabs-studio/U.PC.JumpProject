@@ -4,6 +4,7 @@ using UnityEngine;
 public class StartRun : MonoBehaviour
 {
     public static event Action RunStart;
+    public static bool RunStarted = false;
 
     // sounds
     [SerializeField] private AudioClip _startSound;
@@ -19,7 +20,14 @@ public class StartRun : MonoBehaviour
         if (col.CompareTag("Player"))
         {
             RunStart?.Invoke();     //start timer
+            RunStarted = true;
             _audioPlayer.PlayOneShotSound(_startSound);
         }
+    }
+
+    public static void InvokeRunStart()
+    {
+        RunStart?.Invoke();
+        RunStarted = true;
     }
 }

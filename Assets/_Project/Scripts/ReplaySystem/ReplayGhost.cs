@@ -26,10 +26,4 @@ public class ReplayGhost : MonoBehaviour
                 outfitData.skinType == SwampieSkin.SkinType.Jacket && outfitData.Id == data.JacketId)?.SkinSprite;
         }
     }
-
-    public void SetDataForFrame(ReplayStep stepData)
-    {
-        transform.position = stepData.Position;
-        transform.localScale = stepData.Scale;
-    }
 }
