@@ -1139,7 +1139,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -22.222221
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -2707,7 +2707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _skinType: 3
-  _defaultSkin: {fileID: 11400000, guid: 76d3cc484586ef54bb5d39dab6e06e19, type: 2}
+  _defaultSkin: {fileID: 11400000, guid: f025d77899e239b4cb540e0a85fb295f, type: 2}
   _isInMenu: 1
   _createBones: 1
   _boneCreator: {fileID: 107963187}
@@ -2794,7 +2794,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 928de2e2ca776444ba50ba528242ab96, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -11624,9 +11624,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 2
+    m_Left: 5
     m_Right: 0
-    m_Top: 3
+    m_Top: 10
     m_Bottom: 0
   m_ChildAlignment: 1
   m_Spacing: 5
@@ -20622,8 +20622,8 @@ MonoBehaviour:
   m_VerticalScrollbar: {fileID: 0}
   m_HorizontalScrollbarVisibility: 2
   m_VerticalScrollbarVisibility: 2
-  m_HorizontalScrollbarSpacing: -0.8553326
-  m_VerticalScrollbarSpacing: -0.8553326
+  m_HorizontalScrollbarSpacing: -1.9244983
+  m_VerticalScrollbarSpacing: -1.9244983
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -24475,7 +24475,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -22.222221
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -31048,7 +31048,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -22.222221
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -43720,7 +43720,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -22.222221
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -48782,7 +48782,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -22.222221
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -53867,7 +53867,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -22.222221
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -54129,7 +54129,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 928de2e2ca776444ba50ba528242ab96, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -63619,7 +63619,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 928de2e2ca776444ba50ba528242ab96, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -78666,7 +78666,6 @@ MonoBehaviour:
   _levelPanel: {fileID: 501152927}
   _levelNameText: {fileID: 943363194}
   _levelBg: {fileID: 783034725}
-  _yourScoreText: {fileID: 0}
   _closeLevelPanelButton: {fileID: 1348034836}
   _levelsInfoHolder: {fileID: 2076561028}
   _leftArrow: {fileID: 309982134}
@@ -78829,6 +78828,7 @@ MonoBehaviour:
   - {fileID: 2128908918}
   - {fileID: 444876616}
   - {fileID: 1110862522}
+  _yourScoreRow: {fileID: 0}
 --- !u!1 &2133378876
 GameObject:
   m_ObjectHideFlags: 0
@@ -79213,7 +79213,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 3.75
+  m_Spacing: 8.4375
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
