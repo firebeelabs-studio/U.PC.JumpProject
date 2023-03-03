@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlatformCircularEffector : MonoBehaviour, IPlayerEffector
@@ -9,14 +10,27 @@ public class PlatformCircularEffector : MonoBehaviour, IPlayerEffector
     private Rigidbody2D _rb;
     private Vector2 _change, _lastPos, _nextPos;
     private float _nextPosX, _nextPosY;
+    private bool _runStarted;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
     }
 
+    private void OnEnable()
+    {
+        StartRun.RunStart += On_RunStart;
+    }
+
+    private void OnDisable()
+    {
+        StartRun.RunStart -= On_RunStart;
+    }
+
     private void FixedUpdate()
     {
+        if (!_runStarted) return;
+
         Angle += Time.fixedDeltaTime * Speed; //increasing angle value
         
         _nextPosX = _axisObj.position.x + Mathf.Cos(Angle) * Radius; //calculating new x position around the axis (parent object)
@@ -34,5 +48,10 @@ public class PlatformCircularEffector : MonoBehaviour, IPlayerEffector
     public Vector2 EvaluateEffector()
     {
         return _change;
+    }
+
+    private void On_RunStart()
+    {
+        _runStarted = true;
     }
 }
