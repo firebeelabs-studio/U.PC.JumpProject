@@ -11,6 +11,23 @@ public class GuillotineMove : MonoBehaviour
     private float _speed, _distance, _timer, _angle = Mathf.PI;
     private Vector2 _endPos, _startPos, _startSize;
 
+    private bool _runStarted;
+
+    private void OnEnable()
+    {
+        StartRun.RunStart += On_RunStart;
+    }
+
+    private void On_RunStart()
+    {
+        _runStarted = true;
+    }
+
+    private void OnDisable()
+    {
+        StartRun.RunStart -= On_RunStart;
+    }
+    
     private void Start()
     {
         // set the lowest position of blade and the size of lines
@@ -32,6 +49,8 @@ public class GuillotineMove : MonoBehaviour
 
     private void Update()
     {
+        if (!_runStarted) return;
+
         if (_timer > 0)
         {
             _timer -= Time.deltaTime;

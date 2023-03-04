@@ -11,6 +11,23 @@ public class TransformPathFollower : MonoBehaviour, IWaypointPath
     private int _index;
     private bool _ascending;
 
+    private bool _runStarted;
+
+    private void OnEnable()
+    {
+        StartRun.RunStart += On_RunStart;
+    }
+
+    private void On_RunStart()
+    {
+        _runStarted = true;
+    }
+
+    private void OnDisable()
+    {
+        StartRun.RunStart -= On_RunStart;
+    }
+    
     public Vector2[] Points
     {
         get
@@ -28,6 +45,8 @@ public class TransformPathFollower : MonoBehaviour, IWaypointPath
 
     private void Update()
     {
+        if (!_runStarted) return;
+
         Vector2 target = _points[_index] + _startPos;
         transform.position = Vector2.MoveTowards(transform.position, target, _speed * Time.deltaTime);
 

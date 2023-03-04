@@ -12,6 +12,23 @@ namespace TarodevController {
         private Vector2 _change, _startPos, _lastPos;
         private int _index;
         private bool _ascending;
+        
+        private bool _runStarted;
+
+        private void OnEnable()
+        {
+            StartRun.RunStart += On_RunStart;
+        }
+
+        private void On_RunStart()
+        {
+            _runStarted = true;
+        }
+
+        private void OnDisable()
+        {
+            StartRun.RunStart -= On_RunStart;
+        }
 
         public Vector2[] Points
         {
@@ -28,6 +45,8 @@ namespace TarodevController {
 
         private void FixedUpdate()
         {
+            if (!_runStarted) return;
+            
             var target = _points[_index] + _startPos;
             var newPos = Vector2.MoveTowards(_pos, target, _speed * Time.fixedDeltaTime);
             _rb.MovePosition(newPos);

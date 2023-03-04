@@ -23,6 +23,23 @@ public class CircularSaw : MonoBehaviour
     [SerializeField] AudioClip _swingRight;
     private AudioPlayer _audioPlayer;
 
+    private bool _runStarted;
+
+    private void OnEnable()
+    {
+        StartRun.RunStart += On_RunStart;
+    }
+
+    private void On_RunStart()
+    {
+        _runStarted = true;
+    }
+
+    private void OnDisable()
+    {
+        StartRun.RunStart -= On_RunStart;
+    }
+    
     private enum TypeOfMotion
     {
         Pendulum,
@@ -64,6 +81,8 @@ public class CircularSaw : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!_runStarted) return;
+
         if (_motion == TypeOfMotion.Pendulum)
         {
             PendulumMotion();

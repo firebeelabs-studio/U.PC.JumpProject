@@ -20,6 +20,23 @@ public class RigidbodyLinearMovement : MonoBehaviour, IPlayerEffector
     private float _move, _moveSpeed, _progress, _previousPos, _currentTarget, _timer;
     private bool _isReturning, _didPlayEndOnce, _didPlayForwardOnce, _didPlayReturnOnce;
 
+    private bool _runStarted;
+
+    private void OnEnable()
+    {
+        StartRun.RunStart += On_RunStart;
+    }
+
+    private void On_RunStart()
+    {
+        _runStarted = true;
+    }
+
+    private void OnDisable()
+    {
+        StartRun.RunStart -= On_RunStart;
+    }
+    
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -34,6 +51,8 @@ public class RigidbodyLinearMovement : MonoBehaviour, IPlayerEffector
 
     void FixedUpdate()
     {
+        if (!_runStarted) return;
+
         _move = Mathf.MoveTowards(_move, _currentTarget, _moveSpeed);
 
         if (!_isMovingHorizontal)

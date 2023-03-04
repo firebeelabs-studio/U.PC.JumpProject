@@ -12,6 +12,23 @@ public class PlatformRotate : MonoBehaviour
     private int _rotationAngle;
     private bool _isRotated;
 
+    private bool _runStarted;
+
+    private void OnEnable()
+    {
+        StartRun.RunStart += On_RunStart;
+    }
+
+    private void On_RunStart()
+    {
+        _runStarted = true;
+    }
+
+    private void OnDisable()
+    {
+        StartRun.RunStart -= On_RunStart;
+    }
+    
     private void Start()
     {
         if (_isRotatingClockvise)
@@ -28,6 +45,8 @@ public class PlatformRotate : MonoBehaviour
 
     private void Update()
     {
+        if (!_runStarted) return;
+
         _rotateTimer += Time.deltaTime;
 
         if (_rotateTimer >= _topPosTime && !_isRotated)
