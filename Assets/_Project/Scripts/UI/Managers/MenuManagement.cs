@@ -194,7 +194,7 @@ public class MenuManagement : MonoBehaviour
         //load scores
         //load stars info
         _levelBg.sprite = _levelsInfoHolder.LevelsInfo[levelIndex].LevelImage;
-        SetLevelToLoad(_levelsInfoHolder.LevelsInfo[levelIndex].LevelName);
+        SetLevelToLoad(_levelsInfoHolder.LevelsInfo[levelIndex].SceneName);
     }
     public void CloseLevelPanel()
     {

@@ -93,23 +93,23 @@ public class PetMenuInteraction : MonoBehaviour
             _counter = 0;
         }
         //if player doesn't want to hold any bone and there's no currently selected bone to move
-        if (_counter < 0.05f && Input.GetMouseButtonUp(0) && _selectedObj == null)
-        {
-            Explode(_mousePos);
-            _mouseClickRingParticle.Play();
-        }
+        // if (_counter < 0.05f && Input.GetMouseButtonUp(0) && _selectedObj == null)
+        // {
+        //     Explode(_mousePos);
+        //     _mouseClickRingParticle.Play();
+        // }
 
         Collider2D targetObject = Physics2D.OverlapPoint(_mousePos);
-        //if player wants to hold a bone and there's no bone selected
-        if (_counter >= 0.05f && _selectedRb == null)
-        {
-            StartDragging(targetObject);
-        }
-        //if player realeases the button and was holding the bone
-        else if (Input.GetMouseButtonUp(0) && _selectedRb)
-        {
-            StopDragging();
-        }
+        // //if player wants to hold a bone and there's no bone selected
+        // if (_counter >= 0.05f && _selectedRb == null)
+        // {
+        //     StartDragging(targetObject);
+        // }
+        // //if player realeases the button and was holding the bone
+        // else if (Input.GetMouseButtonUp(0) && _selectedRb)
+        // {
+        //     StopDragging();
+        // }
 
         _idleAnimDelay -= Time.deltaTime;
         EnableAnimatorBack();
