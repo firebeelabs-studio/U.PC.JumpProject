@@ -1,5 +1,3 @@
-using System.IO;
-using TarodevGhost;
 using UnityEngine;
 
 public class GhostRunner : MonoBehaviour {
