@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 public class ReplaySystem
 {
-
     private SavedReplay _newReplay;
     public SavedReplay NewReplay => _newReplay;
     
@@ -17,7 +16,8 @@ public class ReplaySystem
 
     private IEnumerator FixedUpdate() 
     {
-        while (true) {
+        while (true) 
+        {
             yield return _wait;
             AddSnapshot();
             _elapsedRecordingTime += Time.smoothDeltaTime;
@@ -26,7 +26,8 @@ public class ReplaySystem
 
     private IEnumerator Update() 
     {
-        while (true) {
+        while (true) 
+        {
             yield return null;
             _replaySmoothedTime += Time.smoothDeltaTime;
             UpdateReplay();
@@ -76,18 +77,19 @@ public class ReplaySystem
     /// </summary>
     /// <param name="save">If we want to save this run. Use false for restarts</param>
     /// <returns>Whether this run was the fastest so far</returns>
-    public void FinishRun(bool save = true) 
+    public void FinishRun(bool save = true)
     {
         if (_currentRun == null) return;
         
         if (!save) 
         {
             _currentRun = null;
+            return;
         }
         _runs[RecordingType.Last] = _currentRun;
         _currentRun = null;
 
-        if (!GetRun(RecordingType.Best, out var best) || _runs[RecordingType.Last].Duration <= best.Duration) 
+        if (!GetRun(RecordingType.Best, out Recording best) || _runs[RecordingType.Last].Duration <= best.Duration) 
         {
             _newRecord = true;
             _runs[RecordingType.Best] = _runs[RecordingType.Last];

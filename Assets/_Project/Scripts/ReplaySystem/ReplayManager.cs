@@ -49,6 +49,7 @@ public class ReplayManager : MonoBehaviour
     {
         if (_timer.TimeInSeconds >= _lowestThreshold)
         {
+            _system.FinishRun(false);
             enabled = false;
         }
     }
