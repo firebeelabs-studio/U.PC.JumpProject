@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
@@ -12,6 +13,8 @@ public class ReplayManager : MonoBehaviour
     [SerializeField, Range(1, 10)] private int _captureEveryNFrames = 2;
     [SerializeField] private string _hash;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
+    [SerializeField] private float _lowestThreshold;
+    [SerializeField] private TimerSinglePlayer _timer;
     private Transform _newCameraFollow;
 
     private ReplaySystem _system;
@@ -42,6 +45,14 @@ public class ReplayManager : MonoBehaviour
         SwampieTypeReader.SwampieInstantiated -= On_SwampieInstantiated;
     }
 
+    private void Update()
+    {
+        if (_timer.TimeInSeconds >= _lowestThreshold)
+        {
+            enabled = false;
+        }
+    }
+
     private void RunStart()
     {
         _system.StartRun(_recordTarget, _captureEveryNFrames);
@@ -50,7 +61,6 @@ public class ReplayManager : MonoBehaviour
     private void EndRun()
     {
         _system.FinishRun();
-        print(JsonConvert.SerializeObject(_system.NewReplay, Formatting.Indented));
     }
 
     [ContextMenu("START REPLAY")]
