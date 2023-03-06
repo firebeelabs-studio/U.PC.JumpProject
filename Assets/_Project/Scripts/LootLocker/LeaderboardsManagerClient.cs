@@ -1,38 +1,43 @@
-using System;
-using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
+using FishNet;
 using FishNet.Connection;
 using FishNet.Object;
-using FishNet.Object.Synchronizing;
+using Newtonsoft.Json;
 using UnityEngine;
 
-public class LeaderboardsManagerClient : NetworkBehaviour
+public class LeaderboardsManagerClient : MonoBehaviour
 {
+   public ConcurrentDictionary<string, LootLockerResponseData> Scores = new();
 
-   public Dictionary<string, LootLockerResponseData> test = new();
-
-   [ContextMenu("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")]
-   [ServerRpc]
-   public void Test() 
+   [ContextMenu("XXXXXXXXXXXXXXXXXXXX")]
+   public void Test()
    {
-      StartCoroutine(testy());
-   }
-
-   private void Update()
-   {
-      test.Count();
-   }
-
-   private IEnumerator testy()
-   {
-      bool done = false;
-      LeaderboardsManagerServer.Instance.SendScoreToUser(base.Owner, (s, data) =>
+      ScoreBroadcast msg = new ScoreBroadcast()
       {
-         test.Add(s, data);
-         done = true;
+         Username = "test",
+         Score = 125.3f,
+         SkinsIds = "testskinsids",
+         LevelName = "Jungle1",
+         MemberId = FindObjectOfType<LoginManager>().PlayerId
+      };
+        
+      InstanceFinder.ClientManager.Broadcast(msg);
+   }
+   
+   private void OnEnable()
+   {
+      InstanceFinder.ClientManager.RegisterBroadcast<JsonLeaderboardsBroadcast>(OnScoreBroadcast);;
+   }
+   
+   private void OnDisable()
+   {
+      InstanceFinder.ClientManager.UnregisterBroadcast<JsonLeaderboardsBroadcast>(OnScoreBroadcast);;
+   }
 
-      }, "Jungle5");
-      yield return new WaitWhile( () => done == false);
+   private void OnScoreBroadcast(JsonLeaderboardsBroadcast broadcast)
+   {
+      Scores = JsonConvert.DeserializeObject<ConcurrentDictionary<string, LootLockerResponseData>>(broadcast.Json);
+      print(Scores?.Count);
    }
 }

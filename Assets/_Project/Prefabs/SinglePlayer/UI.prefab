@@ -29457,6 +29457,7 @@ GameObject:
   - component: {fileID: 819363404}
   - component: {fileID: 2114722825}
   - component: {fileID: 6497170517884271835}
+  - component: {fileID: 3437783918787241071}
   m_Layer: 5
   m_Name: FinishMenu
   m_TagString: Untagged
@@ -29566,10 +29567,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8868218ff7d1c7e45aadbdadf9978199, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _firstPlace: {fileID: 798398401411980702}
-  _secondPlace: {fileID: 6834685726519026429}
-  _thirdPlace: {fileID: 4328178634383929908}
-  _yourPlace: {fileID: 6991715163192733494}
+  _leaderboardsManagerClient: {fileID: 0}
+  _scoreRows: []
+  _yourScoreRow: {fileID: 0}
+--- !u!114 &3437783918787241071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6311589461632416757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3a3c4a6bd06a9a4b95ef7b953dfd18a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6388497371207871820
 GameObject:
   m_ObjectHideFlags: 0
@@ -37012,17 +37024,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9113195544074430475, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
   m_PrefabInstance: {fileID: 2269564579936339774}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6991715163192733494 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9113195544074430472, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
-  m_PrefabInstance: {fileID: 2269564579936339774}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8abb1c78396d0fc41accecc034da8a14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2351227982949108469
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37120,17 +37121,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
---- !u!114 &6834685726519026429 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9113195544074430472, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
-  m_PrefabInstance: {fileID: 2351227982949108469}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8abb1c78396d0fc41accecc034da8a14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &6834685726519026430 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9113195544074430475, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
@@ -37845,17 +37835,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
---- !u!114 &4328178634383929908 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9113195544074430472, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
-  m_PrefabInstance: {fileID: 4785167620453767740}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8abb1c78396d0fc41accecc034da8a14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &4328178634383929911 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9113195544074430475, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
@@ -38167,14 +38146,3 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9113195544074430475, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
   m_PrefabInstance: {fileID: 8461392946554221974}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &798398401411980702 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9113195544074430472, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
-  m_PrefabInstance: {fileID: 8461392946554221974}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8abb1c78396d0fc41accecc034da8a14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -3,7 +3,10 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using FishNet;
 using FishNet.Connection;
+using FishNet.Managing.Server;
+using FishNet.Transporting;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -35,18 +38,41 @@ public class LeaderboardsManagerServer : MonoBehaviour
 
     #endregion
 
-    private IEnumerator Start()
+    public IEnumerator DownloadLeaderboards()
     {
         GetLeaderboards();
-        yield return new WaitForSecondsRealtime(300);
+        yield return new WaitForSecondsRealtime(10);
+        Test();
+        yield return new WaitForSecondsRealtime(290);
     }
 
-    [ContextMenu("XXXXXXXXXXXXXXXXXXX")]
-    public void xxx()
+    [ContextMenu("YYYYYYYYYYYYY")]
+    public void Test()
     {
-        GetLeaderboards();
+        JsonLeaderboardsBroadcast json = new JsonLeaderboardsBroadcast
+        {
+            Json = JsonConvert.SerializeObject(Scores)
+        };
+        
+        InstanceFinder.ServerManager.Broadcast(json, false, Channel.Reliable);
     }
-    private void GetLeaderboards()
+
+    private void OnEnable()
+    {
+        InstanceFinder.ServerManager.RegisterBroadcast<ScoreBroadcast>(OnScoreBroadcast);
+    }
+    private void OnDisable()
+    {
+        InstanceFinder.ServerManager.UnregisterBroadcast<ScoreBroadcast>(OnScoreBroadcast);;
+    }
+
+    private void OnScoreBroadcast(NetworkConnection conn, ScoreBroadcast msg)
+    {
+        SendHighScore((int)msg.Score, msg.LevelName, msg.SkinsIds, msg.MemberId);
+    }
+    
+    [ContextMenu("XXXXXXXXXXXXXXX")]
+    public void GetLeaderboards()
     {
         GetScoresForCertainLevel(2000,0,"Jungle5");
         GetScoresForCertainLevel(2000,0,"Jungle4");
@@ -66,6 +92,8 @@ public class LeaderboardsManagerServer : MonoBehaviour
         string lastPartUrl = $"server/leaderboards/{levelName}/submit";
         byte[] s = System.Text.Encoding.UTF8.GetBytes($@"{{""member_id"":""{memberId}"",""score"":{seconds},""metadata"":""{skinsIds}""}}");
         StartCoroutine(_restClient.SendPostRequest(SendScoreResponse, lastPartUrl,s, _serverManager.Token));
+        
+        if (Scores[levelName] is null || Scores[levelName].Entries is null) return;
         
         if (Scores[levelName].Entries.Count(p => p.Score < seconds) < 25)
         {
