@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TarodevController;
 using UnityEngine;
+using UnityEngine.UIElements;
+
 public class ReplaySystem
 {
     private SavedReplay _newReplay;
@@ -49,9 +52,9 @@ public class ReplaySystem
     /// <param name="target">The transform you wish to record</param>
     /// <param name="snapshotEveryNFrames">The accuracy of the recording. Smaller number == higher file size</param>
     /// <param name="maxRecordingTimeLimit">Stop recording beyond this time</param>
-    public void StartRun(Transform target, int snapshotEveryNFrames = 2, float maxRecordingTimeLimit = 600) 
+    public void StartRun(Transform target, PlayerAnimator playerAnimator, SpriteRenderer targetSpriteRenderer,int snapshotEveryNFrames = 2, float maxRecordingTimeLimit = 600) 
     {
-        _currentRun = new Recording(target);
+        _currentRun = new Recording(target, playerAnimator, targetSpriteRenderer);
 
         _elapsedRecordingTime = 0;
 
@@ -177,8 +180,14 @@ public class ReplaySystem
         if (_currentReplay == null) return;
 
         // Evaluate the point at the current time
-        var pose = _currentReplay.EvaluatePoint(_replaySmoothedTime);
-        _ghostObj.transform.SetPositionAndRotation(pose.position, pose.rotation);
+        //Pose pose = _currentReplay.EvaluatePoint(_replaySmoothedTime);
+        //_ghostObj.transform.SetPositionAndRotation(pose.position, pose.rotation);
+        
+        Recording.ReplayStepData replayStepData = _currentReplay.EvaluatePointToGetTransformData(_replaySmoothedTime);
+        _ghostObj.transform.SetPositionAndRotation(replayStepData.Position, replayStepData.Rotation);
+        var localScale = _ghostObj.transform.localScale;
+        localScale = new Vector3(replayStepData.SpriteFlipped ? (replayStepData.Scale.x * -1): replayStepData.Scale.x, replayStepData.Scale.y, 1f);
+        _ghostObj.transform.localScale = localScale;
 
         // Destroy the replay when done
         if (_replaySmoothedTime > _currentReplay.Duration) 

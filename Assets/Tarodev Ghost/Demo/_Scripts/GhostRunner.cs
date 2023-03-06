@@ -14,7 +14,7 @@ public class GhostRunner : MonoBehaviour {
 
     private void OnFinishLineCrossed(bool runStarting) {
         if (runStarting) {
-            _system.StartRun(_recordTarget, _captureEveryNFrames);
+            //_system.StartRun(_recordTarget, _captureEveryNFrames);
             _system.PlayRecording(RecordingType.Best, Instantiate(_ghostPrefab));
         }
         else {

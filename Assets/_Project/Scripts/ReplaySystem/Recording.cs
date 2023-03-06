@@ -1,32 +1,60 @@
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
+using TarodevController;
+using Unity.Mathematics;
 using UnityEngine;
 
     public class Recording 
     {
         private readonly AnimationCurve _posXCurve = new();
         private readonly AnimationCurve _posYCurve = new();
-        private readonly AnimationCurve _scaleCurve = new();
+        private readonly AnimationCurve _scaleYCurve = new();
+        private readonly AnimationCurve _scaleXCurve = new();
+        private readonly AnimationCurve _rotationCurve = new();
+        private bool _spriteFlipped;
         public float Duration { get; private set; }
         private readonly Transform _target;
+        private readonly Transform _targetAnimatorTransform;
+        private readonly SpriteRenderer _targetSpriteRenderer;
+        public struct ReplayStepData
+        {
+            public ReplayStepData(Vector3 position, Vector3 scale, Quaternion rotation, bool spriteFlipped)
+            {
+                Position = position;
+                Scale = scale;
+                Rotation = rotation;
+                SpriteFlipped = spriteFlipped;
+            }
+            public Vector3 Position;
+            public Vector3 Scale;
+            public Quaternion Rotation;
+            public bool SpriteFlipped;
+        }
 
         #region Used For Recording
 
-        public Recording(Transform target) 
+        public Recording(Transform target, PlayerAnimator playerAnimator, SpriteRenderer targetSpriteRenderer) 
         {
             _target = target;
+            _targetAnimatorTransform = playerAnimator.transform;
+            _targetSpriteRenderer = targetSpriteRenderer;
         }
 
         public void AddSnapshot(float elapsed) 
         {
             Duration = elapsed;
-
-            var pos = _target.position;
-            var scale = _target.localScale;
-
+            //if didn't find animator use general transform's position and default scale
+            Vector3 pos = _targetAnimatorTransform.position;
+            Vector3 scale = _targetAnimatorTransform.localScale;
+            Quaternion rot = _targetAnimatorTransform.rotation;
+            _spriteFlipped = _targetSpriteRenderer.flipX;
             UpdateCurve(_posXCurve, elapsed, pos.x);
             UpdateCurve(_posYCurve, elapsed, pos.y);
-            UpdateCurve(_scaleCurve, elapsed, scale.z);
+            UpdateCurve(_scaleYCurve, elapsed, scale.y);
+            UpdateCurve(_scaleXCurve, elapsed, scale.x);
+            UpdateCurve(_rotationCurve, elapsed, rot.z);
+            
 
             void UpdateCurve(AnimationCurve curve, float time, float val) 
             {
@@ -50,9 +78,16 @@ using UnityEngine;
 
         #region Used For Playback
 
+        public ReplayStepData EvaluatePointToGetTransformData(float elapsed)
+        {
+            return new ReplayStepData(new Vector3(_posXCurve.Evaluate(elapsed), _posYCurve.Evaluate(elapsed), 0f),
+                new Vector3(_scaleXCurve.Evaluate(elapsed), _scaleYCurve.Evaluate(elapsed), 1),
+                Quaternion.Euler(0,0,_rotationCurve.Evaluate(elapsed)),
+                _spriteFlipped);
+        }
         public Pose EvaluatePoint(float elapsed) => new Pose(
             new Vector3(_posXCurve.Evaluate(elapsed), _posYCurve.Evaluate(elapsed), 0f),
-            Quaternion.Euler(0, 0, _scaleCurve.Evaluate(elapsed)));
+            Quaternion.Euler(0, 0, _scaleYCurve.Evaluate(elapsed)));
 
         #endregion
 
@@ -74,7 +109,7 @@ using UnityEngine;
 
             StringifyPoints(_posXCurve);
             StringifyPoints(_posYCurve);
-            StringifyPoints(_scaleCurve, false);
+            StringifyPoints(_scaleYCurve, false);
 
             void StringifyPoints(AnimationCurve curve, bool addDelimiter = true) {
                 for (var i = 0; i < curve.length; i++) {
@@ -95,7 +130,7 @@ using UnityEngine;
 
             DeserializePoint(_posXCurve, components[0]);
             DeserializePoint(_posYCurve, components[1]);
-            DeserializePoint(_scaleCurve, components[2]);
+            DeserializePoint(_scaleYCurve, components[2]);
 
             void DeserializePoint(AnimationCurve curve, string d) 
             {

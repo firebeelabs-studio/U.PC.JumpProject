@@ -14,15 +14,16 @@ public class SwampieTypeReader : MonoBehaviour
 
     private void Start()
     {
-        SwampieInstantiated?.Invoke(SkinsHolder.Instance.Skins);
         if (!SkinsHolder.Instance || SkinsHolder.Instance.Skins.Count == 0)
         {
             InstantiateSwampie(_blueSwampie);
             SwampieType = SwampieSkin.SwampieType.Blue;
-            return;
         }
-        
-        ChangeSprite(SkinsHolder.Instance.Skins);
+        else
+        {
+            ChangeSprite(SkinsHolder.Instance.Skins);
+        }
+        SwampieInstantiated?.Invoke(SkinsHolder.Instance.Skins);
     }
 
     private void ChangeSprite(List<OutfitData> instanceSkins)

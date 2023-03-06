@@ -22,6 +22,7 @@ public class StartRun : MonoBehaviour
             RunStart?.Invoke();     //start timer
             RunStarted = true;
             _audioPlayer.PlayOneShotSound(_startSound);
+            FinishSinglePlayer.IsFinished = false;
         }
     }
 
@@ -29,5 +30,6 @@ public class StartRun : MonoBehaviour
     {
         RunStart?.Invoke();
         RunStarted = true;
+        FinishSinglePlayer.IsFinished = false;
     }
 }

@@ -23,6 +23,7 @@ public class FinishSinglePlayer : MonoBehaviour
             IsFinished = true;
             RunFinish?.Invoke();
             _audioPlayer.PlayOneShotSound(_finishSound);
+            StartRun.RunStarted = false;
         }
     }
 
@@ -30,5 +31,6 @@ public class FinishSinglePlayer : MonoBehaviour
     {
         IsFinished = true;
         RunFinish?.Invoke();
+        StartRun.RunStarted = false;
     }
 }

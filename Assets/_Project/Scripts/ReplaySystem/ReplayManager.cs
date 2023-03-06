@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
 using Newtonsoft.Json;
+using TarodevController;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,7 +16,9 @@ public class ReplayManager : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
     [SerializeField] private float _lowestThreshold;
     [SerializeField] private TimerSinglePlayer _timer;
+    private PlayerAnimator _playerAnimator;
     private Transform _newCameraFollow;
+    private SpriteRenderer _targetSpriteRenderer;
 
     private ReplaySystem _system;
     private string _levelName;
@@ -56,7 +59,7 @@ public class ReplayManager : MonoBehaviour
 
     private void RunStart()
     {
-        _system.StartRun(_recordTarget, _captureEveryNFrames);
+        _system.StartRun(_recordTarget, _playerAnimator, _targetSpriteRenderer,_captureEveryNFrames);
     }
 
     private void EndRun()
@@ -95,6 +98,8 @@ public class ReplayManager : MonoBehaviour
         string mouthId = outfitData.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Mouth)?.Id;
         string jacketId = outfitData.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Jacket)?.Id;
         _replayData = new ReplayData( _levelName, _hash, bodyId, hatId, eyesId, mouthId, jacketId);
+        _playerAnimator = _recordTarget.GetComponentInChildren<PlayerAnimator>();
+        _targetSpriteRenderer = _playerAnimator.GetComponent<SpriteRenderer>();
     }
 
     //take this out to static writer / reader
