@@ -101,9 +101,7 @@ public class LeaderboardsManagerServer : MonoBehaviour
         byte[] s = System.Text.Encoding.UTF8.GetBytes($@"{{""member_id"":""{memberId}"",""score"":{seconds},""metadata"":""{skinsIds}""}}");
         StartCoroutine(_restClient.SendPostRequest(SendScoreResponse, lastPartUrl,s, _serverManager.Token));
         
-        if (Scores[levelName] is null || Scores[levelName].Entries is null) return;
-        
-        if (Scores[levelName].Entries.Count(p => p.Score < seconds) < 25)
+        if (Scores[levelName] is null || Scores[levelName].Entries is null || Scores[levelName].Entries.Count(p => p.Score < seconds) < 25)
         {
             GetScoresForCertainLevel(2000,0,levelName);
         }
@@ -146,6 +144,8 @@ public class LeaderboardsManagerServer : MonoBehaviour
         {
             Scores.TryAdd(levelName, temp);
         }
+        //TODO: Limit this with flags
+        SendScoresToBroadcastWatchers();
     }
 
     private void SendScoreResponse(string json)
