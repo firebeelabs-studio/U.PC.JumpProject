@@ -3,7 +3,11 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using FishNet;
 using FishNet.Connection;
+using FishNet.Managing.Server;
+using FishNet.Transporting;
+using LiteNetLib;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -13,7 +17,6 @@ public class LeaderboardsManagerServer : MonoBehaviour
     private ConcurrentDictionary<string, LootLockerResponseData> Scores = new();
     private RestClient _restClient;
     private LLServerManager _serverManager;
-    public LeaderboardsManagerClient ManagerClient;
     
     #region Singleton
 
@@ -35,17 +38,48 @@ public class LeaderboardsManagerServer : MonoBehaviour
 
     #endregion
 
-    private IEnumerator Start()
+    private void OnEnable()
+    {
+        InstanceFinder.ServerManager.RegisterBroadcast<ScoreBroadcast>(OnScoreBroadcast);
+        InstanceFinder.ServerManager.OnRemoteConnectionState += SendScoresOnConnection;
+    }
+    private void OnDisable()
+    {
+        InstanceFinder.ServerManager.UnregisterBroadcast<ScoreBroadcast>(OnScoreBroadcast);
+        InstanceFinder.ServerManager.OnRemoteConnectionState -= SendScoresOnConnection;
+    }
+    
+    public IEnumerator DownloadLeaderboards()
     {
         GetLeaderboards();
-        yield return new WaitForSecondsRealtime(300);
+        yield return new WaitForSecondsRealtime(10);
+        SendScoresToBroadcastWatchers();
+        yield return new WaitForSecondsRealtime(290);
     }
 
-    [ContextMenu("XXXXXXXXXXXXXXXXXXX")]
-    public void xxx()
+    [ContextMenu("YYYYYYYYYYYYY")]
+    public void SendScoresToBroadcastWatchers()
     {
-        GetLeaderboards();
+        JsonLeaderboardsBroadcast json = new JsonLeaderboardsBroadcast
+        {
+            Json = JsonConvert.SerializeObject(Scores)
+        };
+        
+        InstanceFinder.ServerManager.Broadcast(json, false, Channel.Reliable);
     }
+
+    private void SendScoresOnConnection(NetworkConnection conn, RemoteConnectionStateArgs state) 
+    {
+        if (state.ConnectionState == RemoteConnectionState.Started)
+        {
+            SendScoresToBroadcastWatchers();
+        }
+    }
+    private void OnScoreBroadcast(NetworkConnection conn, ScoreBroadcast msg)
+    {
+        SendHighScore((int)msg.Score, msg.LevelName, msg.SkinsIds, msg.MemberId);
+    }
+    
     private void GetLeaderboards()
     {
         GetScoresForCertainLevel(2000,0,"Jungle5");
@@ -67,7 +101,7 @@ public class LeaderboardsManagerServer : MonoBehaviour
         byte[] s = System.Text.Encoding.UTF8.GetBytes($@"{{""member_id"":""{memberId}"",""score"":{seconds},""metadata"":""{skinsIds}""}}");
         StartCoroutine(_restClient.SendPostRequest(SendScoreResponse, lastPartUrl,s, _serverManager.Token));
         
-        if (Scores[levelName].Entries.Count(p => p.Score < seconds) < 25)
+        if (Scores[levelName] is null || Scores[levelName].Entries is null || Scores[levelName].Entries.Count(p => p.Score < seconds) < 25)
         {
             GetScoresForCertainLevel(2000,0,levelName);
         }
@@ -110,13 +144,10 @@ public class LeaderboardsManagerServer : MonoBehaviour
         {
             Scores.TryAdd(levelName, temp);
         }
+        //TODO: Limit this with flags
+        SendScoresToBroadcastWatchers();
     }
 
-    public void SendScoreToUser(NetworkConnection conn, Action<string, LootLockerResponseData> finishDelegate, string levelName)
-    {
-        finishDelegate.Invoke(levelName, Scores[levelName]);
-    }
-    
     private void SendScoreResponse(string json)
     {
         print(json);
