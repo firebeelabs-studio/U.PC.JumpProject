@@ -13,10 +13,9 @@ namespace LootLocker.Requests
     public class LootLockerSessionRequest : LootLockerGetRequest
     {
         public string game_key => LootLockerConfig.current.apiKey?.ToString();
-        public string platform => LootLockerConfig.current.platform.ToString();
+        public string platform => CurrentPlatform.GetString();
         public string player_identifier { get; private set; }
         public string game_version => LootLockerConfig.current.game_version;
-        public bool development_mode => LootLockerConfig.current.developmentMode;
 
         public LootLockerSessionRequest(string player_identifier)
         {
@@ -29,25 +28,6 @@ namespace LootLocker.Requests
     }
 
     [System.Serializable]
-    public class LootLockerSteamSessionRequest : LootLockerGetRequest
-    {
-        public string game_key => LootLockerConfig.current.apiKey?.ToString();
-        public string platform => "Steam";
-        public string player_identifier { get; private set; }
-        public string game_version => LootLockerConfig.current.game_version;
-        public bool development_mode => LootLockerConfig.current.developmentMode;
-
-        public LootLockerSteamSessionRequest(string player_identifier)
-        {
-            this.player_identifier = player_identifier;
-        }
-
-        public LootLockerSteamSessionRequest()
-        {
-        }
-    }
-
-    [System.Serializable]
     public class LootLockerWhiteLabelSessionRequest : LootLockerGetRequest
     {
         public string game_key => LootLockerConfig.current.apiKey?.ToString();
@@ -55,9 +35,8 @@ namespace LootLocker.Requests
         public string password { get; set; } // DEPRECATED PARAMETER
         public string token { get; set; }
         public string game_version => LootLockerConfig.current.game_version;
-        public bool development_mode => LootLockerConfig.current.developmentMode;
 
-        [ObsoleteAttribute("StartWhiteLabelSession with password is deprecated")]
+        [Obsolete("StartWhiteLabelSession with password is deprecated")]
         public LootLockerWhiteLabelSessionRequest(string email, string password, string token)
         {
             this.email = email;
@@ -65,7 +44,7 @@ namespace LootLocker.Requests
             this.token = token;
         }
 
-        [ObsoleteAttribute("StartWhiteLabelSession with password is deprecated")]
+        [Obsolete("StartWhiteLabelSession with password is deprecated")]
         public LootLockerWhiteLabelSessionRequest(string email, string password)
         {
             this.email = email;
@@ -132,7 +111,6 @@ namespace LootLocker.Requests
         public string game_key => LootLockerConfig.current.apiKey?.ToString();
         public string nsa_id_token { get; private set; }
         public string game_version => LootLockerConfig.current.game_version;
-        public bool development_mode => LootLockerConfig.current.developmentMode;
 
         public LootLockerNintendoSwitchSessionRequest(string nsa_id_token)
         {
@@ -145,7 +123,6 @@ namespace LootLocker.Requests
         public string game_key => LootLockerConfig.current.apiKey?.ToString();
         public string xbox_user_token { get; private set; }
         public string game_version => LootLockerConfig.current.game_version;
-        public bool development_mode => LootLockerConfig.current.developmentMode;
 
         public LootLockerXboxOneSessionRequest(string xbox_user_token)
         {
@@ -158,7 +135,6 @@ namespace LootLocker.Requests
         public string game_key => LootLockerConfig.current.apiKey?.ToString();
         public string apple_authorization_code { get; private set; }
         public string game_version => LootLockerConfig.current.game_version;
-        public bool development_mode => LootLockerConfig.current.developmentMode;
 
         public LootLockerAppleSignInSessionRequest(string apple_authorization_code)
         {
@@ -171,7 +147,6 @@ namespace LootLocker.Requests
         public string game_key => LootLockerConfig.current.apiKey?.ToString();
         public string refresh_token { get; private set; }
         public string game_version => LootLockerConfig.current.game_version;
-        public bool development_mode => LootLockerConfig.current.developmentMode;
 
         public LootLockerAppleRefreshSessionRequest(string refresh_token)
         {
@@ -184,17 +159,18 @@ namespace LootLocker
 {
     public partial class LootLockerAPIManager
     {
-        public static void Session(LootLockerGetRequest data, Action<LootLockerSessionResponse> onComplete)
+        public static void Session(LootLockerSessionRequest data, Action<LootLockerSessionResponse> onComplete)
         {
             EndPointClass endPoint = LootLockerEndPoints.authenticationRequest;
 
             string json = "";
             if (data == null) return;
             else json = JsonConvert.SerializeObject(data);
+            LootLockerConfig.AddDevelopmentModeFieldToJsonStringIfNeeded(ref json); // TODO: Deprecated, remove in version 1.2.0
             LootLockerServerRequest.CallAPI(endPoint.endPoint, endPoint.httpMethod, json, (serverResponse) =>
             {
                 var response = LootLockerResponse.Serialize<LootLockerSessionResponse>(serverResponse);
-                LootLockerConfig.current.UpdateToken(response.session_token, (data as LootLockerSessionRequest)?.player_identifier);
+                LootLockerConfig.current.UpdateToken(response.session_token, data?.player_identifier);
                 onComplete?.Invoke(response);
             }, false);
         }
@@ -206,6 +182,7 @@ namespace LootLocker
             string json = "";
             if (data == null) return;
             else json = JsonConvert.SerializeObject(data);
+            LootLockerConfig.AddDevelopmentModeFieldToJsonStringIfNeeded(ref json); // TODO: Deprecated, remove in version 1.2.0
             LootLockerServerRequest.CallAPI(endPoint.endPoint, endPoint.httpMethod, json, (serverResponse) =>
             {
                 var response = LootLockerResponse.Serialize<LootLockerSessionResponse>(serverResponse);
@@ -214,7 +191,7 @@ namespace LootLocker
             }, false);
         }
 
-        public static void GuestSession(LootLockerGetRequest data, Action<LootLockerGuestSessionResponse> onComplete)
+        public static void GuestSession(LootLockerSessionRequest data, Action<LootLockerGuestSessionResponse> onComplete)
         {
             EndPointClass endPoint = LootLockerEndPoints.guestSessionRequest;
 
@@ -225,6 +202,7 @@ namespace LootLocker
             }
 
             json = JsonConvert.SerializeObject(data);
+            LootLockerConfig.AddDevelopmentModeFieldToJsonStringIfNeeded(ref json); // TODO: Deprecated, remove in version 1.2.0
             LootLockerServerRequest.CallAPI(endPoint.endPoint, endPoint.httpMethod, json, (serverResponse) =>
             {
                 var response = LootLockerResponse.Serialize<LootLockerGuestSessionResponse>(serverResponse);
@@ -244,6 +222,8 @@ namespace LootLocker
             }
 
             json = JsonConvert.SerializeObject(data);
+
+            LootLockerConfig.AddDevelopmentModeFieldToJsonStringIfNeeded(ref json); // TODO: Deprecated, remove in version 1.2.0
             LootLockerServerRequest.CallAPI(endPoint.endPoint, endPoint.httpMethod, json, (serverResponse) =>
             {
                 var response = LootLockerResponse.Serialize<LootLockerGuestSessionResponse>(serverResponse);
@@ -263,6 +243,7 @@ namespace LootLocker
             }
 
             json = JsonConvert.SerializeObject(data);
+            LootLockerConfig.AddDevelopmentModeFieldToJsonStringIfNeeded(ref json); // TODO: Deprecated, remove in version 1.2.0
             LootLockerServerRequest.CallAPI(endPoint.endPoint, endPoint.httpMethod, json, (serverResponse) =>
             {
                 var response = LootLockerResponse.Serialize<LootLockerSessionResponse>(serverResponse);
@@ -300,7 +281,7 @@ namespace LootLocker
             {
                 return;
             }
-
+            LootLockerConfig.AddDevelopmentModeFieldToJsonStringIfNeeded(ref json); // TODO: Deprecated, remove in version 1.2.0
             LootLockerServerRequest.CallAPI(endPoint.endPoint, endPoint.httpMethod, json, (serverResponse) =>
             {
                 var response = LootLockerAppleSessionResponse.Serialize<LootLockerAppleSessionResponse>(serverResponse);
@@ -309,13 +290,14 @@ namespace LootLocker
             }, false);
         }
 
-        public static void EndSession(LootLockerGetRequest data, Action<LootLockerSessionResponse> onComplete)
+        public static void EndSession(LootLockerSessionRequest data, Action<LootLockerSessionResponse> onComplete)
         {
             EndPointClass endPoint = LootLockerEndPoints.endingSession;
 
             string json = "";
             if (data == null) return;
             else json = JsonConvert.SerializeObject(data);
+            LootLockerConfig.AddDevelopmentModeFieldToJsonStringIfNeeded(ref json); // TODO: Deprecated, remove in version 1.2.0
 
             LootLockerServerRequest.CallAPI(endPoint.endPoint, endPoint.httpMethod, json, (serverResponse) => { LootLockerResponse.Serialize(onComplete, serverResponse); });
         }

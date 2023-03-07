@@ -9,6 +9,18 @@ public class LoginManager : MonoBehaviour
     public int PlayerId;
     public string Nick;
     
+    public static LoginManager Instance { get; private set; }
+    private void Awake() 
+    { 
+        if (Instance != null && Instance != this) 
+        { 
+            Destroy(this); 
+        } 
+        else 
+        { 
+            Instance = this; 
+        } 
+    }
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
@@ -30,6 +42,7 @@ public class LoginManager : MonoBehaviour
     {
         StartCoroutine(CheckPlayerSessionRoutine());
     }
+    
     private IEnumerator CheckPlayerSessionRoutine()
     {
         bool done = false;
@@ -37,18 +50,26 @@ public class LoginManager : MonoBehaviour
         {
             if (response)
             {
-                //somehow sessions ain't working 
                 LootLockerSDKManager.StartWhiteLabelSession((response) =>
                 {
                     if (response.success)
                     {
                         PlayerId = response.player_id;
                         ArcnesTools.Debug.Log("session started successfully");
-                        LoadingScreenCanvas.Instance.LoadScene("MainMenu");
+                        LootLockerSDKManager.GetPlayerName((getPlayerNameResponse) =>
+                        {
+                            if (getPlayerNameResponse.success)
+                            {
+                                Nick = getPlayerNameResponse.name;
+                            } 
+                            LoadingScreenCanvas.Instance.LoadScene("MainMenu");
+                            done = true;
+                        });
                     }
                     else
                     {
                         ArcnesTools.Debug.Log("error starting LootLocker session");
+                        done = true;
                     }
                 });
                 
@@ -58,9 +79,9 @@ public class LoginManager : MonoBehaviour
             {
                 // Show login form here
                 ArcnesTools.Debug.Log("session is NOT valid, we should show the login form");
+                done = true;
             }
 
-            done = true;
         });
         yield return new WaitWhile(() => done == false);
     }
@@ -72,40 +93,25 @@ public class LoginManager : MonoBehaviour
         {
             if (response.success)
             {
-                LootLockerSDKManager.WhiteLabelLogin(email, password, true, (response3) =>
+                LootLockerSDKManager.WhiteLabelLoginAndStartSession(email, password, true, (response3) =>
                 {
-                    if (response.success)
+                    if (response3.success)
                     {
-                        string token = response3.SessionToken;
-
-                        LootLockerSDKManager.StartWhiteLabelSession((response2) =>
+                        PlayerId = response3.SessionResponse.player_id;
+                        LootLockerSDKManager.SetPlayerName(playerName, (nameChangeResponse) =>
                         {
-                            if (response2.success)
+                            if (nameChangeResponse.success)
                             {
-                                PlayerId = response2.player_id;
-                                
-                                LootLockerSDKManager.SetPlayerName(playerName, (nameChangeResponse) =>
-                                {
-                                    if (nameChangeResponse.success)
-                                    {
-                                        Nick = playerName;
-                                        ArcnesTools.Debug.Log("Account created successfully");
-                                        done = true;
-                                        LoadingScreenCanvas.Instance.LoadScene("MainMenu");
-                                    }
-                                    else
-                                    {
-                                        ArcnesTools.Debug.Log("Name change failed");
-                                        done = true;
-                                    }
-                                });
+                                Nick = playerName;
+                                ArcnesTools.Debug.Log("Account created successfully");
+                                done = true;
+                                LoadingScreenCanvas.Instance.LoadScene("MainMenu");
                             }
                             else
                             {
-                                ArcnesTools.Debug.Log("error starting LootLocker session");
+                                ArcnesTools.Debug.Log("Name change failed");
                                 done = true;
                             }
-                            
                         });
                     }
                     else
@@ -126,32 +132,28 @@ public class LoginManager : MonoBehaviour
     private IEnumerator LoginRoutine(string email, string password, bool rememberMe)
     {
         bool done = false;
-        LootLockerSDKManager.WhiteLabelLogin(email, password, rememberMe, (response) =>
+        LootLockerSDKManager.WhiteLabelLoginAndStartSession(email, password, rememberMe, (response) =>
         {
             if (response.success)
             {
-                string token = response.SessionToken;
-
-                LootLockerSDKManager.StartWhiteLabelSession((response2) =>
+                PlayerId = response.SessionResponse.player_id;
+                ArcnesTools.Debug.Log("session started successfully");
+                LootLockerSDKManager.GetPlayerName((getPlayerNameResponse) =>
                 {
-                    if (response2.success)
+                    if (getPlayerNameResponse.success)
                     {
-                        PlayerId = response2.player_id;
-                        ArcnesTools.Debug.Log("session started successfully");
-                        LoadingScreenCanvas.Instance.LoadScene("MainMenu");
-                    }
-                    else
-                    {
-                        ArcnesTools.Debug.Log("error starting LootLocker session");
-                    }
-
+                        Nick = getPlayerNameResponse.name;
+                    } 
                     done = true;
+                    LoadingScreenCanvas.Instance.LoadScene("MainMenu");
                 });
+
             }
             else
             {
                 //show info about failed login
                 done = true;
+                ArcnesTools.Debug.Log("error starting LootLocker session");
             }
            
         });
