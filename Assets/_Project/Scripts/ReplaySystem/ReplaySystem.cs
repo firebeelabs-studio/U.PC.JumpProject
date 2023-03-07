@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TarodevController;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class ReplaySystem
 {
@@ -52,9 +51,9 @@ public class ReplaySystem
     /// <param name="target">The transform you wish to record</param>
     /// <param name="snapshotEveryNFrames">The accuracy of the recording. Smaller number == higher file size</param>
     /// <param name="maxRecordingTimeLimit">Stop recording beyond this time</param>
-    public void StartRun(Transform target, PlayerAnimator playerAnimator, SpriteRenderer targetSpriteRenderer,int snapshotEveryNFrames = 2, float maxRecordingTimeLimit = 600) 
+    public void StartRun(Transform target, PlayerAnimator playerAnimator,int snapshotEveryNFrames = 2, float maxRecordingTimeLimit = 600) 
     {
-        _currentRun = new Recording(target, playerAnimator, targetSpriteRenderer);
+        _currentRun = new Recording(target, playerAnimator);
 
         _elapsedRecordingTime = 0;
 
@@ -179,15 +178,12 @@ public class ReplaySystem
     {
         if (_currentReplay == null) return;
 
-        // Evaluate the point at the current time
-        //Pose pose = _currentReplay.EvaluatePoint(_replaySmoothedTime);
-        //_ghostObj.transform.SetPositionAndRotation(pose.position, pose.rotation);
-        
         Recording.ReplayStepData replayStepData = _currentReplay.EvaluatePointToGetTransformData(_replaySmoothedTime);
+        //SET POSITION AND ROTATION TO FIRST CHILD (VISUALS)
         _ghostObj.transform.SetPositionAndRotation(replayStepData.Position, replayStepData.Rotation);
-        var localScale = _ghostObj.transform.localScale;
-        localScale = new Vector3(replayStepData.SpriteFlipped ? (replayStepData.Scale.x * -1): replayStepData.Scale.x, replayStepData.Scale.y, 1f);
-        _ghostObj.transform.localScale = localScale;
+        //SET SCALE
+        Transform transform = _ghostObj.transform.GetChild(0);
+        transform.localScale = replayStepData.Scale;
 
         // Destroy the replay when done
         if (_replaySmoothedTime > _currentReplay.Duration) 

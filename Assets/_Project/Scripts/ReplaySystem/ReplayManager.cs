@@ -59,7 +59,7 @@ public class ReplayManager : MonoBehaviour
 
     private void RunStart()
     {
-        _system.StartRun(_recordTarget, _playerAnimator, _targetSpriteRenderer,_captureEveryNFrames);
+        _system.StartRun(_recordTarget, _playerAnimator, _captureEveryNFrames);
     }
 
     private void EndRun()
