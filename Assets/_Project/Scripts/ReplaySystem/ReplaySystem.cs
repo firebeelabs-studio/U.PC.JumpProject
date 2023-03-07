@@ -7,6 +7,7 @@ public class ReplaySystem
 {
     private SavedReplay _newReplay;
     public SavedReplay NewReplay => _newReplay;
+    private ReplayData _skinsData;
     
     private readonly WaitForFixedUpdate _wait = new WaitForFixedUpdate();
 
@@ -79,14 +80,14 @@ public class ReplaySystem
     /// </summary>
     /// <param name="save">If we want to save this run. Use false for restarts</param>
     /// <returns>Whether this run was the fastest so far</returns>
-    public void FinishRun(bool save = true)
+    public bool FinishRun(bool save = true)
     {
-        if (_currentRun == null) return;
+        if (_currentRun == null) return false;
         
         if (!save) 
         {
             _currentRun = null;
-            return;
+            return false;
         }
         _runs[RecordingType.Last] = _currentRun;
         _currentRun = null;
@@ -95,8 +96,11 @@ public class ReplaySystem
         {
             _newRecord = true;
             _runs[RecordingType.Best] = _runs[RecordingType.Last];
-            _newReplay = new SavedReplay(SerializeRun());
+            _newReplay = new SavedReplay(SerializeRun(), _skinsData.LevelName, _skinsData.BodyId, _skinsData.HatId, _skinsData.EyesId, _skinsData.MouthId, _skinsData.JacketId);
+            return true;
         }
+
+        return false;
     }
 
     /// <summary>
@@ -120,7 +124,7 @@ public class ReplaySystem
     }
 
     //in future we have to paste runs from leaderboards here im param
-    public string SerializeRun()
+    private string SerializeRun()
     {
         Recording rec;
         if(_runs.TryGetValue(RecordingType.Best, out rec) && _newRecord)
@@ -133,6 +137,12 @@ public class ReplaySystem
             return "";
         }
     }
+
+    public void SerializeSkinsData(ReplayData data)
+    {
+        _skinsData = data;
+    }
+    
     #endregion
 
     #region Play Ghost

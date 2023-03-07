@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Cinemachine;
 using Newtonsoft.Json;
 using TarodevController;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,7 +23,6 @@ public class ReplayManager : MonoBehaviour
     private SpriteRenderer _targetSpriteRenderer;
 
     private ReplaySystem _system;
-    private string _levelName;
     private ReplayData _replayData;
 
     private void Awake()
@@ -31,8 +32,7 @@ public class ReplayManager : MonoBehaviour
 
     private void Start()
     {
-        //Deserialize saved scores   
-        _levelName = SceneManager.GetActiveScene().name;
+        //Deserialize saved scores
     }
     private void OnEnable()
     {
@@ -64,7 +64,13 @@ public class ReplayManager : MonoBehaviour
 
     private void EndRun()
     {
-        _system.FinishRun();
+        bool newRecord =_system.FinishRun();
+        if (newRecord)
+        {
+            string jsonReplay = JsonConvert.SerializeObject(_system.NewReplay, Formatting.Indented);
+            //TODO: SEND REPLAY ON SERVER
+            //WriteString(jsonReplay);
+        }
     }
 
     [ContextMenu("START REPLAY")]
@@ -97,31 +103,28 @@ public class ReplayManager : MonoBehaviour
         string eyesId = outfitData.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Eyes)?.Id;
         string mouthId = outfitData.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Mouth)?.Id;
         string jacketId = outfitData.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Jacket)?.Id;
-        _replayData = new ReplayData( _levelName, _hash, bodyId, hatId, eyesId, mouthId, jacketId);
+        _replayData = new ReplayData( SceneManager.GetActiveScene().name, _hash, bodyId, hatId, eyesId, mouthId, jacketId);
         _playerAnimator = _recordTarget.GetComponentInChildren<PlayerAnimator>();
         _targetSpriteRenderer = _playerAnimator.GetComponent<SpriteRenderer>();
+        _system.SerializeSkinsData(_replayData);
     }
+    
+    private void WriteString(string text)
+    {
+        if (string.IsNullOrEmpty(text)) return;
+        
+        string path = "Assets/_Project/Replays/test" + System.Guid.NewGuid() +".txt";
 
-    //take this out to static writer / reader
-    //static void WriteString(string text)
-    //{
-    //    if (string.IsNullOrEmpty(text)) return;
+        //Write some text to the test.txt file
 
-    //    Debug.Log("Saving...");
-    //    string path = "Assets/_Project/test" + System.Guid.NewGuid() +".txt";
+        StreamWriter writer = new StreamWriter(path, true);
 
-    //    //Write some text to the test.txt file
+        writer.WriteLine(text);
 
-    //    StreamWriter writer = new StreamWriter(path, true);
+        writer.Close();
 
-    //    writer.WriteLine(text);
+        //Re-import the file to update the reference in the editor
 
-    //    writer.Close();
-
-    //    //Re-import the file to update the reference in the editor
-
-    //    AssetDatabase.ImportAsset(path);
-
-
-    //}
+        AssetDatabase.ImportAsset(path);
+    }
 }

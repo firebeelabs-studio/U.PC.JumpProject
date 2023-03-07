@@ -1,8 +1,6 @@
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using TarodevController;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class Recording 
@@ -95,7 +93,7 @@ public class Recording
     }
 
     private const char DATA_DELIMITER = '|';
-    private const char CURVE_DELIMITER = '\n';
+    private const char CURVE_DELIMITER = '_';
 
     public string Serialize() 
     {
@@ -103,12 +101,16 @@ public class Recording
 
         StringifyPoints(_posXCurve);
         StringifyPoints(_posYCurve);
-        StringifyPoints(_scaleYCurve, false);
+        StringifyPoints(_scaleXCurve);
+        StringifyPoints(_scaleYCurve);
+        StringifyPoints(_rotationCurve, false);
 
-        void StringifyPoints(AnimationCurve curve, bool addDelimiter = true) {
-            for (var i = 0; i < curve.length; i++) {
+        void StringifyPoints(AnimationCurve curve, bool addDelimiter = true) 
+        {
+            for (var i = 0; i < curve.length; i++) 
+            {
                 var point = curve[i];
-                builder.Append($"{point.time:F3},{point.value:F2}");
+                builder.Append($"{point.time:F3}:{point.value:F3}");
                 if (i != curve.length - 1) builder.Append(DATA_DELIMITER);
             }
 
@@ -124,13 +126,16 @@ public class Recording
 
         DeserializePoint(_posXCurve, components[0]);
         DeserializePoint(_posYCurve, components[1]);
-        DeserializePoint(_scaleYCurve, components[2]);
+        DeserializePoint(_scaleXCurve, components[2]);
+        DeserializePoint(_scaleYCurve, components[3]);
+        DeserializePoint(_rotationCurve, components[4]);
 
         void DeserializePoint(AnimationCurve curve, string d) 
         {
             var splitValues = d.Split(DATA_DELIMITER);
-            foreach (var timeValPair in splitValues) {
-                var s = timeValPair.Split(',');
+            foreach (var timeValPair in splitValues)
+            {
+                var s = timeValPair.Split(':');
                 var kf = new Keyframe(float.Parse(s[0]), float.Parse(s[1]));
                 curve.AddKey(kf);
             }
