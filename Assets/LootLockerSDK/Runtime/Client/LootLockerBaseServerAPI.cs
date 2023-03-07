@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using System.Net;
 using LootLocker.Requests;
+using Newtonsoft.Json.Linq;
 
 namespace LootLocker.LootLockerEnums
 {
@@ -68,7 +69,7 @@ namespace LootLocker
                 //Build the URL that we will hit based on the specified endpoint, query params, etc
                 string url = BuildURL(request.endpoint, request.queryParams);
 #if UNITY_EDITOR
-                LootLockerSDKManager.DebugMessage("ServerRequest URL: " + url);
+                LootLockerLogger.GetForLogLevel(LootLockerLogger.LogLevel.Verbose)("ServerRequest " + request.httpMethod + " URL: " + url);
 #endif
 
                 using (UnityWebRequest webRequest = CreateWebRequest(url, request))
@@ -84,7 +85,7 @@ namespace LootLocker
                         yield return null;
                         if (Time.time - startTime >= maxTimeOut)
                         {
-                            LootLockerSDKManager.DebugMessage("ERROR: Exceeded maxTimeOut waiting for a response from " + request.httpMethod.ToString() + " " + url);
+                            LootLockerLogger.GetForLogLevel(LootLockerLogger.LogLevel.Error)("Exceeded maxTimeOut waiting for a response from " + request.httpMethod.ToString() + " " + url);
                             OnServerResponse?.Invoke(new LootLockerResponse() { hasError = true, statusCode = 408, Error = "{\"error\": \"" + request.endpoint + " Timed out.\"}" });
                             yield break;
                         }
@@ -98,13 +99,13 @@ namespace LootLocker
 
                     try
                     {
-                        LootLockerSDKManager.DebugMessage("Server Response: " + request.httpMethod + " " + request.endpoint + " completed in " + (Time.time - startTime).ToString("n4") + " secs.\nResponse: " + webRequest.downloadHandler.text);
+                        LootLockerLogger.GetForLogLevel(LootLockerLogger.LogLevel.Verbose)("Server Response: " + webRequest.responseCode + " " + request.endpoint + " completed in " + (Time.time - startTime).ToString("n4") + " secs.\nResponse: " + ObfuscateJsonStringForLogging(webRequest.downloadHandler.text));
                     }
                     catch
                     {
-                        LootLockerSDKManager.DebugMessage(request.httpMethod.ToString(), true);
-                        LootLockerSDKManager.DebugMessage(request.endpoint, true);
-                        LootLockerSDKManager.DebugMessage(webRequest.downloadHandler.text, true);
+                        LootLockerLogger.GetForLogLevel(LootLockerLogger.LogLevel.Error)(request.httpMethod.ToString());
+                        LootLockerLogger.GetForLogLevel(LootLockerLogger.LogLevel.Error)(request.endpoint);
+                        LootLockerLogger.GetForLogLevel(LootLockerLogger.LogLevel.Error)(ObfuscateJsonStringForLogging(webRequest.downloadHandler.text));
                     }
 
                     LootLockerResponse response = new LootLockerResponse();
@@ -128,7 +129,7 @@ namespace LootLocker
                                 response.Error = "Payment Required -- Payment failed. Insufficient funds, etc.";
                                 break;
                             case 401:
-                                response.Error = "Unauthroized -- Your session_token is invalid";
+                                response.Error = "Unauthorized -- Your session_token is invalid";
                                 break;
                             case 403:
                                 response.Error = "Forbidden -- You do not have access";
@@ -155,23 +156,22 @@ namespace LootLocker
                                 response.Error = "Service Unavailable -- We're either offline for maintenance, or an error that should be solvable by calling again later was triggered.";
                                 break;
                         }
-
-                        bool isSteam = LootLockerSDKManager.GetCurrentPlatform() == "steam";
-                        if ((webRequest.responseCode == 401 || webRequest.responseCode == 403) && LootLockerConfig.current.allowTokenRefresh && !isSteam && tries < maxRetry) 
+                        
+                        if ((webRequest.responseCode == 401 || webRequest.responseCode == 403) && LootLockerConfig.current.allowTokenRefresh && CurrentPlatform.Get() != Platforms.Steam && tries < maxRetry) 
                         {
                             tries++;
-                            LootLockerSDKManager.DebugMessage("Refreshing Token, Since we could not find one. If you do not want this please turn off in the lootlocker config settings");
+                            LootLockerLogger.GetForLogLevel(LootLockerLogger.LogLevel.Warning)("Refreshing Token, since we could not find one. If you do not want this please turn off in the LootLocker config settings");
                             RefreshTokenAndCompleteCall(request,(value)=> { tries = 0; OnServerResponse?.Invoke(value); });
                         }
                         else
                         {
                             tries = 0;
                             response.Error += " " + webRequest.downloadHandler.text;
-                            response.text = webRequest.downloadHandler.text;
-
+                            response.statusCode = (int)webRequest.responseCode;
                             response.success = false;
                             response.hasError = true;
                             response.text = webRequest.downloadHandler.text;
+                            LootLockerLogger.GetForLogLevel(LootLockerLogger.LogLevel.Error)(ObfuscateJsonStringForLogging(response.Error));
                             OnServerResponse?.Invoke(response);
                         }
 
@@ -180,6 +180,7 @@ namespace LootLocker
                     {
                         response.success = true;
                         response.hasError = false;
+                        response.statusCode = (int)webRequest.responseCode;
                         response.text = webRequest.downloadHandler.text;
                         OnServerResponse?.Invoke(response);
                     }
@@ -234,7 +235,7 @@ namespace LootLocker
 
                 if (texture == null)
                 {
-                    LootLockerSDKManager.DebugMessage("Texture download failed for: " + url, true);
+                    LootLockerLogger.GetForLogLevel(LootLockerLogger.LogLevel.Error)("Texture download failed for: " + url);
                 }
 
                 OnComplete?.Invoke(texture);
@@ -246,8 +247,13 @@ namespace LootLocker
             UnityWebRequest webRequest;
             switch (request.httpMethod)
             {
-                case LootLockerHTTPMethod.UPLOAD:
+                case LootLockerHTTPMethod.UPLOAD_FILE:
                     webRequest = UnityWebRequest.Post(url, request.form);
+                    break;
+                case LootLockerHTTPMethod.UPDATE_FILE:
+                    // Workaround for UnityWebRequest with PUT HTTP verb not having form fields
+                    webRequest = UnityWebRequest.Post(url, request.form);
+                    webRequest.method = UnityWebRequest.kHttpVerbPUT;
                     break;
                 case LootLockerHTTPMethod.POST:
                 case LootLockerHTTPMethod.PATCH:
@@ -266,13 +272,12 @@ namespace LootLocker
                         byte[] formSections = UnityWebRequest.SerializeFormSections(form, boundary);
                         // Set the content type - NO QUOTES around the boundary
                         string contentType = String.Concat("multipart/form-data; boundary=--", Encoding.UTF8.GetString(boundary));
-
-                        //Debug.LogError("Content type Set: " + contentType);
+                        
                         // Make my request object and add the raw body. Set anything else you need here
                         webRequest = new UnityWebRequest();
                         webRequest.SetRequestHeader("Content-Type", "multipart/form-data; boundary=--");
                         webRequest.uri = new Uri(url);
-                        Debug.Log(url);//the url is wrong in some cases
+                        LootLockerLogger.GetForLogLevel(LootLockerLogger.LogLevel.Verbose)(url);//the url is wrong in some cases
                         webRequest.uploadHandler = new UploadHandlerRaw(formSections);
                         webRequest.uploadHandler.contentType = contentType;
                         webRequest.useHttpContinue = false;
@@ -284,7 +289,7 @@ namespace LootLocker
                     {
                         string json = (request.payload != null && request.payload.Count > 0) ? JsonConvert.SerializeObject(request.payload) : request.jsonPayload;
 #if UNITY_EDITOR
-                        LootLockerSDKManager.DebugMessage("REQUEST BODY = " + json);
+                        LootLockerLogger.GetForLogLevel(LootLockerLogger.LogLevel.Verbose)("REQUEST BODY = " + ObfuscateJsonStringForLogging(json));
 #endif
                         byte[] bytes = System.Text.Encoding.UTF8.GetBytes(string.IsNullOrEmpty(json) ? "{}" : json);
                         webRequest = UnityWebRequest.Put(url, bytes);
@@ -328,6 +333,103 @@ namespace LootLocker
             }
 
             return webRequest;
+        }
+
+        private struct ObfuscationDetails
+        {
+            public string key;
+            public char replacementChar;
+            public int visibleCharsFromBeginning;
+            public int visibleCharsFromEnd;
+            public bool hideCharactersForShortStrings;
+
+            public ObfuscationDetails(string key, char replacementChar = '*', int visibleCharsFromBeginning = 3, int visibleCharsFromEnd = 3, bool hideCharactersForShortStrings = true)
+            {
+                this.key = key;
+                this.replacementChar = replacementChar;
+                this.visibleCharsFromBeginning = visibleCharsFromBeginning;
+                this.visibleCharsFromEnd = visibleCharsFromEnd;
+                this.hideCharactersForShortStrings = hideCharactersForShortStrings;
+            }
+        }
+
+        static readonly List<ObfuscationDetails> FieldsToObfuscate = new List<ObfuscationDetails>
+        {
+            new ObfuscationDetails("game_key", '*', 4, 3, false),
+            new ObfuscationDetails("email"),
+            new ObfuscationDetails("password", '*', 0, 0),
+            new ObfuscationDetails("domain_key"),
+            new ObfuscationDetails("session_token"),
+            new ObfuscationDetails("token")
+        };
+
+        private static string ObfuscateJsonStringForLogging(string json)
+        {
+            if (string.IsNullOrEmpty(json))
+            {
+                return json;
+            }
+
+            JObject jsonObject;
+            try
+            {
+                jsonObject = JObject.Parse(json);
+            }
+            catch (JsonReaderException)
+            {
+                return json;
+            }
+            ;
+            if (jsonObject.HasValues)
+            {
+                foreach (ObfuscationDetails obfuscationInfo in FieldsToObfuscate)
+                {
+                    string valueToObfuscate;
+                    try
+                    {
+                        JToken jsonValue;
+                        jsonObject.TryGetValue(obfuscationInfo.key, StringComparison.Ordinal, out jsonValue);
+                        if (jsonValue == null || (jsonValue.Type != JTokenType.String && jsonValue.Type != JTokenType.Integer))
+                            continue;
+                        valueToObfuscate = jsonValue.ToString();
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                        continue;
+                    }
+
+                    if (string.IsNullOrEmpty(valueToObfuscate))
+                        continue;
+
+                    if (valueToObfuscate.Equals("null", StringComparison.Ordinal))
+                        continue;
+
+                    int replaceFrom = 0;
+                    int replaceTo = valueToObfuscate.Length;
+
+                    // Deal with short strings
+                    if (valueToObfuscate.Length <= obfuscationInfo.visibleCharsFromBeginning + obfuscationInfo.visibleCharsFromEnd)
+                    {
+                        if (!obfuscationInfo.hideCharactersForShortStrings) // Hide nothing, else hide everything
+                            continue;
+                    }
+                    // Replace in
+                    else
+                    {
+                        replaceFrom += obfuscationInfo.visibleCharsFromBeginning;
+                        replaceTo -= obfuscationInfo.visibleCharsFromEnd;
+                    }
+
+                    StringBuilder replacement = new StringBuilder();
+                    replacement.Append(obfuscationInfo.replacementChar, replaceTo - replaceFrom);
+                    StringBuilder obfuscatedValue = new StringBuilder(valueToObfuscate);
+                    obfuscatedValue.Remove(replaceFrom, replacement.Length);
+                    obfuscatedValue.Insert(replaceFrom, replacement.ToString());
+                    jsonObject[obfuscationInfo.key] = obfuscatedValue.ToString();
+                }
+            }
+
+            return JsonConvert.SerializeObject(jsonObject, Formatting.None);
         }
 
         string BuildURL(string endpoint, Dictionary<string, string> queryParams = null)

@@ -11,7 +11,6 @@ namespace LootLocker
         public static EndPointClass playerVerification = new EndPointClass("v1/player/verify", LootLockerHTTPMethod.POST);
         public static EndPointClass authenticationRequest = new EndPointClass("v2/session", LootLockerHTTPMethod.POST);
         public static EndPointClass guestSessionRequest = new EndPointClass("v2/session/guest", LootLockerHTTPMethod.POST);
-        public static EndPointClass whiteLabelLoginSessionRequest = new EndPointClass("v2/session/white-label", LootLockerHTTPMethod.POST);
         public static EndPointClass endingSession = new EndPointClass("v1/session", LootLockerHTTPMethod.DELETE);
         public static EndPointClass initialAuthenticationRequest = new EndPointClass("v1/session", LootLockerHTTPMethod.POST);
         public static EndPointClass twoFactorAuthenticationCodeVerification = new EndPointClass("v1/2fa", LootLockerHTTPMethod.POST);
@@ -27,6 +26,7 @@ namespace LootLocker
         public static EndPointClass whiteLabelVerifySession = new EndPointClass("white-label-login/verify-session", LootLockerHTTPMethod.POST);
         public static EndPointClass whiteLabelRequestPasswordReset = new EndPointClass("white-label-login/request-reset-password", LootLockerHTTPMethod.POST);
         public static EndPointClass whiteLabelRequestAccountVerification = new EndPointClass("white-label-login/request-verification", LootLockerHTTPMethod.POST);
+        public static EndPointClass whiteLabelLoginSessionRequest = new EndPointClass("v2/session/white-label", LootLockerHTTPMethod.POST);
 
         // Player
         [Header("Player")]
@@ -43,14 +43,25 @@ namespace LootLocker
         public static EndPointClass setProfilePublic = new EndPointClass("v1/player/profile/public", LootLockerHTTPMethod.POST);
         public static EndPointClass getPlayerName = new EndPointClass("player/name", LootLockerHTTPMethod.GET);
         public static EndPointClass setPlayerName = new EndPointClass("player/name", LootLockerHTTPMethod.PATCH);
+        public static EndPointClass deletePlayer = new EndPointClass("player", LootLockerHTTPMethod.DELETE);
         public static EndPointClass lookupPlayerNames = new EndPointClass("player/lookup/name", LootLockerHTTPMethod.GET);
         public static EndPointClass lookupPlayer1stPartyPlatformIDs = new EndPointClass("player/lookup/ids", LootLockerHTTPMethod.GET);
         public static EndPointClass getPlayerFiles = new EndPointClass("player/files", LootLockerHTTPMethod.GET);
         public static EndPointClass getPlayerFilesByPlayerId = new EndPointClass("player/{0}/files", LootLockerHTTPMethod.GET);
         public static EndPointClass getSingleplayerFile = new EndPointClass("player/files/{0}", LootLockerHTTPMethod.GET);
-        public static EndPointClass uploadPlayerFile = new EndPointClass("player/files", LootLockerHTTPMethod.UPLOAD);
+        public static EndPointClass uploadPlayerFile = new EndPointClass("player/files", LootLockerHTTPMethod.UPLOAD_FILE);
+        public static EndPointClass updatePlayerFile = new EndPointClass("/player/files/{0}", LootLockerHTTPMethod.UPDATE_FILE);
         public static EndPointClass deletePlayerFile = new EndPointClass("/player/files/{0}", LootLockerHTTPMethod.DELETE);
 
+        // Player Progressions
+        [Header("Player Progressions")]
+        public static EndPointClass getAllPlayerProgressions = new EndPointClass("player/progressions", LootLockerHTTPMethod.GET);
+        public static EndPointClass getSinglePlayerProgression = new EndPointClass("player/progressions/{0}", LootLockerHTTPMethod.GET);
+        public static EndPointClass addPointsToPlayerProgression = new EndPointClass("player/progressions/{0}/points/add", LootLockerHTTPMethod.POST);
+        public static EndPointClass subtractPointsFromPlayerProgression = new EndPointClass("player/progressions/{0}/points/subtract", LootLockerHTTPMethod.POST);
+        public static EndPointClass resetPlayerProgression = new EndPointClass("player/progressions/{0}/reset", LootLockerHTTPMethod.POST);
+        public static EndPointClass deletePlayerProgression = new EndPointClass("player/progressions/{0}", LootLockerHTTPMethod.DELETE);
+        
         // Character
         [Header("Character")]
         public static EndPointClass characterLoadouts = new EndPointClass("v1/player/character/loadout", LootLockerHTTPMethod.GET);
@@ -68,6 +79,15 @@ namespace LootLocker
         public static EndPointClass getEquipableContextbyCharacter = new EndPointClass("v1/player/character/{0}/contexts", LootLockerHTTPMethod.GET);
         public static EndPointClass createCharacter = new EndPointClass("v1/player/character", LootLockerHTTPMethod.POST);
         public static EndPointClass listCharacterTypes = new EndPointClass("v1/player/character/types", LootLockerHTTPMethod.GET);
+        
+        // Character Progressions
+        [Header("Character Progressions")]
+        public static EndPointClass getAllCharacterProgressions = new EndPointClass("player/characters/{0}/progressions", LootLockerHTTPMethod.GET);
+        public static EndPointClass getSingleCharacterProgression = new EndPointClass("player/characters/{0}/progressions/{1}", LootLockerHTTPMethod.GET);
+        public static EndPointClass addPointsToCharacterProgression = new EndPointClass("player/characters/{0}/progressions/{1}/points/add", LootLockerHTTPMethod.POST);
+        public static EndPointClass subtractPointsFromCharacterProgression = new EndPointClass("player/characters/{0}/progressions/{1}/points/subtract", LootLockerHTTPMethod.POST);
+        public static EndPointClass resetCharacterProgression = new EndPointClass("player/characters/{0}/progressions/{1}/reset", LootLockerHTTPMethod.POST);
+        public static EndPointClass deleteCharacterProgression = new EndPointClass("player/characters/{0}/progressions/{1}", LootLockerHTTPMethod.DELETE);
 
         // Persistentplayer storage 
         [Header("Persitent Player Storage")]
@@ -108,7 +128,7 @@ namespace LootLocker
         public static EndPointClass gettingASingleAssetCandidate = new EndPointClass("v1/player/assets/candidates/{0}", LootLockerHTTPMethod.GET);
         public static EndPointClass deletingAnAssetCandidate = new EndPointClass("v1/player/assets/candidates/{0}", LootLockerHTTPMethod.DELETE);
         public static EndPointClass listingAssetCandidates = new EndPointClass("v1/player/assets/candidates", LootLockerHTTPMethod.GET);
-        public static EndPointClass addingFilesToAssetCandidates = new EndPointClass("v1/player/assets/candidates/{0}/file", LootLockerHTTPMethod.UPLOAD);
+        public static EndPointClass addingFilesToAssetCandidates = new EndPointClass("v1/player/assets/candidates/{0}/file", LootLockerHTTPMethod.UPLOAD_FILE);
         public static EndPointClass removingFilesFromAssetCandidates = new EndPointClass("v1/player/assets/candidates/{0}/file/{1}", LootLockerHTTPMethod.DELETE);
 
         // Events
@@ -163,6 +183,12 @@ namespace LootLocker
         public static EndPointClass getAllMemberRanks = new EndPointClass("leaderboards/member/{0}?count={1}", LootLockerHTTPMethod.GET);
         public static EndPointClass getScoreList = new EndPointClass("leaderboards/{0}/list?count={1}", LootLockerHTTPMethod.GET);
         public static EndPointClass submitScore = new EndPointClass("leaderboards/{0}/submit", LootLockerHTTPMethod.POST);
+        
+        // Progressions
+        [Header("Progressions")]
+        public static EndPointClass getAllProgressions = new EndPointClass("progressions", LootLockerHTTPMethod.GET);
+        public static EndPointClass getSingleProgression = new EndPointClass("progressions/{0}", LootLockerHTTPMethod.GET);
+        public static EndPointClass getProgressionTiers = new EndPointClass("progressions/{0}/tiers", LootLockerHTTPMethod.GET);
 
         // Drop Tables
         [Header("Drop Tables")]

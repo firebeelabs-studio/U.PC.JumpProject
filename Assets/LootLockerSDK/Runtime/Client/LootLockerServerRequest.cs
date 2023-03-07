@@ -23,7 +23,8 @@ namespace LootLocker
         CREATE = 5,
         OPTIONS = 6,
         PATCH = 7,
-        UPLOAD = 8
+        UPLOAD_FILE = 8,
+        UPDATE_FILE = 9
     }
 
     /// <summary>
@@ -92,6 +93,12 @@ namespace LootLocker
             return response;
         }
     }
+    public class LootLockerPaginationResponse<TKey>
+    {
+        public int total { get; set; }
+        public TKey next_cursor { get; set; }
+        public TKey previous_cursor { get; set; }
+    }
 
     /// <summary>
     /// Convenience factory class for creating some responses that we use often.
@@ -117,7 +124,7 @@ namespace LootLocker
         /// </summary>
         public static T SDKNotInitializedError<T>() where T : LootLockerResponse, new()
         {
-            return Error<T>("SDK not initialised");
+            return Error<T>("SDK not initialized");
         }
     }
 
@@ -156,7 +163,7 @@ namespace LootLocker
             LootLocker.LootLockerEnums.LootLockerCallerRole callerRole = LootLocker.LootLockerEnums.LootLockerCallerRole.User)
         {
 #if UNITY_EDITOR
-            LootLockerSDKManager.DebugMessage("Caller Type: " + callerRole.ToString());
+            LootLockerLogger.GetForLogLevel(LootLockerLogger.LogLevel.Verbose)("Caller Type: " + callerRole);
 #endif
 
             Dictionary<string, string> headers = new Dictionary<string, string>();
@@ -187,7 +194,7 @@ namespace LootLocker
             if (LootLockerConfig.current.domainKey.ToString().Length == 0)
             {
 #if UNITY_EDITOR
-                LootLockerSDKManager.DebugMessage("LootLocker domain key must be set in settings", true);
+                LootLockerLogger.GetForLogLevel(LootLockerLogger.LogLevel.Error)("LootLocker domain key must be set in settings");
 #endif
                 onComplete?.Invoke(LootLockerResponseFactory.Error<LootLockerResponse>("LootLocker domain key must be set in settings"));
 
@@ -197,7 +204,7 @@ namespace LootLocker
             Dictionary<string, string> headers = new Dictionary<string, string>();
             headers.Add("domain-key", LootLockerConfig.current.domainKey);
 
-            if (LootLockerConfig.current.developmentMode)
+            if((!LootLockerConfig.current.IsPrefixedApiKey() && LootLockerConfig.current.developmentMode) || LootLockerConfig.current.apiKey.StartsWith("dev_"))
             {
                 headers.Add("is-development", "true");
             }
@@ -207,8 +214,7 @@ namespace LootLocker
             new LootLockerServerRequest(endPoint, httpMethod, body, headers, callerRole: LootLockerCallerRole.Base).Send((response) => { onComplete?.Invoke(response); });
         }
 
-        public static void UploadFile(string endPoint, LootLockerHTTPMethod httpMethod, byte[] file, string fileName = "file", string fileContentType = "text/plain", Dictionary<string, string> body = null, Action<LootLockerResponse> onComplete = null,
-            bool useAuthToken = true, LootLocker.LootLockerEnums.LootLockerCallerRole callerRole = LootLocker.LootLockerEnums.LootLockerCallerRole.User)
+        public static void UploadFile(string endPoint, LootLockerHTTPMethod httpMethod, byte[] file, string fileName = "file", string fileContentType = "text/plain", Dictionary<string, string> body = null, Action<LootLockerResponse> onComplete = null, bool useAuthToken = true, LootLocker.LootLockerEnums.LootLockerCallerRole callerRole = LootLocker.LootLockerEnums.LootLockerCallerRole.User)
         {
             Dictionary<string, string> headers = new Dictionary<string, string>();
 
@@ -261,7 +267,7 @@ namespace LootLocker
 
             if (this.payload != null && isNonPayloadMethod)
             {
-                LootLockerSDKManager.DebugMessage("WARNING: Payloads should not be sent in GET, HEAD, OPTIONS, requests. Attempted to send a payload to: " + this.httpMethod.ToString() + " " + this.endpoint);
+                LootLockerLogger.GetForLogLevel(LootLockerLogger.LogLevel.Warning)("Payloads should not be sent in GET, HEAD, OPTIONS, requests. Attempted to send a payload to: " + this.httpMethod.ToString() + " " + this.endpoint);
             }
         }
 
@@ -283,7 +289,7 @@ namespace LootLocker
             this.form = null;
             if (this.payload != null && isNonPayloadMethod)
             {
-                LootLockerSDKManager.DebugMessage("WARNING: Payloads should not be sent in GET, HEAD, OPTIONS, requests. Attempted to send a payload to: " + this.httpMethod.ToString() + " " + this.endpoint);
+                LootLockerLogger.GetForLogLevel(LootLockerLogger.LogLevel.Warning)("Payloads should not be sent in GET, HEAD, OPTIONS, requests. Attempted to send a payload to: " + this.httpMethod.ToString() + " " + this.endpoint);
             }
         }
 
@@ -305,7 +311,7 @@ namespace LootLocker
             this.form = null;
             if (!string.IsNullOrEmpty(jsonPayload) && isNonPayloadMethod)
             {
-                LootLockerSDKManager.DebugMessage("WARNING: Payloads should not be sent in GET, HEAD, OPTIONS, requests. Attempted to send a payload to: " + this.httpMethod.ToString() + " " + this.endpoint);
+                LootLockerLogger.GetForLogLevel(LootLockerLogger.LogLevel.Warning)("Payloads should not be sent in GET, HEAD, OPTIONS, requests. Attempted to send a payload to: " + this.httpMethod.ToString() + " " + this.endpoint);
             }
         }
 

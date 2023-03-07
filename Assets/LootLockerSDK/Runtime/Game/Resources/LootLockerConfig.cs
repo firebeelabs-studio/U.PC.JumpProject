@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using System.IO;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -33,6 +31,7 @@ namespace LootLocker
             {
                 // Create a new Config
                 LootLockerConfig newConfig = ScriptableObject.CreateInstance<LootLockerConfig>();
+                newConfig.platform = platformType.Unused;
 
                 // Folder needs to exist for Unity to be able to create an asset in it
                 string dir = Application.dataPath+ "/LootLockerSDK/Resources/Config";
@@ -79,22 +78,38 @@ namespace LootLocker
             }
         }
 #endif
-        public static bool CreateNewSettings(string apiKey, string gameVersion, platformType platform, bool onDevelopmentMode, string domainKey, DebugLevel debugLevel = DebugLevel.All, bool allowTokenRefresh = false)
+        public static bool CreateNewSettings(string apiKey, string gameVersion, string domainKey, bool onDevelopmentMode = false, platformType platform = platformType.Unused, DebugLevel debugLevel = DebugLevel.All, bool allowTokenRefresh = false)
         {
-            settingsInstance = Resources.Load<LootLockerConfig>("Config/LootLockerConfig");
+            _current = Get();
 
-            if (settingsInstance == null)
-                settingsInstance = CreateInstance<LootLockerConfig>();
-
-            settingsInstance.apiKey = apiKey;
-            settingsInstance.game_version = gameVersion;
-            settingsInstance.platform = platform;
-            settingsInstance.developmentMode = onDevelopmentMode;
-            settingsInstance.currentDebugLevel = debugLevel;
-            settingsInstance.allowTokenRefresh = allowTokenRefresh;
-            settingsInstance.domainKey = domainKey;
+            _current.apiKey = apiKey;
+            _current.game_version = gameVersion;
+            if(platform != platformType.Unused) {
+                _current.platform = platform;
+            }
+            _current.developmentMode = onDevelopmentMode;
+            _current.currentDebugLevel = debugLevel;
+            _current.allowTokenRefresh = allowTokenRefresh;
+            _current.domainKey = domainKey;
 
             return true;
+        }
+
+        // TODO: Deprecated, remove in version 1.2.0
+        public bool IsPrefixedApiKey()
+        {
+            return !string.IsNullOrEmpty(apiKey) && (apiKey.StartsWith("dev_") || apiKey.StartsWith("prod_"));
+        }
+
+        // TODO: Deprecated, remove in version 1.2.0
+        public static void AddDevelopmentModeFieldToJsonStringIfNeeded(ref string json)
+        {
+            if (!current.IsPrefixedApiKey())
+            {
+                json = json.Remove(json.Length - 1, 1); // Remove '}'
+                string devModeJsonString = ", \"development_mode\": " + current.developmentMode;
+                json = json + devModeJsonString.ToLower() + "}";
+            }
         }
 
         private static LootLockerConfig _current;
@@ -124,8 +139,10 @@ namespace LootLocker
         public string game_version = "1.0.0.0";
         [HideInInspector]
         public string deviceID = "defaultPlayerId";
-        public platformType platform;
-        public enum platformType { Android, iOS, Steam, PlayStationNetwork }
+        [HideInInspector]
+        public platformType platform; // TODO: Deprecated, remove in version 1.2.0
+        public enum platformType { Android, iOS, Steam, PlayStationNetwork, Unused }
+        [HideInInspector]
         public bool developmentMode = true;
         [HideInInspector]
         public string url = "https://api.lootlocker.io/game/v1";
@@ -137,7 +154,7 @@ namespace LootLocker
         public string userUrl = "https://api.lootlocker.io/game";
         [HideInInspector]
         public string baseUrl = "https://api.lootlocker.io";
-        public enum DebugLevel { All, ErrorOnly, NormalOnly, Off }
+        public enum DebugLevel { All, ErrorOnly, NormalOnly, Off , AllAsNormal}
         public DebugLevel currentDebugLevel = DebugLevel.All;
         public bool allowTokenRefresh = true;
 
@@ -146,6 +163,5 @@ namespace LootLocker
             token = _token;
             deviceID = _player_identifier;
         }
-
     }
 }

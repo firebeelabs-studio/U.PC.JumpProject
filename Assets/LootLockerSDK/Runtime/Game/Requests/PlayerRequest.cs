@@ -13,6 +13,19 @@ namespace LootLocker.Requests
     }
 
     [System.Serializable]
+    public class LootLockerOtherPlayerInfoRequest : LootLockerGetRequest
+    {
+        public LootLockerOtherPlayerInfoRequest(string playerID, string platform = "")
+        {
+            getRequests.Add(playerID);
+            if (platform != "")
+            {
+                getRequests.Add(platform);
+            }
+        }
+    }
+
+    [System.Serializable]
     public class LootLockerStandardResponse : LootLockerResponse
     {
     }
@@ -186,6 +199,7 @@ namespace LootLocker.Requests
     public class LootLockerPlayerFile : LootLockerResponse
     {
         public int id { get; set; }
+        public string revision_id { get; set; }
         public string name { get; set; }
         public int size { get; set; }
         public string purpose { get; set; }
@@ -229,7 +243,7 @@ namespace LootLocker.Requests
         {
             getRequests.Clear();
             getRequests.Add(LootLockerConfig.current.deviceID);
-            getRequests.Add(LootLockerConfig.current.platform.ToString());
+            getRequests.Add(CurrentPlatform.GetString());
         }
     }
 
@@ -257,7 +271,13 @@ namespace LootLocker
 
             LootLockerServerRequest.CallAPI(endPoint.endPoint, endPoint.httpMethod, null, onComplete: (serverResponse) => { LootLockerResponse.Serialize(onComplete, serverResponse); });
         }
+        public static void GetOtherPlayerInfo(LootLockerOtherPlayerInfoRequest data, Action<LootLockerXpResponse> onComplete)
+        {
+            var endPoint = LootLockerEndPoints.getXpAndLevel;
+            var getVariable = string.Format(endPoint.endPoint, data.getRequests[0], data.getRequests[1]);
 
+            LootLockerServerRequest.CallAPI(getVariable, endPoint.httpMethod, null, onComplete: (serverResponse) => { LootLockerResponse.Serialize(onComplete, serverResponse); });
+        }
         public static void GetInventory(Action<LootLockerInventoryResponse> onComplete)
         {
             var endPoint = LootLockerEndPoints.getInventory;

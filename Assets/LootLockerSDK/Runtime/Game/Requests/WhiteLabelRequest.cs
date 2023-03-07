@@ -1,11 +1,6 @@
 using Newtonsoft.Json;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using LootLocker;
 using LootLocker.Requests;
-using LootLocker.LootLockerEnums;
 using Newtonsoft.Json.Serialization;
 
 namespace LootLocker.Requests
@@ -32,6 +27,8 @@ namespace LootLocker.Requests
     public class LootLockerWhiteLabelSignupResponse : LootLockerResponse
     {
         public int ID { get; set; }
+
+        [Obsolete("GameID is deprecated and will be removed soon")]
         public int GameID { get; set; }
         public string Email { get; set; }
         public string CreatedAt { get; set; }
@@ -46,6 +43,35 @@ namespace LootLocker.Requests
     public class LootLockerWhiteLabelLoginResponse : LootLockerWhiteLabelSignupResponse
     {
         public string SessionToken { get; set; }
+    }
+
+    [System.Serializable]
+    public class LootLockerWhiteLabelLoginAndStartSessionResponse : LootLockerResponse
+    {
+        public LootLockerWhiteLabelLoginResponse LoginResponse { get; set; }
+        public LootLockerSessionResponse SessionResponse { get; set; }
+
+        public static LootLockerWhiteLabelLoginAndStartSessionResponse MakeWhiteLabelLoginAndStartSessionResponse(
+            LootLockerWhiteLabelLoginResponse loginResponse, LootLockerSessionResponse sessionResponse)
+        {
+            if (loginResponse == null && sessionResponse == null)
+            {
+                return new LootLockerWhiteLabelLoginAndStartSessionResponse();
+            }
+
+            return new LootLockerWhiteLabelLoginAndStartSessionResponse
+            {
+                statusCode = sessionResponse?.statusCode ?? loginResponse.statusCode,
+                success = sessionResponse?.success ?? loginResponse.success,
+                Error = sessionResponse?.Error ?? loginResponse?.Error,
+                EventId = sessionResponse?.EventId ?? loginResponse?.EventId,
+                hasError = sessionResponse?.hasError ?? loginResponse.hasError,
+                text = sessionResponse?.text ?? loginResponse?.text,
+                texture = sessionResponse?.texture ?? loginResponse?.texture,
+                LoginResponse = loginResponse,
+                SessionResponse = sessionResponse
+            };
+        }
     }
 }
 
