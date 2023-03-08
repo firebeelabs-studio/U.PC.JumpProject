@@ -28,6 +28,7 @@ public class FinishSinglePlayer : MonoBehaviour
             RunFinish?.Invoke();
             _audioPlayer.PlayOneShotSound(_finishSound);
             StartRun.RunStarted = false;
+            SendNewScore();
         }
     }
 
@@ -42,12 +43,11 @@ public class FinishSinglePlayer : MonoBehaviour
     {
         float score = FindObjectOfType<TimerSinglePlayer>().TimeInSeconds;
         string levelName = SceneManager.GetActiveScene().name;
-        //float bestScore = LeaderboardsManagerClient.Instance.Scores[levelName].Entries.FirstOrDefault()
-        // if (score >= bestScore)
-        // {
-        //     
-        // }
-        
+        int playerId = LoginManager.Instance.PlayerId;
+        float bestScore = LeaderboardsManagerClient.Instance.Scores[levelName].Entries
+            .FirstOrDefault(entry => entry.Player.Id == playerId).Score;
+        if (score >= bestScore) return;
+
         string bodyId = SkinsHolder.Instance.Skins.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Body)?.Id;
         string hatId = SkinsHolder.Instance.Skins.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Hat)?.Id;
         string eyesId = SkinsHolder.Instance.Skins.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Eyes)?.Id;

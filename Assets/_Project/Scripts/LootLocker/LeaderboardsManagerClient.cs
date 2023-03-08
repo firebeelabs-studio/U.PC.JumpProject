@@ -47,7 +47,7 @@ public class LeaderboardsManagerClient : MonoBehaviour
          Score = score,
          SkinsIds = skinsIds,
          LevelName = levelName,
-         MemberId = FindObjectOfType<LoginManager>().PlayerId
+         MemberId = LoginManager.Instance.PlayerId
       };
         
       InstanceFinder.ClientManager.Broadcast(msg);
