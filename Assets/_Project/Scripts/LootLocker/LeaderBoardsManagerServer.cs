@@ -103,8 +103,14 @@ public class LeaderboardsManagerServer : MonoBehaviour
         
         if (Scores[levelName] is null || Scores[levelName].Entries is null || Scores[levelName].Entries.Count(p => p.Score < seconds) < 25)
         {
-            GetScoresForCertainLevel(2000,0,levelName);
+            StartCoroutine(GetScoresForCertainLevelAfterTime(2000,0,levelName, 3));
         }
+    }
+
+    private IEnumerator GetScoresForCertainLevelAfterTime(int count, int afterPlace, string levelName, int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        GetScoresForCertainLevel(count, afterPlace, levelName);
     }
 
     /// <summary>

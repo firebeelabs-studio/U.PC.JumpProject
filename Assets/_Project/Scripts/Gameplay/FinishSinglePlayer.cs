@@ -58,8 +58,7 @@ public class FinishSinglePlayer : MonoBehaviour
         string eyesId = SkinsHolder.Instance.Skins.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Eyes)?.Id;
         string mouthId = SkinsHolder.Instance.Skins.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Mouth)?.Id;
         string jacketId = SkinsHolder.Instance.Skins.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Jacket)?.Id;
-        SkinsIds skinsIds = new SkinsIds(bodyId, hatId, eyesId, mouthId, jacketId);
-        string skinsIdsSerialized = JsonConvert.SerializeObject(skinsIds, Formatting.Indented);
-        LeaderboardsManagerClient.Instance.SendNewScoreToServer(score, skinsIdsSerialized, levelName);
+        string skinsIds = $"{bodyId},{hatId},{eyesId},{mouthId},{jacketId}";
+        LeaderboardsManagerClient.Instance.SendNewScoreToServer(score, skinsIds, levelName);
     }
 }
