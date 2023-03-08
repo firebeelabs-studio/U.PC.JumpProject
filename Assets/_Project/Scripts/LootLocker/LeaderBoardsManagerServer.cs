@@ -87,6 +87,32 @@ public class LeaderboardsManagerServer : MonoBehaviour
         GetScoresForCertainLevel(2000,0,"Jungle3");
         GetScoresForCertainLevel(2000,0,"Jungle2");
         GetScoresForCertainLevel(2000,0,"Jungle1");
+        GetScoresForCertainLevel(2000,0,"Water1");
+        GetScoresForCertainLevel(2000,0,"Water2");
+        GetScoresForCertainLevel(2000,0,"Water3");
+        GetScoresForCertainLevel(2000,0,"Water4");
+        GetScoresForCertainLevel(2000,0,"Water5");
+        GetScoresForCertainLevel(2000,0,"JungleCave1");
+        GetScoresForCertainLevel(2000,0,"JungleCave2");
+        GetScoresForCertainLevel(2000,0,"JungleCave3");
+        GetScoresForCertainLevel(2000,0,"JungleCave4");
+        GetScoresForCertainLevel(2000,0,"JungleCave5");
+        GetScoresForCertainLevel(2000,0,"JungleNight1");
+        GetScoresForCertainLevel(2000,0,"JungleNight2");
+        GetScoresForCertainLevel(2000,0,"JungleNight3");
+        GetScoresForCertainLevel(2000,0,"JungleNight4");
+        GetScoresForCertainLevel(2000,0,"JungleNight5");
+        GetScoresForCertainLevel(2000,0,"LavaCave1");
+        GetScoresForCertainLevel(2000,0,"LavaCave2");
+        GetScoresForCertainLevel(2000,0,"LavaCave3");
+        GetScoresForCertainLevel(2000,0,"LavaCave4");
+        GetScoresForCertainLevel(2000,0,"LavaCave5");
+        GetScoresForCertainLevel(2000,0,"Castle1");
+        GetScoresForCertainLevel(2000,0,"Castle2");
+        GetScoresForCertainLevel(2000,0,"Castle3");
+        GetScoresForCertainLevel(2000,0,"Castle4");
+        GetScoresForCertainLevel(2000,0,"Castle5");
+        GetScoresForCertainLevel(2000,0,"Ending");
     }
 
     /// <summary>
