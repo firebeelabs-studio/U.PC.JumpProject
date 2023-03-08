@@ -1,82 +1,50 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class TopLeaderboardsPresenter : MonoBehaviour
 {
-    [SerializeField] private LeaderboardsManagerClient _leaderboardsManagerClient;
     [SerializeField] private List<LeaderboardsPlayerRowTemplate> _scoreRows;
     [SerializeField] private LeaderboardsPlayerRowTemplate _yourScoreRow;
-    private List<LeaderboardEntry> _top3AndYourScoreData;
-
-    private void OnEnable()
-    {
-        //_leaderboardsManagerClient.BestScoresForCertainLevelLoaded += On_BestScoresForCertainLevelLoaded;
-    }
-
-    private void OnDisable()
-    {
-        //_leaderboardsManagerClient.BestScoresForCertainLevelLoaded -= On_BestScoresForCertainLevelLoaded;
-    }
-
+    public List<LeaderboardEntry> _topScores = new();
+    public LeaderboardEntry _yourScore;
+    
     private void ReloadData()
     {
-        for (int i = 0; i < _scoreRows.Count; i++)
+        if (_topScores.Count > 0)
         {
-            _scoreRows[i].DisplayData(_top3AndYourScoreData[i]);
-        }
-        _yourScoreRow.DisplayData(_top3AndYourScoreData.Last());
-    }
-
-    public void DownloadTop3AndYourScore(string levelName)
-    {
-        //TODO: CALL
-    }
-
-    public void On_BestScoresForCertainLevelLoaded()
-    {
-        //_top3AndYourScoreData = new List<LeaderboardEntry>(_leaderboardsManagerClient.BestScoresForCertainLevel);
-        _top3AndYourScoreData = new List<LeaderboardEntry>()
-        {       
-            new()
+            for (int i = 0; i < _topScores.Count; i++)
             {
-                Player = new LootLockerPlayerData()
-                {
-                    Name = "Papryk"
-                },
-                Rank = 1,
-                Score = 123
-            },
-            new()
-            {
-                Player = new LootLockerPlayerData()
-                {
-                    Name = "Kryspin"
-                },
-                Rank = 2,
-                Score = 139
-            },
-            new()
-            {
-                Player = new LootLockerPlayerData()
-                {
-                    Name = "Cyc"
-                },
-                Rank = 3,
-                Score = 223
-            },
-            new()
-            {
-                Player = new LootLockerPlayerData()
-                {
-                    Name = "Miszel"
-                },
-                Rank = 12,
-                Score = 376
+                if (_topScores[i] == null) continue;
+                
+                _scoreRows[i].DisplayData(_topScores[i]);
             }
-        };
+        }
+
+        if (_yourScore == null)
+        {
+            _yourScoreRow.DisplayData(new LeaderboardEntry()
+            {
+                Rank = 0,
+                Score = 0,
+                Player = new LootLockerPlayerData()
+                {
+                    Name = LoginManager.Instance.Nick
+                }
+            });
+        }
+        else
+        {
+            _yourScoreRow.DisplayData(_yourScore);
+        }
+    }
+
+    public void LoadTopScoresByLevelName(string levelName)
+    {
+        _topScores.Clear();
+        _topScores = LeaderboardsManagerClient.Instance.Scores[levelName].Entries.OrderBy(e => e.Score).Take(3).ToList();
+        _yourScore = LeaderboardsManagerClient.Instance.Scores[levelName].Entries
+            .FirstOrDefault(e => e.Player.Id == LoginManager.Instance.PlayerId);
         ReloadData();
     }
 }

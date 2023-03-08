@@ -369,7 +369,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 4:40
+  m_text: 00:00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b1d3d87a9a75c0f4cb7446047bc16451, type: 2}
   m_sharedMaterial: {fileID: -6659679518487990636, guid: b1d3d87a9a75c0f4cb7446047bc16451, type: 2}
@@ -645,7 +645,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlaceText: {fileID: 9113195543324447915}
-  AvatarImage: {fileID: 9113195543871185282}
+  BodyImage: {fileID: 0}
+  HatImage: {fileID: 0}
+  EyesImage: {fileID: 0}
+  MouthImage: {fileID: 0}
+  JacketImage: {fileID: 0}
   NicknameText: {fileID: 9113195544870932784}
   TimeText: {fileID: 9113195543396051955}
 --- !u!1 &9113195544870932786
@@ -714,7 +718,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bartek S
+  m_text: NONE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b1d3d87a9a75c0f4cb7446047bc16451, type: 2}
   m_sharedMaterial: {fileID: -6659679518487990636, guid: b1d3d87a9a75c0f4cb7446047bc16451, type: 2}

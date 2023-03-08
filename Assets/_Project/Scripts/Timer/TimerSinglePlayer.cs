@@ -21,7 +21,7 @@ public class TimerSinglePlayer : MonoBehaviour
 
     private void Awake()
     {
-        _timerText = GameObject.Find("TimerText").GetComponent<TextMeshProUGUI>();   
+        //_timerText = GameObject.Find("TimerText").GetComponent<TextMeshProUGUI>();   
     }
     private void OnEnable()
     {
