@@ -11,6 +11,10 @@ public class TopLeaderboardsPresenter : MonoBehaviour
     
     private void ReloadData()
     {
+        for (int i = 0; i < _scoreRows.Count; i++)
+        {
+            _scoreRows[i].ClearRow(i);
+        }
         if (_topScores.Count > 0)
         {
             for (int i = 0; i < _topScores.Count; i++)
