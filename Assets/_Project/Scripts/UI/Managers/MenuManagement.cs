@@ -28,7 +28,8 @@ public class MenuManagement : MonoBehaviour
     [SerializeField] private GameObject _modeMenuPanel;
     [SerializeField] private GameObject _singleButton;
     [SerializeField] private GameObject _multiButton;
-    [Space(10)]
+
+    [Space(10)] 
     [Header("LEVELS MENU")]
     [SerializeField] private GameObject _levelsMenuPanel;
     [SerializeField] private GameObject _levelPanel;
@@ -203,8 +204,7 @@ public class MenuManagement : MonoBehaviour
     public void SetLevelToLoad(string levelName)
     {
         _levelNameToLoad = levelName;
-        //_topLeaderboardsPresenter.DownloadTop3Places(levelName);
-        _topLeaderboardsPresenter.On_BestScoresForCertainLevelLoaded();
+        _topLeaderboardsPresenter.LoadTopScoresByLevelName(levelName);
     }
     private void OpenPanel(GameObject panel, GameObject anotherPanel = null)
     {

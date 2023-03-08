@@ -44,9 +44,14 @@ public class FinishSinglePlayer : MonoBehaviour
         float score = FindObjectOfType<TimerSinglePlayer>().TimeInSeconds;
         string levelName = SceneManager.GetActiveScene().name;
         int playerId = LoginManager.Instance.PlayerId;
-        float bestScore = LeaderboardsManagerClient.Instance.Scores[levelName].Entries
-            .FirstOrDefault(entry => entry.Player.Id == playerId).Score;
-        if (score >= bestScore) return;
+        var playerEntry = LeaderboardsManagerClient.Instance.Scores[levelName].Entries
+            .FirstOrDefault(entry => entry.Player.Id == playerId);
+        if (playerEntry != null)
+        {
+            float bestScore = playerEntry.Score;
+            
+            if (score >= bestScore) return;
+        }
 
         string bodyId = SkinsHolder.Instance.Skins.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Body)?.Id;
         string hatId = SkinsHolder.Instance.Skins.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Hat)?.Id;
