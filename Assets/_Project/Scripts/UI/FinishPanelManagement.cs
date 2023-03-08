@@ -7,8 +7,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
-using System;
-using TarodevController;
 
 public class FinishPanelManagement : MonoBehaviour
 {
@@ -36,15 +34,17 @@ public class FinishPanelManagement : MonoBehaviour
     [SerializeField] private StarAnim[] _mainStars;
     [SerializeField] private StarAnim[] _nextStars;
     [SerializeField] private List<float> _thresholds = new();
-    private PlayersInput input;
+    private PlayersInput _input;
     private IPawnController _pawnController;
 
     [SerializeField] private Image _progressBar;
+    private TopLeaderboardsPresenter _topLeaderboardsPresenter;
     
 
     private void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _topLeaderboardsPresenter = GetComponent<TopLeaderboardsPresenter>();
     }
 
     private void Start()
@@ -72,7 +72,7 @@ public class FinishPanelManagement : MonoBehaviour
         {
             _nextLevelButton.interactable = false;
         }
-        input = _player.GetComponent<PlayersInput>();
+        _input = _player.GetComponent<PlayersInput>();
         _pawnController = _player.GetComponent<IPawnController>();
     }
 
@@ -88,9 +88,11 @@ public class FinishPanelManagement : MonoBehaviour
 
     private void OnRunFinish()
     {
-        input.enabled = false;
+        _input.enabled = false;
         _pawnController.ChangeMoveClamp(0);
 
+        _topLeaderboardsPresenter.LoadTopScoresByLevelName(SceneManager.GetActiveScene().name);
+        
         // Finish Panel Text
         _yourTimeText.text = $"{(int)_endLevelTimers.TimeInSeconds}s";
         int timeInSeconds = (int)_endLevelTimers.TimeInSeconds;

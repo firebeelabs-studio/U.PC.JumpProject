@@ -29566,9 +29566,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8868218ff7d1c7e45aadbdadf9978199, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leaderboardsManagerClient: {fileID: 0}
-  _scoreRows: []
-  _yourScoreRow: {fileID: 0}
+  _scoreRows:
+  - {fileID: 798398401411980702}
+  - {fileID: 6834685726519026429}
+  - {fileID: 4328178634383929908}
+  _yourScoreRow: {fileID: 6991715163192733494}
+  _topScores: []
+  _yourScore:
+    Rank: 0
+    MemberId: 
+    Score: 0
+    Player:
+      Name: 
+      Id: 0
+      PublicUid: 
+    Metadata: 
 --- !u!1 &6388497371207871820
 GameObject:
   m_ObjectHideFlags: 0
@@ -36918,7 +36930,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9113195544074430474, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
       propertyPath: m_Name
-      value: PlayerLeaderboardRowTemplate
+      value: PlayerLeaderboardRowTemplateYourScore
       objectReference: {fileID: 0}
     - target: {fileID: 9113195544074430475, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
       propertyPath: m_Pivot.x
@@ -37011,6 +37023,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9113195544074430475, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
   m_PrefabInstance: {fileID: 2269564579936339774}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6991715163192733494 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9113195544074430472, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
+  m_PrefabInstance: {fileID: 2269564579936339774}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8abb1c78396d0fc41accecc034da8a14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2351227982949108469
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37020,7 +37043,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9113195544074430474, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
       propertyPath: m_Name
-      value: PlayerLeaderboardRowTemplate
+      value: PlayerLeaderboardRowTemplate2
       objectReference: {fileID: 0}
     - target: {fileID: 9113195544074430475, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
       propertyPath: m_Pivot.x
@@ -37108,6 +37131,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
+--- !u!114 &6834685726519026429 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9113195544074430472, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
+  m_PrefabInstance: {fileID: 2351227982949108469}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8abb1c78396d0fc41accecc034da8a14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6834685726519026430 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9113195544074430475, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
@@ -37734,7 +37768,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9113195544074430474, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
       propertyPath: m_Name
-      value: PlayerLeaderboardRowTemplate
+      value: PlayerLeaderboardRowTemplate3
       objectReference: {fileID: 0}
     - target: {fileID: 9113195544074430475, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
       propertyPath: m_Pivot.x
@@ -37822,6 +37856,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
+--- !u!114 &4328178634383929908 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9113195544074430472, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
+  m_PrefabInstance: {fileID: 4785167620453767740}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8abb1c78396d0fc41accecc034da8a14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &4328178634383929911 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9113195544074430475, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
@@ -38040,7 +38085,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9113195544074430474, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
       propertyPath: m_Name
-      value: PlayerLeaderboardRowTemplate
+      value: PlayerLeaderboardRowTemplate1
       objectReference: {fileID: 0}
     - target: {fileID: 9113195544074430475, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
       propertyPath: m_Pivot.x
@@ -38133,3 +38178,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9113195544074430475, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
   m_PrefabInstance: {fileID: 8461392946554221974}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &798398401411980702 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9113195544074430472, guid: 353eec1ddfc19bb439b798c36f3612ca, type: 3}
+  m_PrefabInstance: {fileID: 8461392946554221974}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8abb1c78396d0fc41accecc034da8a14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
