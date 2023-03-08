@@ -14,6 +14,7 @@ namespace TarodevController {
         [SerializeField] private List<SpriteRenderer> _skinsRenderers;
         private int _moveDirection = 1;
         private int _lastMoveDirection = 1;
+        public int LastMoveDirection => _lastMoveDirection;
 
         private void Awake() {
             _player = GetComponentInParent<IPawnController>();

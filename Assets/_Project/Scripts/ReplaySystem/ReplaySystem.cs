@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TarodevController;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class ReplaySystem
 {
     private SavedReplay _newReplay;
     public SavedReplay NewReplay => _newReplay;
+    private ReplayData _skinsData;
     
     private readonly WaitForFixedUpdate _wait = new WaitForFixedUpdate();
 
@@ -52,9 +52,9 @@ public class ReplaySystem
     /// <param name="target">The transform you wish to record</param>
     /// <param name="snapshotEveryNFrames">The accuracy of the recording. Smaller number == higher file size</param>
     /// <param name="maxRecordingTimeLimit">Stop recording beyond this time</param>
-    public void StartRun(Transform target, PlayerAnimator playerAnimator, SpriteRenderer targetSpriteRenderer,int snapshotEveryNFrames = 2, float maxRecordingTimeLimit = 600) 
+    public void StartRun(Transform target, PlayerAnimator playerAnimator,int snapshotEveryNFrames = 2, float maxRecordingTimeLimit = 600) 
     {
-        _currentRun = new Recording(target, playerAnimator, targetSpriteRenderer);
+        _currentRun = new Recording(target, playerAnimator);
 
         _elapsedRecordingTime = 0;
 
@@ -80,14 +80,14 @@ public class ReplaySystem
     /// </summary>
     /// <param name="save">If we want to save this run. Use false for restarts</param>
     /// <returns>Whether this run was the fastest so far</returns>
-    public void FinishRun(bool save = true)
+    public bool FinishRun(bool save = true)
     {
-        if (_currentRun == null) return;
+        if (_currentRun == null) return false;
         
         if (!save) 
         {
             _currentRun = null;
-            return;
+            return false;
         }
         _runs[RecordingType.Last] = _currentRun;
         _currentRun = null;
@@ -96,8 +96,11 @@ public class ReplaySystem
         {
             _newRecord = true;
             _runs[RecordingType.Best] = _runs[RecordingType.Last];
-            _newReplay = new SavedReplay(SerializeRun());
+            _newReplay = new SavedReplay(SerializeRun(), _skinsData.LevelName, _skinsData.BodyId, _skinsData.HatId, _skinsData.EyesId, _skinsData.MouthId, _skinsData.JacketId);
+            return true;
         }
+
+        return false;
     }
 
     /// <summary>
@@ -121,7 +124,7 @@ public class ReplaySystem
     }
 
     //in future we have to paste runs from leaderboards here im param
-    public string SerializeRun()
+    private string SerializeRun()
     {
         Recording rec;
         if(_runs.TryGetValue(RecordingType.Best, out rec) && _newRecord)
@@ -134,6 +137,12 @@ public class ReplaySystem
             return "";
         }
     }
+
+    public void SerializeSkinsData(ReplayData data)
+    {
+        _skinsData = data;
+    }
+    
     #endregion
 
     #region Play Ghost
@@ -179,15 +188,12 @@ public class ReplaySystem
     {
         if (_currentReplay == null) return;
 
-        // Evaluate the point at the current time
-        //Pose pose = _currentReplay.EvaluatePoint(_replaySmoothedTime);
-        //_ghostObj.transform.SetPositionAndRotation(pose.position, pose.rotation);
-        
         Recording.ReplayStepData replayStepData = _currentReplay.EvaluatePointToGetTransformData(_replaySmoothedTime);
+        //SET POSITION AND ROTATION TO FIRST CHILD (VISUALS)
         _ghostObj.transform.SetPositionAndRotation(replayStepData.Position, replayStepData.Rotation);
-        var localScale = _ghostObj.transform.localScale;
-        localScale = new Vector3(replayStepData.SpriteFlipped ? (replayStepData.Scale.x * -1): replayStepData.Scale.x, replayStepData.Scale.y, 1f);
-        _ghostObj.transform.localScale = localScale;
+        //SET SCALE
+        Transform transform = _ghostObj.transform.GetChild(0);
+        transform.localScale = replayStepData.Scale;
 
         // Destroy the replay when done
         if (_replaySmoothedTime > _currentReplay.Duration) 
