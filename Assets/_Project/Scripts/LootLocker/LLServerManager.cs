@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 
-[RequireComponent(typeof(RestClient), typeof(LeaderboardsManagerServer))]
+[RequireComponent(typeof(RestClient), typeof(LeaderBoardsManagerServer))]
 public class LLServerManager : MonoBehaviour
 {
     public string Token;
     private RestClient _restClient;
-    private LeaderboardsManagerServer _managerServer;
+    private LeaderBoardsManagerServer _managerServer;
 
     private void Awake()
     {
         _restClient = GetComponent<RestClient>();
-        _managerServer = GetComponent<LeaderboardsManagerServer>();
+        _managerServer = GetComponent<LeaderBoardsManagerServer>();
     }
 
     private IEnumerator Start()

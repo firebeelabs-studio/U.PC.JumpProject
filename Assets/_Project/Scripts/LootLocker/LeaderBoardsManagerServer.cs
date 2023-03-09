@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 
 [RequireComponent(typeof(RestClient), typeof(LLServerManager))]
-public class LeaderboardsManagerServer : MonoBehaviour
+public class LeaderBoardsManagerServer : MonoBehaviour
 {
     private ConcurrentDictionary<string, LootLockerResponseData> Scores = new();
     private RestClient _restClient;
@@ -20,8 +20,8 @@ public class LeaderboardsManagerServer : MonoBehaviour
     
     #region Singleton
 
-    private static LeaderboardsManagerServer _instance;
-    public static LeaderboardsManagerServer Instance { get { return _instance; } }
+    private static LeaderBoardsManagerServer _instance;
+    public static LeaderBoardsManagerServer Instance { get { return _instance; } }
     private void Awake()
     {
         if (_instance != null && _instance != this)

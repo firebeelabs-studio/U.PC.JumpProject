@@ -62,7 +62,7 @@ public class ReplayManager : MonoBehaviour
         _system.StartRun(_recordTarget, _playerAnimator, _captureEveryNFrames);
     }
 
-    private void EndRun()
+    private void EndRun(float newScore)
     {
         bool newRecord =_system.FinishRun();
         if (newRecord)
@@ -125,6 +125,6 @@ public class ReplayManager : MonoBehaviour
 
         //Re-import the file to update the reference in the editor
 
-        AssetDatabase.ImportAsset(path);
+        //AssetDatabase.ImportAsset(path);
     }
 }

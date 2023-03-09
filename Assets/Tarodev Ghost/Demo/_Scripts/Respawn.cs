@@ -49,7 +49,7 @@ public class Respawn : MonoBehaviour
         _respawnPos = newPos;
         _lastCheckPoint = checkPoint;
     }
-    private void EndRun() => _respawnPos = _startPos;
+    private void EndRun(float newScore) => _respawnPos = _startPos;
     private void RunStart() => _respawnPos = _startPos;
 
     public IEnumerator RespawnPlayer(Transform player, float penaltyTime = 0) 
