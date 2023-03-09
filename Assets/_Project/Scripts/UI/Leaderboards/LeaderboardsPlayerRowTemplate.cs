@@ -32,10 +32,24 @@ public class LeaderboardsPlayerRowTemplate : MonoBehaviour
     {
         if (updatePlaceText)
         {
-            PlaceText.text = $"{leaderboardEntry.Rank}";
+            if (leaderboardEntry.Rank == 0)
+            {
+                PlaceText.text = "-";
+            }
+            else
+            {
+                PlaceText.text = $"{leaderboardEntry.Rank}";
+            }
         }
         NicknameText.text = leaderboardEntry.Player.Name;
-        TimeText.text = DisplayTimer(leaderboardEntry.Score);
+        if (leaderboardEntry.Score == 0)
+        {
+            TimeText.text = EMPTY_TIMER;
+        }
+        else
+        {
+            TimeText.text = DisplayTimer(leaderboardEntry.Score);
+        }
         if (!string.IsNullOrEmpty(leaderboardEntry.Metadata) && !string.IsNullOrWhiteSpace(leaderboardEntry.Metadata))
         {
             string[] skinsIds = leaderboardEntry.Metadata.Split(',');
@@ -70,7 +84,7 @@ public class LeaderboardsPlayerRowTemplate : MonoBehaviour
 
     public void ClearRow(int index)
     {
-        PlaceText.text = $"{index + 1}.";
+        PlaceText.text = $"{index + 1}";
         NicknameText.text = EMPTY_NICKNAME;
         TimeText.text = EMPTY_TIMER;
         BodyImage.sprite = _defaultBodySprite;
