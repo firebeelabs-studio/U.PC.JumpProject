@@ -86,13 +86,13 @@ public class FinishPanelManagement : MonoBehaviour
         FinishSinglePlayer.RunFinish -= OnRunFinish;
     }
 
-    private void OnRunFinish()
+    private void OnRunFinish(float score)
     {
         _input.enabled = false;
         _pawnController.ChangeMoveClamp(0);
-
-        _topLeaderboardsPresenter.LoadTopScoresByLevelName(SceneManager.GetActiveScene().name);
         
+        _topLeaderboardsPresenter.LoadTopScoresByLevelName(SceneManager.GetActiveScene().name, score);
+
         // Finish Panel Text
         _yourTimeText.text = $"{(int)_endLevelTimers.TimeInSeconds}s";
         int timeInSeconds = (int)_endLevelTimers.TimeInSeconds;

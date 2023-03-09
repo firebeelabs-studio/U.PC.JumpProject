@@ -51,7 +51,7 @@ public class TimerSinglePlayer : MonoBehaviour
         _isRunStarted = true;
     }
 
-    private void On_RunFinish()
+    private void On_RunFinish(float newScore)
     {
         _isRunStarted = false;
         _times.Add(_timeInSeconds);
