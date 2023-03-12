@@ -32,14 +32,7 @@ public class LeaderboardsPlayerRowTemplate : MonoBehaviour
     {
         if (updatePlaceText)
         {
-            if (leaderboardEntry.Rank == 0)
-            {
-                PlaceText.text = "-";
-            }
-            else
-            {
-                PlaceText.text = $"{leaderboardEntry.Rank}";
-            }
+            PlaceText.text = leaderboardEntry.Rank == 0 ? "-" : $"{leaderboardEntry.Rank}";
         }
         NicknameText.text = leaderboardEntry.Player.Name;
         if (leaderboardEntry.Score == 0)
@@ -52,16 +45,31 @@ public class LeaderboardsPlayerRowTemplate : MonoBehaviour
         }
         if (!string.IsNullOrEmpty(leaderboardEntry.Metadata) && !string.IsNullOrWhiteSpace(leaderboardEntry.Metadata))
         {
-            string[] skinsIds = leaderboardEntry.Metadata.Split(',');
             List<SwampieSkin> skinData = new();
-            foreach (var id in skinsIds)
+            if (leaderboardEntry.Player.Id == LoginManager.Instance.PlayerId)
             {
-                if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id)) continue;
-            
-                var skin = SkinsHolder.Instance.AllSkinsSO.FirstOrDefault(s => s.Id == id);
-                if (skin != null)
+                foreach (var outfitData in SkinsHolder.Instance.Skins)
                 {
-                    skinData.Add(skin);
+                    if (outfitData == null) continue;
+                    
+                    SwampieSkin userSkin = SkinsHolder.Instance.AllSkinsSO.FirstOrDefault(s => s.Id == outfitData.Id);
+                    if (userSkin == null) continue;
+
+                    skinData.Add(userSkin);
+                }
+            }
+            else
+            {
+                string[] skinsIds = leaderboardEntry.Metadata.Split(',');
+                foreach (var id in skinsIds)
+                {
+                    if (string.IsNullOrEmpty(id) || string.IsNullOrWhiteSpace(id)) continue;
+                
+                    var skin = SkinsHolder.Instance.AllSkinsSO.FirstOrDefault(s => s.Id == id);
+                    if (skin != null)
+                    {
+                        skinData.Add(skin);
+                    }
                 }
             }
             Sprite bodySprite = skinData.FirstOrDefault(o => o.skinType == SwampieSkin.SkinType.Body)?.SkinSprite;
