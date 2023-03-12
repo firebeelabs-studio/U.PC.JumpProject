@@ -46,27 +46,21 @@ public class LeaderboardsPresenter : MonoBehaviour
         }
     }
 
-    public void LoadTopScoresByLevelName(string levelName, float newScore = 0, int count = 3, int startingPosition = 0)
+    public void LoadTopScoresByLevelName(string levelName, float newScore = 0, int takePositions = 3, int skipPositions = 0)
     {
         _scores.Clear();
-        if (count != 0)
-        {
-            _scores = LeaderboardsManagerClient.Instance.Scores[levelName].Entries.OrderBy(e => e.Score).Skip(startingPosition).ToList();
-            _scores = LeaderboardsManagerClient.Instance.Scores[levelName].Entries.OrderBy(e => e.Score).Take(count).ToList();
-        }
-        else
-        {
-            _scores = LeaderboardsManagerClient.Instance.Scores[levelName].Entries.OrderBy(e => e.Score).Take(3).ToList();
-        }
-        _yourScore = LeaderboardsManagerClient.Instance.Scores[levelName].Entries
-            .FirstOrDefault(e => e.Player.Id == LoginManager.Instance.PlayerId);
+        _scores = LeaderboardsManagerClient.Instance.Scores[levelName].Entries.OrderBy(e => e.Score).Skip(skipPositions).Take(takePositions).ToList();
+        _yourScore = LeaderboardsManagerClient.Instance.Scores[levelName].Entries.FirstOrDefault(e => e.Player.Id == LoginManager.Instance.PlayerId);
         if (newScore > 0)
         {
+            //IF FOUND PREVIOUS SCORE
             if (_yourScore != null)
             {
+                //IF BEAT A RECORD
                 if (newScore < _yourScore.Score)
                 {
                     _yourScore.Score = (int)newScore;
+                    _scores.Remove(_scores.FirstOrDefault(s => s.Player.Id == _yourScore.Player.Id));
                 }
             }
             else
