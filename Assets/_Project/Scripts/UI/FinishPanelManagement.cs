@@ -28,6 +28,8 @@ public class FinishPanelManagement : MonoBehaviour
     [SerializeField] private Transform _player;
     [SerializeField] private UIParticleSystem _confettiParticles, _pepeParticles;
     [SerializeField] private StarAnim[] _stars;
+    [SerializeField] private Button _mainLeaderboardsButton;
+    [SerializeField]private LeaderboardsPresenter _mainLeaderboardsPresenter;
     
     //TEMP REMOVE THIS AFTER FINISHING LEADERBOARDS
     [SerializeField] private int _bestStarAmount = 3;
@@ -38,13 +40,13 @@ public class FinishPanelManagement : MonoBehaviour
     private IPawnController _pawnController;
 
     [SerializeField] private Image _progressBar;
-    private TopLeaderboardsPresenter _topLeaderboardsPresenter;
-    
+    private LeaderboardsPresenter _topLeaderboardsPresenter;
+
 
     private void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player").transform;
-        _topLeaderboardsPresenter = GetComponent<TopLeaderboardsPresenter>();
+        _topLeaderboardsPresenter = GetComponent<LeaderboardsPresenter>();
     }
 
     private void Start()
@@ -72,6 +74,7 @@ public class FinishPanelManagement : MonoBehaviour
         {
             _nextLevelButton.interactable = false;
         }
+        _mainLeaderboardsButton.onClick.AddListener(()=> _mainLeaderboardsPresenter.LoadTopScoresByLevelName(SceneManager.GetActiveScene().name,0,8,0));
         _input = _player.GetComponent<PlayersInput>();
         _pawnController = _player.GetComponent<IPawnController>();
     }

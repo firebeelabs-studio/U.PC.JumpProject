@@ -3,11 +3,12 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class TopLeaderboardsPresenter : MonoBehaviour
+public class LeaderboardsPresenter : MonoBehaviour
 {
     [SerializeField] private List<LeaderboardsPlayerRowTemplate> _scoreRows;
     [SerializeField] private LeaderboardsPlayerRowTemplate _yourScoreRow;
-    private List<LeaderboardEntry> _topScores = new();
+    [SerializeField] private bool _updatePlace;
+    private List<LeaderboardEntry> _scores = new();
     private LeaderboardEntry _yourScore;
     
     private void ReloadData()
@@ -17,13 +18,13 @@ public class TopLeaderboardsPresenter : MonoBehaviour
             _scoreRows[i].ClearRow(i);
         }
         _yourScoreRow.ClearRow(0);
-        if (_topScores.Count > 0)
+        if (_scores.Count > 0)
         {
-            for (int i = 0; i < _topScores.Count; i++)
+            for (int i = 0; i < _scores.Count; i++)
             {
-                if (_topScores[i] == null) continue;
+                if (_scores[i] == null) continue;
                 
-                _scoreRows[i].DisplayData(_topScores[i]);
+                _scoreRows[i].DisplayData(_scores[i], _updatePlace);
             }
         }
 
@@ -45,19 +46,21 @@ public class TopLeaderboardsPresenter : MonoBehaviour
         }
     }
 
-    public void LoadTopScoresByLevelName(string levelName, float newScore = 0)
+    public void LoadTopScoresByLevelName(string levelName, float newScore = 0, int takePositions = 3, int skipPositions = 0)
     {
-        _topScores.Clear();
-        _topScores = LeaderboardsManagerClient.Instance.Scores[levelName].Entries.OrderBy(e => e.Score).Take(3).ToList();
-        _yourScore = LeaderboardsManagerClient.Instance.Scores[levelName].Entries
-            .FirstOrDefault(e => e.Player.Id == LoginManager.Instance.PlayerId);
+        _scores.Clear();
+        _scores = LeaderboardsManagerClient.Instance.Scores[levelName].Entries.OrderBy(e => e.Score).Skip(skipPositions).Take(takePositions).ToList();
+        _yourScore = LeaderboardsManagerClient.Instance.Scores[levelName].Entries.FirstOrDefault(e => e.Player.Id == LoginManager.Instance.PlayerId);
         if (newScore > 0)
         {
+            //IF FOUND PREVIOUS SCORE
             if (_yourScore != null)
             {
+                //IF BEAT A RECORD
                 if (newScore < _yourScore.Score)
                 {
                     _yourScore.Score = (int)newScore;
+                    _scores.Remove(_scores.FirstOrDefault(s => s.Player.Id == _yourScore.Player.Id));
                 }
             }
             else
@@ -83,9 +86,9 @@ public class TopLeaderboardsPresenter : MonoBehaviour
                     Metadata = builder.ToString()
                 };
             }
-            _topScores.Add(_yourScore);
-            _topScores = _topScores.OrderBy(s => s.Score).Take(3).ToList();
-            _yourScore.Rank = _topScores.IndexOf(_yourScore) + 1;
+            _scores.Add(_yourScore);
+            _scores = _scores.OrderBy(s => s.Score).Take(3).ToList();
+            _yourScore.Rank = _scores.IndexOf(_yourScore) + 1;
         }
         
         ReloadData();

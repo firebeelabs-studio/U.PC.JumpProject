@@ -1139,7 +1139,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -22.222221
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -12495,9 +12495,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 2
+    m_Left: 5
     m_Right: 0
-    m_Top: 3
+    m_Top: 10
     m_Bottom: 0
   m_ChildAlignment: 1
   m_Spacing: 5
@@ -21114,8 +21114,8 @@ MonoBehaviour:
   m_VerticalScrollbar: {fileID: 0}
   m_HorizontalScrollbarVisibility: 2
   m_VerticalScrollbarVisibility: 2
-  m_HorizontalScrollbarSpacing: -0.8553326
-  m_VerticalScrollbarSpacing: -0.8553326
+  m_HorizontalScrollbarSpacing: -1.9244983
+  m_VerticalScrollbarSpacing: -1.9244983
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -24931,7 +24931,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -22.222221
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -31587,7 +31587,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -22.222221
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -44199,7 +44199,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -22.222221
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -49237,7 +49237,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -22.222221
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -54298,7 +54298,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: -22.222221
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -79232,7 +79232,7 @@ MonoBehaviour:
   _levelsInfoHolder: {fileID: 2076561028}
   _leftArrow: {fileID: 309982134}
   _rightArrow: {fileID: 1611685375}
-  _topLeaderboardsPresenter: {fileID: 2132787346}
+  _leaderboardsPresenter: {fileID: 2132787346}
   _audioSource: {fileID: 0}
   _dropdown: {fileID: 0}
 --- !u!114 &2132787342
@@ -79390,16 +79390,7 @@ MonoBehaviour:
   - {fileID: 1132629568}
   - {fileID: 2124988806}
   _yourScoreRow: {fileID: 1923876860}
-  _topScores: []
-  _yourScore:
-    Rank: 0
-    MemberId: 
-    Score: 0
-    Player:
-      Name: 
-      Id: 0
-      PublicUid: 
-    Metadata: 
+  _updatePlace: 0
 --- !u!1 &2133378876
 GameObject:
   m_ObjectHideFlags: 0
@@ -79784,7 +79775,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 3.75
+  m_Spacing: 8.4375
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0

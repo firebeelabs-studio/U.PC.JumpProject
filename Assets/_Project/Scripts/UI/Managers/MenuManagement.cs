@@ -39,7 +39,7 @@ public class MenuManagement : MonoBehaviour
     [SerializeField] private LevelsInfoHolder _levelsInfoHolder;
     [SerializeField] private Button _leftArrow;
     [SerializeField] private Button _rightArrow;
-    [SerializeField] private TopLeaderboardsPresenter _topLeaderboardsPresenter;
+    [SerializeField] private LeaderboardsPresenter _leaderboardsPresenter;
     private int _currentLevelIndex = 0;
     [Space(10)]
     [Header("SETTINGS MENU")]
@@ -204,7 +204,7 @@ public class MenuManagement : MonoBehaviour
     public void SetLevelToLoad(string levelName)
     {
         _levelNameToLoad = levelName;
-        _topLeaderboardsPresenter.LoadTopScoresByLevelName(levelName);
+        _leaderboardsPresenter.LoadTopScoresByLevelName(levelName);
     }
     private void OpenPanel(GameObject panel, GameObject anotherPanel = null)
     {
