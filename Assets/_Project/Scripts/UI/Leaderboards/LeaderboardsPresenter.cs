@@ -8,7 +8,6 @@ public class LeaderboardsPresenter : MonoBehaviour
 {
     [SerializeField] private List<LeaderboardsPlayerRowTemplate> _scoreRows;
     [SerializeField] private LeaderboardsPlayerRowTemplate _yourScoreRow;
-    [SerializeField] private bool _updatePlace;
     [SerializeField] private TMP_Text _yourPositionText;
     private List<LeaderboardEntry> _scores = new();
     private LeaderboardEntry _yourScore;
