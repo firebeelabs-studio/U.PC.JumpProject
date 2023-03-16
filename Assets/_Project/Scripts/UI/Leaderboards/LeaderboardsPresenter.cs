@@ -32,25 +32,23 @@ public class LeaderboardsPresenter : MonoBehaviour
 
         if (_yourScore == null)
         {
-            _yourScoreRow.DisplayData(new LeaderboardEntry()
+            _yourScore = new LeaderboardEntry()
             {
                 Rank = 0,
                 Score = 0,
                 Player = new LootLockerPlayerData()
                 {
-                    Name = LoginManager.Instance.Nick
-                }
-            }, true);
+                    Name = LoginManager.Instance.Nick,
+                    Id = LoginManager.Instance.PlayerId
+                },
+                Metadata = ",,,,"
+            };
         }
-        else
-        {
-            _yourScoreRow.DisplayData(_yourScore, true);
-        }
-
         if (_yourPositionText != null)
         {
             _yourPositionText.text = _yourScore.Rank.ToString();
         }
+        _yourScoreRow.DisplayData(_yourScore, true);
     }
 
     public void LoadTopScoresByLevelName(string levelName, float newScore = 0, int takePositions = 3, int skipPositions = 0)
@@ -58,42 +56,71 @@ public class LeaderboardsPresenter : MonoBehaviour
         _scores.Clear();
         _scores = LeaderboardsManagerClient.Instance.Scores[levelName].Entries.OrderBy(e => e.Score).Skip(skipPositions).Take(takePositions).ToList();
         _yourScore = LeaderboardsManagerClient.Instance.Scores[levelName].Entries.FirstOrDefault(e => e.Player.Id == LoginManager.Instance.PlayerId);
-        //IF FOUND PREVIOUS SCORE
-        if (_yourScore != null)
+        if (newScore > 0)
         {
-            //IF BEAT A RECORD
-            if (newScore > 0 && newScore < _yourScore.Score)
+            //IF FOUND PREVIOUS SCORE
+            if (_yourScore != null)
             {
-                _yourScore.Score = (int)newScore;
-                _scores.Remove(_scores.FirstOrDefault(s => s.Player.Id == _yourScore.Player.Id));
-            }
-        }
-        else
-        {
-            var builder = new StringBuilder();
-            foreach (var outfitData in SkinsHolder.Instance.Skins)
-            {
-                if (outfitData == null) continue;
-
-                builder.Append(outfitData.Id);
-                if (outfitData != SkinsHolder.Instance.Skins.Last())
+                //IF BEAT A RECORD
+                if (newScore < _yourScore.Score)
                 {
-                    builder.Append(",");
+                    _yourScore.Score = (int)newScore;
+                    _scores.Remove(_scores.FirstOrDefault(s => s.Player.Id == _yourScore.Player.Id));
                 }
-            }
-            _yourScore = new LeaderboardEntry()
-            {
-                Player = new LootLockerPlayerData()
+                else
                 {
-                    Name = LoginManager.Instance.Nick
-                },
-                Score = (int)newScore,
-                Metadata = builder.ToString()
-            };
+                    var builder = new StringBuilder();
+                    foreach (var outfitData in SkinsHolder.Instance.Skins)
+                    {
+                        if (outfitData == null) continue;
+
+                        builder.Append(outfitData.Id);
+                        if (outfitData != SkinsHolder.Instance.Skins.Last())
+                        {
+                            builder.Append(",");
+                        }
+                    }
+                    _yourScore = new LeaderboardEntry()
+                    {
+                        Player = new LootLockerPlayerData()
+                        {
+                            Name = LoginManager.Instance.Nick
+                        },
+                        Score = (int)newScore,
+                        Metadata = builder.ToString()
+                    };
+                }
+                _scores.Add(_yourScore);
+                _scores = _scores.OrderBy(s => s.Score).Skip(skipPositions).Take(takePositions).ToList();
+                _yourScore.Rank = _scores.IndexOf(_yourScore) + 1;
+            }
+            else
+            {
+                var builder = new StringBuilder();
+                foreach (var outfitData in SkinsHolder.Instance.Skins)
+                {
+                    if (outfitData == null) continue;
+
+                    builder.Append(outfitData.Id);
+                    if (outfitData != SkinsHolder.Instance.Skins.Last())
+                    {
+                        builder.Append(",");
+                    }
+                }
+                _yourScore = new LeaderboardEntry()
+                {
+                    Player = new LootLockerPlayerData()
+                    {
+                        Name = LoginManager.Instance.Nick
+                    },
+                    Score = (int)newScore,
+                    Metadata = builder.ToString()
+                };
+            }
+            _scores.Add(_yourScore);
+            _scores = _scores.OrderBy(s => s.Score).Skip(skipPositions).Take(takePositions).ToList();
+            _yourScore.Rank = _scores.IndexOf(_yourScore) + 1;
         }
-        _scores.Add(_yourScore);
-        _scores = _scores.OrderBy(s => s.Score).Skip(skipPositions).Take(takePositions).ToList();
-        _yourScore.Rank = _scores.IndexOf(_yourScore) + 1;
 
         ReloadData();
     }
