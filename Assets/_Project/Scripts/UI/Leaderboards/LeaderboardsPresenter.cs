@@ -26,7 +26,7 @@ public class LeaderboardsPresenter : MonoBehaviour
             {
                 if (_scores[i] == null) continue;
                 
-                _scoreRows[i].DisplayData(_scores[i], _updatePlace);
+                _scoreRows[i].DisplayData(_scores[i], true);
             }
         }
 
@@ -54,72 +54,47 @@ public class LeaderboardsPresenter : MonoBehaviour
     public void LoadTopScoresByLevelName(string levelName, float newScore = 0, int takePositions = 3, int skipPositions = 0)
     {
         _scores.Clear();
-        _scores = LeaderboardsManagerClient.Instance.Scores[levelName].Entries.OrderBy(e => e.Score).Skip(skipPositions).Take(takePositions).ToList();
+        _scores = LeaderboardsManagerClient.Instance.Scores[levelName].Entries.OrderBy(e => e.Rank).Skip(skipPositions).Take(takePositions).ToList();
         _yourScore = LeaderboardsManagerClient.Instance.Scores[levelName].Entries.FirstOrDefault(e => e.Player.Id == LoginManager.Instance.PlayerId);
         if (newScore > 0)
         {
+            var builder = new StringBuilder();
+            foreach (var outfitData in SkinsHolder.Instance.Skins)
+            {
+                if (outfitData == null) continue;
+
+                builder.Append(outfitData.Id);
+                if (outfitData != SkinsHolder.Instance.Skins.Last())
+                {
+                    builder.Append(",");
+                }
+            }
             //IF FOUND PREVIOUS SCORE
             if (_yourScore != null)
             {
+                _scores.Remove(_scores.FirstOrDefault(s => s.Player.Id == _yourScore.Player.Id));
                 //IF BEAT A RECORD
                 if (newScore < _yourScore.Score)
                 {
                     _yourScore.Score = (int)newScore;
-                    _scores.Remove(_scores.FirstOrDefault(s => s.Player.Id == _yourScore.Player.Id));
                 }
-                else
-                {
-                    var builder = new StringBuilder();
-                    foreach (var outfitData in SkinsHolder.Instance.Skins)
-                    {
-                        if (outfitData == null) continue;
-
-                        builder.Append(outfitData.Id);
-                        if (outfitData != SkinsHolder.Instance.Skins.Last())
-                        {
-                            builder.Append(",");
-                        }
-                    }
-                    _yourScore = new LeaderboardEntry()
-                    {
-                        Player = new LootLockerPlayerData()
-                        {
-                            Name = LoginManager.Instance.Nick
-                        },
-                        Score = (int)newScore,
-                        Metadata = builder.ToString()
-                    };
-                }
-                _scores.Add(_yourScore);
-                _scores = _scores.OrderBy(s => s.Score).Skip(skipPositions).Take(takePositions).ToList();
-                _yourScore.Rank = _scores.IndexOf(_yourScore) + 1;
             }
             else
             {
-                var builder = new StringBuilder();
-                foreach (var outfitData in SkinsHolder.Instance.Skins)
-                {
-                    if (outfitData == null) continue;
-
-                    builder.Append(outfitData.Id);
-                    if (outfitData != SkinsHolder.Instance.Skins.Last())
-                    {
-                        builder.Append(",");
-                    }
-                }
                 _yourScore = new LeaderboardEntry()
                 {
                     Player = new LootLockerPlayerData()
                     {
-                        Name = LoginManager.Instance.Nick
+                        Name = LoginManager.Instance.Nick,
+                        Id = LoginManager.Instance.PlayerId
                     },
                     Score = (int)newScore,
-                    Metadata = builder.ToString()
                 };
             }
             _scores.Add(_yourScore);
-            _scores = _scores.OrderBy(s => s.Score).Skip(skipPositions).Take(takePositions).ToList();
+            _scores = _scores.OrderBy(s => s.Rank).Skip(skipPositions).Take(takePositions).ToList();
             _yourScore.Rank = _scores.IndexOf(_yourScore) + 1;
+            _yourScore.Metadata = builder.ToString();
         }
 
         ReloadData();

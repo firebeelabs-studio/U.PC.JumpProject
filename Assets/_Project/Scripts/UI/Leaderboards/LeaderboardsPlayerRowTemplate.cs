@@ -35,14 +35,7 @@ public class LeaderboardsPlayerRowTemplate : MonoBehaviour
             PlaceText.text = leaderboardEntry.Rank == 0 ? "-" : $"{leaderboardEntry.Rank}";
         }
         NicknameText.text = leaderboardEntry.Player.Name;
-        if (leaderboardEntry.Score == 0)
-        {
-            TimeText.text = EMPTY_TIMER;
-        }
-        else
-        {
-            TimeText.text = DisplayTimer(leaderboardEntry.Score);
-        }
+        TimeText.text = leaderboardEntry.Score == 0 ? EMPTY_TIMER : DisplayTimer(leaderboardEntry.Score);
         if (!string.IsNullOrEmpty(leaderboardEntry.Metadata) && !string.IsNullOrWhiteSpace(leaderboardEntry.Metadata))
         {
             List<SwampieSkin> skinData = new();
