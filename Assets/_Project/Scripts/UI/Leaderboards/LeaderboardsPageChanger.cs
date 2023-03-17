@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,20 +9,25 @@ public class LeaderboardsPageChanger : MonoBehaviour
     [SerializeField] private Button _nextPage;
     [SerializeField] private Button _previousPage;
     [SerializeField] private TMP_Text _currentPageText;
-    private int _totalNumberOfScores;
-    private int _currentPage;
-    private int _totalNumberOfPages;
-    private string _levelName;
+    [SerializeField] private int _totalNumberOfScores;
+    [SerializeField] private int _currentPage;
+    [SerializeField] private int _totalNumberOfPages;
+    [SerializeField] private string _levelName;
     private const int SCORES_PER_PAGE = 8;
     
     private void OnEnable()
     {
-        _levelName = SceneManager.GetActiveScene().name;
-        _nextPage.onClick.AddListener(LoadNextPage);
-        _previousPage.onClick.AddListener(LoadPreviousPage);
-        _currentPage = 0;
-        _totalNumberOfScores = LeaderboardsManagerClient.Instance.Scores[_levelName].Entries.Count;
-        _totalNumberOfPages = Mathf.CeilToInt((float)_totalNumberOfScores / SCORES_PER_PAGE);
+        if (LeaderboardsManagerClient.Instance.Scores.TryGetValue(_levelName, out LootLockerResponseData responseData))
+        {
+            _levelName = SceneManager.GetActiveScene().name;
+            _nextPage.onClick.AddListener(LoadNextPage);
+            _previousPage.onClick.AddListener(LoadPreviousPage);
+            _currentPage = 0;
+            _totalNumberOfScores = LeaderboardsManagerClient.Instance.Scores[_levelName].Entries.Count;
+            _totalNumberOfPages = Mathf.CeilToInt((float)_totalNumberOfScores / SCORES_PER_PAGE);
+            ChangePageText();
+            ValidateButtons();
+        }
     }
 
     private void ChangePageText()
@@ -56,7 +58,7 @@ public class LeaderboardsPageChanger : MonoBehaviour
 
     private void ValidateButtons()
     {
-        _nextPage.enabled = _currentPage < _totalNumberOfPages;
+        _nextPage.enabled = _currentPage < _totalNumberOfPages - 1;
         _previousPage.enabled = _currentPage != 0;
     }
 }

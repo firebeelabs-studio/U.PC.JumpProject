@@ -1,13 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
-using Debug = ArcnesTools.Debug;
 
 public class LeaderboardsPlayerRowTemplate : MonoBehaviour
 {
@@ -28,21 +24,11 @@ public class LeaderboardsPlayerRowTemplate : MonoBehaviour
     private const string EMPTY_TIMER = "--:--";
     private Image[] _skinImages;
 
-    public void DisplayData(LeaderboardEntry leaderboardEntry, bool updatePlaceText = false)
+    public void DisplayData(LeaderboardEntry leaderboardEntry)
     {
-        if (updatePlaceText)
-        {
-            PlaceText.text = leaderboardEntry.Rank == 0 ? "-" : $"{leaderboardEntry.Rank}";
-        }
+        PlaceText.text = leaderboardEntry.Rank == 0 ? "-" : $"{leaderboardEntry.Rank}";
         NicknameText.text = leaderboardEntry.Player.Name;
-        if (leaderboardEntry.Score == 0)
-        {
-            TimeText.text = EMPTY_TIMER;
-        }
-        else
-        {
-            TimeText.text = DisplayTimer(leaderboardEntry.Score);
-        }
+        TimeText.text = leaderboardEntry.Score == 0 ? EMPTY_TIMER : DisplayTimer(leaderboardEntry.Score);
         if (!string.IsNullOrEmpty(leaderboardEntry.Metadata) && !string.IsNullOrWhiteSpace(leaderboardEntry.Metadata))
         {
             List<SwampieSkin> skinData = new();
@@ -90,9 +76,9 @@ public class LeaderboardsPlayerRowTemplate : MonoBehaviour
         }
     }
 
-    public void ClearRow(int index)
+    public void ClearRow(int index, bool fillRank)
     {
-        PlaceText.text = $"{index + 1}";
+        PlaceText.text = fillRank ? $"{index + 1}" : "-";
         NicknameText.text = EMPTY_NICKNAME;
         TimeText.text = EMPTY_TIMER;
         BodyImage.sprite = _defaultBodySprite;
