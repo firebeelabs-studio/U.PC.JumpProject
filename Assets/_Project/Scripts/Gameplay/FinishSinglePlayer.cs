@@ -1,7 +1,5 @@
 using System;
 using System.Linq;
-using System.Text;
-using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -42,24 +40,27 @@ public class FinishSinglePlayer : MonoBehaviour
 
     private void SendNewScore()
     {
-        _score = FindObjectOfType<TimerSinglePlayer>().TimeInSeconds;
         string levelName = SceneManager.GetActiveScene().name;
-        int playerId = LoginManager.Instance.PlayerId;
-        var playerEntry = LeaderboardsManagerClient.Instance.Scores[levelName].Entries
-            .FirstOrDefault(entry => entry.Player.Id == playerId);
-        if (playerEntry != null)
+        if (LeaderboardsManagerClient.Instance.Scores.TryGetValue(levelName, out LootLockerResponseData responseData))
         {
-            float bestScore = playerEntry.Score;
+            _score = FindObjectOfType<TimerSinglePlayer>().TimeInSeconds;
+            int playerId = LoginManager.Instance.PlayerId;
+            var playerEntry = LeaderboardsManagerClient.Instance.Scores[levelName].Entries
+                .FirstOrDefault(entry => entry.Player.Id == playerId);
+            if (playerEntry != null)
+            {
+                float bestScore = playerEntry.Score;
+                
+                if (_score >= bestScore) return;
+            }
             
-            if (_score >= bestScore) return;
+            string bodyId = SkinsHolder.Instance.Skins.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Body)?.Id;
+            string hatId = SkinsHolder.Instance.Skins.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Hat)?.Id;
+            string eyesId = SkinsHolder.Instance.Skins.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Eyes)?.Id;
+            string mouthId = SkinsHolder.Instance.Skins.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Mouth)?.Id;
+            string jacketId = SkinsHolder.Instance.Skins.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Jacket)?.Id;
+            string skinsIds = $"{bodyId},{hatId},{eyesId},{mouthId},{jacketId}";
+            LeaderboardsManagerClient.Instance.SendNewScoreToServer(_score, skinsIds, levelName);
         }
-        
-        string bodyId = SkinsHolder.Instance.Skins.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Body)?.Id;
-        string hatId = SkinsHolder.Instance.Skins.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Hat)?.Id;
-        string eyesId = SkinsHolder.Instance.Skins.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Eyes)?.Id;
-        string mouthId = SkinsHolder.Instance.Skins.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Mouth)?.Id;
-        string jacketId = SkinsHolder.Instance.Skins.FirstOrDefault(data => data.skinType == SwampieSkin.SkinType.Jacket)?.Id;
-        string skinsIds = $"{bodyId},{hatId},{eyesId},{mouthId},{jacketId}";
-        LeaderboardsManagerClient.Instance.SendNewScoreToServer(_score, skinsIds, levelName);
     }
 }

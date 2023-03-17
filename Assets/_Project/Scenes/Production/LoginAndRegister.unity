@@ -461,12 +461,12 @@ MonoBehaviour:
   _sslConfiguration:
     Enabled: 1
     CertificatePath: ./cert.pfx
-    CertificatePassword: armandchuj2137
+    CertificatePassword: 
     SslProtocol: 0
   _mtu: 1023
   _port: 7771
   _maximumClients: 2000
-  _clientAddress: www.monsterssaga.store
+  _clientAddress: monsterssaga.store
 --- !u!114 &557788555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,8 +481,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GlobalServerActions: 1
   _transports:
-  - {fileID: 557788554}
   - {fileID: 557788550}
+  - {fileID: 557788554}
 --- !u!114 &557788556
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,7 +1,6 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MenuManagement : MonoBehaviour
@@ -201,7 +200,7 @@ public class MenuManagement : MonoBehaviour
     {
         ClosePanel(_levelPanel);
     }
-    public void SetLevelToLoad(string levelName)
+    private void SetLevelToLoad(string levelName)
     {
         _levelNameToLoad = levelName;
         _leaderboardsPresenter.LoadTopScoresByLevelName(levelName);

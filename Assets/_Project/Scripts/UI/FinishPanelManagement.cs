@@ -52,10 +52,7 @@ public class FinishPanelManagement : MonoBehaviour
     private void Start()
     {
         _backToMenuButton.onClick.AddListener(() => { LoadingScreenCanvas.Instance.LoadScene(_homeSceneName); });
-        _restartButton.onClick.AddListener(() =>
-        {
-            RestartPlayer();
-        });
+        _restartButton.onClick.AddListener(RestartPlayer);
         if (!string.IsNullOrEmpty(_previousLevelName))
         {
             _previousLevelButton.interactable = true;
@@ -74,7 +71,7 @@ public class FinishPanelManagement : MonoBehaviour
         {
             _nextLevelButton.interactable = false;
         }
-        _mainLeaderboardsButton.onClick.AddListener(()=> _mainLeaderboardsPresenter.LoadTopScoresByLevelName(SceneManager.GetActiveScene().name,0,8,0));
+        _mainLeaderboardsButton.onClick.AddListener(()=> _mainLeaderboardsPresenter.LoadTopScoresByLevelName(SceneManager.GetActiveScene().name, 0, 8, 0));
         _input = _player.GetComponent<PlayersInput>();
         _pawnController = _player.GetComponent<IPawnController>();
     }
