@@ -31,59 +31,28 @@ public class CharacterCustomizationManagement : MonoBehaviour
     [SerializeField] private SwampieTypeChanger _body;
 
     [SerializeField] private int _pageSize = 10;
-    private int _lastPage = 0;
-    private int _currentPage = 0;
+    private int _lastPage;
+    private int _currentPage;
 
     [SerializeField] private GameObject _gridHolder;
     [SerializeField] private GameObject _template;
     [SerializeField] private GameObject _templateOff;
     private List<GameObject> _gridCells = new();
-    private bool _allSkinsLoaded = false;
+    private bool _allSkinsLoaded;
     private bool _canInitializeFirsTime = true;
-    [SerializeField] private SwampieSkin.SwampieType _currentType;
     [SerializeField] private SwampieTypeChanger _typeChanger;
     [SerializeField] private List<Sprite> _typeSprites;
     private void Start()
     {
-        _buttonBack.onClick.AddListener((() =>
-        {
-            LoadingScreenCanvas.Instance?.LoadScene("MainMenu");
-        }));
-        
-        _buttonAll.onClick.AddListener((() =>
-        {
-            LoadAllSkins();
-        }));
-        
-        _buttonHats.onClick.AddListener((() =>
-        {
-            LoadSkinsBySkinType(SwampieSkin.SkinType.Hat);
-        }));
-        
-        _buttonClothes.onClick.AddListener((() =>
-        {
-            LoadSkinsBySkinType(SwampieSkin.SkinType.Jacket);
-        }));
-        
-        _buttonMouth.onClick.AddListener((() =>
-        {
-            LoadSkinsBySkinType(SwampieSkin.SkinType.Mouth);
-        }));
-        
-        _buttonColor.onClick.AddListener(() =>
-        {
-            LoadSkinsBySkinType(SwampieSkin.SkinType.Body);
-        });
-        _buttonEyes.onClick.AddListener(() =>
-        {
-            LoadSkinsBySkinType(SwampieSkin.SkinType.Eyes);
-        });
-        
-        _buttonBody.onClick.AddListener(() =>
-        {
-            ShowTypes();
-        });
-        _buttonArrowRight.onClick.AddListener((() =>
+        _buttonBack.onClick.AddListener(() => LoadingScreenCanvas.Instance?.LoadScene("MainMenu"));
+        _buttonAll.onClick.AddListener(LoadAllSkins);
+        _buttonHats.onClick.AddListener(() => LoadSkinsBySkinType(SwampieSkin.SkinType.Hat));
+        _buttonClothes.onClick.AddListener(() => LoadSkinsBySkinType(SwampieSkin.SkinType.Jacket));
+        _buttonMouth.onClick.AddListener(() => LoadSkinsBySkinType(SwampieSkin.SkinType.Mouth));
+        _buttonColor.onClick.AddListener(() => LoadSkinsBySkinType(SwampieSkin.SkinType.Body));
+        _buttonEyes.onClick.AddListener(() => LoadSkinsBySkinType(SwampieSkin.SkinType.Eyes));
+        _buttonBody.onClick.AddListener(ShowTypes);
+        _buttonArrowRight.onClick.AddListener(() =>
         {
             _buttonArrowLeft.interactable = true;
             ClearGrid();
@@ -97,8 +66,8 @@ public class CharacterCustomizationManagement : MonoBehaviour
             {
                 _buttonArrowRight.interactable = false;
             }
-        }));
-        _buttonArrowLeft.onClick.AddListener((() =>
+        });
+        _buttonArrowLeft.onClick.AddListener(() =>
         {
             _buttonArrowRight.interactable = true;
             ClearGrid();
@@ -112,7 +81,7 @@ public class CharacterCustomizationManagement : MonoBehaviour
             {
                 _buttonArrowLeft.interactable = false;
             }
-        }));
+        });
     }
 
     private void Update()
@@ -149,7 +118,7 @@ public class CharacterCustomizationManagement : MonoBehaviour
             InitializeGrid2(newPage);
         }
         
-        _textPageNumber.SetText($"PAGE {newPage}");
+        _textPageNumber.SetText($"PAGE {newPage + 1}");
     }
     
     private void InitializeGrid2(int currentPage)
@@ -280,6 +249,7 @@ public class CharacterCustomizationManagement : MonoBehaviour
     private void LoadSkinsBySkinType(SwampieSkin.SkinType skinType)
     {
         _currentPage = 0;
+        _textPageNumber.text = "PAGE 1";
         ClearGrid();
         switch (skinType)
         {
@@ -306,6 +276,7 @@ public class CharacterCustomizationManagement : MonoBehaviour
     private void ShowTypes()
     {
         _currentPage = 0;
+        _textPageNumber.text = "PAGE 1";
         ClearGrid();
         InitializeGridWithTypes(_currentPage);
         ResetArrows();
@@ -331,7 +302,7 @@ public class CharacterCustomizationManagement : MonoBehaviour
             createdCells++;
         }
         _allSkinsLoaded = false;
-        double maxPage = _sortedSkins.Count / 10.0;
+        double maxPage = 1;
         _lastPage = Convert.ToInt32(Math.Ceiling(maxPage) - 1);
         
         //create missing cells
