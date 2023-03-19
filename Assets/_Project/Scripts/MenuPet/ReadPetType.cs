@@ -12,7 +12,6 @@ public class ReadPetType : MonoBehaviour
     private GameObject _currentPawn;
 
     [SerializeField] private MenuManagement _menuMan;
-    [SerializeField] private PetMenuInteraction _petMenu;
     // Start is called before the first frame update
     private void Start()
     {
@@ -49,9 +48,7 @@ public class ReadPetType : MonoBehaviour
                 break;
         }
         
-        _petMenu.CurrentPawn = _currentPawn;
         _menuMan._pawn = _currentPawn;
-        
     }
 
     private void DisablePawns()
@@ -61,10 +58,5 @@ public class ReadPetType : MonoBehaviour
         _turquoiseSwampie.SetActive(false);
         _yellowSwampie.SetActive(false);
         _purpleSwampie.SetActive(false);
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
