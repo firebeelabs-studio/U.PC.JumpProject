@@ -171,7 +171,7 @@ namespace LootLocker
                             response.success = false;
                             response.hasError = true;
                             response.text = webRequest.downloadHandler.text;
-                            LootLockerLogger.GetForLogLevel(LootLockerLogger.LogLevel.Info)(ObfuscateJsonStringForLogging(response.Error));
+//                            LootLockerLogger.GetForLogLevel(LootLockerLogger.LogLevel.Info)(ObfuscateJsonStringForLogging(response.Error));
                             OnServerResponse?.Invoke(response);
                         }
 
