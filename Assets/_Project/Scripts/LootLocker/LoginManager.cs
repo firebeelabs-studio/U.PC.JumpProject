@@ -1,5 +1,6 @@
 using System.Collections;
 using LootLocker.Requests;
+using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -25,7 +26,7 @@ public class LoginManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         //if player marked
-        CheckPlayerSession();
+        //CheckPlayerSession();
     }
 
     public void Login(string email, string password, bool rememberMe)
@@ -151,7 +152,10 @@ public class LoginManager : MonoBehaviour
             }
             else
             {
-                //show info about failed login
+                //TODO: SHOW THIS ERROR TO USER
+                var error = JsonConvert.DeserializeObject<LLError>(response.text);
+                ArcnesTools.Debug.Log(error?.Message);
+
                 done = true;
                 ArcnesTools.Debug.Log("error starting LootLocker session");
             }
