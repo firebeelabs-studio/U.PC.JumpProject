@@ -22,6 +22,7 @@ public class LoginAndRegister : MonoBehaviour
     [SerializeField] private GameObject _registrationPanel;
     [SerializeField] private TMP_InputField _nicknameInputFieldRegistration;
     [SerializeField] private TMP_InputField _emailInputFieldRegistration;
+    [SerializeField] private TMP_InputField _repeatEmailInputFieldRegistration;
     [SerializeField] private TMP_InputField _passwordFieldRegistration;
     [SerializeField] private Button _submitButtonRegistration;
     [SerializeField] private Button _switchToLogin;
@@ -37,12 +38,13 @@ public class LoginAndRegister : MonoBehaviour
     private void Start()
     {
         _loginInputFields = new List<TMP_InputField>() { _emailInputFieldLogin, _passwordInputFieldLogin };
-        _registrationInputFields = new List<TMP_InputField>() { _nicknameInputFieldRegistration, _emailInputFieldRegistration, _passwordFieldRegistration };
+        _registrationInputFields = new List<TMP_InputField>() { _nicknameInputFieldRegistration, _emailInputFieldRegistration, _repeatEmailInputFieldRegistration, _passwordFieldRegistration };
         _currentPanel = _loginPanel;
         _submitButtonLogin.onClick.AddListener(Login);
         _submitButtonRegistration.onClick.AddListener(Register);
         _emailInputFieldLogin.onValueChanged.AddListener(value => VerifyInputs(_submitButtonLogin,_emailInputFieldLogin, _passwordInputFieldLogin));
         _emailInputFieldLogin.onSelect.AddListener(value => _fieldsIndex = 0);
+        _repeatEmailInputFieldRegistration.onValueChanged.AddListener(VerifyEmailsEquality);
         _passwordInputFieldLogin.onValueChanged.AddListener(value => VerifyInputs(_submitButtonLogin,_emailInputFieldLogin, _passwordInputFieldLogin));
         _passwordInputFieldLogin.onSelect.AddListener(value => _fieldsIndex = 1);
         _nicknameInputFieldRegistration.onValueChanged.AddListener(value => VerifyInputs(_submitButtonRegistration, _nicknameInputFieldRegistration, _passwordFieldRegistration));
@@ -122,10 +124,19 @@ public class LoginAndRegister : MonoBehaviour
             _registrationInputFields[_fieldsIndex].Select();
         }
     }
-    private void VerifyInputs(Button buttonToInteract, TMP_InputField nameField, TMP_InputField passwordField)
+    private bool VerifyInputs(Button buttonToInteract, TMP_InputField nameField, TMP_InputField passwordField)
     {
-        buttonToInteract.interactable = (nameField.text.Length >= 8 && passwordField.text.Length >= 8) 
-                                        && (!string.IsNullOrWhiteSpace(nameField.text) && !string.IsNullOrWhiteSpace(passwordField.text));
+        bool canInteract = (nameField.text.Length >= 8 && passwordField.text.Length >= 8)
+                           && (!string.IsNullOrWhiteSpace(nameField.text) &&
+                               !string.IsNullOrWhiteSpace(passwordField.text));
+        buttonToInteract.interactable = canInteract;
+        return canInteract;
+    }
+
+    private void VerifyEmailsEquality(string inputValue)
+    {
+        _submitButtonRegistration.interactable = _emailInputFieldRegistration.text == inputValue 
+                                                 && VerifyInputs(_submitButtonRegistration, _nicknameInputFieldRegistration, _passwordFieldRegistration);
     }
 
     private IEnumerator Loading()
