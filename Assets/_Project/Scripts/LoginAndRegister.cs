@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +27,10 @@ public class LoginAndRegister : MonoBehaviour
     [SerializeField] private Button _switchToLogin;
     private List<TMP_InputField> _registrationInputFields;
 
+    [Header("LOADING")]
+    [SerializeField] private GameObject _loadingPanel;
+    [SerializeField] private TMP_Text _loadingText;
+    
     private GameObject _currentPanel;
     private int _fieldsIndex;
     
@@ -33,14 +39,8 @@ public class LoginAndRegister : MonoBehaviour
         _loginInputFields = new List<TMP_InputField>() { _emailInputFieldLogin, _passwordInputFieldLogin };
         _registrationInputFields = new List<TMP_InputField>() { _nicknameInputFieldRegistration, _emailInputFieldRegistration, _passwordFieldRegistration };
         _currentPanel = _loginPanel;
-        _submitButtonLogin.onClick.AddListener(() =>
-        {
-            _loginManager.Login(_emailInputFieldLogin.text, _passwordInputFieldLogin.text, true);
-        });
-        _submitButtonRegistration.onClick.AddListener(() =>
-        {
-            _loginManager.Register(_emailInputFieldRegistration.text, _passwordFieldRegistration.text, _nicknameInputFieldRegistration.text);
-        });
+        _submitButtonLogin.onClick.AddListener(Login);
+        _submitButtonRegistration.onClick.AddListener(Register);
         _emailInputFieldLogin.onValueChanged.AddListener(value => VerifyInputs(_submitButtonLogin,_emailInputFieldLogin, _passwordInputFieldLogin));
         _emailInputFieldLogin.onSelect.AddListener(value => _fieldsIndex = 0);
         _passwordInputFieldLogin.onValueChanged.AddListener(value => VerifyInputs(_submitButtonLogin,_emailInputFieldLogin, _passwordInputFieldLogin));
@@ -79,11 +79,11 @@ public class LoginAndRegister : MonoBehaviour
         {
             if (_currentPanel == _loginPanel && _submitButtonLogin.interactable)
             {
-                //TODO: LOGIN
+                Login();
             }
             else if (_currentPanel == _registrationPanel && _submitButtonRegistration.interactable)
             {
-                //TODO: REGISTER
+                Register();
             }
             else
             {
@@ -92,7 +92,12 @@ public class LoginAndRegister : MonoBehaviour
         }
     }
 
-    
+    private void OnEnable()
+    {
+        _loadingPanel.SetActive(false);
+    }
+
+
     private void SwitchPanels(GameObject panelToEnable)
     {
         if (!panelToEnable) return;
@@ -121,5 +126,30 @@ public class LoginAndRegister : MonoBehaviour
     {
         buttonToInteract.interactable = (nameField.text.Length >= 8 && passwordField.text.Length >= 8) 
                                         && (!string.IsNullOrWhiteSpace(nameField.text) && !string.IsNullOrWhiteSpace(passwordField.text));
+    }
+
+    private IEnumerator Loading()
+    {
+        _loadingPanel.SetActive(true);
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(_loadingText.rectTransform.DOScale(1.25f, 1f));
+        sequence.Append(_loadingText.rectTransform.DOScale(1f, 1f));
+        sequence.SetLoops(-1);
+        sequence.Play();
+        yield return new WaitWhile(() => LoadingScreenCanvas.Instance.IsNewSceneLoading);
+        yield return new WaitForSeconds(2f);
+        _loadingPanel.SetActive(false);
+    }
+
+    private void Login()
+    {
+        StartCoroutine(Loading());
+        _loginManager.Login(_emailInputFieldLogin.text, _passwordInputFieldLogin.text, _rememberMeToggle.isOn);
+    }
+
+    private void Register()
+    {
+        StartCoroutine(Loading());
+        _loginManager.Register(_emailInputFieldRegistration.text, _passwordFieldRegistration.text, _nicknameInputFieldRegistration.text);
     }
 }

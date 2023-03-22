@@ -52,7 +52,7 @@ public class LoadingScreenCanvas : MonoBehaviour
 
         while (!operation.isDone)
         { 
-            if (_loadingImageProgress.fillAmount == 1)
+            if (_loadingImageProgress.fillAmount >= 1)
             {
                 DOTween.KillAll();
                 operation.allowSceneActivation = true;
