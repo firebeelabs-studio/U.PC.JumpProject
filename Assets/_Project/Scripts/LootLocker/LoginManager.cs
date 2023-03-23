@@ -155,7 +155,7 @@ public class LoginManager : MonoBehaviour
                 //TODO: SHOW THIS ERROR TO USER
                 var error = JsonConvert.DeserializeObject<LLError>(response.text);
                 ArcnesTools.Debug.Log(error?.Message);
-
+                ErrorsCanvas.Instance.DisplayError(error?.Message);
                 done = true;
                 ArcnesTools.Debug.Log("error starting LootLocker session");
             }
