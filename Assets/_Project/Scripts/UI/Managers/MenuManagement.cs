@@ -22,6 +22,7 @@ public class MenuManagement : MonoBehaviour
     [SerializeField] private GameObject _playButton;
     [SerializeField] public GameObject _pawn;
     [SerializeField] private Button _secretSceneButton;
+    [SerializeField] private Button _logoutButton;
     [Space(10)]
     [Header("MODE MENU")]
     [SerializeField] private GameObject _modeMenuPanel;
@@ -108,6 +109,7 @@ public class MenuManagement : MonoBehaviour
         });
         _secretSceneButton.onClick.AddListener((() => LoadSceneWithName("SecretScene")));
         _battlepassButton.onClick.AddListener((() => LoadSceneWithName("Battlepass")));
+        _logoutButton.onClick.AddListener(()=> LoadingScreenCanvas.Instance.LoadScene("LoginAndRegister"));
     }
 
     public void SwitchBetweenPanels(GameObject openPanel)
