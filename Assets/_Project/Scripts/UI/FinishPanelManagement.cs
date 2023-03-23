@@ -278,6 +278,7 @@ public class FinishPanelManagement : MonoBehaviour
 
     public static void RestartPlayer()
     {
+        DOTween.KillAll();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1f;
     }
