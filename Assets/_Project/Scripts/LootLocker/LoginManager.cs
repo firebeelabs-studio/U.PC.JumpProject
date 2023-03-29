@@ -15,7 +15,8 @@ public class LoginManager : MonoBehaviour
     { 
         if (Instance != null && Instance != this) 
         { 
-            Destroy(this); 
+            Destroy(Instance);
+            Instance = this;
         } 
         else 
         { 
@@ -42,6 +43,11 @@ public class LoginManager : MonoBehaviour
     public void CheckPlayerSession()
     {
         StartCoroutine(CheckPlayerSessionRoutine());
+    }
+
+    public void Logout()
+    {
+        StartCoroutine(LogoutRoutine());
     }
     
     private IEnumerator CheckPlayerSessionRoutine()
@@ -164,4 +170,14 @@ public class LoginManager : MonoBehaviour
         yield return new WaitWhile(() => done == false);
     }
 
+    private IEnumerator LogoutRoutine()
+    {
+        bool done = false;
+        LootLockerSDKManager.EndSession((response) =>
+        {
+            LoadingScreenCanvas.Instance.LoadScene("LoginAndRegister");
+            done = true;
+        });
+        yield return new WaitWhile(() => done == false);
+    }
 }

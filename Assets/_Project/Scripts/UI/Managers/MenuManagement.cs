@@ -109,7 +109,7 @@ public class MenuManagement : MonoBehaviour
         });
         _secretSceneButton.onClick.AddListener((() => LoadSceneWithName("SecretScene")));
         _battlepassButton.onClick.AddListener((() => LoadSceneWithName("Battlepass")));
-        _logoutButton.onClick.AddListener(()=> LoadingScreenCanvas.Instance.LoadScene("LoginAndRegister"));
+        _logoutButton.onClick.AddListener(()=> LoginManager.Instance.Logout());
     }
 
     public void SwitchBetweenPanels(GameObject openPanel)
