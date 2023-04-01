@@ -101,11 +101,16 @@ public class LoginAndRegister : MonoBehaviour
 
     private void SwitchPanels(GameObject panelToEnable)
     {
-        if (!panelToEnable) return;
+        if (!panelToEnable || panelToEnable == _currentPanel) return;
 
         panelToEnable.SetActive(true);
         _currentPanel.SetActive(false);
         _currentPanel = panelToEnable;
+        foreach (var _registrationInputField in _registrationInputFields)
+        {
+            //_registrationInputField.onDeselect.Invoke(null);
+            _registrationInputField.OnDeselect(null);
+        }
     }
 
     private void SwitchInputFields(GameObject panelWithInputFields)
