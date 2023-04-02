@@ -14,7 +14,7 @@ public class OutfitReader : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void Start()
+    public void LoadSkins()
     {
         List<OutfitData> skinList = SkinsHolder.Instance.Skins.Count != 0 ? SkinsHolder.Instance.Skins : SkinsHolder.Instance.LastUsedSkins;
         foreach (var skin in skinList)
