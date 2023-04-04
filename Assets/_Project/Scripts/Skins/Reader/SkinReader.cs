@@ -35,7 +35,7 @@ public class SkinReader : MonoBehaviour
         else
         {
             //get current skin from skin holder
-            OutfitData skinFromHolder = SkinsHolder.Instance.Skins.Where(x => x.skinType == _skinType).FirstOrDefault();
+            OutfitData skinFromHolder = SkinsHolder.Instance.Skins.FirstOrDefault(x => x.skinType == _skinType);
             //read swampie type from skinsholder
             _swampieType = skinFromHolder.swampieType;
             //load skins with new swampietype

@@ -63,6 +63,8 @@ public class LoginAndRegister : MonoBehaviour
             _fieldsIndex = 0;
         });
         _emailInputFieldLogin.Select();
+        _rememberMeToggle.onValueChanged.AddListener((value) => PlayerPrefsSaveAndLoad.SaveRememberMeToggle(value ? 1 : 0));
+        _rememberMeToggle.isOn = PlayerPrefsSaveAndLoad.LoadRememberMeToggle();
     }
     private void Update()
     {

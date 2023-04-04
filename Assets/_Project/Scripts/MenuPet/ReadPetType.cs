@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ReadPetType : MonoBehaviour
@@ -16,8 +17,33 @@ public class ReadPetType : MonoBehaviour
     private void Start()
     {
         List<OutfitData> skinList = SkinsHolder.Instance.Skins.Count != 0 ? SkinsHolder.Instance.Skins : SkinsHolder.Instance.LastUsedSkins;
+
+        if (skinList.Count == 0)
+        {
+            List<string> ids = new()
+            {
+                PlayerPrefsSaveAndLoad.LoadLastUsedSkin(SwampieSkin.SkinType.Hat),
+                PlayerPrefsSaveAndLoad.LoadLastUsedSkin(SwampieSkin.SkinType.Eyes),
+                PlayerPrefsSaveAndLoad.LoadLastUsedSkin(SwampieSkin.SkinType.Mouth),
+                PlayerPrefsSaveAndLoad.LoadLastUsedSkin(SwampieSkin.SkinType.Jacket),
+                PlayerPrefsSaveAndLoad.LoadLastUsedSkin(SwampieSkin.SkinType.Body)
+            };
+
+            if (SkinsHolder.Instance.AllSkinsSO.Where(skin => ids.Contains(skin.Id)).ToList().Count == 0) return;
+
+            foreach (var swampieSkin in SkinsHolder.Instance.AllSkinsSO.Where(skin => ids.Contains(skin.Id)))
+            {
+                SkinsHolder.Instance.LastUsedSkins.Add(new OutfitData
+                {
+                    Id = swampieSkin.Id,
+                    SkinSprite = swampieSkin.SkinSprite,
+                    Position = swampieSkin.Positions[0],
+                    skinType = swampieSkin.skinType,
+                    swampieType = swampieSkin.swampieType
+                });
+            }
+        }
         
-        if (skinList.Count == 0) return;
         SwampieSkin.SwampieType swampieType = skinList[0].swampieType;
         switch (swampieType)
         {
@@ -49,6 +75,10 @@ public class ReadPetType : MonoBehaviour
         }
         
         _menuMan._pawn = _currentPawn;
+        foreach (var outfitReader in _currentPawn.GetComponentsInChildren<OutfitReader>())
+        {
+            outfitReader.LoadSkins();
+        }
     }
 
     private void DisablePawns()
