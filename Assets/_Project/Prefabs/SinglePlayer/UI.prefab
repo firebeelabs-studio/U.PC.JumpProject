@@ -1940,9 +1940,9 @@ GameObject:
   - component: {fileID: 341821733}
   - component: {fileID: 341821737}
   - component: {fileID: 341821736}
-  - component: {fileID: 341821735}
-  - component: {fileID: 341821734}
+  - component: {fileID: 641945739412531816}
   - component: {fileID: 2659332928823644104}
+  - component: {fileID: 8171898567334359278}
   m_Layer: 5
   m_Name: ButtonResume
   m_TagString: Untagged
@@ -2008,7 +2008,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &341821735
+--- !u!114 &641945739412531816
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2017,7 +2017,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 341821732}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 266537010df2f7d42a0c51583f328c0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -2027,7 +2027,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -2052,51 +2052,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &341821734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 341821732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 6311589461846103100}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnEnter
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 341821733}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 6311589461846103100}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnExit
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 341821733}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  betterTransitions: []
 --- !u!82 &2659332928823644104
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2193,6 +2149,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &8171898567334359278
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341821732}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 99a21528c84edd546b68efd6a491fd8e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &351277259
 GameObject:
   m_ObjectHideFlags: 0
@@ -4651,9 +4627,9 @@ GameObject:
   - component: {fileID: 642103678}
   - component: {fileID: 642103682}
   - component: {fileID: 642103681}
-  - component: {fileID: 642103680}
-  - component: {fileID: 642103679}
+  - component: {fileID: 6019000658758864152}
   - component: {fileID: 6264995641426605685}
+  - component: {fileID: 5023154201930351477}
   m_Layer: 5
   m_Name: ButtonRestart
   m_TagString: Untagged
@@ -4719,7 +4695,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &642103680
+--- !u!114 &6019000658758864152
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4728,7 +4704,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 642103677}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 266537010df2f7d42a0c51583f328c0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -4738,7 +4714,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -4763,51 +4739,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &642103679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 642103677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 6311589461846103100}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnEnter
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 642103678}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 6311589461846103100}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnExit
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 642103678}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  betterTransitions: []
 --- !u!82 &6264995641426605685
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4904,6 +4836,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &5023154201930351477
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642103677}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 99a21528c84edd546b68efd6a491fd8e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &645155632
 GameObject:
   m_ObjectHideFlags: 0
@@ -9709,9 +9661,9 @@ GameObject:
   - component: {fileID: 1361592692}
   - component: {fileID: 1361592696}
   - component: {fileID: 1361592695}
-  - component: {fileID: 1361592694}
-  - component: {fileID: 1361592693}
+  - component: {fileID: 5025625192757344393}
   - component: {fileID: 778572872785493738}
+  - component: {fileID: 3465531692633716699}
   m_Layer: 5
   m_Name: ButtonHome
   m_TagString: Untagged
@@ -9777,7 +9729,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1361592694
+--- !u!114 &5025625192757344393
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9786,7 +9738,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1361592691}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 266537010df2f7d42a0c51583f328c0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -9796,7 +9748,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -9821,51 +9773,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1361592693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1361592691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 6311589461846103100}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnEnter
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 1361592692}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 6311589461846103100}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnExit
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 1361592692}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  betterTransitions: []
 --- !u!82 &778572872785493738
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9962,6 +9870,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &3465531692633716699
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361592691}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 99a21528c84edd546b68efd6a491fd8e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &1373320316
 GameObject:
   m_ObjectHideFlags: 0
@@ -12611,9 +12539,9 @@ GameObject:
   - component: {fileID: 1743738177}
   - component: {fileID: 1743738181}
   - component: {fileID: 1743738180}
-  - component: {fileID: 1743738179}
-  - component: {fileID: 1743738178}
+  - component: {fileID: 661355474531587516}
   - component: {fileID: 8693292647681531468}
+  - component: {fileID: 8265710693365570396}
   m_Layer: 5
   m_Name: ButtonSettings
   m_TagString: Untagged
@@ -12679,7 +12607,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1743738179
+--- !u!114 &661355474531587516
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12688,7 +12616,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1743738176}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 266537010df2f7d42a0c51583f328c0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -12698,7 +12626,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -12723,51 +12651,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1743738178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1743738176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 6311589461846103100}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnEnter
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 1743738177}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 6311589461846103100}
-          m_TargetAssemblyTypeName: ButtonsAnimations, Assembly-CSharp
-          m_MethodName: ButtonOnExit
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 1743738177}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.RectTransform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  betterTransitions: []
 --- !u!82 &8693292647681531468
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12864,6 +12748,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &8265710693365570396
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743738176}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 99a21528c84edd546b68efd6a491fd8e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &1762678973
 GameObject:
   m_ObjectHideFlags: 0
@@ -28543,7 +28447,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6202394808152940173}
   - component: {fileID: 6202394808152940172}
-  - component: {fileID: 6311589461846103100}
   - component: {fileID: 753176987}
   m_Layer: 5
   m_Name: PauseMenu
@@ -28590,29 +28493,16 @@ MonoBehaviour:
   _pausePanel: {fileID: 2068709793}
   _pauseBg: {fileID: 872960388}
   _timerText: {fileID: 6311589461079095332}
-  _resumeButton: {fileID: 341821735}
-  _restartButton: {fileID: 642103680}
-  _homeButton: {fileID: 1361592694}
+  _resumeButton: {fileID: 641945739412531816}
+  _restartButton: {fileID: 6019000658758864152}
+  _homeButton: {fileID: 5025625192757344393}
   _homeSceneName: MainMenu
-  _settingsButton: {fileID: 1743738179}
+  _settingsButton: {fileID: 661355474531587516}
   _spawnManager: {fileID: 0}
   _player: {fileID: 0}
   _settingsPanel: {fileID: 953494089}
   _backToPauseMenuPanel: {fileID: 2088068068}
   _audioSource: {fileID: 2753706094107102512}
---- !u!114 &6311589461846103100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6202394808152940162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4351097ac8929044f97f5087b1735fad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration: 0.5
 --- !u!222 &753176987
 CanvasRenderer:
   m_ObjectHideFlags: 0
