@@ -63,6 +63,8 @@ public class LoginAndRegister : MonoBehaviour
             _fieldsIndex = 0;
         });
         _emailInputFieldLogin.Select();
+        _rememberMeToggle.onValueChanged.AddListener((value) => PlayerPrefsSaveAndLoad.SaveRememberMeToggle(value ? 1 : 0));
+        _rememberMeToggle.isOn = PlayerPrefsSaveAndLoad.LoadRememberMeToggle();
     }
     private void Update()
     {
@@ -101,11 +103,16 @@ public class LoginAndRegister : MonoBehaviour
 
     private void SwitchPanels(GameObject panelToEnable)
     {
-        if (!panelToEnable) return;
+        if (!panelToEnable || panelToEnable == _currentPanel) return;
 
         panelToEnable.SetActive(true);
         _currentPanel.SetActive(false);
         _currentPanel = panelToEnable;
+        foreach (var _registrationInputField in _registrationInputFields)
+        {
+            //_registrationInputField.onDeselect.Invoke(null);
+            _registrationInputField.OnDeselect(null);
+        }
     }
 
     private void SwitchInputFields(GameObject panelWithInputFields)

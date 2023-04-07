@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,6 +30,7 @@ public class CharacterCustomizationManagement : MonoBehaviour
     [SerializeField] private SkinReader _color;
     [SerializeField] private SkinReader _eyes;
     [SerializeField] private SwampieTypeChanger _body;
+    private ClearSkins _clearSkins;
 
     [SerializeField] private int _pageSize = 10;
     private int _lastPage;
@@ -42,9 +44,34 @@ public class CharacterCustomizationManagement : MonoBehaviour
     private bool _canInitializeFirsTime = true;
     [SerializeField] private SwampieTypeChanger _typeChanger;
     [SerializeField] private List<Sprite> _typeSprites;
+
+    private void Awake()
+    {
+        _clearSkins = _buttonBack.GetComponent<ClearSkins>();
+    }
+
     private void Start()
     {
-        _buttonBack.onClick.AddListener(() => LoadingScreenCanvas.Instance?.LoadScene("MainMenu"));
+        _buttonBack.onClick.AddListener(() =>
+        {
+            _clearSkins.Clear();
+            _hat.SaveSkin();
+            _jacket.SaveSkin();
+            _mouth.SaveSkin();
+            _color.SaveSkin();
+            _eyes.SaveSkin();
+            PlayerPrefsSaveAndLoad.SaveLastUsedSkin(SwampieSkin.SkinType.Hat, SkinsHolder.Instance.Skins.FirstOrDefault(t => t.skinType == SwampieSkin.SkinType.Hat)?.Id);
+            PlayerPrefsSaveAndLoad.SaveLastUsedSkin(SwampieSkin.SkinType.Eyes, SkinsHolder.Instance.Skins.FirstOrDefault(t => t.skinType == SwampieSkin.SkinType.Eyes)?.Id);
+            PlayerPrefsSaveAndLoad.SaveLastUsedSkin(SwampieSkin.SkinType.Mouth, SkinsHolder.Instance.Skins.FirstOrDefault(t => t.skinType == SwampieSkin.SkinType.Mouth)?.Id);
+            PlayerPrefsSaveAndLoad.SaveLastUsedSkin(SwampieSkin.SkinType.Jacket, SkinsHolder.Instance.Skins.FirstOrDefault(t => t.skinType == SwampieSkin.SkinType.Jacket)?.Id);
+            PlayerPrefsSaveAndLoad.SaveLastUsedSkin(SwampieSkin.SkinType.Body, SkinsHolder.Instance.Skins.FirstOrDefault(t => t.skinType == SwampieSkin.SkinType.Body)?.Id);
+            print(PlayerPrefsSaveAndLoad.LoadLastUsedSkin(SwampieSkin.SkinType.Hat));
+            print(PlayerPrefsSaveAndLoad.LoadLastUsedSkin(SwampieSkin.SkinType.Eyes));
+            print(PlayerPrefsSaveAndLoad.LoadLastUsedSkin(SwampieSkin.SkinType.Mouth));
+            print(PlayerPrefsSaveAndLoad.LoadLastUsedSkin(SwampieSkin.SkinType.Jacket));
+            print(PlayerPrefsSaveAndLoad.LoadLastUsedSkin(SwampieSkin.SkinType.Body));
+            LoadingScreenCanvas.Instance?.LoadScene("MainMenu");
+        });
         _buttonAll.onClick.AddListener(LoadAllSkins);
         _buttonHats.onClick.AddListener(() => LoadSkinsBySkinType(SwampieSkin.SkinType.Hat));
         _buttonClothes.onClick.AddListener(() => LoadSkinsBySkinType(SwampieSkin.SkinType.Jacket));
