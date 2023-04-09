@@ -25,25 +25,22 @@ public class SkinReader : MonoBehaviour
 
     private void Start()
     {
-        
-        if (_changeSkinAtStart || SkinsHolder.Instance == null || SkinsHolder.Instance.Skins.Count == 0)
-        {
-            LoadSkins();
-            ChangeSkin(_optional ? 1 : 0);
-        }
-        //if in skinreader (this is only one place where we have to get swampie skins via skinreader and not by outfitreader)
-        else
-        {
-            //get current skin from skin holder
-            OutfitData skinFromHolder = SkinsHolder.Instance.Skins.FirstOrDefault(x => x.skinType == _skinType);
-            //read swampie type from skinsholder
-            _swampieType = skinFromHolder.swampieType;
-            //load skins with new swampietype
-            LoadSkins();
-            //find same skins with imageContentsHash because we don't store on skinsholder any other unique data :/
-            SwampieSkin skinOnReader = _sortedSkins.Where(x => x.SkinSprite.texture == skinFromHolder.SkinSprite.texture).FirstOrDefault();
-            ChangeSkin(_sortedSkins.IndexOf(skinOnReader));
-        }
+        // if (_changeSkinAtStart || SkinsHolder.Instance == null || SkinsHolder.Instance.Skins.Count == 0)
+        // {
+        //     ChangeSkin(_optional ? 1 : 0);
+        // }
+        // //if in skinreader (this is only one place where we have to get swampie skins via skinreader and not by outfitreader)
+        // else
+        // {
+        //     //get current skin from skin holder
+        //     OutfitData skinFromHolder = SkinsHolder.Instance.Skins.FirstOrDefault(x => x.skinType == _skinType);
+        //     //read swampie type from skinsholder
+        //     _swampieType = skinFromHolder.swampieType;
+        //     //load skins with new swampietype
+        //     //find same skins with imageContentsHash because we don't store on skinsholder any other unique data :/
+        //     SwampieSkin skinOnReader = _sortedSkins.FirstOrDefault(x => x.SkinSprite.texture == skinFromHolder.SkinSprite.texture);
+        //     ChangeSkin(_sortedSkins.IndexOf(skinOnReader));
+        // }
     }
 
     //read skins
@@ -75,6 +72,13 @@ public class SkinReader : MonoBehaviour
     {
         _swampieType = type;
         LoadSkins();
+        foreach (var outfitData in SkinsHolder.Instance.LastUsedSkins)
+        {
+            var skin = _sortedSkins.FirstOrDefault(skin => skin.Id == outfitData.Id);
+            if (!skin) continue;
+            
+            _currentSkinIndex = _sortedSkins.IndexOf(skin);
+        }
         ChangeSkin(_currentSkinIndex);
     }
 

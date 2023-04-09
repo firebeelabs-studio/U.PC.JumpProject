@@ -7,7 +7,7 @@ using UnityEngine;
 public class SkinsHolder : MonoBehaviour
 {
     public static SkinsHolder Instance = null;
-    [field: SerializeField] public List<OutfitData> Skins { get; private set; } = new();
+    [field: SerializeField] public List<OutfitData> Skins { get; set; } = new();
     [field: SerializeField] public List<OutfitData> LastUsedSkins { get; set; } = new();
     [field: SerializeField] public List<SwampieSkin> AllSkinsSO { get; private set; } = new();
 
