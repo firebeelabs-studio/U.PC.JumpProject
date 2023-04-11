@@ -26,9 +26,8 @@ public class MenuManagement : MonoBehaviour
     [Space(10)]
     [Header("MODE MENU")]
     [SerializeField] private GameObject _modeMenuPanel;
-    [SerializeField] private GameObject _singleButton;
-    [SerializeField] private GameObject _multiButton;
-
+    [SerializeField] private Button _singleButton;
+    [SerializeField] private Button _multiButton;
     [Space(10)] 
     [Header("LEVELS MENU")]
     [SerializeField] private GameObject _levelsMenuPanel;
@@ -41,6 +40,9 @@ public class MenuManagement : MonoBehaviour
     [SerializeField] private Button _rightArrow;
     [SerializeField] private LeaderboardsPresenter _leaderboardsPresenter;
     private int _currentLevelIndex = 0;
+    [Space(10)]
+    [Header("SWAMPIE COMPETITION LEVELS")] 
+    [SerializeField] private GameObject _swampieCompetitionLevels;
     [Space(10)]
     [Header("SETTINGS MENU")]
     [SerializeField] private AudioSource _audioSource;
@@ -93,7 +95,8 @@ public class MenuManagement : MonoBehaviour
         });
         _disableSettingsButton.onClick.AddListener(() => ClosePanel(_settingsPanel, _settingsBgPanel));
         _playButton.GetComponent<Button>().onClick.AddListener(() => SwitchBetweenPanels(_modeMenuPanel));
-        _singleButton.GetComponent<Button>().onClick.AddListener(() => SwitchBetweenPanels(_levelsMenuPanel));
+        _singleButton.onClick.AddListener(() => SwitchBetweenPanels(_levelsMenuPanel));
+        _multiButton.onClick.AddListener(() => SwitchBetweenPanels(_swampieCompetitionLevels));
         _dailyQuestsButton.onClick.AddListener(() =>
         {
             if (_dailyQuestsScrollView.activeInHierarchy)
