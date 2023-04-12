@@ -54,22 +54,17 @@ public class CharacterCustomizationManagement : MonoBehaviour
     {
         _buttonBack.onClick.AddListener(() =>
         {
-            _clearSkins.Clear();
             _hat.SaveSkin();
             _jacket.SaveSkin();
             _mouth.SaveSkin();
             _color.SaveSkin();
             _eyes.SaveSkin();
+            _clearSkins.Clear();
             PlayerPrefsSaveAndLoad.SaveLastUsedSkin(SwampieSkin.SkinType.Hat, SkinsHolder.Instance.Skins.FirstOrDefault(t => t.skinType == SwampieSkin.SkinType.Hat)?.Id);
             PlayerPrefsSaveAndLoad.SaveLastUsedSkin(SwampieSkin.SkinType.Eyes, SkinsHolder.Instance.Skins.FirstOrDefault(t => t.skinType == SwampieSkin.SkinType.Eyes)?.Id);
             PlayerPrefsSaveAndLoad.SaveLastUsedSkin(SwampieSkin.SkinType.Mouth, SkinsHolder.Instance.Skins.FirstOrDefault(t => t.skinType == SwampieSkin.SkinType.Mouth)?.Id);
             PlayerPrefsSaveAndLoad.SaveLastUsedSkin(SwampieSkin.SkinType.Jacket, SkinsHolder.Instance.Skins.FirstOrDefault(t => t.skinType == SwampieSkin.SkinType.Jacket)?.Id);
             PlayerPrefsSaveAndLoad.SaveLastUsedSkin(SwampieSkin.SkinType.Body, SkinsHolder.Instance.Skins.FirstOrDefault(t => t.skinType == SwampieSkin.SkinType.Body)?.Id);
-            print(PlayerPrefsSaveAndLoad.LoadLastUsedSkin(SwampieSkin.SkinType.Hat));
-            print(PlayerPrefsSaveAndLoad.LoadLastUsedSkin(SwampieSkin.SkinType.Eyes));
-            print(PlayerPrefsSaveAndLoad.LoadLastUsedSkin(SwampieSkin.SkinType.Mouth));
-            print(PlayerPrefsSaveAndLoad.LoadLastUsedSkin(SwampieSkin.SkinType.Jacket));
-            print(PlayerPrefsSaveAndLoad.LoadLastUsedSkin(SwampieSkin.SkinType.Body));
             LoadingScreenCanvas.Instance?.LoadScene("MainMenu");
         });
         _buttonAll.onClick.AddListener(LoadAllSkins);
